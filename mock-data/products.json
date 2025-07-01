@@ -1,0 +1,1000 @@
+[
+  {
+    "id": "wismin-cotton-seed-barrier-cleansing-ball",
+    "brandId": "wismin",
+    "categoryId": "cleansing",
+    "name": {
+      "en": "Cotton Seed Barrier Cleansing Ball 6pcs",
+      "ko": "코튼시드 배리어 클렌징볼 6개입",
+      "zh": "棉籽屏障洁面球 6个装"
+    },
+    "description": {
+      "en": "Freeze-dried cleansing ball with hypoallergenic and portable design",
+      "ko": "저자극성이며 휴대 가능한 동결건조 클렌징볼",
+      "zh": "低过敏性便携式冷冻干燥洁面球"
+    },
+    "images": [
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/medium/202502/7c928ed9150360e13ea694c6f623a6f2.jpg",
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/tiny/202502/37ce3843b79e01d47704b1f1cbf41ec5.jpg"
+    ],
+    "price": {
+      "item": 7.38,
+      "carton": 531.36,
+      "currency": "USD"
+    },
+    "moq": 2,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 72,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "VEGAN"
+    ],
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "wismin-cotton-seed-cicafence-toner",
+    "brandId": "wismin",
+    "categoryId": "toners",
+    "name": {
+      "en": "Cotton Seed Cicafence Toner 150ml",
+      "ko": "코튼시드 시카펜스 토너 150ml",
+      "zh": "棉籽积雪草舒缓爽肤水 150ml"
+    },
+    "description": {
+      "en": "Barrier strengthening all-in-one skin regeneration toner",
+      "ko": "장벽 강화 올인원 피부 재생 토너",
+      "zh": "屏障强化多效肌肤修复爽肤水"
+    },
+    "images": [
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/medium/202502/d559e3b36141d4af106b79f4cdbffeda.jpg",
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/tiny/202502/2f6cc497e7c5c7235d91f86f1426be26.jpg"
+    ],
+    "price": {
+      "item": 6.86,
+      "carton": 329.28,
+      "currency": "USD"
+    },
+    "moq": 3,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 48,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "VEGAN"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "wismin-cotton-seed-cicafence-cream",
+    "brandId": "wismin",
+    "categoryId": "moisturizers",
+    "name": {
+      "en": "Cotton Seed Cicafence Cream 50ml",
+      "ko": "코튼시드 시카펜스 크림 50ml",
+      "zh": "棉籽积雪草舒缓面霜 50ml"
+    },
+    "description": {
+      "en": "Barrier strengthening skin regeneration hulk cream",
+      "ko": "장벽 강화 피부 재생 헐크 크림",
+      "zh": "屏障强化肌肤修复面霜"
+    },
+    "images": [
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/medium/202502/840bcf0c789b92709b1d98760af57347.jpg",
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/tiny/202502/b25a7ae5b80e0bb969bab84fce27988c.jpg"
+    ],
+    "price": {
+      "item": 7.69,
+      "carton": 461.4,
+      "currency": "USD"
+    },
+    "moq": 2,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 60,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "VEGAN"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "wismin-bakuchiol-ampoule-15ml",
+    "brandId": "wismin",
+    "categoryId": "bakuchiol-antiaging",
+    "name": {
+      "en": "Bakuchiol All Day Young Ampoule 15ml",
+      "ko": "바쿠치올 올데이 영 앰플 15ml",
+      "zh": "补骨脂全天青春精华 15ml"
+    },
+    "description": {
+      "en": "Plant-based retinol alternative targeting blemishes with vitamins",
+      "ko": "비타민이 함유된 식물성 레티놀 대체 블레미쉬 케어 제품",
+      "zh": "含维生素的植物性视黄醇替代品，针对瑕疵护理"
+    },
+    "images": [
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/medium/202502/2177ebef89667aee9b4bf0b066f5c407.jpg",
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/tiny/202502/ced81df681455f001c90c7fc3fa43609.jpg"
+    ],
+    "price": {
+      "item": 7.56,
+      "carton": 604.8,
+      "currency": "USD"
+    },
+    "moq": 2,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 80,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "VEGAN"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "wismin-bakuchiol-ampoule-set",
+    "brandId": "wismin",
+    "categoryId": "bakuchiol-antiaging",
+    "name": {
+      "en": "Bakuchiol All Day Young Ampoule Set (15ml × 4pcs)",
+      "ko": "바쿠치올 올데이 영 앰플 세트 (15ml × 4개)",
+      "zh": "补骨脂全天青春精华套装 (15ml × 4支)"
+    },
+    "description": {
+      "en": "Complete bakuchiol treatment set targeting blemishes with vitamins and vegetable retinol",
+      "ko": "비타민과 식물성 레티놀로 블레미쉬를 타겟팅하는 완전한 바쿠치올 트리트먼트 세트",
+      "zh": "含维生素和植物性视黄醇的完整补骨脂护理套装，针对瑕疵"
+    },
+    "images": [
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/medium/202504/f0b99ca8201615ab2a117ef398fadf3e.jpg",
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/tiny/202504/6167866c60beb1bf36155f8e390de87a.jpg"
+    ],
+    "price": {
+      "item": 18.0,
+      "carton": 324.0,
+      "currency": "USD"
+    },
+    "moq": 6,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 18,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "VEGAN"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "wismin-cotton-fruit-water-sunscreen",
+    "brandId": "wismin",
+    "categoryId": "suncare",
+    "name": {
+      "en": "Cotton Fruit Water Hawaiian Sun Cream 50ml",
+      "ko": "코튼 프루트 워터 하와이안 선크림 50ml",
+      "zh": "棉花果水夏威夷防晒霜 50ml"
+    },
+    "description": {
+      "en": "Triple functionality sun cream with tone up effect",
+      "ko": "톤업 효과가 있는 삼중 기능성 선크림",
+      "zh": "具有提亮效果的三重功能防晒霜"
+    },
+    "images": [
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/medium/202411/2b943f6435b1416f7c6006beccc6e4ff.jpg",
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/tiny/202411/9910ddfd74115121417758a4b70240d0.jpg"
+    ],
+    "price": {
+      "item": 7.36,
+      "carton": 331.2,
+      "currency": "USD"
+    },
+    "moq": 3,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 45,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "SPF_TESTED"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "wismin-pore-tight-cream",
+    "brandId": "wismin",
+    "categoryId": "moisturizers",
+    "name": {
+      "en": "Pore Tight All Day Young Cream 50ml",
+      "ko": "포어 타이트 올데이 영 크림 50ml",
+      "zh": "毛孔紧致全天青春面霜 50ml"
+    },
+    "description": {
+      "en": "Barrier strengthening skin regeneration hulk cream with pore tightening",
+      "ko": "모공 타이트닝 기능이 있는 장벽 강화 피부 재생 헐크 크림",
+      "zh": "具有毛孔紧致功能的屏障强化肌肤修复面霜"
+    },
+    "images": [
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/medium/202502/79295d72d5f09ae5523e41d5bede8626.jpg",
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/tiny/202502/0d93a64ca45f5a0d08f15fc1afc73ca2.jpg"
+    ],
+    "price": {
+      "item": 7.83,
+      "carton": 375.84,
+      "currency": "USD"
+    },
+    "moq": 3,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 48,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "VEGAN"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "wismin-bakuchiol-eye-cream",
+    "brandId": "wismin",
+    "categoryId": "eye-care",
+    "name": {
+      "en": "Bakuchiol All Day Young Eye Cream 40g",
+      "ko": "바쿠치올 올데이 영 아이크림 40g",
+      "zh": "补骨脂全天青春眼霜 40g"
+    },
+    "description": {
+      "en": "Gentle bakuchiol eye cream for refreshing and anti-aging care",
+      "ko": "상쾌하고 안티에이징 케어를 위한 부드러운 바쿠치올 아이크림",
+      "zh": "温和的补骨脂眼霜，提供清爽抗衰老护理"
+    },
+    "images": [
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/medium/202504/04f73e10962dbf8cb8c8def943163200.jpg",
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/tiny/202504/1a94a1ecc86b95007c20785f6daf7b2f.jpg"
+    ],
+    "price": {
+      "item": 8.12,
+      "carton": 649.6,
+      "currency": "USD"
+    },
+    "moq": 2,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 80,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "VEGAN"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "wismin-collagen-mask-pack",
+    "brandId": "wismin",
+    "categoryId": "masks",
+    "name": {
+      "en": "All Day Young Real Deep Collagen Mask (4ea)",
+      "ko": "올데이 영 리얼 딥 콜라겐 마스크 (4매)",
+      "zh": "全天青春真实深层胶原蛋白面膜 (4片)"
+    },
+    "description": {
+      "en": "Changing mask pack with deep collagen treatment",
+      "ko": "딥 콜라겐 트리트먼트가 있는 체인징 마스크팩",
+      "zh": "具有深层胶原蛋白护理的变色面膜"
+    },
+    "images": [
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/medium/202411/7599e371b42cd0f97b29242871e21288.jpg",
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/tiny/202411/a322dd964997915b7ae0f3d2524bcea5.jpg"
+    ],
+    "price": {
+      "item": 9.61,
+      "carton": 384.4,
+      "currency": "USD"
+    },
+    "moq": 3,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 40,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "VEGAN"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "wismin-hydro-mask-pack",
+    "brandId": "wismin",
+    "categoryId": "masks",
+    "name": {
+      "en": "All Day Young Real Deep Hydro Mask (4ea)",
+      "ko": "올데이 영 리얼 딥 하이드로 마스크 (4매)",
+      "zh": "全天青春真实深层保湿面膜 (4片)"
+    },
+    "description": {
+      "en": "Changing mask pack with deep hydration treatment",
+      "ko": "딥 하이드레이션 트리트먼트가 있는 체인징 마스크팩",
+      "zh": "具有深层保湿护理的变色面膜"
+    },
+    "images": [
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/medium/202411/d646fe1b04dfa6e21ff623a771508982.jpg",
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/tiny/202411/44bcf920f6f6854f81681cf48c59b7b8.jpg"
+    ],
+    "price": {
+      "item": 9.61,
+      "carton": 384.4,
+      "currency": "USD"
+    },
+    "moq": 3,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 40,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "VEGAN"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "lalucell-biome-vegan-repair-cream",
+    "brandId": "lalucell",
+    "categoryId": "biome-vegan",
+    "name": {
+      "en": "Biome Vegan Repair Cream",
+      "ko": "바이옴 비건 리페어 크림",
+      "zh": "微生物群素食修复霜"
+    },
+    "description": {
+      "en": "Advanced vegan repair cream with microbiome technology for sensitive skin",
+      "ko": "민감한 피부를 위한 마이크로바이옴 기술이 적용된 고급 비건 리페어 크림",
+      "zh": "含微生物群技术的高级素食修复霜，适合敏感肌肤"
+    },
+    "images": [
+      "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575811839_1000.jpg"
+    ],
+    "price": {
+      "item": 30.0,
+      "carton": 1800.0,
+      "currency": "USD"
+    },
+    "moq": 2,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 60,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU"
+    ],
+    "badges": [
+      "PREGNANCY_SAFE",
+      "VEGAN",
+      "MICROBIOME_TECH"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "lalucell-biome-vegan-balance-essence",
+    "brandId": "lalucell",
+    "categoryId": "biome-vegan",
+    "name": {
+      "en": "Biome Vegan Balance Essence",
+      "ko": "바이옴 비건 밸런스 에센스",
+      "zh": "微生物群素食平衡精华"
+    },
+    "description": {
+      "en": "Balancing essence with vegan microbiome complex for optimal skin health",
+      "ko": "최적의 피부 건강을 위한 비건 마이크로바이옴 복합체가 함유된 밸런싱 에센스",
+      "zh": "含素食微生物群复合物的平衡精华，优化肌肤健康"
+    },
+    "images": [
+      "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575748566_1000.jpg"
+    ],
+    "price": {
+      "item": 35.0,
+      "carton": 1575.0,
+      "currency": "USD"
+    },
+    "moq": 3,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 45,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU"
+    ],
+    "badges": [
+      "PREGNANCY_SAFE",
+      "VEGAN",
+      "MICROBIOME_TECH"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "lalucell-mystic-light-cica-hydrogel-mask",
+    "brandId": "lalucell",
+    "categoryId": "mystic-light",
+    "name": {
+      "en": "Mystic Light Cica Refreshing Hydrogel Mask (1 EA)",
+      "ko": "미스틱 라이트 시카 리프레싱 하이드로겔 마스크 (1매)",
+      "zh": "神秘之光积雪草清爽水凝胶面膜 (1片)"
+    },
+    "description": {
+      "en": "Award-winning hydrogel mask with cica complex for instant soothing",
+      "ko": "즉각적인 진정 효과를 위한 시카 복합체가 함유된 수상 경력의 하이드로겔 마스크",
+      "zh": "含积雪草复合物的获奖水凝胶面膜，瞬间舒缓肌肤"
+    },
+    "images": [
+      "/images/products/lalucell-mystic-light-cica-hydrogel-mask-1.jpg"
+    ],
+    "price": {
+      "item": 6.0,
+      "carton": 720.0,
+      "currency": "USD"
+    },
+    "moq": 1,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 120,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "SCPN"
+    ],
+    "badges": [
+      "AWARD_WINNING",
+      "CICA_COMPLEX",
+      "INSTANT_SOOTHING"
+    ],
+    "awards": [
+      "Grand Gold Quality Award 2025 - Monde Selection"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "lalucell-biome-vegan-pure-cleansing-bar",
+    "brandId": "lalucell",
+    "categoryId": "biome-vegan",
+    "name": {
+      "en": "Biome Vegan Pure Cleansing Bar",
+      "ko": "바이옴 비건 퓨어 클렌징 바",
+      "zh": "微生物群素食纯净洁面皂"
+    },
+    "description": {
+      "en": "Gentle cleansing bar with vegan microbiome ingredients for daily use",
+      "ko": "매일 사용할 수 있는 비건 마이크로바이옴 성분이 함유된 순한 클렌징 바",
+      "zh": "含素食微生物群成分的温和洁面皂，适合日常使用"
+    },
+    "images": [
+      "/images/products/lalucell-biome-vegan-pure-cleansing-bar-1.jpg"
+    ],
+    "price": {
+      "item": 20.0,
+      "carton": 800.0,
+      "currency": "USD"
+    },
+    "moq": 3,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 40,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU"
+    ],
+    "badges": [
+      "PREGNANCY_SAFE",
+      "VEGAN",
+      "SOLID_BAR"
+    ],
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "lalucell-mystic-light-mark-control-body-patch",
+    "brandId": "lalucell",
+    "categoryId": "mystic-light",
+    "name": {
+      "en": "Mystic Light Mark Control Body Patch (1 EA)",
+      "ko": "미스틱 라이트 마크 컨트롤 바디 패치 (1매)",
+      "zh": "神秘之光标记控制身体贴片 (1片)"
+    },
+    "description": {
+      "en": "Targeted body patch for mark control and skin elasticity improvement",
+      "ko": "마크 컨트롤과 피부 탄력 개선을 위한 타겟 바디 패치",
+      "zh": "针对标记控制和肌肤弹性改善的身体贴片"
+    },
+    "images": [
+      "/images/products/lalucell-mystic-light-mark-control-body-patch-1.jpg"
+    ],
+    "price": {
+      "item": 7.5,
+      "carton": 450.0,
+      "currency": "USD"
+    },
+    "moq": 2,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 60,
+    "certifications": [
+      "SCPN"
+    ],
+    "badges": [
+      "TARGETED_TREATMENT",
+      "ELASTICITY_BOOST"
+    ],
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "lalucell-mystic-light-mark-control-breast-patch",
+    "brandId": "lalucell",
+    "categoryId": "mystic-light",
+    "name": {
+      "en": "Mystic Light Mark Control Breast Patch (1 EA)",
+      "ko": "미스틱 라이트 마크 컨트롤 브레스트 패치 (1매)",
+      "zh": "神秘之光标记控制胸部贴片 (1片)"
+    },
+    "description": {
+      "en": "Specialized breast patch for mark prevention and skin care during body changes",
+      "ko": "신체 변화 중 마크 예방과 스킨케어를 위한 전용 브레스트 패치",
+      "zh": "专为身体变化期间标记预防和肌肤护理设计的胸部贴片"
+    },
+    "images": [
+      "/images/products/lalucell-mystic-light-mark-control-breast-patch-1.jpg"
+    ],
+    "price": {
+      "item": 8.0,
+      "carton": 480.0,
+      "currency": "USD"
+    },
+    "moq": 2,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 60,
+    "certifications": [
+      "SCPN"
+    ],
+    "badges": [
+      "SPECIALIZED_CARE",
+      "PREGNANCY_FRIENDLY"
+    ],
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "sunnicorn-only-for-you-butter-lip-balm-clear",
+    "brandId": "sunnicorn",
+    "categoryId": "lip-care",
+    "name": {
+      "en": "Only For You Butter Lip Balm #01 Clear",
+      "ko": "온리 포 유 버터 립밤 #01 클리어",
+      "zh": "只为你黄油润唇膏 #01 透明"
+    },
+    "description": {
+      "en": "Nourishing butter lip balm with 7 plant oils for all-day moisture",
+      "ko": "하루 종일 수분을 제공하는 7가지 식물 오일이 함유된 영양 버터 립밤",
+      "zh": "含7种植物油的滋养黄油润唇膏，全天保湿"
+    },
+    "images": [
+      "/images/products/sunnicorn-only-for-you-butter-lip-balm-clear-1.jpg"
+    ],
+    "price": {
+      "item": 9.0,
+      "carton": 567.0,
+      "currency": "USD"
+    },
+    "moq": 2,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 63,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "SCPN"
+    ],
+    "badges": [
+      "VEGAN",
+      "7_PLANT_OILS",
+      "PARABEN_FREE"
+    ],
+    "shades": [
+      "Clear"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "sunnicorn-only-for-you-butter-lip-balm-coral",
+    "brandId": "sunnicorn",
+    "categoryId": "lip-care",
+    "name": {
+      "en": "Only For You Butter Lip Balm #02 Kinda Coral",
+      "ko": "온리 포 유 버터 립밤 #02 킨다 코랄",
+      "zh": "只为你黄油润唇膏 #02 珊瑚色"
+    },
+    "description": {
+      "en": "Soft coral-tinted butter lip balm with natural moisturizing properties",
+      "ko": "자연스러운 보습 특성을 가진 부드러운 코랄 톤 버터 립밤",
+      "zh": "带有天然保湿特性的柔和珊瑚色黄油润唇膏"
+    },
+    "images": [
+      "/images/products/sunnicorn-only-for-you-butter-lip-balm-coral-1.jpg"
+    ],
+    "price": {
+      "item": 9.0,
+      "carton": 567.0,
+      "currency": "USD"
+    },
+    "moq": 2,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 63,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "SCPN"
+    ],
+    "badges": [
+      "VEGAN",
+      "TINTED",
+      "NATURAL_COLOR"
+    ],
+    "shades": [
+      "Kinda Coral"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "sunnicorn-only-for-you-butter-lip-balm-berry",
+    "brandId": "sunnicorn",
+    "categoryId": "lip-care",
+    "name": {
+      "en": "Only For You Butter Lip Balm #03 Berry Rosy",
+      "ko": "온리 포 유 버터 립밤 #03 베리 로지",
+      "zh": "只为你黄油润唇膏 #03 浆果玫瑰色"
+    },
+    "description": {
+      "en": "Fresh berry-rosy tinted balm for a youthful, natural lip color",
+      "ko": "젊고 자연스러운 입술 색상을 위한 신선한 베리 로지 틴트 밤",
+      "zh": "清新浆果玫瑰色润唇膏，打造年轻自然的唇色"
+    },
+    "images": [
+      "/images/products/sunnicorn-only-for-you-butter-lip-balm-berry-1.jpg"
+    ],
+    "price": {
+      "item": 9.0,
+      "carton": 567.0,
+      "currency": "USD"
+    },
+    "moq": 2,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 63,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "SCPN"
+    ],
+    "badges": [
+      "VEGAN",
+      "YOUTHFUL_TINT",
+      "BERRY_EXTRACT"
+    ],
+    "shades": [
+      "Berry Rosy"
+    ],
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "sunnicorn-only-for-you-butter-lip-balm-ginger",
+    "brandId": "sunnicorn",
+    "categoryId": "lip-care",
+    "name": {
+      "en": "Only For You Butter Lip Balm #04 Ginger Beige",
+      "ko": "온리 포 유 버터 립밤 #04 진저 베이지",
+      "zh": "只为你黄油润唇膏 #04 姜米色"
+    },
+    "description": {
+      "en": "Sophisticated ginger beige shade for a warm, neutral lip look",
+      "ko": "따뜻하고 중성적인 입술 연출을 위한 세련된 진저 베이지 쉐이드",
+      "zh": "优雅的姜米色调，打造温暖中性的唇部造型"
+    },
+    "images": [
+      "/images/products/sunnicorn-only-for-you-butter-lip-balm-ginger-1.jpg"
+    ],
+    "price": {
+      "item": 9.0,
+      "carton": 567.0,
+      "currency": "USD"
+    },
+    "moq": 2,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 63,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "SCPN"
+    ],
+    "badges": [
+      "VEGAN",
+      "NEUTRAL_TONE",
+      "SOPHISTICATED"
+    ],
+    "shades": [
+      "Ginger Beige"
+    ],
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "sunnicorn-im-proud-of-you-calming-toner",
+    "brandId": "sunnicorn",
+    "categoryId": "skincare",
+    "name": {
+      "en": "I'm Proud of You Calming Toner [300ml]",
+      "ko": "아임 프라우드 오브 유 카밍 토너 [300ml]",
+      "zh": "我为你骄傲舒缓爽肤水 [300ml]"
+    },
+    "description": {
+      "en": "Immediately cooling and moisturizing toner for sensitive skin with upcycled ingredients",
+      "ko": "업사이클 성분으로 민감한 피부를 즉시 쿨링하고 보습하는 토너",
+      "zh": "含升级再造成分的舒缓保湿爽肤水，立即为敏感肌肤降温"
+    },
+    "images": [
+      "/images/products/sunnicorn-im-proud-of-you-calming-toner-1.jpg"
+    ],
+    "price": {
+      "item": 20.0,
+      "carton": 600.0,
+      "currency": "USD"
+    },
+    "moq": 4,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 30,
+    "volume": "300ml",
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "SCPN"
+    ],
+    "badges": [
+      "VEGAN",
+      "UPCYCLED",
+      "COOLING_EFFECT",
+      "SENSITIVE_SKIN"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "sunnicorn-mushroom-deep-hydrating-cream",
+    "brandId": "sunnicorn",
+    "categoryId": "skincare",
+    "name": {
+      "en": "Mushroom Collagen Deep Hydrating Cream [50ml]",
+      "ko": "머쉬룸 콜라겐 딥 하이드레이팅 크림 [50ml]",
+      "zh": "蘑菇胶原蛋白深层保湿霜 [50ml]"
+    },
+    "description": {
+      "en": "100-hour moisturizing vegan collagen cream with mushroom extract",
+      "ko": "버섯 추출물이 함유된 100시간 보습 비건 콜라겐 크림",
+      "zh": "含蘑菇提取物的100小时保湿素食胶原蛋白霜"
+    },
+    "images": [
+      "/images/products/sunnicorn-mushroom-deep-hydrating-cream-1.jpg"
+    ],
+    "price": {
+      "item": 28.0,
+      "carton": 1680.0,
+      "currency": "USD"
+    },
+    "moq": 2,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 60,
+    "volume": "50ml",
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "SCPN"
+    ],
+    "badges": [
+      "VEGAN_COLLAGEN",
+      "100_HOUR_MOISTURE",
+      "MUSHROOM_EXTRACT"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "sunnicorn-bamboo-soothing-uv-essence",
+    "brandId": "sunnicorn",
+    "categoryId": "sun-protection",
+    "name": {
+      "en": "Bamboo Soothing UV Essence Sunscreen [50ml]",
+      "ko": "밤부 수딩 UV 에센스 선크림 [50ml]",
+      "zh": "竹子舒缓防晒精华 [50ml]"
+    },
+    "description": {
+      "en": "Organic tea sunscreen with bamboo extract for sensitive skin moisture and soothing",
+      "ko": "민감한 피부 보습과 진정을 위한 대나무 추출물이 함유된 유기농 차 선크림",
+      "zh": "含竹子提取物的有机茶防晒霜，为敏感肌肤提供保湿和舒缓"
+    },
+    "images": [
+      "/images/products/sunnicorn-bamboo-soothing-uv-essence-1.jpg"
+    ],
+    "price": {
+      "item": 20.0,
+      "carton": 2400.0,
+      "currency": "USD"
+    },
+    "moq": 1,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 120,
+    "volume": "50ml",
+    "spf": "SPF50+ PA++++",
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "SCPN"
+    ],
+    "badges": [
+      "ORGANIC_TEA",
+      "BAMBOO_EXTRACT",
+      "REEF_SAFE",
+      "SENSITIVE_SKIN"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "sunnicorn-bereum-microbiome-modeling-pack",
+    "brandId": "sunnicorn",
+    "categoryId": "face-masks",
+    "name": {
+      "en": "Bereum Microbiome Modeling Pack - Calming Pore",
+      "ko": "베럼 마이크로바이옴 모델링 팩 - 카밍 포어",
+      "zh": "Bereum微生物群建模面膜 - 舒缓毛孔"
+    },
+    "description": {
+      "en": "Professional modeling pack with microbiome technology for pore calming and skin balance",
+      "ko": "포어 진정과 피부 밸런스를 위한 마이크로바이옴 기술이 적용된 전문 모델링 팩",
+      "zh": "含微生物群技术的专业建模面膜，舒缓毛孔并平衡肌肤"
+    },
+    "images": [
+      "/images/products/sunnicorn-bereum-microbiome-modeling-pack-1.jpg"
+    ],
+    "price": {
+      "item": 20.0,
+      "carton": 400.0,
+      "currency": "USD"
+    },
+    "moq": 5,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 20,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "SCPN"
+    ],
+    "badges": [
+      "MICROBIOME_TECH",
+      "PROFESSIONAL_GRADE",
+      "PORE_CALMING"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "sunnicorn-bereum-microbiome-collagen-mask",
+    "brandId": "sunnicorn",
+    "categoryId": "face-masks",
+    "name": {
+      "en": "Bereum Microbiome Collagen Mask",
+      "ko": "베럼 마이크로바이옴 콜라겐 마스크",
+      "zh": "Bereum微生物群胶原蛋白面膜"
+    },
+    "description": {
+      "en": "Advanced collagen mask with microbiome technology for skin firming and hydration",
+      "ko": "피부 탄력과 수분 공급을 위한 마이크로바이옴 기술이 적용된 고급 콜라겐 마스크",
+      "zh": "含微生物群技术的高级胶原蛋白面膜，紧致肌肤并补水"
+    },
+    "images": [
+      "/images/products/sunnicorn-bereum-microbiome-collagen-mask-1.jpg"
+    ],
+    "price": {
+      "item": 20.0,
+      "carton": 1140.0,
+      "currency": "USD"
+    },
+    "moq": 2,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 57,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "SCPN"
+    ],
+    "badges": [
+      "MICROBIOME_TECH",
+      "COLLAGEN_BOOST",
+      "FIRMING_EFFECT"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "sunnicorn-deep-hydrating-lip-mask",
+    "brandId": "sunnicorn",
+    "categoryId": "lip-care",
+    "name": {
+      "en": "Deep Hydrating Lip Mask",
+      "ko": "딥 하이드레이팅 립 마스크",
+      "zh": "深层保湿唇膜"
+    },
+    "description": {
+      "en": "Intensive overnight lip treatment for deep hydration and repair",
+      "ko": "깊은 수분 공급과 회복을 위한 집중 오버나이트 립 트리트먼트",
+      "zh": "深层补水修复的密集夜间唇部护理"
+    },
+    "images": [
+      "/images/products/sunnicorn-deep-hydrating-lip-mask-1.jpg"
+    ],
+    "price": {
+      "item": 16.0,
+      "carton": 4000.0,
+      "currency": "USD"
+    },
+    "moq": 1,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 250,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "SCPN"
+    ],
+    "badges": [
+      "OVERNIGHT_TREATMENT",
+      "INTENSIVE_REPAIR",
+      "DEEP_HYDRATION"
+    ],
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "sunnicorn-modeling-pack-kit",
+    "brandId": "sunnicorn",
+    "categoryId": "face-masks",
+    "name": {
+      "en": "Modeling Pack Kit",
+      "ko": "모델링 팩 키트",
+      "zh": "建模面膜套装"
+    },
+    "description": {
+      "en": "Complete modeling pack kit with tools and accessories for professional treatment",
+      "ko": "전문 트리트먼트를 위한 도구와 액세서리가 포함된 완전한 모델링 팩 키트",
+      "zh": "包含工具和配件的完整建模面膜套装，专业护理"
+    },
+    "images": [
+      "/images/products/sunnicorn-modeling-pack-kit-1.jpg"
+    ],
+    "price": {
+      "item": 6.0,
+      "carton": 600.0,
+      "currency": "USD"
+    },
+    "moq": 1,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 100,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "SCPN"
+    ],
+    "badges": [
+      "COMPLETE_KIT",
+      "PROFESSIONAL_TOOLS",
+      "ACCESSORIES_INCLUDED"
+    ],
+    "inStock": true,
+    "featured": false
+  }
+]

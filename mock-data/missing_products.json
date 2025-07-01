@@ -1,0 +1,214 @@
+[
+  {
+    "id": "lalucell-biome-vegan-pure-cleansing-bar",
+    "brandId": "lalucell",
+    "categoryId": "biome-vegan",
+    "name": {
+      "en": "Biome Vegan Pure Cleansing Bar",
+      "ko": "바이옴 비건 퓨어 클렌징 바",
+      "zh": "微生物群素食纯净洁面皂"
+    },
+    "description": {
+      "en": "Gentle cleansing bar with vegan microbiome ingredients for daily use",
+      "ko": "매일 사용할 수 있는 비건 마이크로바이옴 성분이 함유된 순한 클렌징 바",
+      "zh": "含素食微生物群成分的温和洁面皂，适合日常使用"
+    },
+    "images": [
+      "/images/products/lalucell-biome-vegan-pure-cleansing-bar-1.jpg"
+    ],
+    "price": {
+      "item": 20.00,
+      "carton": 800.00,
+      "currency": "USD"
+    },
+    "moq": 3,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 40,
+    "certifications": ["CPNP_UK", "CPNP_EU"],
+    "badges": ["PREGNANCY_SAFE", "VEGAN", "SOLID_BAR"],
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "lalucell-mystic-light-mark-control-body-patch",
+    "brandId": "lalucell",
+    "categoryId": "mystic-light",
+    "name": {
+      "en": "Mystic Light Mark Control Body Patch (1 EA)",
+      "ko": "미스틱 라이트 마크 컨트롤 바디 패치 (1매)",
+      "zh": "神秘之光标记控制身体贴片 (1片)"
+    },
+    "description": {
+      "en": "Targeted body patch for mark control and skin elasticity improvement",
+      "ko": "마크 컨트롤과 피부 탄력 개선을 위한 타겟 바디 패치",
+      "zh": "针对标记控制和肌肤弹性改善的身体贴片"
+    },
+    "images": [
+      "/images/products/lalucell-mystic-light-mark-control-body-patch-1.jpg"
+    ],
+    "price": {
+      "item": 7.50,
+      "carton": 450.00,
+      "currency": "USD"
+    },
+    "moq": 2,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 60,
+    "certifications": ["SCPN"],
+    "badges": ["TARGETED_TREATMENT", "ELASTICITY_BOOST"],
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "lalucell-mystic-light-mark-control-breast-patch",
+    "brandId": "lalucell",
+    "categoryId": "mystic-light",
+    "name": {
+      "en": "Mystic Light Mark Control Breast Patch (1 EA)",
+      "ko": "미스틱 라이트 마크 컨트롤 브레스트 패치 (1매)",
+      "zh": "神秘之光标记控制胸部贴片 (1片)"
+    },
+    "description": {
+      "en": "Specialized breast patch for mark prevention and skin care during body changes",
+      "ko": "신체 변화 중 마크 예방과 스킨케어를 위한 전용 브레스트 패치",
+      "zh": "专为身体变化期间标记预防和肌肤护理设计的胸部贴片"
+    },
+    "images": [
+      "/images/products/lalucell-mystic-light-mark-control-breast-patch-1.jpg"
+    ],
+    "price": {
+      "item": 8.00,
+      "carton": 480.00,
+      "currency": "USD"
+    },
+    "moq": 2,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 60,
+    "certifications": ["SCPN"],
+    "badges": ["SPECIALIZED_CARE", "PREGNANCY_FRIENDLY"],
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "sunnicorn-only-for-you-butter-lip-balm-berry",
+    "brandId": "sunnicorn",
+    "categoryId": "lip-care",
+    "name": {
+      "en": "Only For You Butter Lip Balm #03 Berry Rosy",
+      "ko": "온리 포 유 버터 립밤 #03 베리 로지",
+      "zh": "只为你黄油润唇膏 #03 浆果玫瑰色"
+    },
+    "description": {
+      "en": "Fresh berry-rosy tinted balm for a youthful, natural lip color",
+      "ko": "젊고 자연스러운 입술 색상을 위한 신선한 베리 로지 틴트 밤",
+      "zh": "清新浆果玫瑰色润唇膏，打造年轻自然的唇色"
+    },
+    "images": [
+      "/images/products/sunnicorn-only-for-you-butter-lip-balm-berry-1.jpg"
+    ],
+    "price": {
+      "item": 9.00,
+      "carton": 567.00,
+      "currency": "USD"
+    },
+    "moq": 2,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 63,
+    "certifications": ["CPNP_UK", "CPNP_EU", "SCPN"],
+    "badges": ["VEGAN", "YOUTHFUL_TINT", "BERRY_EXTRACT"],
+    "shades": ["Berry Rosy"],
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "sunnicorn-only-for-you-butter-lip-balm-ginger",
+    "brandId": "sunnicorn",
+    "categoryId": "lip-care",
+    "name": {
+      "en": "Only For You Butter Lip Balm #04 Ginger Beige",
+      "ko": "온리 포 유 버터 립밤 #04 진저 베이지",
+      "zh": "只为你黄油润唇膏 #04 姜米色"
+    },
+    "description": {
+      "en": "Sophisticated ginger beige shade for a warm, neutral lip look",
+      "ko": "따뜻하고 중성적인 입술 연출을 위한 세련된 진저 베이지 쉐이드",
+      "zh": "优雅的姜米色调，打造温暖中性的唇部造型"
+    },
+    "images": [
+      "/images/products/sunnicorn-only-for-you-butter-lip-balm-ginger-1.jpg"
+    ],
+    "price": {
+      "item": 9.00,
+      "carton": 567.00,
+      "currency": "USD"
+    },
+    "moq": 2,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 63,
+    "certifications": ["CPNP_UK", "CPNP_EU", "SCPN"],
+    "badges": ["VEGAN", "NEUTRAL_TONE", "SOPHISTICATED"],
+    "shades": ["Ginger Beige"],
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "sunnicorn-deep-hydrating-lip-mask",
+    "brandId": "sunnicorn",
+    "categoryId": "lip-care",
+    "name": {
+      "en": "Deep Hydrating Lip Mask",
+      "ko": "딥 하이드레이팅 립 마스크",
+      "zh": "深层保湿唇膜"
+    },
+    "description": {
+      "en": "Intensive overnight lip treatment for deep hydration and repair",
+      "ko": "깊은 수분 공급과 회복을 위한 집중 오버나이트 립 트리트먼트",
+      "zh": "深层补水修复的密集夜间唇部护理"
+    },
+    "images": [
+      "/images/products/sunnicorn-deep-hydrating-lip-mask-1.jpg"
+    ],
+    "price": {
+      "item": 16.00,
+      "carton": 4000.00,
+      "currency": "USD"
+    },
+    "moq": 1,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 250,
+    "certifications": ["CPNP_UK", "CPNP_EU", "SCPN"],
+    "badges": ["OVERNIGHT_TREATMENT", "INTENSIVE_REPAIR", "DEEP_HYDRATION"],
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "sunnicorn-modeling-pack-kit",
+    "brandId": "sunnicorn",
+    "categoryId": "face-masks",
+    "name": {
+      "en": "Modeling Pack Kit",
+      "ko": "모델링 팩 키트",
+      "zh": "建模面膜套装"
+    },
+    "description": {
+      "en": "Complete modeling pack kit with tools and accessories for professional treatment",
+      "ko": "전문 트리트먼트를 위한 도구와 액세서리가 포함된 완전한 모델링 팩 키트",
+      "zh": "包含工具和配件的完整建模面膜套装，专业护理"
+    },
+    "images": [
+      "/images/products/sunnicorn-modeling-pack-kit-1.jpg"
+    ],
+    "price": {
+      "item": 6.00,
+      "carton": 600.00,
+      "currency": "USD"
+    },
+    "moq": 1,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 100,
+    "certifications": ["CPNP_UK", "CPNP_EU", "SCPN"],
+    "badges": ["COMPLETE_KIT", "PROFESSIONAL_TOOLS", "ACCESSORIES_INCLUDED"],
+    "inStock": true,
+    "featured": false
+  }
+]

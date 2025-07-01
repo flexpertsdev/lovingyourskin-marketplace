@@ -1,0 +1,215 @@
+{
+  "brands": [
+    {
+      "id": "wismin",
+      "slug": "wismin",
+      "name": "WISMIN",
+      "tagline": "Wisdom in Every Drop - Nature's Anti-Aging Secret",
+      "description": "Pioneering plant-powered anti-aging with bakuchiol and cottonseed extract, WISMIN bridges ancient botanical wisdom with modern Korean skincare science. Our gentle yet effective formulations deliver retinol-like results without irritation, making advanced anti-aging accessible to all skin types, including the most sensitive.",
+      "logo": "/images/brands/wismin-logo.png",
+      "heroImage": "/images/brands/wismin-hero.jpg",
+      "establishedYear": 2018,
+      "productCount": 16,
+      "certifications": ["CPNP_UK", "CPNP_EU", "CPNP_CH", "EWG", "VEGAN"],
+      "featureTags": [
+        "Plant-Based Retinol Alternative",
+        "Sensitive Skin Safe",
+        "Vegan & EWG Certified",
+        "Dermatologically Tested"
+      ],
+      "technologies": [
+        {
+          "name": "Bakuchiol Mastery",
+          "description": "Natural retinol alternative from babchi plant"
+        },
+        {
+          "name": "Cottonseed Innovation",
+          "description": "Powerful antioxidants from cotton plants"
+        },
+        {
+          "name": "Gentle Efficacy",
+          "description": "Proven results without irritation"
+        }
+      ],
+      "clinicalResults": {
+        "fineLineReduction": { "value": 87, "duration": "8 weeks" },
+        "skinElasticity": { "value": 92, "duration": "6 weeks" },
+        "gentlerThanRetinol": { "value": 4, "unit": "x" },
+        "moistureRetention": { "value": 24, "unit": "hours" }
+      },
+      "categories": [
+        {
+          "id": "bakuchiol-antiaging",
+          "name": "Bakuchiol Anti-Aging",
+          "productCount": 4
+        },
+        {
+          "id": "cottonseed-care",
+          "name": "Cottonseed Care",
+          "productCount": 4
+        },
+        {
+          "id": "wisoa-hair",
+          "name": "WISOA Hair Care",
+          "productCount": 4
+        },
+        {
+          "id": "masks",
+          "name": "All Day Young Masks",
+          "productCount": 4
+        }
+      ],
+      "stats": {
+        "yearsInBusiness": 6,
+        "productsSold": "2M+",
+        "customerSatisfaction": 96
+      },
+      "active": true,
+      "featured": true
+    },
+    {
+      "id": "lalucell",
+      "slug": "lalucell",
+      "name": "LALUCELL",
+      "tagline": "Cotton Like Derma - Unceasing Beauty for All Women",
+      "description": "The trusted choice of Korean mothers, LALUCELL provides safe, natural skincare with scientific innovation. Strictly excluding ingredients prohibited for pregnant women, we deliver effective solutions without compromise, earning recognition from the most meticulous mothers in South Korea.",
+      "logo": "/images/brands/lalucell-logo.png",
+      "heroImage": "/images/brands/lalucell-hero.jpg",
+      "establishedYear": 2015,
+      "productCount": 12,
+      "certifications": ["CPNP_UK", "CPNP_EU", "CPNP_CH", "DERMATOLOGIST_TESTED"],
+      "featureTags": [
+        "Pregnancy Safe",
+        "0.00 Irritation Score",
+        "Dermatologist Tested",
+        "CPNP Certified"
+      ],
+      "technologies": [
+        {
+          "name": "ELASOME®",
+          "patent": "10-1796822",
+          "description": "Proprietary liposome technology that increases skin absorption by at least 4 times"
+        },
+        {
+          "name": "TARAX III®",
+          "patent": "10-1376202",
+          "description": "Pharmaceutical composition combining dandelion and barley extracts"
+        },
+        {
+          "name": "E-Beam Hydrogel",
+          "patent": "10-2466953",
+          "description": "Revolutionary manufacturing technology using E-beam"
+        }
+      ],
+      "marketStats": {
+        "globalMarketSize": "£2.8B",
+        "annualGrowth": "18%",
+        "mothersSwitching": "73%",
+        "customerLifetimeValue": "4.2x"
+      },
+      "categories": [
+        {
+          "id": "cotton-like-derma",
+          "name": "Cotton Like Derma Collection",
+          "productCount": 6
+        },
+        {
+          "id": "pregnancy-care",
+          "name": "Pregnancy Care",
+          "productCount": 4
+        },
+        {
+          "id": "sensitive-skin",
+          "name": "Sensitive Skin Solutions",
+          "productCount": 2
+        }
+      ],
+      "stats": {
+        "yearsInBusiness": 9,
+        "productsSold": "5M+",
+        "customerSatisfaction": 98
+      },
+      "active": true,
+      "featured": true
+    },
+    {
+      "id": "sunnicorn",
+      "slug": "sunnicorn",
+      "name": "SUNNICORN",
+      "tagline": "Have a sunnyday with sunnicorn",
+      "description": "Pioneering sustainable K-beauty through upcycled 'ugly food' ingredients and circular packaging. SUNNICORN transforms perfectly good produce rejected for cosmetic imperfections into powerful skincare actives, proving that true beauty comes from respecting our planet's resources while delivering sensitive skin solutions.",
+      "logo": "/images/brands/sunnicorn-logo.png",
+      "heroImage": "/images/brands/sunnicorn-hero.jpg",
+      "establishedYear": 2019,
+      "productCount": 16,
+      "certifications": ["CPNP_UK", "CPNP_EU", "CPNP_CH", "VEGAN", "CRUELTY_FREE", "CARBON_NEUTRAL"],
+      "featureTags": [
+        "100% Vegan",
+        "Upcycled Ingredients",
+        "Carbon Neutral",
+        "Cruelty Free"
+      ],
+      "sustainability": {
+        "uglyFoodHeroes": "Rescue produce rejected for cosmetic imperfections",
+        "trueUpcycling": "Processing excess plastics and glass for eco-friendly containers",
+        "sensitiveSkinFocus": "Vegan formulations for all skin types"
+      },
+      "uglyFoodIngredients": [
+        {
+          "name": "Wonky Carrots",
+          "benefit": "Beta-carotene for natural glow"
+        },
+        {
+          "name": "Spotted Apples",
+          "benefit": "Natural AHAs for gentle exfoliation"
+        },
+        {
+          "name": "Curved Cucumbers",
+          "benefit": "Hydration & soothing compounds"
+        },
+        {
+          "name": "Irregular Tomatoes",
+          "benefit": "Lycopene antioxidant protection"
+        },
+        {
+          "name": "Small Potatoes",
+          "benefit": "Vitamin C for brightening"
+        },
+        {
+          "name": "Misshapen Berries",
+          "benefit": "Powerful antioxidant defense"
+        }
+      ],
+      "impactStats": {
+        "uglyProduceRescued": "2.5M kg",
+        "plasticContainersUpcycled": "180K",
+        "customersSatisfied": "95%",
+        "wasteToLandfill": "Zero"
+      },
+      "categories": [
+        {
+          "id": "veagan-allinone",
+          "name": "Veagan All-in-One",
+          "productCount": 4
+        },
+        {
+          "id": "sun-protection",
+          "name": "Sun Protection",
+          "productCount": 4
+        },
+        {
+          "id": "eco-lifestyle",
+          "name": "Eco-Lifestyle",
+          "productCount": 4
+        }
+      ],
+      "stats": {
+        "yearsInBusiness": 5,
+        "productsSold": "1.5M+",
+        "customerSatisfaction": 95
+      },
+      "active": true,
+      "featured": true
+    }
+  ]
+}

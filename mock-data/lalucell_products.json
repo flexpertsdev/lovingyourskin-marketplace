@@ -1,0 +1,115 @@
+{
+  "brand": "LALUCELL",
+  "website": "https://lalucell.kr/",
+  "logo": "https://contents.sixshop.com/uploadedFiles/240215/default/image_1682403801204.png",
+  "currency": "USD",
+  "product_lines": [
+    {
+      "line_name": "PLANT EXTRACT LINE",
+      "products": [
+        {
+          "name": "LALUCELL Plant Extract Fresh Calming Toner 200ml",
+          "price": 32.00,
+          "product_url": "https://lalucell.kr/product/84b513fe-0e7c-42ad-8d0e-d00d6e5050ff",
+          "image_url": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682574442522_1000.jpg"
+        },
+        {
+          "name": "LALUCELL Plant Extract Intensive Facial Cream",
+          "price": 36.00,
+          "product_url": "https://lalucell.kr/product/f05f6b87-cff5-4f51-a645-5d079ab24d0f",
+          "image_url": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1683768358502_1000.jpg"
+        },
+        {
+          "name": "LALUCELL Vitamin 12 Brightening Serum 33ml",
+          "price": 39.00,
+          "product_url": "https://lalucell.kr/product/aca74997-a70c-4e86-92d0-1578afc6e006",
+          "image_url": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682574726210_1000.png"
+        },
+        {
+          "name": "LALUCELL EGF Revitalizing Serum 33ml",
+          "price": 39.00,
+          "product_url": "https://lalucell.kr/product/0df9fc9f-3c95-4cdc-9f2d-84d61de1c5fa",
+          "image_url": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682574844028_1000.png"
+        },
+        {
+          "name": "LALUCELL Collagen Firming Serum 33ml",
+          "price": 39.00,
+          "product_url": "https://lalucell.kr/product/0d27d03d-9be9-4423-8856-8b29539ec878",
+          "image_url": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682574899219_1000.png"
+        },
+        {
+          "name": "LALUCELL Hyaluronic Acid Boosting Serum 33ml",
+          "price": 39.00,
+          "product_url": "https://lalucell.kr/product/dc9fc225-2e43-41b4-ba96-44b353ead46a",
+          "image_url": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575612917_1000.png"
+        },
+        {
+          "name": "LALUCELL Cica Rebuilding Serum 33ml",
+          "price": 39.00,
+          "product_url": "https://lalucell.kr/product/8ad6162f-58fe-44f3-850f-883734ca6244",
+          "image_url": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575654906_1000.jpg"
+        }
+      ]
+    },
+    {
+      "line_name": "BIOME VEGAN LINE",
+      "products": [
+        {
+          "name": "LALUCELL Biome Vegan Balance Essence 150ml",
+          "price": 41.00,
+          "product_url": "https://lalucell.kr/product/9ec5a24d-47bb-45f6-9e6b-2a337a297524",
+          "image_url": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575748566_1000.jpg"
+        },
+        {
+          "name": "LALUCELL Biome Vegan Repair Cream 100ml",
+          "price": 37.00,
+          "product_url": "https://lalucell.kr/product/361c4972-2847-445c-924f-e5c0ddeb48b7",
+          "image_url": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575811839_1000.jpg"
+        },
+        {
+          "name": "LALUCELL Biome Vegan Active Sunscreen 50ml",
+          "price": 39.00,
+          "product_url": "https://lalucell.kr/product/5416589e-ea5c-4400-8c3d-8964d162c83b",
+          "image_url": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575871692_1000.jpg"
+        },
+        {
+          "name": "LALUCELL Biome Vegan Pure Cleansing Bar 100g",
+          "price": 23.00,
+          "product_url": "https://lalucell.kr/product/e9d8ee68-987a-4ece-b592-cdf9ae433d66",
+          "image_url": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575951871_1000.jpg"
+        }
+      ]
+    },
+    {
+      "line_name": "MYSTIC LIGHT LINE",
+      "products": [
+        {
+          "name": "LALUCELL Mystic Light Cica Refreshing Hydrogel Mask 5pcs",
+          "price": 35.00,
+          "product_url": "https://lalucell.kr/product/cf8a7968-e8e5-421b-b7c3-da1509f53c0e",
+          "image_url": null
+        },
+        {
+          "name": "LALUCELL Mystic Light Mark Control Body Cream",
+          "price": 38.00,
+          "product_url": "https://lalucell.kr/product/cf8a7968-e8e5-421b-b7c3-da1509f53c0e-16",
+          "image_url": null
+        },
+        {
+          "name": "LALUCELL Mystic Light Mark Control Body Patch 5pairs",
+          "price": 32.00,
+          "product_url": "https://lalucell.kr/product/cf8a7968-e8e5-421b-b7c3-da1509f53c0e-16-17",
+          "image_url": null
+        },
+        {
+          "name": "LALUCELL Mystic Light Mark Control Breast Patch 5pairs",
+          "price": 39.00,
+          "product_url": "https://lalucell.kr/product/cf8a7968-e8e5-421b-b7c3-da1509f53c0e-16-17-18",
+          "image_url": null
+        }
+      ]
+    }
+  ],
+  "total_products": 15,
+  "scraped_at": "2025-07-01"
+}
