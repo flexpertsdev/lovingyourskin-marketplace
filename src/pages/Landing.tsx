@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Section, Grid } from '../components/layout'
-import { Button, Input, Textarea, Card, CardContent, CardHeader, CardTitle } from '../components/ui'
+import { Button, Input, Textarea, Card, CardContent } from '../components/ui'
 import { Layout } from '../components/layout'
 
 interface Feature {
