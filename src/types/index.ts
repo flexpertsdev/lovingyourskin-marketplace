@@ -65,6 +65,10 @@ export interface Product {
     carton: number
     currency: 'GBP' | 'EUR' | 'CHF'
   }
+  retailPrice?: {
+    item: number
+    currency: 'GBP' | 'EUR' | 'CHF'
+  }
   moq: number // Minimum order quantity
   moqUnit: 'items' | 'cartons'
   itemsPerCarton: number

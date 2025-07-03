@@ -357,8 +357,12 @@
       "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575811839_1000.jpg"
     ],
     "price": {
-      "item": 30.0,
-      "carton": 1800.0,
+      "item": 8.40,
+      "carton": 504.0,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 24.99,
       "currency": "USD"
     },
     "moq": 2,
@@ -394,8 +398,12 @@
       "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575748566_1000.jpg"
     ],
     "price": {
-      "item": 35.0,
-      "carton": 1575.0,
+      "item": 8.90,
+      "carton": 400.50,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 26.99,
       "currency": "USD"
     },
     "moq": 3,
@@ -431,8 +439,12 @@
       "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682576019518_1000.jpg"
     ],
     "price": {
-      "item": 6.0,
-      "carton": 720.0,
+      "item": 3.40,
+      "carton": 408.0,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 9.99,
       "currency": "USD"
     },
     "moq": 1,
@@ -472,8 +484,8 @@
       "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575951871_1000.jpg"
     ],
     "price": {
-      "item": 20.0,
-      "carton": 800.0,
+      "item": 6.70,
+      "carton": 268.0,
       "currency": "USD"
     },
     "moq": 3,
@@ -509,8 +521,8 @@
       "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1684141224714_1000.jpg"
     ],
     "price": {
-      "item": 7.5,
-      "carton": 450.0,
+      "item": 3.80,
+      "carton": 228.0,
       "currency": "USD"
     },
     "moq": 2,
@@ -544,8 +556,8 @@
       "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1684141246748_1000.jpg"
     ],
     "price": {
-      "item": 8.0,
-      "carton": 480.0,
+      "item": 4.00,
+      "carton": 240.0,
       "currency": "USD"
     },
     "moq": 2,

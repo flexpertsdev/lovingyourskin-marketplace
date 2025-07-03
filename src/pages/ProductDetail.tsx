@@ -208,6 +208,16 @@ export const ProductDetail: React.FC = () => {
                   </div>
                 </div>
                 
+                {/* Retail Price - Only show if available */}
+                {product.retailPrice && (
+                  <div className="pt-4 border-t border-border-gray">
+                    <p className="text-sm text-text-secondary mb-1">Recommended Retail Price</p>
+                    <p className="text-lg font-medium text-medium-gray">
+                      {formatPrice(product.retailPrice.item)} per item
+                    </p>
+                  </div>
+                )}
+                
                 <div className="pt-4 border-t border-border-gray">
                   <p className="text-sm text-text-secondary mb-2">
                     • {product.itemsPerCarton} items per carton
