@@ -180,7 +180,11 @@
       "tagline": "Have a sunnyday with sunnicorn",
       "description": "Pioneering sustainable K-beauty through upcycled 'ugly food' ingredients and circular packaging. SUNNICORN transforms perfectly good produce rejected for cosmetic imperfections into powerful skincare actives, proving that true beauty comes from respecting our planet's resources while delivering sensitive skin solutions.",
       "logo": "https://en.sunnicorn.com/web/upload/images/logo-color.png",
-      "heroImage": "/images/brands/sunnicorn-hero.jpg",
+      "heroImage": "https://en.sunnicorn.com/web/upload/images/sus-bg-img-01.jpg",
+      "heroImages": [
+        "https://en.sunnicorn.com/web/upload/images/sus-bg-img-01.jpg",
+        "https://en.sunnicorn.com/web/upload/images/brand-bg-img-03.jpg"
+      ],
       "establishedYear": 2019,
       "productCount": 16,
       "certifications": [
