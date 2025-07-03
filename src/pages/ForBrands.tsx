@@ -10,8 +10,8 @@ const benefits = [
         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
       </svg>
     ),
-    title: 'Global Reach',
-    description: 'Access verified retailers across UK, EU, and Switzerland without leaving Korea.'
+    title: 'Market Expansion',
+    description: 'Connect with established retailers across premium European markets effortlessly.'
   },
   {
     icon: (
@@ -21,8 +21,8 @@ const benefits = [
         <line x1="12" y1="17" x2="12.01" y2="17"/>
       </svg>
     ),
-    title: 'Zero Risk',
-    description: 'All retailers are verified businesses. Secure payments and guaranteed transactions.'
+    title: 'Trusted Network',
+    description: 'Work with verified business partners through our carefully vetted retailer network.'
   },
   {
     icon: (
@@ -32,8 +32,8 @@ const benefits = [
         <line x1="12" y1="22.08" x2="12" y2="12"/>
       </svg>
     ),
-    title: 'We Handle Logistics',
-    description: 'From customs to delivery, we manage all international shipping complexities.'
+    title: 'Simplified Operations',
+    description: 'Focus on your products while we streamline the complexities of international trade.'
   },
   {
     icon: (
@@ -43,8 +43,8 @@ const benefits = [
         <line x1="2" y1="12" x2="22" y2="12"/>
       </svg>
     ),
-    title: 'Multi-Language Support',
-    description: 'Communicate with retailers in their language. We translate everything for you.'
+    title: 'No Communication Barriers',
+    description: 'Seamless interaction with international partners - we facilitate smooth communication.'
   },
   {
     icon: (
@@ -56,8 +56,8 @@ const benefits = [
         <polyline points="10 9 9 9 8 9"/>
       </svg>
     ),
-    title: 'Simple Documentation',
-    description: 'Upload your CPNP certificates once. We handle all export paperwork.'
+    title: 'Minimal Administration',
+    description: 'Keep your documentation simple - we ensure compliance with market requirements.'
   },
   {
     icon: (
@@ -66,8 +66,8 @@ const benefits = [
         <circle cx="12" cy="7" r="4"/>
       </svg>
     ),
-    title: 'Your Account Manager',
-    description: 'Dedicated support in Korean to help you succeed on the platform.'
+    title: 'Dedicated Partnership',
+    description: 'Expert support team committed to your international success.'
   }
 ]
 

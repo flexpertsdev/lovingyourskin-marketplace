@@ -104,6 +104,7 @@ export interface Brand {
   }
   logo: string
   heroImage: string
+  heroImages?: string[]
   establishedYear: number
   productCount: number
   minimumOrder: number

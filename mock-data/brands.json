@@ -7,7 +7,11 @@
       "tagline": "Wisdom in Every Drop - Nature's Anti-Aging Secret",
       "description": "Pioneering plant-powered anti-aging with bakuchiol and cottonseed extract, WISMIN bridges ancient botanical wisdom with modern Korean skincare science. Our gentle yet effective formulations deliver retinol-like results without irritation, making advanced anti-aging accessible to all skin types, including the most sensitive.",
       "logo": "https://cafe24.poxo.com/ec01/newglab01/EjglQcnyYl9oLKpqUS6wZj7l3BQ8UVIze0OCEPC9yP8yvptJW9uyGG+88Z9/l/V/z2Hpl9MvqmKtsVq7YHSMaw==/_/web/upload/wismin/logo_top.png",
-      "heroImage": "/images/brands/wismin-hero.jpg",
+      "heroImage": "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/upload/24052/main_v01.jpg",
+      "heroImages": [
+        "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/upload/24052/main_v01.jpg",
+        "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/upload/24052/main_story.jpg"
+      ],
       "establishedYear": 2018,
       "productCount": 16,
       "certifications": [
@@ -97,7 +101,11 @@
       "tagline": "Cotton Like Derma - Unceasing Beauty for All Women",
       "description": "The trusted choice of Korean mothers, LALUCELL provides safe, natural skincare with scientific innovation. Strictly excluding ingredients prohibited for pregnant women, we deliver effective solutions without compromise, earning recognition from the most meticulous mothers in South Korea.",
       "logo": "https://contents.sixshop.com/uploadedFiles/240215/default/image_1682403801204.png",
-      "heroImage": "/images/brands/lalucell-hero.jpg",
+      "heroImage": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/default/image_1682583004318_2500.png",
+      "heroImages": [
+        "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/default/image_1682583004318_2500.png",
+        "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/default/image_1682666986630_750.jpeg"
+      ],
       "establishedYear": 2015,
       "productCount": 12,
       "certifications": [

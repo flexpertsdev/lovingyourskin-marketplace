@@ -90,12 +90,6 @@ export const Login: React.FC = () => {
               </p>
             </div>
             
-            {/* Demo Credentials */}
-            <div className="mt-6 p-4 bg-soft-pink rounded-lg">
-              <p className="text-sm font-medium text-deep-charcoal mb-2">Demo Credentials:</p>
-              <p className="text-xs text-text-secondary">Retailer: retailer@example.com / password123</p>
-              <p className="text-xs text-text-secondary">Brand: brand@wismin.com / password123</p>
-            </div>
           </CardContent>
         </Card>
       </Container>

@@ -17,8 +17,8 @@ const features: Feature[] = [
         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
       </svg>
     ),
-    title: 'Proven Market Demand',
-    description: 'Access a growing K-beauty segment with established retailers and proven customer demand'
+    title: 'Proven Market Expertise',
+    description: 'Years of experience in the K-beauty industry, connecting the right brands with the right retailers'
   },
   {
     icon: (
@@ -26,8 +26,8 @@ const features: Feature[] = [
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
       </svg>
     ),
-    title: 'Verified Partners',
-    description: 'All brands CPNP certified, all retailers verified businesses - trade with complete confidence'
+    title: 'Curated Selection',
+    description: 'Hand-selected brands certified for your market, ensuring quality and compliance every time'
   },
   {
     icon: (
@@ -37,8 +37,8 @@ const features: Feature[] = [
         <line x1="12" y1="22.08" x2="12" y2="12"/>
       </svg>
     ),
-    title: 'End-to-End Solution',
-    description: 'We handle customs, logistics, translations, and payments - you focus on growing your business'
+    title: 'Seamless Experience',
+    description: 'A smooth, frictionless process from discovery to delivery - we make international trade simple'
   },
   {
     icon: (
@@ -47,46 +47,46 @@ const features: Feature[] = [
         <polyline points="17 6 23 6 23 12"></polyline>
       </svg>
     ),
-    title: 'Higher Profit Margins',
-    description: 'Direct B2B pricing with transparent costs means better margins for your business'
+    title: 'Better Margins',
+    description: 'Direct partnerships and transparent pricing structure designed to maximize your profitability'
   }
 ]
 
 const benefits = {
   retailers: [
     {
-      title: 'Fast Delivery',
-      description: '7-15 days delivery vs months with traditional importers'
+      title: 'Efficient Sourcing',
+      description: 'Streamlined process that saves you time and resources'
     },
     {
-      title: 'No Language Barriers',
-      description: 'Everything handled in your preferred language'
+      title: 'No Barriers',
+      description: 'Hassle-free international trade with full support at every step'
     },
     {
-      title: 'Flexible MOQs',
-      description: 'Reasonable minimum orders suitable for all business sizes'
+      title: 'Flexible Terms',
+      description: 'Order quantities designed to work for businesses of all sizes'
     },
     {
-      title: 'Dedicated Support',
-      description: 'Personal sales rep guides you through every order'
+      title: 'Expert Guidance',
+      description: 'Dedicated support from K-beauty specialists who understand your needs'
     }
   ],
   brands: [
     {
-      title: 'Global Reach',
-      description: 'Access verified retailers across UK, EU, and Switzerland'
+      title: 'Market Access',
+      description: 'Connect with established retailers across premium European markets'
     },
     {
-      title: 'Zero Export Risk',
-      description: 'We handle all international logistics and compliance'
+      title: 'Simplified Process',
+      description: 'We make international expansion smooth and manageable'
     },
     {
-      title: 'Guaranteed Payments',
-      description: 'Secure transactions with verified business partners'
+      title: 'Secure Partnerships',
+      description: 'Work with trusted retailers through our vetted network'
     },
     {
       title: 'Growth Support',
-      description: 'Marketing tools to promote your brand internationally'
+      description: 'Strategic guidance to help your brand succeed internationally'
     }
   ]
 }
@@ -110,8 +110,15 @@ export const Landing: React.FC = () => {
       {/* Hero Section */}
       <Section className="text-center bg-gradient-to-br from-soft-pink to-white py-20">
         <Container>
+          <div className="mb-8">
+            <img 
+              src="/lys-logo.png" 
+              alt="Loving Your Skin Logo" 
+              className="h-24 md:h-32 mx-auto"
+            />
+          </div>
           <h1 className="text-5xl md:text-6xl font-light text-deep-charcoal tracking-wide mb-6">
-            The Trusted B2B K-Beauty Marketplace
+            Your Trusted K-Beauty Wholesale Distributor & B2B Marketplace
           </h1>
           <p className="text-xl text-text-secondary mb-10 max-w-3xl mx-auto">
             Loving Your Skin connects verified Korean beauty brands with established international retailers. 
@@ -213,25 +220,86 @@ export const Landing: React.FC = () => {
       <Section background="white" className="text-center">
         <Container>
           <h2 className="text-3xl md:text-4xl font-light text-deep-charcoal mb-16">
-            Proven Success in K-Beauty Distribution
+            Enter Europe's Explosive K-Beauty Growth
           </h2>
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="text-4xl font-light text-rose-gold mb-2">300%</div>
-              <p className="text-text-secondary">Average brand growth in 6 months</p>
+          <div className="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto">
+            <div className="group hover:scale-105 transition-transform duration-300">
+              <div className="text-5xl font-light text-rose-gold mb-3">$32.5B</div>
+              <h3 className="text-lg font-medium text-deep-charcoal mb-2">Massive Market Opportunity</h3>
+              <p className="text-text-secondary">Europe K-beauty market projected by 2030</p>
+              <p className="text-sm text-rose-gold mt-2 font-medium">Proven Demand</p>
             </div>
-            <div>
-              <div className="text-4xl font-light text-rose-gold mb-2">7-15</div>
-              <p className="text-text-secondary">Days delivery time</p>
+            <div className="group hover:scale-105 transition-transform duration-300">
+              <div className="text-5xl font-light text-rose-gold mb-3">80%</div>
+              <h3 className="text-lg font-medium text-deep-charcoal mb-2">Exceptional Profitability</h3>
+              <p className="text-text-secondary">Gross profit margins for premium K-beauty products</p>
+              <p className="text-sm text-rose-gold mt-2 font-medium">Profitable Product</p>
             </div>
-            <div>
-              <div className="text-4xl font-light text-rose-gold mb-2">85%</div>
-              <p className="text-text-secondary">Retailer reorder rate</p>
+            <div className="group hover:scale-105 transition-transform duration-300">
+              <div className="text-5xl font-light text-rose-gold mb-3">9.61%</div>
+              <h3 className="text-lg font-medium text-deep-charcoal mb-2">Rapid Market Growth</h3>
+              <p className="text-text-secondary">Europe K-beauty market CAGR (2024-2032)</p>
+              <p className="text-sm text-rose-gold mt-2 font-medium">Growing Market Segment</p>
             </div>
-            <div>
-              <div className="text-4xl font-light text-rose-gold mb-2">12+</div>
-              <p className="text-text-secondary">Countries served</p>
-            </div>
+          </div>
+          <p className="text-lg text-text-secondary mt-12 max-w-3xl mx-auto">
+            The European K-beauty market is experiencing unprecedented growth. Partner with Loving Your Skin to capitalize on this 
+            high-margin opportunity before your competitors do.
+          </p>
+        </Container>
+      </Section>
+
+      {/* Exclusive Partners Section */}
+      <Section background="white">
+        <Container>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-light text-deep-charcoal mb-6">
+              Our Exclusive Partners
+            </h2>
+            <p className="text-xl text-text-secondary max-w-3xl mx-auto">
+              The brands we sell are the products we use. We love them, our customers love them, 
+              and most of all we trust them and their products.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+            {/* Wismin */}
+            <Card className="text-center hover:shadow-lg transition-shadow duration-300">
+              <CardContent className="py-10">
+                <img 
+                  src="https://cafe24.poxo.com/ec01/newglab01/EjglQcnyYl9oLKpqUS6wZj7l3BQ8UVIze0OCEPC9yP8yvptJW9uyGG+88Z9/l/V/z2Hpl9MvqmKtsVq7YHSMaw==/_/web/upload/wismin/logo_top.png"
+                  alt="WISMIN"
+                  className="h-16 mx-auto mb-6 object-contain"
+                />
+                <h3 className="text-xl font-medium text-deep-charcoal mb-3">WISMIN</h3>
+                <p className="text-text-secondary leading-relaxed">
+                  Pioneering plant-powered anti-aging with bakuchiol - nature's gentle alternative to retinol. 
+                  Proven results without irritation, perfect for sensitive skin.
+                </p>
+                <Link to="/brands/wismin" className="inline-block mt-4">
+                  <Button variant="secondary" size="small">Explore WISMIN</Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Sunnicorn */}
+            <Card className="text-center hover:shadow-lg transition-shadow duration-300">
+              <CardContent className="py-10">
+                <img 
+                  src="https://en.sunnicorn.com/web/upload/images/logo-color.png"
+                  alt="SUNNICORN"
+                  className="h-16 mx-auto mb-6 object-contain"
+                />
+                <h3 className="text-xl font-medium text-deep-charcoal mb-3">SUNNICORN</h3>
+                <p className="text-text-secondary leading-relaxed">
+                  Sustainable K-beauty through upcycled 'ugly food' ingredients. 
+                  100% vegan formulations that respect your skin and our planet.
+                </p>
+                <Link to="/brands/sunnicorn" className="inline-block mt-4">
+                  <Button variant="secondary" size="small">Explore SUNNICORN</Button>
+                </Link>
+              </CardContent>
+            </Card>
           </div>
         </Container>
       </Section>

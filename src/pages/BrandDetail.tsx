@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { Layout, Container, Section, Grid } from '../components/layout'
 import { Button, Select, Badge, Spinner, Card, CardContent } from '../components/ui'
 import { ProductCard } from '../components/features/ProductCard'
+import { HeroCarousel } from '../components/features/HeroCarousel'
 import { productService } from '../services/mock/product.service'
 import { Brand, Product } from '../types'
 
@@ -119,9 +120,6 @@ export const BrandDetail: React.FC = () => {
                 className="h-20 mx-auto mb-6 object-contain"
               />
             )}
-            <h1 className="text-4xl md:text-5xl font-light text-deep-charcoal mb-4">
-              {brand.name.en}
-            </h1>
             <p className="text-xl text-text-secondary mb-6">
               {brand.description.en}
             </p>
@@ -153,6 +151,14 @@ export const BrandDetail: React.FC = () => {
           </div>
         </Container>
       </Section>
+
+      {/* Hero Carousel */}
+      {(brand.heroImages && brand.heroImages.length > 0) && (
+        <HeroCarousel
+          images={brand.heroImages}
+          alt={brand.name.en}
+        />
+      )}
       
       {/* Brand Story */}
       {brand.story && (

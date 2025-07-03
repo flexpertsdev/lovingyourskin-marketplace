@@ -10,8 +10,8 @@ const benefits = [
         <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
       </svg>
     ),
-    title: 'Fast Delivery',
-    description: 'Get your orders in 7-15 days, not months. We handle all logistics and customs clearance for you.'
+    title: 'Efficient Delivery',
+    description: 'Quick turnaround times with our streamlined fulfillment process designed for your success.'
   },
   {
     icon: (
@@ -19,8 +19,8 @@ const benefits = [
         <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
       </svg>
     ),
-    title: 'Transparent Pricing',
-    description: 'See all costs upfront - product prices, shipping, and any fees. No hidden surprises.'
+    title: 'Clear Pricing',
+    description: 'Straightforward pricing structure with no hidden costs - know exactly what you\'re paying for.'
   },
   {
     icon: (
@@ -28,8 +28,8 @@ const benefits = [
         <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
       </svg>
     ),
-    title: 'Verified Brands',
-    description: 'All brands are CPNP certified for UK/EU/CH markets. Shop with complete confidence.'
+    title: 'Quality Assured',
+    description: 'Carefully selected brands that meet the highest standards for your market requirements.'
   },
   {
     icon: (
@@ -37,8 +37,8 @@ const benefits = [
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
       </svg>
     ),
-    title: 'Simple Process',
-    description: 'No complex forms, no language barriers. Everything handled in your preferred language.'
+    title: 'Frictionless Process',
+    description: 'Smooth operations from order to delivery - we eliminate the complexities of international trade.'
   },
   {
     icon: (
@@ -46,8 +46,8 @@ const benefits = [
         <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 14v-2.47l6.88-6.88c.2-.2.51-.2.71 0l1.77 1.77c.2.2.2.51 0 .71L8.47 14H6zm12 0h-7.5l2-2H18v2z"/>
       </svg>
     ),
-    title: 'In-App Messaging',
-    description: 'Communicate directly with brands and our team. No more lost emails or language confusion.'
+    title: 'Direct Communication',
+    description: 'Stay connected with brands and our team through our integrated messaging platform.'
   },
   {
     icon: (
@@ -55,8 +55,8 @@ const benefits = [
         <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
       </svg>
     ),
-    title: 'Dedicated Support',
-    description: 'Your personal sales rep guides you through every order, ensuring smooth transactions.'
+    title: 'Expert Support',
+    description: 'Dedicated specialists who understand your business and guide you to success.'
   }
 ]
 
