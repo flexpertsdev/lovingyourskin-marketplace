@@ -20,7 +20,7 @@ const publicNavItems: NavItem[] = [
 
 const authNavItems: NavItem[] = [
   { label: 'Brands', href: '/brands', requiresAuth: true },
-  { label: 'Cart', href: '/cart', requiresAuth: true },
+  { label: 'Cart', href: '/cart', requiresAuth: true, roles: ['retailer', 'brand'] },
   { label: 'Dashboard', href: '/dashboard', requiresAuth: true },
   { label: 'Orders', href: '/orders', requiresAuth: true },
   { label: 'Messages', href: '/messages', requiresAuth: true },
@@ -37,7 +37,7 @@ export const Header: React.FC = () => {
   const isActive = (href: string) => location.pathname === href
   
   const allNavItems = isAuthenticated 
-    ? authNavItems 
+    ? authNavItems.filter(item => !item.roles || item.roles.includes(user?.role || ''))
     : publicNavItems
     
   return (

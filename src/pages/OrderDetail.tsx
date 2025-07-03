@@ -86,7 +86,9 @@ export const OrderDetail: React.FC = () => {
   
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!newMessage.trim() || !thread) return
+    e.stopPropagation()
+    
+    if (!newMessage.trim() || !thread || sendingMessage) return
     
     setSendingMessage(true)
     try {

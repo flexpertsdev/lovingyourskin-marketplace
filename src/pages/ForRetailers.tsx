@@ -65,13 +65,28 @@ const features = [
     title: 'Smart Inventory Management',
     description: 'Keep track of your stock levels, reorder points, and best sellers all in one place.',
     features: ['Real-time stock tracking', 'Low stock alerts', 'Sales analytics dashboard'],
-    image: 'Smart Inventory Management'
+    icon: (
+      <svg className="w-24 h-24 text-rose-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M3 3h18v18H3V3z" />
+        <path d="M3 9h18M9 21V9" />
+        <path d="M15 13v4m0 0l-2-2m2 2l2-2" />
+        <circle cx="15" cy="15" r="3" fill="currentColor" opacity="0.2" />
+      </svg>
+    )
   },
   {
     title: 'Flexible Payment Terms',
     description: 'Work with payment terms that suit your business cash flow needs.',
     features: ['30-day payment terms available', 'Multiple currency support', 'Secure payment processing'],
-    image: 'Flexible Payment Options'
+    icon: (
+      <svg className="w-24 h-24 text-rose-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <rect x="3" y="6" width="18" height="12" rx="2" />
+        <path d="M3 10h18" />
+        <path d="M7 15h4" />
+        <circle cx="17" cy="15" r="1.5" fill="currentColor" />
+        <path d="M12 3v3M12 18v3" strokeWidth="2" />
+      </svg>
+    )
   }
 ]
 
@@ -139,8 +154,8 @@ export const ForRetailers: React.FC = () => {
             {features.map((feature, index) => (
               <div key={index} className={`grid md:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
                 <div className={index % 2 === 1 ? 'md:order-2' : ''}>
-                  <div className="bg-soft-pink h-64 rounded-lg flex items-center justify-center text-text-secondary">
-                    {feature.image}
+                  <div className="bg-soft-pink h-64 rounded-lg flex items-center justify-center">
+                    {feature.icon}
                   </div>
                 </div>
                 <div className={index % 2 === 1 ? 'md:order-1' : ''}>

@@ -112,7 +112,7 @@ export const Landing: React.FC = () => {
         <Container>
           <div className="mb-8">
             <img 
-              src="https://firebasestorage.googleapis.com/v0/b/lovingyourskinshop.firebasestorage.app/o/WhatsApp%20Image%202025-06-22%20at%2011.43.11.jpeg?alt=media&token=5766d113-28bc-46d3-b502-5503ae6d3732" 
+              src="https://firebasestorage.googleapis.com/v0/b/lovingyourskinshop.firebasestorage.app/o/WhatsApp_Image_2025-06-22_at_11.43.11-removebg-preview.png?alt=media&token=237442fd-02cb-48ee-9628-1c68fd45add5" 
               alt="Loving Your Skin Logo" 
               className="h-24 md:h-32 mx-auto object-contain"
             />

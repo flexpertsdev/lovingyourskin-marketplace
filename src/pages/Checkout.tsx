@@ -50,7 +50,7 @@ export const Checkout: React.FC = () => {
   const navigate = useNavigate()
   const { cart, moqStatuses } = useCartStore()
   const { user } = useAuthStore()
-  const { brands } = useBrands()
+  const { brands, isLoading: brandsLoading, error: brandsError } = useBrands()
   const [currentStep, setCurrentStep] = useState<CheckoutStep>('details')
   const [selectedBrand, setSelectedBrand] = useState<string>('')
   const [orderData, setOrderData] = useState({
@@ -67,7 +67,35 @@ export const Checkout: React.FC = () => {
   })
   
   // Add debugging
-  console.log('Checkout page loaded', { cart, moqStatuses, brands })
+  console.log('Checkout page loaded', { cart, moqStatuses, brands, brandsLoading, brandsError })
+  
+  // Show loading state while brands are loading
+  if (brandsLoading) {
+    return (
+      <Layout>
+        <Section className="text-center py-20">
+          <Container size="sm">
+            <h2 className="text-3xl font-light mb-4">Loading checkout...</h2>
+          </Container>
+        </Section>
+      </Layout>
+    )
+  }
+  
+  // Show error if brands failed to load
+  if (brandsError) {
+    return (
+      <Layout>
+        <Section className="text-center py-20">
+          <Container size="sm">
+            <h2 className="text-3xl font-light mb-4">Error loading checkout</h2>
+            <p className="text-text-secondary mb-8">Please try again later</p>
+            <Button onClick={() => navigate('/cart')}>Return to Cart</Button>
+          </Container>
+        </Section>
+      </Layout>
+    )
+  }
   
   // Early return if no cart items
   if (!cart.items || cart.items.length === 0) {
@@ -87,6 +115,12 @@ export const Checkout: React.FC = () => {
   // Group cart items by brand and filter only those meeting MOQ
   const brandGroups = React.useMemo(() => {
     const groups: Record<string, any> = {}
+    
+    // Safety check for brands array
+    if (!brands || brands.length === 0) {
+      console.warn('No brands data available')
+      return []
+    }
     
     cart.items.forEach(item => {
       if (!groups[item.product.brandId]) {

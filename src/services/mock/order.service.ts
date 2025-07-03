@@ -1,5 +1,6 @@
 // Mock order service with order management and messaging
 import { Order, OrderStatus, OrderDocument, MessageThread, Message } from '../../types'
+import { useAuthStore } from '../../stores/auth.store'
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -359,7 +360,21 @@ export const orderService = {
   }): Promise<Order[]> => {
     await delay(300)
     
+    // Get current user from auth store
+    const currentUser = useAuthStore.getState().user
+    if (!currentUser) return []
+    
     let filtered = [...mockOrders]
+    
+    // Filter based on user role
+    if (currentUser.role === 'retailer') {
+      // Retailers only see their own orders
+      filtered = filtered.filter(order => order.retailerId === currentUser.id)
+    } else if (currentUser.role === 'brand') {
+      // Brands only see orders for their brand
+      filtered = filtered.filter(order => order.brandId === currentUser.companyId)
+    }
+    // Admins see all orders (no filtering needed)
     
     if (filters?.status) {
       filtered = filtered.filter(order => order.status === filters.status)
@@ -384,7 +399,22 @@ export const orderService = {
   // Get single order by ID
   getOrder: async (orderId: string): Promise<Order | null> => {
     await delay(200)
-    return mockOrders.find(order => order.id === orderId) || null
+    
+    const currentUser = useAuthStore.getState().user
+    if (!currentUser) return null
+    
+    const order = mockOrders.find(order => order.id === orderId)
+    if (!order) return null
+    
+    // Check permissions
+    if (currentUser.role === 'retailer' && order.retailerId !== currentUser.id) {
+      return null // Retailer can only see their own orders
+    } else if (currentUser.role === 'brand' && order.brandId !== currentUser.companyId) {
+      return null // Brand can only see orders for their brand
+    }
+    // Admins can see all orders
+    
+    return order
   },
   
   // Update order status

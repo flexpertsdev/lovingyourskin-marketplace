@@ -24,6 +24,9 @@ export const Messages: React.FC = () => {
     queryFn: () => orderService.getOrders()
   })
   
+  // Debug logging
+  console.log('Messages page - orders loaded:', orders.length, orders)
+  
   // Get selected thread messages
   const { data: threadData } = useQuery({
     queryKey: ['messageThread', selectedThread],

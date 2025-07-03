@@ -76,13 +76,27 @@ const features = [
     title: 'Efficient Order Management',
     description: 'Manage all your international orders in one place with real-time updates and automated processes.',
     features: ['Instant order notifications', 'Bulk order processing', 'Automated invoicing'],
-    image: 'Order Dashboard'
+    icon: (
+      <svg className="w-24 h-24 text-rose-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <rect x="4" y="4" width="16" height="16" rx="2" />
+        <path d="M9 9h6M9 12h6M9 15h4" />
+        <circle cx="18" cy="6" r="3" fill="currentColor" opacity="0.3" />
+        <text x="18" y="7" textAnchor="middle" fill="currentColor" fontSize="10" fontWeight="bold">!</text>
+        <path d="M14 20v2m-4-2v2" strokeWidth="2" />
+      </svg>
+    )
   },
   {
     title: 'Promote Your Brand',
     description: 'Share your brand story, product launches, and promotions directly with interested retailers.',
     features: ['Brand showcase page', 'New product announcements', 'Promotional campaigns'],
-    image: 'Marketing Tools'
+    icon: (
+      <svg className="w-24 h-24 text-rose-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor" opacity="0.2" />
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        <circle cx="12" cy="12" r="3" fill="currentColor" />
+      </svg>
+    )
   }
 ]
 
@@ -169,8 +183,8 @@ export const ForBrands: React.FC = () => {
             {features.map((feature, index) => (
               <div key={index} className={`grid md:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
                 <div className={index % 2 === 1 ? 'md:order-2' : ''}>
-                  <div className="bg-soft-pink h-64 rounded-lg flex items-center justify-center text-text-secondary">
-                    {feature.image}
+                  <div className="bg-soft-pink h-64 rounded-lg flex items-center justify-center">
+                    {feature.icon}
                   </div>
                 </div>
                 <div className={index % 2 === 1 ? 'md:order-1' : ''}>
