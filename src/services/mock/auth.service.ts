@@ -24,6 +24,26 @@ const mockUsers: User[] = [
     createdAt: new Date('2023-01-01'),
     lastLoginAt: new Date(),
   },
+  {
+    id: 'admin-rosie',
+    email: 'rosie@lovingyourskin.net',
+    role: 'admin',
+    companyId: 'lys-company',
+    language: 'en',
+    name: 'Rosie',
+    createdAt: new Date('2024-01-01'),
+    lastLoginAt: new Date(),
+  },
+  {
+    id: 'admin-julie',
+    email: 'julie@lovingyourskin.net',
+    role: 'admin',
+    companyId: 'lys-company',
+    language: 'en',
+    name: 'Julie',
+    createdAt: new Date('2024-01-01'),
+    lastLoginAt: new Date(),
+  },
 ]
 
 const mockInviteCodes: InviteCode[] = [
@@ -64,8 +84,18 @@ export const authService = {
       throw new Error('Invalid email or password')
     }
     
-    // In real app, check password hash
-    if (password !== 'password123') {
+    // Check password based on user
+    let validPassword = false
+    if (email === 'rosie@lovingyourskin.net' && password === 'Rtiylysp07!') {
+      validPassword = true
+    } else if (email === 'julie@lovingyourskin.net' && password === 'Jtiylysp07!') {
+      validPassword = true
+    } else if (password === 'password123') {
+      // Default password for other users
+      validPassword = true
+    }
+    
+    if (!validPassword) {
       throw new Error('Invalid email or password')
     }
     

@@ -66,6 +66,24 @@ export const Checkout: React.FC = () => {
     }
   })
   
+  // Add debugging
+  console.log('Checkout page loaded', { cart, moqStatuses, brands })
+  
+  // Early return if no cart items
+  if (!cart.items || cart.items.length === 0) {
+    return (
+      <Layout>
+        <Section className="text-center py-20">
+          <Container size="sm">
+            <h2 className="text-3xl font-light mb-4">Your cart is empty</h2>
+            <p className="text-text-secondary mb-8">Add products to your cart before checkout</p>
+            <Button onClick={() => navigate('/cart')}>Return to Cart</Button>
+          </Container>
+        </Section>
+      </Layout>
+    )
+  }
+  
   // Group cart items by brand and filter only those meeting MOQ
   const brandGroups = React.useMemo(() => {
     const groups: Record<string, any> = {}

@@ -112,13 +112,13 @@ export const Landing: React.FC = () => {
         <Container>
           <div className="mb-8">
             <img 
-              src="/lys-logo.png" 
+              src="https://firebasestorage.googleapis.com/v0/b/lovingyourskinshop.firebasestorage.app/o/WhatsApp%20Image%202025-06-22%20at%2011.43.11.jpeg?alt=media&token=5766d113-28bc-46d3-b502-5503ae6d3732" 
               alt="Loving Your Skin Logo" 
-              className="h-24 md:h-32 mx-auto"
+              className="h-24 md:h-32 mx-auto object-contain"
             />
           </div>
           <h1 className="text-5xl md:text-6xl font-light text-deep-charcoal tracking-wide mb-6">
-            Your Trusted K-Beauty Wholesale Distributor & B2B Marketplace
+            Your Curated K-Beauty B2B Wholesale Marketplace
           </h1>
           <p className="text-xl text-text-secondary mb-10 max-w-3xl mx-auto">
             Loving Your Skin connects verified Korean beauty brands with established international retailers. 
@@ -263,22 +263,19 @@ export const Landing: React.FC = () => {
           </div>
           
           <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-            {/* Wismin */}
+            {/* Lalucell */}
             <Card className="text-center hover:shadow-lg transition-shadow duration-300">
               <CardContent className="py-10">
                 <img 
-                  src="https://cafe24.poxo.com/ec01/newglab01/EjglQcnyYl9oLKpqUS6wZj7l3BQ8UVIze0OCEPC9yP8yvptJW9uyGG+88Z9/l/V/z2Hpl9MvqmKtsVq7YHSMaw==/_/web/upload/wismin/logo_top.png"
-                  alt="WISMIN"
+                  src="https://contents.sixshop.com/uploadedFiles/240215/default/image_1682403801204.png"
+                  alt="LALUCELL"
                   className="h-16 mx-auto mb-6 object-contain"
                 />
-                <h3 className="text-xl font-medium text-deep-charcoal mb-3">WISMIN</h3>
+                <h3 className="text-xl font-medium text-deep-charcoal mb-3">LALUCELL</h3>
                 <p className="text-text-secondary leading-relaxed">
-                  Pioneering plant-powered anti-aging with bakuchiol - nature's gentle alternative to retinol. 
-                  Proven results without irritation, perfect for sensitive skin.
+                  The trusted choice of Korean mothers. Safe, natural skincare with patented technology 
+                  and zero irritation - perfect for pregnancy and sensitive skin.
                 </p>
-                <Link to="/brands/wismin" className="inline-block mt-4">
-                  <Button variant="secondary" size="small">Explore WISMIN</Button>
-                </Link>
               </CardContent>
             </Card>
 
@@ -295,9 +292,6 @@ export const Landing: React.FC = () => {
                   Sustainable K-beauty through upcycled 'ugly food' ingredients. 
                   100% vegan formulations that respect your skin and our planet.
                 </p>
-                <Link to="/brands/sunnicorn" className="inline-block mt-4">
-                  <Button variant="secondary" size="small">Explore SUNNICORN</Button>
-                </Link>
               </CardContent>
             </Card>
           </div>
