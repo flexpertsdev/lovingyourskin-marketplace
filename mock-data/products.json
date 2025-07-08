@@ -1,5 +1,46 @@
 [
   {
+  "id": "baohlab-hair-loss-care-ampoule-serum",
+  "brandId": "baohlab",
+  "categoryId": "hair-care",
+  "name": {
+    "en": "Hair Loss Care Ampoule Scalp Serum (2 pcs)",
+    "ko": "탈모완화 모발성장 탈모 앰플 두피 세럼 2개입",
+    "zh": "防脱发生发安瓿头皮精华 (2支装)"
+  },
+  "description": {
+    "en": "Revolutionary hair growth serum with Biorenovation Technology that alleviates hair loss symptoms and stimulates scalp nourishment for visible results",
+    "ko": "바이오레노베이션 기술로 탈모 증상을 완화하고 두피에 영양을 공급하여 눈에 보이는 결과를 제공하는 혁신적인 모발 성장 세럼",
+    "zh": "采用生物革新技术的革命性生发精华，缓解脱发症状，刺激头皮营养，带来可见效果"
+  },
+  "images": [
+    "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/product/medium/20240906/781ec1e2a3799adb13e7296290350838.jpg",
+    "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/product/small/20240906/848ca5bc288cbd3187b0ce4fed758a7e.jpg",
+    "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/product/extra/small/20240728/e8a727c8ce4f0f70e66477685216b0ff.jpg"
+  ],
+  "price": {
+    "item": 60.71,
+    "carton": 3642.60,
+    "currency": "USD"
+  },
+  "moq": 2,
+  "moqUnit": "cartons",
+  "itemsPerCarton": 60,
+  "certifications": [
+    "CPNP_UK",
+    "CPNP_EU",
+    "CPNP_CH"
+  ],
+  "badges": [
+    "PATENTED_FORMULA",
+    "BIORENOVATION_TECH",
+    "CLINICAL_TESTED",
+    "5_STAR_REVIEWS"
+  ],
+  "inStock": true,
+  "featured": true
+},
+  {
     "id": "wismin-cotton-seed-barrier-cleansing-ball",
     "brandId": "wismin",
     "categoryId": "cleansing",

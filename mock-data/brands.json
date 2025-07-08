@@ -1,5 +1,88 @@
 {
   "brands": [
+   {
+  "id": "baohlab",
+  "slug": "baohlab",
+  "name": "BAO H. LAB",
+  "tagline": "We solved hair loss with Biorenovation",
+  "description": "Pioneering hair loss solutions through Biorenovation Technology since 2017. BAO H. LAB combines eco-friendly microorganism technology with patented formulations to deliver effective hair growth and scalp care solutions, opening infinite possibilities by blending nature and science.",
+  "logo": "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/9aea2ac016a6e0f2635f48629c3fd28c.jpg",
+  "heroImage": "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/3295e621c8c81a6effba32f7db4cd672.jpg",
+  "heroImages": [
+    "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/3295e621c8c81a6effba32f7db4cd672.jpg",
+    "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/aca91dd8cca6ec2264880e26abe3f316.jpg"
+  ],
+  "establishedYear": 2017,
+  "productCount": 1,
+  "certifications": [
+    "CPNP_UK",
+    "CPNP_EU",
+    "CPNP_CH"
+  ],
+  "featureTags": [
+    "Biorenovation Technology",
+    "Patented Formula",
+    "Hair Loss Solution",
+    "Scalp Nourishment"
+  ],
+  "technologies": [
+    {
+      "name": "Biorenovation Technology",
+      "description": "Proprietary microorganism technology derived from nature for biological revolution in hair care"
+    },
+    {
+      "name": "Patented Hair Growth Formula",
+      "description": "Special patented ingredients that stimulate and nourish the scalp"
+    },
+    {
+      "name": "Eco-Friendly Process",
+      "description": "Sustainable technology for a better future"
+    }
+  ],
+  "clinicalResults": {
+    "hairLossReduction": {
+      "value": 90,
+      "duration": "3 months"
+    },
+    "hairGrowthVisible": {
+      "value": 85,
+      "duration": "4 months"
+    },
+    "scalpHealth": {
+      "value": 95,
+      "duration": "2 months"
+    },
+    "customerSatisfaction": {
+      "value": 95,
+      "unit": "%"
+    }
+  },
+  "categories": [
+    {
+      "id": "hair-loss-care",
+      "name": "Hair Loss Care",
+      "productCount": 1
+    },
+    {
+      "id": "scalp-treatment",
+      "name": "Scalp Treatment",
+      "productCount": 1
+    }
+  ],
+  "stats": {
+    "yearsInBusiness": 8,
+    "productsSold": "100K+",
+    "customerSatisfaction": 95
+  },
+  "active": true,
+  "featured": true,
+  "logoStyle": {
+    "height": "40px",
+    "objectFit": "contain",
+    "backgroundColor": "transparent"
+  }
+},
+
     {
       "id": "wismin",
       "slug": "wismin",

@@ -46,20 +46,30 @@ npm run firebase:deploy:hosting
 ## Architecture Overview
 
 ### Tech Stack
-- **Frontend**: React 18 with TypeScript
+- **Frontend**: React 19 with TypeScript
 - **Build Tool**: Vite
 - **Styling**: Tailwind CSS with custom design system
 - **State Management**: 
   - Zustand for client state (auth, cart, UI)
   - React Query for server state
-- **Routing**: React Router v6
-- **Backend**: Currently mock services, planned Firebase integration
+- **Routing**: React Router v7
+- **Backend**: Firebase (configured but using mock services during development)
+- **Internationalization**: react-i18next (installed, not yet configured)
+
+### Firebase Integration Status
+- **Project**: lovingyourskinshop (Firebase project configured)
+- **Services**: Auth, Firestore, Storage, Analytics initialized in `src/lib/firebase/config.ts`
+- **Service Toggle**: Use `src/config/services.config.ts` to switch between mock and Firebase services
+- **Current Status**: All services set to use mock implementations (useFirebase: false)
+- **Firebase Auth Service**: Already implemented in `src/services/firebase/auth.service.ts`
 
 ### Key Architectural Patterns
 
 #### 1. Service Layer Pattern
-All API interactions go through services in `src/services/`. Currently using mock implementations that simulate real API behavior. When migrating to Firebase:
-- Replace mock service implementations but keep the interface
+All API interactions go through services in `src/services/`. Service implementations can be toggled between mock and Firebase:
+- Mock services in `src/services/mock/` for development
+- Firebase services in `src/services/firebase/` for production
+- Toggle via `src/config/services.config.ts`
 - Services return typed responses matching `src/types/index.ts`
 
 #### 2. State Management Strategy
@@ -115,3 +125,13 @@ All data types are defined in `src/types/index.ts`. Key entities:
 - Typography: Inter + Noto Sans KR
 - Mobile-first responsive design
 - Components use Tailwind classes with `cn()` utility for conditional styling
+- Spacing and sizing use Tailwind's default scale
+- Card components with variants: default, elevated, interactive
+- Consistent hover effects and transitions
+
+### Component Patterns
+- All UI components in `src/components/ui/` follow a consistent pattern
+- Use React.forwardRef for proper ref forwarding
+- Props interfaces defined with TypeScript
+- Variants handled through props, not CSS classes
+- Compound components pattern (e.g., Card, CardHeader, CardContent)

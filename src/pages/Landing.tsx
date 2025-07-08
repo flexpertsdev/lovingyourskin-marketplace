@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Container, Section, Grid } from '../components/layout'
 import { Button, Input, Textarea, Card, CardContent } from '../components/ui'
 import { Layout } from '../components/layout'
+import { TestimonialCard } from '../components/features'
 
 interface Feature {
   icon: React.ReactNode
@@ -49,6 +50,18 @@ const features: Feature[] = [
     ),
     title: 'Better Margins',
     description: 'Direct partnerships and transparent pricing structure designed to maximize your profitability'
+  }
+]
+
+const testimonials = [
+  {
+    id: '1',
+    company: 'Beauté Privée',
+    logo: 'https://media.licdn.com/dms/image/v2/C4E0BAQG82zVO9g8uyw/company-logo_200_200/company-logo_200_200/0/1672739255113/beauteprivee_logo?e=2147483647&v=beta&t=5cBvLIlKpRh4E8Uyrwp0nz3V9cmNn8Gv6kz0hnsB6L4',
+    quote: 'Very clear and complete communication with excellent responsiveness. They fully met our specific needs for products, lead times, and exclusivities with no difficulties throughout our collaboration.',
+    author: 'Camille',
+    companyDetails: '5 million members across France, Belgium, Luxembourg',
+    rating: 5
   }
 ]
 
@@ -246,6 +259,34 @@ export const Landing: React.FC = () => {
             The European K-beauty market is experiencing unprecedented growth. Partner with Loving Your Skin to capitalize on this 
             high-margin opportunity before your competitors do.
           </p>
+        </Container>
+      </Section>
+
+      {/* Testimonials Section */}
+      <Section background="gray">
+        <Container>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-light text-deep-charcoal mb-6">
+              Trusted by Leading European Retailers
+            </h2>
+            <p className="text-xl text-text-secondary max-w-3xl mx-auto">
+              Don't just take our word for it. See what our partners have to say about working with Loving Your Skin.
+            </p>
+          </div>
+          
+          <div className="max-w-4xl mx-auto">
+            {testimonials.map((testimonial) => (
+              <TestimonialCard
+                key={testimonial.id}
+                company={testimonial.company}
+                logo={testimonial.logo}
+                quote={testimonial.quote}
+                author={testimonial.author}
+                companyDetails={testimonial.companyDetails}
+                rating={testimonial.rating}
+              />
+            ))}
+          </div>
         </Container>
       </Section>
 
