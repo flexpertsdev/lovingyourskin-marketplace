@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Container, Section, Grid } from '../components/layout'
 import { Button, Input, Textarea, Card, CardContent } from '../components/ui'
 import { Layout } from '../components/layout'
-import { TestimonialCard } from '../components/features'
+import { TestimonialCard, PartnerCard } from '../components/features'
 
 interface Feature {
   icon: React.ReactNode
@@ -303,38 +303,40 @@ export const Landing: React.FC = () => {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+          <div className="space-y-12 max-w-6xl mx-auto">
             {/* Lalucell */}
-            <Card className="text-center hover:shadow-lg transition-shadow duration-300">
-              <CardContent className="py-10">
-                <img 
-                  src="https://contents.sixshop.com/uploadedFiles/240215/default/image_1682403801204.png"
-                  alt="LALUCELL"
-                  className="h-16 mx-auto mb-6 object-contain"
-                />
-                <h3 className="text-xl font-medium text-deep-charcoal mb-3">LALUCELL</h3>
-                <p className="text-text-secondary leading-relaxed">
-                  The trusted choice of Korean mothers. Safe, natural skincare with patented technology 
-                  and zero irritation - perfect for pregnancy and sensitive skin.
-                </p>
-              </CardContent>
-            </Card>
+            <PartnerCard 
+              brand={{
+                name: 'LALUCELL',
+                logo: 'https://contents.sixshop.com/uploadedFiles/240215/default/image_1682403801204.png',
+                heroImage: 'https://contents.sixshop.com/thumbnails/uploadedFiles/240215/default/image_1682583004318_2500.png',
+                description: 'The trusted choice of Korean mothers. Safe, natural skincare with patented technology and zero irritation - perfect for pregnancy and sensitive skin.',
+                highlights: [
+                  'Patented natural ingredient technology',
+                  'Zero irritation formula safe for pregnancy',
+                  'Trusted by thousands of Korean mothers',
+                  'Clinically tested for sensitive skin'
+                ]
+              }}
+              variant="side-by-side"
+            />
 
             {/* Sunnicorn */}
-            <Card className="text-center hover:shadow-lg transition-shadow duration-300">
-              <CardContent className="py-10">
-                <img 
-                  src="https://en.sunnicorn.com/web/upload/images/logo-color.png"
-                  alt="SUNNICORN"
-                  className="h-16 mx-auto mb-6 object-contain"
-                />
-                <h3 className="text-xl font-medium text-deep-charcoal mb-3">SUNNICORN</h3>
-                <p className="text-text-secondary leading-relaxed">
-                  Sustainable K-beauty through upcycled 'ugly food' ingredients. 
-                  100% vegan formulations that respect your skin and our planet.
-                </p>
-              </CardContent>
-            </Card>
+            <PartnerCard 
+              brand={{
+                name: 'SUNNICORN',
+                logo: 'https://en.sunnicorn.com/web/upload/images/logo-color.png',
+                heroImage: 'https://en.sunnicorn.com/web/upload/images/press_img_02.jpg',
+                description: 'Sustainable K-beauty through upcycled "ugly food" ingredients. 100% vegan formulations that respect your skin and our planet.',
+                highlights: [
+                  'Upcycled food waste ingredients',
+                  '100% vegan certified formulations',
+                  'Carbon-neutral production process',
+                  'Award-winning sustainable beauty'
+                ]
+              }}
+              variant="side-by-side"
+            />
           </div>
         </Container>
       </Section>

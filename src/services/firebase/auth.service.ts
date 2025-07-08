@@ -193,6 +193,18 @@ class FirebaseAuthService {
   isAuthenticated(): boolean {
     return !!auth.currentUser
   }
+
+  // Update user language preference
+  async updateLanguage(userId: string, language: 'en' | 'ko' | 'zh'): Promise<void> {
+    try {
+      await setDoc(doc(db, 'users', userId), {
+        language: language
+      }, { merge: true })
+    } catch (error) {
+      console.error('Failed to update language:', error)
+      throw new Error('Failed to update language preference')
+    }
+  }
 }
 
 export const firebaseAuthService = new FirebaseAuthService()
