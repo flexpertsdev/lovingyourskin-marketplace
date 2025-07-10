@@ -33,7 +33,7 @@ export const PartnerCard: React.FC<PartnerCardProps> = ({
           <img 
             src={brand.heroImage}
             alt={`${brand.name} products`}
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-contain"
           />
           {/* Subtle gradient overlay for better text contrast */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
@@ -116,11 +116,11 @@ export const PartnerCard: React.FC<PartnerCardProps> = ({
     >
       <div className="flex flex-col lg:flex-row">
         {/* Image Section */}
-        <div className="lg:w-1/2 h-64 lg:h-auto lg:min-h-[400px] relative overflow-hidden">
+        <div className="lg:w-1/2 h-64 lg:h-[400px] relative overflow-hidden bg-gradient-to-br from-soft-pink/20 to-white">
           <img 
             src={brand.heroImage}
             alt={`${brand.name} products`}
-            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-contain hover:scale-105 transition-transform duration-500"
           />
         </div>
         

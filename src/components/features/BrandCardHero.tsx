@@ -91,12 +91,12 @@ export const BrandCardHero: React.FC<BrandCardHeroProps> = ({
       {variant === 'side-by-side' && (
         <div className="flex flex-col lg:flex-row">
           {/* Image Section */}
-          <div className="lg:w-1/2 h-64 lg:h-auto lg:min-h-[400px] relative overflow-hidden">
+          <div className="lg:w-1/2 h-64 lg:h-[400px] relative overflow-hidden bg-gradient-to-br from-soft-pink/20 to-white">
             {heroImage ? (
               <img 
                 src={heroImage}
                 alt={`${brand.name.en} products`}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                className="w-full h-full object-contain hover:scale-105 transition-transform duration-500"
               />
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-rose-gold/10 to-soft-pink flex items-center justify-center">

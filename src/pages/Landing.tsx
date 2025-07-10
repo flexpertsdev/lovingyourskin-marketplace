@@ -359,7 +359,7 @@ export const Landing: React.FC = () => {
             <PartnerCard 
               brand={{
                 name: "V'anhalla",
-                logo: 'https://en.vanhalla.co.kr/web/upload/category/logo/v3_34_logo_124528.jpg',
+                logo: 'https://cdn.imweb.me/thumbnail/20250116/9e0c6043131f4.png',
                 heroImage: 'https://cdn.imweb.me/thumbnail/20250320/801f7de8bd96a.jpg',
                 description: 'Simple & Easy vegan skincare with V\'anhalla. We boldly reduce complex routines and enhance essential ingredients for each skin concern, bringing true rest and vitality to your daily life.',
                 highlights: [
@@ -376,7 +376,7 @@ export const Landing: React.FC = () => {
             <PartnerCard 
               brand={{
                 name: 'THE CELL LAB',
-                logo: 'https://en.thecell-lab.com/web/upload/category/logo/v3_34_logo_142928.jpg',
+                logo: 'https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/bae4b4cdb9c0307a6fd07f6fbfa5ad99.png',
                 heroImage: 'https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250627/8131a5ff4ef88c104d26a2725c5e257d.jpg',
                 description: 'Pioneering skincare innovation with BETA-SITOSTEROL #pine CICA and patented CELLTONE technology. The best combination surpassing proven science for fundamental skin concerns.',
                 highlights: [
