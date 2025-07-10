@@ -342,7 +342,7 @@ export const Landing: React.FC = () => {
             <PartnerCard 
               brand={{
                 name: 'BAO H. LAB',
-                logo: 'https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/9aea2ac016a6e0f2635f48629c3fd28c.jpg',
+                logo: 'https://baohlab.com/clothic_studio/image/baohlab_logo.png',
                 heroImage: 'https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/3295e621c8c81a6effba32f7db4cd672.jpg',
                 description: 'Pioneering hair loss solutions through Biorenovation Technology. We combine eco-friendly microorganism technology with patented formulations to deliver effective hair growth and scalp care solutions.',
                 highlights: [

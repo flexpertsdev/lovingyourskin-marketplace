@@ -1,12 +1,201 @@
 {
   "brands": [
+{
+  "id": "vanhalla",
+  "slug": "vanhalla",
+  "name": "V'anhalla",
+  "tagline": "Simple & Easy vegan skincare with v'anhalla",
+  "description": "V'anhalla started with the question 'As much as number of basic care, did skin get better?' We're boldly reducing complex and overlapping basic care routine and enhancing essential ingredients for each skin concern. Hope to permeate your daily life with basic cosmetics that bring true rest and vitality in a busy daily life.",
+  "logo": "https://en.vanhalla.co.kr/web/upload/category/logo/v3_34_logo_124528.jpg",
+  "heroImage": "https://en.vanhalla.co.kr/web/upload/appfiles/0/designelements/155936/89b2703b8c30c17c0f3b9f0a3f7e2c8e.jpg",
+  "heroImages": [
+    "https://en.vanhalla.co.kr/web/upload/appfiles/0/designelements/155936/89b2703b8c30c17c0f3b9f0a3f7e2c8e.jpg"
+  ],
+  "establishedYear": 2020,
+  "productCount": 10,
+  "certifications": [
+    "VEGAN_SOCIETY",
+    "CPNP",
+    "SCPN"
+  ],
+  "featureTags": [
+    "Vegan Certified",
+    "Simple & Easy Skincare",
+    "Essential Ingredients",
+    "2-in-1 Solutions"
+  ],
+  "technologies": [
+    {
+      "name": "Ceramide Complex",
+      "description": "Ceramide NP with panthenol and 3 complex hyaluronic acid for deep moisturizing and skin barrier strengthening"
+    },
+    {
+      "name": "Cica Calm Technology",
+      "description": "Centella asiatica extract for rapid calming and refreshing hydration"
+    },
+    {
+      "name": "Tranexamic Acid Formula",
+      "description": "3% Tranexamic acid for effective blemish and dark spot care"
+    }
+  ],
+  "clinicalResults": {
+    "skinBarrierStrengthening": {
+      "value": 90,
+      "duration": "4 weeks"
+    },
+    "moistureRetention": {
+      "value": 95,
+      "duration": "24 hours"
+    },
+    "irritationReduction": {
+      "value": 88,
+      "duration": "1 week"
+    },
+    "customerSatisfaction": {
+      "value": 92,
+      "unit": "%"
+    }
+  },
+  "categories": [
+    {
+      "id": "moisturizing-care",
+      "name": "Moisturizing Care",
+      "productCount": 3
+    },
+    {
+      "id": "soothing-care",
+      "name": "Soothing Care",
+      "productCount": 2
+    },
+    {
+      "id": "brightening-care",
+      "name": "Brightening/Pore & Sebum Care",
+      "productCount": 2
+    },
+    {
+      "id": "anti-aging-care",
+      "name": "Anti-aging/Elasticity Care",
+      "productCount": 2
+    },
+    {
+      "id": "blemish-care",
+      "name": "Blemish & Freckles Care",
+      "productCount": 1
+    }
+  ],
+  "stats": {
+    "yearsInBusiness": 5,
+    "productsSold": "50K+",
+    "customerSatisfaction": 92
+  },
+  "active": true,
+  "featured": true,
+  "logoStyle": {
+    "height": "40px",
+    "objectFit": "contain",
+    "backgroundColor": "transparent"
+  }
+},
+{
+  "id": "thecelllab",
+  "slug": "thecelllab",
+  "name": "THE CELL LAB",
+  "tagline": "New next generation CICA ingredient",
+  "description": "THE CELL LAB pioneers skincare innovation with BETA-SITOSTEROL #pine CICA and patented CELLTONE technology. The best combination surpassing proven science, delivering solutions when you need to solve fundamental skin concerns.",
+  "logo": "https://en.thecell-lab.com/web/upload/category/logo/v3_34_logo_142928.jpg",
+  "heroImage": "https://en.thecell-lab.com/web/upload/appfiles/0/designelements/142928/89b2703b8c30c17c0f3b9f0a3f7e2c8e.jpg",
+  "heroImages": [
+    "https://en.thecell-lab.com/web/upload/appfiles/0/designelements/142928/89b2703b8c30c17c0f3b9f0a3f7e2c8e.jpg"
+  ],
+  "establishedYear": 2019,
+  "productCount": 8,
+  "certifications": [
+    "CPNP_EU",
+    "DERMATOLOGICALLY_TESTED",
+    "CLINICAL_TEST"
+  ],
+  "featureTags": [
+    "Beta-Sitosterol",
+    "Pine CICA",
+    "Patented CELLTONE",
+    "Clinical Proven"
+  ],
+  "technologies": [
+    {
+      "name": "BETA-SITOSTEROL Technology",
+      "description": "New next generation CICA ingredient from pine extract for superior skin calming"
+    },
+    {
+      "name": "Patented CELLTONE",
+      "description": "Proprietary complex for skin barrier improvement and deep moisture"
+    },
+    {
+      "name": "PDRN Complex",
+      "description": "Advanced skin regeneration technology for elasticity and anti-aging"
+    }
+  ],
+  "clinicalResults": {
+    "skinTemperatureReduction": {
+      "value": -7,
+      "unit": "°C",
+      "duration": "immediate"
+    },
+    "skinBarrierImprovement": {
+      "value": 85,
+      "duration": "2 weeks"
+    },
+    "deepMoisture": {
+      "value": 92,
+      "duration": "48 hours"
+    },
+    "liftingEffect": {
+      "value": 88,
+      "duration": "4 weeks"
+    }
+  },
+  "categories": [
+    {
+      "id": "cleansing",
+      "name": "Cleansing",
+      "productCount": 1
+    },
+    {
+      "id": "skincare",
+      "name": "Skincare",
+      "productCount": 5
+    },
+    {
+      "id": "mask-pack",
+      "name": "Mask Pack",
+      "productCount": 1
+    },
+    {
+      "id": "sun-care",
+      "name": "Sun Care",
+      "productCount": 1
+    }
+  ],
+  "stats": {
+    "yearsInBusiness": 6,
+    "productsSold": "80K+",
+    "customerSatisfaction": 94
+  },
+  "active": true,
+  "featured": true,
+  "logoStyle": {
+    "height": "40px",
+    "objectFit": "contain",
+    "backgroundColor": "transparent"
+  }
+},
+
    {
   "id": "baohlab",
   "slug": "baohlab",
   "name": "BAO H. LAB",
   "tagline": "We solved hair loss with Biorenovation",
   "description": "Pioneering hair loss solutions through Biorenovation Technology since 2017. BAO H. LAB combines eco-friendly microorganism technology with patented formulations to deliver effective hair growth and scalp care solutions, opening infinite possibilities by blending nature and science.",
-  "logo": "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/9aea2ac016a6e0f2635f48629c3fd28c.jpg",
+  "logo": "https://baohlab.com/clothic_studio/image/baohlab_logo.png",
   "heroImage": "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/3295e621c8c81a6effba32f7db4cd672.jpg",
   "heroImages": [
     "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/3295e621c8c81a6effba32f7db4cd672.jpg",
@@ -265,6 +454,7 @@
       "logo": "https://en.sunnicorn.com/web/upload/images/logo-color.png",
       "heroImage": "https://en.sunnicorn.com/web/upload/images/sus-bg-img-01.jpg",
       "heroImages": [
+        "https://en.sunnicorn.com/web/upload/images/press_img_02.jpg",
         "https://en.sunnicorn.com/web/upload/images/sus-bg-img-01.jpg",
         "https://en.sunnicorn.com/web/upload/images/brand-bg-img-03.jpg"
       ],

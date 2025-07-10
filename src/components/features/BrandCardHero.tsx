@@ -28,14 +28,14 @@ export const BrandCardHero: React.FC<BrandCardHeroProps> = ({
             {heroImage ? (
               <img 
                 src={heroImage}
-                alt={`${brand.name.en || brand.name} products`}
+                alt={`${brand.name.en} products`}
                 className="w-full h-full object-cover object-center"
               />
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-rose-gold/10 to-soft-pink flex items-center justify-center">
                 <img 
                   src={brand.logo}
-                  alt={brand.name.en || brand.name}
+                  alt={brand.name.en}
                   className="max-h-24 max-w-[200px] object-contain opacity-50"
                 />
               </div>
@@ -59,14 +59,14 @@ export const BrandCardHero: React.FC<BrandCardHeroProps> = ({
           <div className="p-8 bg-white">
             <img 
               src={brand.logo}
-              alt={brand.name.en || brand.name}
+              alt={brand.name.en}
               className="h-12 mb-6 object-contain"
             />
             <h3 className="text-xl font-medium text-deep-charcoal mb-3">
-              {brand.name.en || brand.name}
+              {brand.name.en}
             </h3>
             <p className="text-text-secondary leading-relaxed mb-4">
-              {brand.description.en || brand.description}
+              {brand.description.en}
             </p>
             
             {/* Brand Stats */}
@@ -95,14 +95,14 @@ export const BrandCardHero: React.FC<BrandCardHeroProps> = ({
             {heroImage ? (
               <img 
                 src={heroImage}
-                alt={`${brand.name.en || brand.name} products`}
+                alt={`${brand.name.en} products`}
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-rose-gold/10 to-soft-pink flex items-center justify-center">
                 <img 
                   src={brand.logo}
-                  alt={brand.name.en || brand.name}
+                  alt={brand.name.en}
                   className="max-h-32 max-w-[250px] object-contain opacity-50"
                 />
               </div>
@@ -124,14 +124,14 @@ export const BrandCardHero: React.FC<BrandCardHeroProps> = ({
           <div className="lg:w-1/2 p-8 lg:p-10 flex flex-col justify-center bg-white">
             <img 
               src={brand.logo}
-              alt={brand.name.en || brand.name}
+              alt={brand.name.en}
               className="h-14 mb-6 object-contain"
             />
             <h3 className="text-2xl font-medium text-deep-charcoal mb-4">
-              {brand.name.en || brand.name}
+              {brand.name.en}
             </h3>
             <p className="text-text-secondary leading-relaxed mb-6">
-              {brand.description.en || brand.description}
+              {brand.description.en}
             </p>
             
             {/* Brand Stats */}

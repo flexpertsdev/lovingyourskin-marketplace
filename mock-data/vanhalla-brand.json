@@ -1,0 +1,96 @@
+{
+  "id": "vanhalla",
+  "slug": "vanhalla",
+  "name": "V'anhalla",
+  "tagline": "Simple & Easy vegan skincare with v'anhalla",
+  "description": "V'anhalla started with the question 'As much as number of basic care, did skin get better?' We're boldly reducing complex and overlapping basic care routine and enhancing essential ingredients for each skin concern. Hope to permeate your daily life with basic cosmetics that bring true rest and vitality in a busy daily life.",
+  "logo": "https://en.vanhalla.co.kr/web/upload/category/logo/v3_34_logo_124528.jpg",
+  "heroImage": "https://en.vanhalla.co.kr/web/upload/appfiles/0/designelements/155936/89b2703b8c30c17c0f3b9f0a3f7e2c8e.jpg",
+  "heroImages": [
+    "https://en.vanhalla.co.kr/web/upload/appfiles/0/designelements/155936/89b2703b8c30c17c0f3b9f0a3f7e2c8e.jpg"
+  ],
+  "establishedYear": 2020,
+  "productCount": 10,
+  "certifications": [
+    "VEGAN_SOCIETY",
+    "CPNP",
+    "SCPN"
+  ],
+  "featureTags": [
+    "Vegan Certified",
+    "Simple & Easy Skincare",
+    "Essential Ingredients",
+    "2-in-1 Solutions"
+  ],
+  "technologies": [
+    {
+      "name": "Ceramide Complex",
+      "description": "Ceramide NP with panthenol and 3 complex hyaluronic acid for deep moisturizing and skin barrier strengthening"
+    },
+    {
+      "name": "Cica Calm Technology",
+      "description": "Centella asiatica extract for rapid calming and refreshing hydration"
+    },
+    {
+      "name": "Tranexamic Acid Formula",
+      "description": "3% Tranexamic acid for effective blemish and dark spot care"
+    }
+  ],
+  "clinicalResults": {
+    "skinBarrierStrengthening": {
+      "value": 90,
+      "duration": "4 weeks"
+    },
+    "moistureRetention": {
+      "value": 95,
+      "duration": "24 hours"
+    },
+    "irritationReduction": {
+      "value": 88,
+      "duration": "1 week"
+    },
+    "customerSatisfaction": {
+      "value": 92,
+      "unit": "%"
+    }
+  },
+  "categories": [
+    {
+      "id": "moisturizing-care",
+      "name": "Moisturizing Care",
+      "productCount": 3
+    },
+    {
+      "id": "soothing-care",
+      "name": "Soothing Care",
+      "productCount": 2
+    },
+    {
+      "id": "brightening-care",
+      "name": "Brightening/Pore & Sebum Care",
+      "productCount": 2
+    },
+    {
+      "id": "anti-aging-care",
+      "name": "Anti-aging/Elasticity Care",
+      "productCount": 2
+    },
+    {
+      "id": "blemish-care",
+      "name": "Blemish & Freckles Care",
+      "productCount": 1
+    }
+  ],
+  "stats": {
+    "yearsInBusiness": 5,
+    "productsSold": "50K+",
+    "customerSatisfaction": 92
+  },
+  "active": true,
+  "featured": true,
+  "logoStyle": {
+    "height": "40px",
+    "objectFit": "contain",
+    "backgroundColor": "transparent"
+  }
+}

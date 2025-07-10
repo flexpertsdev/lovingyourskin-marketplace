@@ -1,0 +1,183 @@
+[
+  {
+    "id": "vanhalla-ceramide-moisturizing-serum-in-cream",
+    "brandId": "vanhalla",
+    "categoryId": "creams",
+    "name": {
+      "en": "Ceramide Moisturizing Serum-In Cream 80ml",
+      "ko": "세라마이드 모이스처라이징 세럼 인 크림 80ml"
+    },
+    "description": {
+      "en": "A vegan nourishing cream with ceramide, panthenol, hyaluronic acid combo for daily moisture and skin barrier care",
+      "ko": "세라마이드, 판테놀, 히알루론산 콤보로 매일 수분 공급과 피부 장벽 케어를 위한 비건 영양 크림"
+    },
+    "images": [
+      "https://en.vanhalla.co.kr/web/product/big/202408/ceramide-cream.jpg",
+      "https://en.vanhalla.co.kr/web/product/medium/202408/ceramide-cream.jpg"
+    ],
+    "price": {
+      "item": 28.00,
+      "carton": 1344.00,
+      "currency": "USD"
+    },
+    "moq": 3,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 48,
+    "certifications": [
+      "VEGAN_SOCIETY",
+      "CPNP",
+      "SCPN"
+    ],
+    "keyIngredients": [
+      "Ceramide NP (2,040ppm)",
+      "Panthenol",
+      "3 Complex Hyaluronic Acid"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "vanhalla-blemish-care-tranexamic-acid-3-serum",
+    "brandId": "vanhalla",
+    "categoryId": "serums",
+    "name": {
+      "en": "Blemish Care Tranexamic Acid 3 Serum 30ml",
+      "ko": "블레미쉬 케어 트라넥삼산 3 세럼 30ml"
+    },
+    "description": {
+      "en": "A vegan serum with 3% tranexamic acid to help improve skin tone and texture",
+      "ko": "피부 톤과 결을 개선하는 데 도움이 되는 3% 트라넥삼산 함유 비건 세럼"
+    },
+    "images": [
+      "https://en.vanhalla.co.kr/web/product/big/202408/tranexamic-serum.jpg",
+      "https://en.vanhalla.co.kr/web/product/medium/202408/tranexamic-serum.jpg"
+    ],
+    "price": {
+      "item": 18.00,
+      "carton": 864.00,
+      "currency": "USD"
+    },
+    "moq": 3,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 48,
+    "certifications": [
+      "VEGAN_SOCIETY",
+      "CPNP",
+      "SCPN"
+    ],
+    "keyIngredients": [
+      "Tranexamic Acid 3%",
+      "Alpha-Arbutin 1%",
+      "Glutathione",
+      "Camellia Sinensis Leaf Water 58%"
+    ],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "vanhalla-cica-calm-mist-toner",
+    "brandId": "vanhalla",
+    "categoryId": "toners",
+    "name": {
+      "en": "Cica Calm Mist Toner 150ml",
+      "ko": "시카 캄 미스트 토너 150ml"
+    },
+    "description": {
+      "en": "2 in 1 Cica calm mist toner that rapidly soothes skin and provides refreshing hydration",
+      "ko": "피부를 빠르게 진정시키고 상쾌한 수분을 제공하는 2 in 1 시카 캄 미스트 토너"
+    },
+    "images": [
+      "https://en.vanhalla.co.kr/web/product/big/202408/cica-toner.jpg",
+      "https://en.vanhalla.co.kr/web/product/medium/202408/cica-toner.jpg"
+    ],
+    "price": {
+      "item": 15.00,
+      "carton": 720.00,
+      "currency": "USD"
+    },
+    "moq": 3,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 48,
+    "certifications": [
+      "VEGAN_SOCIETY",
+      "CPNP",
+      "SCPN"
+    ],
+    "keyIngredients": [
+      "Centella Asiatica Extract 6-7.5%",
+      "Weak Acid Formula"
+    ],
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "vanhalla-retinol-anti-aging-serum",
+    "brandId": "vanhalla",
+    "categoryId": "serums",
+    "name": {
+      "en": "Pure Retinol 0.1% Anti-Aging Serum 30ml",
+      "ko": "퓨어 레티놀 0.1% 안티에이징 세럼 30ml"
+    },
+    "description": {
+      "en": "Anti-aging serum with pure retinol 0.1% that reduces fine lines & wrinkles and improves skin elasticity",
+      "ko": "잔주름을 줄이고 피부 탄력을 개선하는 퓨어 레티놀 0.1% 안티에이징 세럼"
+    },
+    "images": [
+      "https://en.vanhalla.co.kr/web/product/big/202408/retinol-serum.jpg",
+      "https://en.vanhalla.co.kr/web/product/medium/202408/retinol-serum.jpg"
+    ],
+    "price": {
+      "item": 22.00,
+      "carton": 1056.00,
+      "currency": "USD"
+    },
+    "moq": 3,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 48,
+    "certifications": [
+      "VEGAN_SOCIETY",
+      "CPNP",
+      "SCPN"
+    ],
+    "keyIngredients": [
+      "Pure Retinol 0.1%"
+    ],
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "vanhalla-niacinamide-brightening-serum",
+    "brandId": "vanhalla",
+    "categoryId": "serums",
+    "name": {
+      "en": "Niacinamide 15% Brightening Serum 30ml",
+      "ko": "나이아신아마이드 15% 브라이트닝 세럼 30ml"
+    },
+    "description": {
+      "en": "Brightening serum with 15% niacinamide that brightens uneven tone, reduces enlarged pores and controls sebum",
+      "ko": "고르지 못한 톤을 밝게 하고 확대된 모공을 줄이며 피지를 조절하는 15% 나이아신아마이드 브라이트닝 세럼"
+    },
+    "images": [
+      "https://en.vanhalla.co.kr/web/product/big/202408/niacinamide-serum.jpg",
+      "https://en.vanhalla.co.kr/web/product/medium/202408/niacinamide-serum.jpg"
+    ],
+    "price": {
+      "item": 20.00,
+      "carton": 960.00,
+      "currency": "USD"
+    },
+    "moq": 3,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 48,
+    "certifications": [
+      "VEGAN_SOCIETY",
+      "CPNP",
+      "SCPN"
+    ],
+    "keyIngredients": [
+      "Niacinamide 15%"
+    ],
+    "inStock": true,
+    "featured": false
+  }
+]

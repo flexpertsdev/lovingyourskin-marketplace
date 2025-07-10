@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, Container, Section, PageHeader, Grid } from '../components/layout'
+import { Layout, Container, Section, PageHeader } from '../components/layout'
 import { Input, Select, Spinner } from '../components/ui'
 import { BrandCardHero } from '../components/features/BrandCardHero'
 import { productService } from '../services/mock/product.service'
