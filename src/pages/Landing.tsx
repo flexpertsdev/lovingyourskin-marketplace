@@ -354,6 +354,40 @@ export const Landing: React.FC = () => {
               }}
               variant="side-by-side"
             />
+
+            {/* V'anhalla */}
+            <PartnerCard 
+              brand={{
+                name: "V'anhalla",
+                logo: 'https://en.vanhalla.co.kr/web/upload/category/logo/v3_34_logo_124528.jpg',
+                heroImage: 'https://en.vanhalla.co.kr/web/upload/appfiles/0/designelements/155936/89b2703b8c30c17c0f3b9f0a3f7e2c8e.jpg',
+                description: 'Simple & Easy vegan skincare with V\'anhalla. We boldly reduce complex routines and enhance essential ingredients for each skin concern, bringing true rest and vitality to your daily life.',
+                highlights: [
+                  'Vegan Society certified formulas',
+                  'Simplified 2-in-1 skincare solutions',
+                  'Essential ingredients for targeted care',
+                  'Ceramide & Cica calm technology'
+                ]
+              }}
+              variant="side-by-side"
+            />
+
+            {/* THE CELL LAB */}
+            <PartnerCard 
+              brand={{
+                name: 'THE CELL LAB',
+                logo: 'https://en.thecell-lab.com/web/upload/category/logo/v3_34_logo_142928.jpg',
+                heroImage: 'https://en.thecell-lab.com/web/upload/appfiles/0/designelements/142928/89b2703b8c30c17c0f3b9f0a3f7e2c8e.jpg',
+                description: 'Pioneering skincare innovation with BETA-SITOSTEROL #pine CICA and patented CELLTONE technology. The best combination surpassing proven science for fundamental skin concerns.',
+                highlights: [
+                  'New generation Pine CICA technology',
+                  'Patented CELLTONE complex',
+                  'Clinically proven -7°C cooling effect',
+                  'Advanced PDRN skin regeneration'
+                ]
+              }}
+              variant="side-by-side"
+            />
           </div>
         </Container>
       </Section>
