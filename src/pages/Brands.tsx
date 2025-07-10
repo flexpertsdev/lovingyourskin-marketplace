@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Layout, Container, Section, PageHeader, Grid } from '../components/layout'
 import { Input, Select, Spinner } from '../components/ui'
-import { BrandCard } from '../components/features/BrandCard'
+import { BrandCardHero } from '../components/features/BrandCardHero'
 import { productService } from '../services/mock/product.service'
 import { Brand } from '../types'
 
@@ -132,11 +132,11 @@ export const Brands: React.FC = () => {
           
           {/* Brands Grid */}
           {filteredBrands.length > 0 ? (
-            <Grid cols={3} gap="lg">
+            <div className="space-y-8">
               {filteredBrands.map(brand => (
-                <BrandCard key={brand.id} brand={brand} />
+                <BrandCardHero key={brand.id} brand={brand} variant="side-by-side" />
               ))}
-            </Grid>
+            </div>
           ) : (
             <div className="text-center py-12">
               <p className="text-text-secondary">No brands found matching your criteria.</p>

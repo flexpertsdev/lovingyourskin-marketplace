@@ -1,4 +1,5 @@
 export * from './ProductCard'
 export * from './BrandCard'
+export * from './BrandCardHero'
 export * from './TestimonialCard'
 export * from './PartnerCard'

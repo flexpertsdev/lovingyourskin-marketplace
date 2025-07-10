@@ -337,6 +337,23 @@ export const Landing: React.FC = () => {
               }}
               variant="side-by-side"
             />
+
+            {/* BAO H. LAB */}
+            <PartnerCard 
+              brand={{
+                name: 'BAO H. LAB',
+                logo: 'https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/9aea2ac016a6e0f2635f48629c3fd28c.jpg',
+                heroImage: 'https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/3295e621c8c81a6effba32f7db4cd672.jpg',
+                description: 'Pioneering hair loss solutions through Biorenovation Technology. We combine eco-friendly microorganism technology with patented formulations to deliver effective hair growth and scalp care solutions.',
+                highlights: [
+                  'Patented Biorenovation Technology',
+                  'Clinical proven hair growth results',
+                  'Eco-friendly microorganism formulas',
+                  '5-star customer satisfaction rating'
+                ]
+              }}
+              variant="side-by-side"
+            />
           </div>
         </Container>
       </Section>
