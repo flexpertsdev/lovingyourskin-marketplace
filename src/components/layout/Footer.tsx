@@ -23,8 +23,6 @@ const footerLinks = {
   social: [
     { label: 'Instagram', href: 'https://www.instagram.com/lys_ltd/' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/company/loving-your-skin/' },
-    { label: 'Twitter', href: 'https://twitter.com' },
-    { label: 'Facebook', href: 'https://facebook.com' },
   ],
 }
 
@@ -115,8 +113,8 @@ export const Footer: React.FC = () => {
               © {new Date().getFullYear()} Loving Your Skin. All rights reserved.
             </p>
             <div className="flex items-center gap-6 text-sm text-gray-400">
+              <span>🇬🇧 London, UK</span>
               <span>🇰🇷 Seoul, South Korea</span>
-              <span>🇺🇸 New York, USA</span>
             </div>
           </div>
         </div>

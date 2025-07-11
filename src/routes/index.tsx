@@ -19,6 +19,12 @@ import { ForRetailers } from '../pages/ForRetailers'
 import { Messages } from '../pages/Messages'
 import { Profile } from '../pages/Profile'
 import { About } from '../pages/About'
+import { FAQ } from '../pages/FAQ'
+import { Terms } from '../pages/Terms'
+import { Privacy } from '../pages/Privacy'
+import { RefundPolicy } from '../pages/RefundPolicy'
+import { Contact } from '../pages/Contact'
+import { Careers } from '../pages/Careers'
 
 export const AppRoutes: React.FC = () => {
   return (
@@ -52,6 +58,14 @@ export const AppRoutes: React.FC = () => {
       {/* Admin Routes */}
       <Route path="/admin" element={<AdminDashboard />} />
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
+      
+      {/* Legal and Info Pages */}
+      <Route path="/faq" element={<FAQ />} />
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/refunds" element={<RefundPolicy />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/careers" element={<Careers />} />
       
       {/* 404 */}
       <Route path="*" element={<div className="p-8 text-center">404 - Page Not Found</div>} />
