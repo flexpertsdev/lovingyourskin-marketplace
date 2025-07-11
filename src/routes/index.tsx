@@ -18,6 +18,7 @@ import { ForBrands } from '../pages/ForBrands'
 import { ForRetailers } from '../pages/ForRetailers'
 import { Messages } from '../pages/Messages'
 import { Profile } from '../pages/Profile'
+import { About } from '../pages/About'
 
 export const AppRoutes: React.FC = () => {
   return (
@@ -39,6 +40,7 @@ export const AppRoutes: React.FC = () => {
       <Route path="/how-it-works" element={<HowItWorks />} />
       <Route path="/for-brands" element={<ForBrands />} />
       <Route path="/for-retailers" element={<ForRetailers />} />
+      <Route path="/about" element={<About />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/checkout" element={<Checkout />} />
