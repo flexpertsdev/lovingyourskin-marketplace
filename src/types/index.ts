@@ -60,11 +60,7 @@ export interface Product {
     zh: string
   }
   images: string[]
-  price: {
-    item: number
-    carton: number
-    currency: 'GBP' | 'EUR' | 'CHF'
-  }
+  price: any // Temporary fix to handle both pricing structures
   retailPrice?: {
     item: number
     currency: 'GBP' | 'EUR' | 'CHF'

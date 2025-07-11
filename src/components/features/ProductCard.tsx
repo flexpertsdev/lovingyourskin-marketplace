@@ -10,11 +10,29 @@ interface ProductCardProps {
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) => {
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-GB', {
-      style: 'currency',
-      currency: 'GBP'
-    }).format(price)
+  // Handle both standard and wholesale pricing structures
+  const hasWholesalePrice = product.price.wholesale !== undefined
+  
+  const getItemPrice = (): number => {
+    if (hasWholesalePrice) {
+      return product.price.wholesale.offer.price
+    }
+    return product.price.item || 0
+  }
+  
+  const getCartonPrice = (): number => {
+    if (hasWholesalePrice) {
+      return product.price.wholesale.offer.price * product.itemsPerCarton
+    }
+    return product.price.carton || 0
+  }
+  
+  const getCurrency = (): string => {
+    const currency = product.price.currency || 'GBP'
+    if (currency === 'USD') return '$'
+    if (currency === 'EUR') return '€'
+    if (currency === 'CHF') return 'CHF '
+    return '£'
   }
   
   return (
@@ -71,10 +89,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
           {/* Pricing */}
           <div className="space-y-1">
             <div className="text-rose-gold font-medium">
-              {formatPrice(product.price.item)}/item
+              {getCurrency()}{getItemPrice().toFixed(2)}/item
             </div>
             <div className="text-xs text-text-secondary">
-              {formatPrice(product.price.carton)}/carton ({product.itemsPerCarton} items)
+              {getCurrency()}{getCartonPrice().toFixed(2)}/carton ({product.itemsPerCarton} items)
             </div>
           </div>
           
