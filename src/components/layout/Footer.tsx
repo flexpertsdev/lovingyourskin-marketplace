@@ -21,8 +21,8 @@ const footerLinks = {
     { label: 'Refund Policy', href: '/refunds' },
   ],
   social: [
-    { label: 'Instagram', href: 'https://instagram.com' },
-    { label: 'LinkedIn', href: 'https://linkedin.com' },
+    { label: 'Instagram', href: 'https://www.instagram.com/lys_ltd/' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/loving-your-skin/' },
     { label: 'Twitter', href: 'https://twitter.com' },
     { label: 'Facebook', href: 'https://facebook.com' },
   ],
