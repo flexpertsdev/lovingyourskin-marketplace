@@ -16,10 +16,13 @@
       "https://cdn.imweb.me/thumbnail/20250320/801f7de8bd96a.jpg"
     ],
     "price": {
-      "msrp": 22.00,
+      "msrp": 22.0,
       "wholesale": {
-        "tier1": { "rate": 0.19, "price": 4.20, "moq": 499 },
-        "tier2": { "rate": 0.17, "price": 3.70, "moq": 1000 }
+        "offer": {
+          "rate": 0.19,
+          "price": 4.2,
+          "moq": 12
+        }
       },
       "currency": "USD"
     },
@@ -56,10 +59,13 @@
       "https://cdn.imweb.me/thumbnail/20250320/4c802140e0190.jpg"
     ],
     "price": {
-      "msrp": 22.00,
+      "msrp": 22.0,
       "wholesale": {
-        "tier1": { "rate": 0.19, "price": 4.20, "moq": 499 },
-        "tier2": { "rate": 0.17, "price": 3.70, "moq": 1000 }
+        "offer": {
+          "rate": 0.19,
+          "price": 4.2,
+          "moq": 12
+        }
       },
       "currency": "USD"
     },
@@ -97,10 +103,13 @@
       "https://cdn.imweb.me/thumbnail/20250320/5f0375d3253bb.jpg"
     ],
     "price": {
-      "msrp": 25.00,
+      "msrp": 25.0,
       "wholesale": {
-        "tier1": { "rate": 0.19, "price": 4.80, "moq": 499 },
-        "tier2": { "rate": 0.17, "price": 4.30, "moq": 1000 }
+        "offer": {
+          "rate": 0.19,
+          "price": 4.8,
+          "moq": 12
+        }
       },
       "currency": "USD"
     },
@@ -136,10 +145,13 @@
       "https://cdn.imweb.me/thumbnail/20250320/801f7de8bd96a.jpg"
     ],
     "price": {
-      "msrp": 25.00,
+      "msrp": 25.0,
       "wholesale": {
-        "tier1": { "rate": 0.19, "price": 4.80, "moq": 499 },
-        "tier2": { "rate": 0.17, "price": 4.30, "moq": 1000 }
+        "offer": {
+          "rate": 0.19,
+          "price": 4.8,
+          "moq": 12
+        }
       },
       "currency": "USD"
     },
@@ -174,10 +186,13 @@
       "https://cdn.imweb.me/thumbnail/20250320/4c802140e0190.jpg"
     ],
     "price": {
-      "msrp": 22.00,
+      "msrp": 22.0,
       "wholesale": {
-        "tier1": { "rate": 0.19, "price": 4.20, "moq": 499 },
-        "tier2": { "rate": 0.17, "price": 3.70, "moq": 1000 }
+        "offer": {
+          "rate": 0.19,
+          "price": 4.2,
+          "moq": 12
+        }
       },
       "currency": "USD"
     },
@@ -195,7 +210,7 @@
     "inStock": true,
     "featured": false
   },
-   {
+  {
     "id": "thecelllab-pdrn-pine-cica-celltone-cream",
     "brandId": "thecelllab",
     "categoryId": "creams",
@@ -212,9 +227,13 @@
       "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250627/1143d05187360fa38278685d7f59ab3d.jpg"
     ],
     "price": {
-      "msrp": 36.00,
+      "msrp": 36.0,
       "wholesale": {
-        "offer": { "rate": 0.30, "price": 10.91, "moq": 1 }
+        "offer": {
+          "rate": 0.3,
+          "price": 10.91,
+          "moq": 1
+        }
       },
       "currency": "USD"
     },
@@ -252,9 +271,13 @@
       "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250627/8131a5ff4ef88c104d26a2725c5e257d.jpg"
     ],
     "price": {
-      "msrp": 33.00,
+      "msrp": 33.0,
       "wholesale": {
-        "offer": { "rate": 0.30, "price": 10.00, "moq": 1 }
+        "offer": {
+          "rate": 0.3,
+          "price": 10.0,
+          "moq": 1
+        }
       },
       "currency": "USD"
     },
@@ -293,9 +316,13 @@
       "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250627/1143d05187360fa38278685d7f59ab3d.jpg"
     ],
     "price": {
-      "msrp": 27.00,
+      "msrp": 27.0,
       "wholesale": {
-        "offer": { "rate": 0.30, "price": 7.95, "moq": 1 }
+        "offer": {
+          "rate": 0.3,
+          "price": 7.95,
+          "moq": 1
+        }
       },
       "currency": "USD"
     },
@@ -334,9 +361,13 @@
       "https://en.thecell-lab.com/web/product/medium/202501/pdrn-mask.jpg"
     ],
     "price": {
-      "msrp": 23.00,
+      "msrp": 23.0,
       "wholesale": {
-        "offer": { "rate": 0.30, "price": 6.82, "moq": 1 }
+        "offer": {
+          "rate": 0.3,
+          "price": 6.82,
+          "moq": 1
+        }
       },
       "currency": "USD"
     },
@@ -357,48 +388,47 @@
     "inStock": true,
     "featured": true
   },
-
   {
-  "id": "baohlab-hair-loss-care-ampoule-serum",
-  "brandId": "baohlab",
-  "categoryId": "hair-care",
-  "name": {
-    "en": "Hair Loss Care Ampoule Scalp Serum (2 pcs)",
-    "ko": "탈모완화 모발성장 탈모 앰플 두피 세럼 2개입",
-    "zh": "防脱发生发安瓿头皮精华 (2支装)"
+    "id": "baohlab-hair-loss-care-ampoule-serum",
+    "brandId": "baohlab",
+    "categoryId": "hair-care",
+    "name": {
+      "en": "Hair Loss Care Ampoule Scalp Serum (2 pcs)",
+      "ko": "탈모완화 모발성장 탈모 앰플 두피 세럼 2개입",
+      "zh": "防脱发生发安瓿头皮精华 (2支装)"
+    },
+    "description": {
+      "en": "Revolutionary hair growth serum with Biorenovation Technology that alleviates hair loss symptoms and stimulates scalp nourishment for visible results",
+      "ko": "바이오레노베이션 기술로 탈모 증상을 완화하고 두피에 영양을 공급하여 눈에 보이는 결과를 제공하는 혁신적인 모발 성장 세럼",
+      "zh": "采用生物革新技术的革命性生发精华，缓解脱发症状，刺激头皮营养，带来可见效果"
+    },
+    "images": [
+      "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/product/medium/20240906/781ec1e2a3799adb13e7296290350838.jpg",
+      "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/product/small/20240906/848ca5bc288cbd3187b0ce4fed758a7e.jpg",
+      "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/product/extra/small/20240728/e8a727c8ce4f0f70e66477685216b0ff.jpg"
+    ],
+    "price": {
+      "item": 60.71,
+      "carton": 3642.6,
+      "currency": "USD"
+    },
+    "moq": 2,
+    "moqUnit": "cartons",
+    "itemsPerCarton": 60,
+    "certifications": [
+      "CPNP_UK",
+      "CPNP_EU",
+      "CPNP_CH"
+    ],
+    "badges": [
+      "PATENTED_FORMULA",
+      "BIORENOVATION_TECH",
+      "CLINICAL_TESTED",
+      "5_STAR_REVIEWS"
+    ],
+    "inStock": true,
+    "featured": true
   },
-  "description": {
-    "en": "Revolutionary hair growth serum with Biorenovation Technology that alleviates hair loss symptoms and stimulates scalp nourishment for visible results",
-    "ko": "바이오레노베이션 기술로 탈모 증상을 완화하고 두피에 영양을 공급하여 눈에 보이는 결과를 제공하는 혁신적인 모발 성장 세럼",
-    "zh": "采用生物革新技术的革命性生发精华，缓解脱发症状，刺激头皮营养，带来可见效果"
-  },
-  "images": [
-    "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/product/medium/20240906/781ec1e2a3799adb13e7296290350838.jpg",
-    "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/product/small/20240906/848ca5bc288cbd3187b0ce4fed758a7e.jpg",
-    "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/product/extra/small/20240728/e8a727c8ce4f0f70e66477685216b0ff.jpg"
-  ],
-  "price": {
-    "item": 60.71,
-    "carton": 3642.60,
-    "currency": "USD"
-  },
-  "moq": 2,
-  "moqUnit": "cartons",
-  "itemsPerCarton": 60,
-  "certifications": [
-    "CPNP_UK",
-    "CPNP_EU",
-    "CPNP_CH"
-  ],
-  "badges": [
-    "PATENTED_FORMULA",
-    "BIORENOVATION_TECH",
-    "CLINICAL_TESTED",
-    "5_STAR_REVIEWS"
-  ],
-  "inStock": true,
-  "featured": true
-},
   {
     "id": "wismin-cotton-seed-barrier-cleansing-ball",
     "brandId": "wismin",
@@ -757,7 +787,7 @@
       "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575811839_1000.jpg"
     ],
     "price": {
-      "item": 8.40,
+      "item": 8.4,
       "carton": 504.0,
       "currency": "USD"
     },
@@ -798,8 +828,8 @@
       "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575748566_1000.jpg"
     ],
     "price": {
-      "item": 8.90,
-      "carton": 400.50,
+      "item": 8.9,
+      "carton": 400.5,
       "currency": "USD"
     },
     "retailPrice": {
@@ -839,7 +869,7 @@
       "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682576019518_1000.jpg"
     ],
     "price": {
-      "item": 3.40,
+      "item": 3.4,
       "carton": 408.0,
       "currency": "USD"
     },
@@ -884,7 +914,7 @@
       "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575951871_1000.jpg"
     ],
     "price": {
-      "item": 6.70,
+      "item": 6.7,
       "carton": 268.0,
       "currency": "USD"
     },
@@ -921,7 +951,7 @@
       "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1684141224714_1000.jpg"
     ],
     "price": {
-      "item": 3.80,
+      "item": 3.8,
       "carton": 228.0,
       "currency": "USD"
     },
@@ -956,7 +986,7 @@
       "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1684141246748_1000.jpg"
     ],
     "price": {
-      "item": 4.00,
+      "item": 4.0,
       "carton": 240.0,
       "currency": "USD"
     },
@@ -1418,18 +1448,21 @@
       "ko": "세라마이드 모이스처라이징 에센스 인 토너 250ml"
     },
     "description": {
-      "en": "Deep moisturizing toner essence with Ceramide NP that strengthens the skin barrier and provides long-lasting hydration",
-      "ko": "피부 장벽을 강화하고 오래 지속되는 수분을 제공하는 세라마이드 NP 함유 딥 모이스처라이징 토너 에센스"
+      "en": "A lightweight vegan toner enriched with ceramide and panthenol to deliver deep hydration and support the skin barrier. Non-sticky, fragrance-free, and suitable for sensitive skin.",
+      "ko": "세라마이드와 판테놀이 풍부한 가벼운 비건 토너로 깊은 수분을 전달하고 피부 장벽을 지원합니다. 끈적임 없고 무향이며 민감한 피부에 적합합니다."
     },
     "images": [
-      "https://cdn.imweb.me/thumbnail/20250320/c2bb9bc7e3c6a.jpg",
-      "https://cdn.imweb.me/thumbnail/20250320/c2bb9bc7e3c6a.jpg"
+      "https://cdn.imweb.me/thumbnail/20250320/ff14e5811064c.jpg",
+      "https://cdn.imweb.me/thumbnail/20250320/ff14e5811064c.jpg"
     ],
     "price": {
-      "msrp": 25.00,
+      "msrp": 25.0,
       "wholesale": {
-        "tier1": { "rate": 0.19, "price": 4.80, "moq": 499 },
-        "tier2": { "rate": 0.17, "price": 4.30, "moq": 1000 }
+        "offer": {
+          "rate": 0.19,
+          "price": 4.8,
+          "moq": 12
+        }
       },
       "currency": "USD"
     },
@@ -1458,18 +1491,21 @@
       "ko": "시카 캄 세럼 인 크림 80ml"
     },
     "description": {
-      "en": "Soothing serum-cream hybrid with Centella Asiatica Extract that calms irritated skin and provides deep hydration",
-      "ko": "자극받은 피부를 진정시키고 깊은 수분을 제공하는 센텔라 아시아티카 추출물 함유 진정 세럼-크림 하이브리드"
+      "en": "A vegan serum in cream with enhanced centella asiatica extract to soothe and moisturize sensitive skin. Delivers calming hydration with a non-sticky finish.",
+      "ko": "민감한 피부를 진정시키고 보습하는 강화된 센텔라 아시아티카 추출물이 함유된 비건 세럼 인 크림. 끈적임 없는 마무리로 진정 수분을 전달합니다."
     },
     "images": [
-      "https://cdn.imweb.me/thumbnail/20250320/dbbf7bc61c5f6.jpg",
-      "https://cdn.imweb.me/thumbnail/20250320/dbbf7bc61c5f6.jpg"
+      "https://cdn.imweb.me/thumbnail/20250320/7f5d0e486ff98.jpg",
+      "https://cdn.imweb.me/thumbnail/20250320/7f5d0e486ff98.jpg"
     ],
     "price": {
-      "msrp": 22.00,
+      "msrp": 22.0,
       "wholesale": {
-        "tier1": { "rate": 0.19, "price": 4.20, "moq": 499 },
-        "tier2": { "rate": 0.17, "price": 3.70, "moq": 1000 }
+        "offer": {
+          "rate": 0.19,
+          "price": 4.2,
+          "moq": 12
+        }
       },
       "currency": "USD"
     },
@@ -1498,18 +1534,21 @@
       "ko": "올데이 UV 배리어 선스크린 50ml"
     },
     "description": {
-      "en": "Lightweight SPF50+ PA++++ sunscreen with a non-greasy finish that provides all-day UV protection",
-      "ko": "하루 종일 UV 보호를 제공하는 끈적임 없는 가벼운 SPF50+ PA++++ 선스크린"
+      "en": "Daily vegan sunscreen with clean finish, broad-spectrum UV protection SPF50+ PA++++, fragrance-free, colorant-free, non-sticky, safe for sensitive skin",
+      "ko": "깨끗한 마무리의 데일리 비건 선스크린, 광범위한 자외선 차단 SPF50+ PA++++, 무향, 무색소, 끈적임 없음, 민감한 피부에 안전"
     },
     "images": [
-      "https://cdn.imweb.me/thumbnail/20250320/44ac0c80e968e.jpg",
-      "https://cdn.imweb.me/thumbnail/20250320/44ac0c80e968e.jpg"
+      "https://cdn.imweb.me/thumbnail/20250509/cb0228d357e52.jpg",
+      "https://cdn.imweb.me/thumbnail/20250509/cb0228d357e52.jpg"
     ],
     "price": {
-      "msrp": 22.00,
+      "msrp": 22.0,
       "wholesale": {
-        "tier1": { "rate": 0.19, "price": 4.20, "moq": 499 },
-        "tier2": { "rate": 0.17, "price": 3.70, "moq": 1000 }
+        "offer": {
+          "rate": 0.19,
+          "price": 4.2,
+          "moq": 12
+        }
       },
       "currency": "USD"
     },
@@ -1547,10 +1586,13 @@
       "https://cdn.imweb.me/thumbnail/20250320/801f7de8bd96a.jpg"
     ],
     "price": {
-      "msrp": 22.00,
+      "msrp": 22.0,
       "wholesale": {
-        "tier1": { "rate": 0.19, "price": 4.20, "moq": 499 },
-        "tier2": { "rate": 0.17, "price": 3.70, "moq": 1000 }
+        "offer": {
+          "rate": 0.19,
+          "price": 4.2,
+          "moq": 12
+        }
       },
       "currency": "USD"
     },
@@ -1587,9 +1629,13 @@
       "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250617/7446ad7752a24a3ae6b56c294e796e98.jpg"
     ],
     "price": {
-      "msrp": 27.00,
+      "msrp": 27.0,
       "wholesale": {
-        "offer": { "rate": 0.30, "price": 7.95, "moq": 1 }
+        "offer": {
+          "rate": 0.3,
+          "price": 7.95,
+          "moq": 1
+        }
       },
       "currency": "USD"
     },
@@ -1626,9 +1672,13 @@
       "https://en.thecell-lab.com/web/product/medium/202401/cleansing-oil.jpg"
     ],
     "price": {
-      "msrp": 27.00,
+      "msrp": 27.0,
       "wholesale": {
-        "offer": { "rate": 0.30, "price": 8.18, "moq": 1 }
+        "offer": {
+          "rate": 0.3,
+          "price": 8.18,
+          "moq": 1
+        }
       },
       "currency": "USD"
     },
@@ -1664,9 +1714,13 @@
       "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250617/a53d8e8d3601757cd4e686d16c39fe83.jpg"
     ],
     "price": {
-      "msrp": 27.00,
+      "msrp": 27.0,
       "wholesale": {
-        "offer": { "rate": 0.30, "price": 7.95, "moq": 1 }
+        "offer": {
+          "rate": 0.3,
+          "price": 7.95,
+          "moq": 1
+        }
       },
       "currency": "USD"
     },
@@ -1703,9 +1757,13 @@
       "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250617/8ba8717626ab00f6f0ec7c04abefdc1a.jpg"
     ],
     "price": {
-      "msrp": 37.00,
+      "msrp": 37.0,
       "wholesale": {
-        "offer": { "rate": 0.30, "price": 11.14, "moq": 1 }
+        "offer": {
+          "rate": 0.3,
+          "price": 11.14,
+          "moq": 1
+        }
       },
       "currency": "USD"
     },
@@ -1742,9 +1800,13 @@
       "https://en.thecell-lab.com/web/product/medium/202401/body-lotion.jpg"
     ],
     "price": {
-      "msrp": 30.00,
+      "msrp": 30.0,
       "wholesale": {
-        "offer": { "rate": 0.30, "price": 8.86, "moq": 1 }
+        "offer": {
+          "rate": 0.3,
+          "price": 8.86,
+          "moq": 1
+        }
       },
       "currency": "USD"
     },
@@ -1780,9 +1842,13 @@
       "https://en.thecell-lab.com/web/product/tiny/202401/ampoule-sample.jpg"
     ],
     "price": {
-      "msrp": 1.00,
+      "msrp": 1.0,
       "wholesale": {
-        "offer": { "rate": 0.30, "price": 0.23, "moq": 100 }
+        "offer": {
+          "rate": 0.3,
+          "price": 0.23,
+          "moq": 100
+        }
       },
       "currency": "USD"
     },
@@ -1817,9 +1883,13 @@
       "https://en.thecell-lab.com/web/product/tiny/202401/sunscreen-sample.jpg"
     ],
     "price": {
-      "msrp": 1.00,
+      "msrp": 1.0,
       "wholesale": {
-        "offer": { "rate": 0.30, "price": 0.23, "moq": 72 }
+        "offer": {
+          "rate": 0.3,
+          "price": 0.23,
+          "moq": 72
+        }
       },
       "currency": "USD"
     },
@@ -1854,9 +1924,13 @@
       "https://en.thecell-lab.com/web/product/tiny/202401/cream-sample.jpg"
     ],
     "price": {
-      "msrp": 1.00,
+      "msrp": 1.0,
       "wholesale": {
-        "offer": { "rate": 0.30, "price": 0.08, "moq": 100 }
+        "offer": {
+          "rate": 0.3,
+          "price": 0.08,
+          "moq": 100
+        }
       },
       "currency": "USD"
     },
@@ -1891,9 +1965,13 @@
       "https://en.thecell-lab.com/web/product/tiny/202401/mild-cleanser-sample.jpg"
     ],
     "price": {
-      "msrp": 1.00,
+      "msrp": 1.0,
       "wholesale": {
-        "offer": { "rate": 0.30, "price": 0.08, "moq": 100 }
+        "offer": {
+          "rate": 0.3,
+          "price": 0.08,
+          "moq": 100
+        }
       },
       "currency": "USD"
     },
@@ -1928,9 +2006,13 @@
       "https://en.thecell-lab.com/web/product/tiny/202401/foam-cleanser-sample.jpg"
     ],
     "price": {
-      "msrp": 1.00,
+      "msrp": 1.0,
       "wholesale": {
-        "offer": { "rate": 0.30, "price": 0.08, "moq": 100 }
+        "offer": {
+          "rate": 0.3,
+          "price": 0.08,
+          "moq": 100
+        }
       },
       "currency": "USD"
     },

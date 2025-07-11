@@ -343,7 +343,7 @@ export const Landing: React.FC = () => {
               brand={{
                 name: 'BAO H. LAB',
                 logo: 'https://baohlab.com/clothic_studio/image/baohlab_logo.png',
-                heroImage: 'https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/3295e621c8c81a6effba32f7db4cd672.jpg',
+                heroImage: 'https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/aca91dd8cca6ec2264880e26abe3f316.jpg',
                 description: 'Pioneering hair loss solutions through Biorenovation Technology. We combine eco-friendly microorganism technology with patented formulations to deliver effective hair growth and scalp care solutions.',
                 highlights: [
                   'Patented Biorenovation Technology',
