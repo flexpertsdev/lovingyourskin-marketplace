@@ -11,7 +11,6 @@ const footerLinks = {
   services: [
     { label: 'For Brands', href: '/for-brands' },
     { label: 'For Retailers', href: '/for-retailers' },
-    { label: 'Pricing', href: '/pricing' },
     { label: 'FAQ', href: '/faq' },
   ],
   legal: [

@@ -25,6 +25,7 @@ import { Privacy } from '../pages/Privacy'
 import { RefundPolicy } from '../pages/RefundPolicy'
 import { Contact } from '../pages/Contact'
 import { Careers } from '../pages/Careers'
+import { CookiePolicy } from '../pages/CookiePolicy'
 
 export const AppRoutes: React.FC = () => {
   return (
@@ -63,6 +64,7 @@ export const AppRoutes: React.FC = () => {
       <Route path="/faq" element={<FAQ />} />
       <Route path="/terms" element={<Terms />} />
       <Route path="/privacy" element={<Privacy />} />
+      <Route path="/cookies" element={<CookiePolicy />} />
       <Route path="/refunds" element={<RefundPolicy />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/careers" element={<Careers />} />
