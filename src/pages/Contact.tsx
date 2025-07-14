@@ -3,7 +3,7 @@ import { Layout } from '../components/layout'
 import { Section, Container } from '../components/layout'
 import { Card, CardContent } from '../components/ui'
 import { Button } from '../components/ui'
-import { Input, Textarea } from '../components/ui'
+import { Input } from '../components/ui'
 
 // Add Calendly styles and scripts
 declare global {
@@ -34,7 +34,7 @@ export const Contact: React.FC = () => {
     }
   }, [])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = () => {
     // Netlify Forms will handle the submission
     // The default form action will be used
   }
