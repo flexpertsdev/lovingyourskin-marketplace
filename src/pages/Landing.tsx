@@ -382,7 +382,7 @@ export const Landing: React.FC = () => {
                 highlights: [
                   'New generation Pine CICA technology',
                   'Patented CELLTONE complex',
-                  'Clinically proven -7°C cooling effect',
+                  'Clinically proven soothing & calming benefits',
                   'Advanced PDRN skin regeneration'
                 ]
               }}

@@ -19,11 +19,11 @@ const publicNavItems: NavItem[] = [
 ]
 
 const authNavItems: NavItem[] = [
-  { label: 'Brands', href: '/brands', requiresAuth: true },
-  { label: 'Cart', href: '/cart', requiresAuth: true, roles: ['retailer', 'brand'] },
+  { label: 'Brands', href: '/brands', requiresAuth: true, roles: ['retailer', 'admin'] },
+  { label: 'Cart', href: '/cart', requiresAuth: true, roles: ['retailer'] },
   { label: 'Dashboard', href: '/dashboard', requiresAuth: true },
-  { label: 'Orders', href: '/orders', requiresAuth: true },
-  { label: 'Messages', href: '/messages', requiresAuth: true },
+  { label: 'Orders', href: '/orders', requiresAuth: true, roles: ['retailer', 'admin'] },
+  { label: 'Messages', href: '/messages', requiresAuth: true, roles: ['retailer', 'admin'] },
 ]
 
 export const Header: React.FC = () => {

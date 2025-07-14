@@ -44,6 +44,27 @@ const mockUsers: User[] = [
     createdAt: new Date('2024-01-01'),
     lastLoginAt: new Date(),
   },
+  // Brand accounts
+  {
+    id: 'brand-wismin',
+    email: 'sinsungcos@sinsungitn.com',
+    role: 'brand',
+    companyId: 'wismin',
+    language: 'ko',
+    name: 'Minsu Park',
+    createdAt: new Date('2024-06-01'),
+    lastLoginAt: new Date(),
+  },
+  {
+    id: 'brand-celllab',
+    email: 'thecell7979@naver.com',
+    role: 'brand',
+    companyId: 'thecelllab',
+    language: 'ko',
+    name: 'THE CELL LAB Representative',
+    createdAt: new Date('2024-07-01'),
+    lastLoginAt: new Date(),
+  },
 ]
 
 const mockInviteCodes: InviteCode[] = [
@@ -90,10 +111,16 @@ export const authService = {
     const rosiePass = atob('UnRpeWx5c3AwNyE=') // Rtiylysp07!
     const juliePass = atob('SnRpeWx5c3AwNyE=') // Jtiylysp07!
     const defaultPass = atob('cGFzc3dvcmQxMjM=') // password123
+    const wisminPass = atob('V2lzbWluQDIwMjQhU2VjdXJl') // Wismin@2024!Secure
+    const cellLabPass = atob('Q2VsbExhYkAyMDI0IVNlY3VyZQ==') // CellLab@2024!Secure
     
     if (email === 'rosie@lovingyourskin.net' && password === rosiePass) {
       validPassword = true
     } else if (email === 'julie@lovingyourskin.net' && password === juliePass) {
+      validPassword = true
+    } else if (email === 'sinsungcos@sinsungitn.com' && password === wisminPass) {
+      validPassword = true
+    } else if (email === 'thecell7979@naver.com' && password === cellLabPass) {
       validPassword = true
     } else if (password === defaultPass) {
       // Default password for other users

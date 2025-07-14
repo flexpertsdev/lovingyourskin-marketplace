@@ -1,19 +1,19 @@
 [
   {
-    "id": "thecelllab-pdrn-pine-cica-celltone-cream",
+    "id": "thecelllab-pine-cica-celltone-cream",
     "brandId": "thecelllab",
     "categoryId": "creams",
     "name": {
-      "en": "PDRN Pine Cica Celltone Cream 50ml",
-      "ko": "PDRN 파인 시카 셀톤 크림 50ml"
+      "en": "Pine Cica Celltone Cream 50ml",
+      "ko": "파인 시카 셀톤 크림 50ml"
     },
     "description": {
       "en": "Low-irritation, deeply moisturizing cream that prevents dryness and helps the skin retain its moisture barrier",
       "ko": "건조함을 방지하고 피부가 수분 장벽을 유지하도록 돕는 저자극 깊은 보습 크림"
     },
     "images": [
-      "https://en.thecell-lab.com/web/product/big/202501/pdrn-cream.jpg",
-      "https://en.thecell-lab.com/web/product/medium/202501/pdrn-cream.jpg"
+      "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250627/8131a5ff4ef88c104d26a2725c5e257d.jpg",
+      "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250627/8131a5ff4ef88c104d26a2725c5e257d.jpg"
     ],
     "price": {
       "item": 32.00,
@@ -38,20 +38,20 @@
     "featured": true
   },
   {
-    "id": "thecelllab-pdrn-pine-cica-celltone-sunscreen",
+    "id": "thecelllab-pine-cica-celltone-sunscreen",
     "brandId": "thecelllab",
     "categoryId": "sunscreens",
     "name": {
-      "en": "PDRN Pine Cica Celltone Soothing Mineral Sunscreen 70g",
-      "ko": "PDRN 파인 시카 셀톤 수딩 미네랄 선스크린 70g"
+      "en": "Pine Cica Celltone Soothing Mineral Sunscreen 70g",
+      "ko": "파인 시카 셀톤 수딩 미네랄 선스크린 70g"
     },
     "description": {
       "en": "Fast drying mineral sunscreen with elasticity benefits and soothing pine CICA complex",
       "ko": "탄력 효과와 진정 파인 시카 복합체가 함유된 빠른 건조 미네랄 선스크린"
     },
     "images": [
-      "https://en.thecell-lab.com/web/product/big/202501/pdrn-sunscreen.jpg",
-      "https://en.thecell-lab.com/web/product/medium/202501/pdrn-sunscreen.jpg"
+      "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250627/d73fa5ab88b27b8f72ad37b1b96cfb8f.jpg",
+      "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250627/d73fa5ab88b27b8f72ad37b1b96cfb8f.jpg"
     ],
     "price": {
       "item": 26.00,
@@ -77,20 +77,20 @@
     "featured": false
   },
   {
-    "id": "thecelllab-pdrn-pine-cica-celltone-foam-cleanser",
+    "id": "thecelllab-pine-cica-celltone-foam-cleanser",
     "brandId": "thecelllab",
     "categoryId": "cleansers",
     "name": {
-      "en": "PDRN Pine Cica Celltone Mildly Acidic Foam Cleanser 100ml",
-      "ko": "PDRN 파인 시카 셀톤 약산성 폼 클렌저 100ml"
+      "en": "Pine Cica Celltone Mildly Acidic Foam Cleanser 100ml",
+      "ko": "파인 시카 셀톤 약산성 폼 클렌저 100ml"
     },
     "description": {
       "en": "Mildly acidic foam cleanser with fast drying and elasticity benefits",
       "ko": "빠른 건조와 탄력 효과가 있는 약산성 폼 클렌저"
     },
     "images": [
-      "https://en.thecell-lab.com/web/product/big/202501/pdrn-cleanser.jpg",
-      "https://en.thecell-lab.com/web/product/medium/202501/pdrn-cleanser.jpg"
+      "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250617/1275d0d8904068d82fee0df8c66f8539.jpg",
+      "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250617/1275d0d8904068d82fee0df8c66f8539.jpg"
     ],
     "price": {
       "item": 15.00,
@@ -116,20 +116,20 @@
     "featured": false
   },
   {
-    "id": "thecelllab-pdrn-pine-cica-celltone-pore-mask-pack",
+    "id": "thecelllab-pine-cica-celltone-pore-mask-pack",
     "brandId": "thecelllab",
     "categoryId": "masks",
     "name": {
-      "en": "PDRN Pine Cica Celltone Pore Mask Pack (5 sheets)",
-      "ko": "PDRN 파인 시카 셀톤 포어 마스크 팩 (5매)"
+      "en": "Pine Cica Celltone Pore Mask Pack (5 sheets)",
+      "ko": "파인 시카 셀톤 포어 마스크 팩 (5매)"
     },
     "description": {
       "en": "Rapid pore cooling mask pack that reduces skin temperature by -7 degrees Celsius",
       "ko": "피부 온도를 -7도 낮추는 빠른 모공 쿨링 마스크 팩"
     },
     "images": [
-      "https://en.thecell-lab.com/web/product/big/202501/pdrn-mask.jpg",
-      "https://en.thecell-lab.com/web/product/medium/202501/pdrn-mask.jpg"
+      "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/extra/big/20241127/1cfc58298dc39a1643a012cf09bc5fa0.jpg",
+      "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/extra/big/20241127/1cfc58298dc39a1643a012cf09bc5fa0.jpg"
     ],
     "price": {
       "item": 12.00,
@@ -166,8 +166,8 @@
       "ko": "자극 없이 피부 결을 정리하고 잘 보습하는 크고 부드러운 토너 패드"
     },
     "images": [
-      "https://en.thecell-lab.com/web/product/big/202501/carrot-pad.jpg",
-      "https://en.thecell-lab.com/web/product/medium/202501/carrot-pad.jpg"
+      "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250627/9cf57e6e90cc949a4de85e456d6e4b14.jpg",
+      "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250627/9cf57e6e90cc949a4de85e456d6e4b14.jpg"
     ],
     "price": {
       "item": 18.00,
@@ -201,8 +201,8 @@
       "ko": "좋은 분사력으로 매일 모공 관리에 완벽한 순하고 저자극성 미스트"
     },
     "images": [
-      "https://en.thecell-lab.com/web/product/big/202501/pore-mist.jpg",
-      "https://en.thecell-lab.com/web/product/medium/202501/pore-mist.jpg"
+      "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250617/5e6bb5dcaa6e5cf89e93bedc6b7b4eca.jpg",
+      "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250617/5e6bb5dcaa6e5cf89e93bedc6b7b4eca.jpg"
     ],
     "price": {
       "item": 14.00,

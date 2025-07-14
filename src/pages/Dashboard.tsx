@@ -5,6 +5,7 @@ import { Container, Section, Grid } from '../components/layout'
 import { Card, CardContent, Button } from '../components/ui'
 import { dashboardService } from '../services'
 import { useAuthStore } from '../stores/auth.store'
+import { BrandDashboard } from '../components/dashboard'
 import type { DashboardMetrics } from '../services/mock/dashboard.service'
 
 export const Dashboard: React.FC = () => {
@@ -13,9 +14,21 @@ export const Dashboard: React.FC = () => {
   const [metrics, setMetrics] = useState<DashboardMetrics | null>(null)
   const [loading, setLoading] = useState(true)
   
+  // Check if user is a brand
+  if (user?.role === 'brand') {
+    return (
+      <Layout>
+        <BrandDashboard />
+      </Layout>
+    )
+  }
+  
+  // Otherwise, load retailer dashboard
   useEffect(() => {
-    loadDashboard()
-  }, [])
+    if (user?.role === 'retailer' || user?.role === 'admin') {
+      loadDashboard()
+    }
+  }, [user])
   
   const loadDashboard = async () => {
     setLoading(true)

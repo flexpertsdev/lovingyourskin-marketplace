@@ -102,39 +102,24 @@ const features = [
 
 const successStories = [
   {
-    quote: "LYS opened doors we couldn't reach before. We're now in 50+ stores across Europe without any export headaches.",
-    author: 'Kim Min-jung',
-    company: 'CEO, Beauty of Joseon',
-    metric: '300% growth in 6 months',
-    metricIcon: (
-      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-        <polyline points="17 6 23 6 23 12"></polyline>
-      </svg>
-    )
-  },
-  {
-    quote: "The platform handles everything from translation to shipping. We just focus on making great products.",
-    author: 'Park Ji-ho',
-    company: 'Founder, PURITO',
-    metric: 'Now in 12 countries',
+    quote: "I'm really satisfying LYS to represent as my brand to EU countries. LYS is my No.1 priority VIP partner and every time I contact to you, I always learn something new including sales skill, wisdom, and how to approach end customer, especially BP project.",
+    author: 'Minsu Park',
+    company: 'WISMIN',
+    logo: 'https://cafe24.poxo.com/ec01/newglab01/EjglQcnyYl9oLKpqUS6wZj7l3BQ8UVIze0OCEPC9yP8yvptJW9uyGG+88Z9/l/V/z2Hpl9MvqmKtsVq7YHSMaw==/_/web/upload/wismin/logo_top.png',
+    metric: 'Introduced to French market in 60 days',
     metricIcon: (
       <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
         <circle cx="12" cy="10" r="3"></circle>
       </svg>
-    )
-  },
-  {
-    quote: "Regular reorders from verified retailers gave us the confidence to expand our production capacity.",
-    author: 'Lee Soo-jin',
-    company: 'COO, COSRX',
-    metric: '85% reorder rate',
-    metricIcon: (
-      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M20 12H4M20 12L14 6M20 12L14 18"></path>
-      </svg>
-    )
+    ),
+    rating: 5,
+    nps: 10,
+    satisfaction: '100%',
+    additionalQuotes: [
+      "LYS is doing great. I like it.",
+      "LYS is doing perfect work. I believe we learned each other for sharing progress and idea."
+    ]
   }
 ]
 
@@ -210,22 +195,103 @@ export const ForBrands: React.FC = () => {
       {/* Success Stories Section */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-light text-center mb-16 text-deep-charcoal">
-            Success Stories
+          <h2 className="text-3xl font-light text-center mb-4 text-deep-charcoal">
+            Brand Success Stories
           </h2>
+          <p className="text-center text-text-secondary mb-16 max-w-3xl mx-auto">
+            See how we've helped K-beauty brands expand into European markets with proven results
+          </p>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="max-w-4xl mx-auto">
             {successStories.map((story, index) => (
-              <div key={index} className="bg-soft-pink p-8 rounded-lg relative">
-                <span className="text-6xl text-rose-gold/30 absolute top-4 left-4">"</span>
-                <p className="italic mb-6 relative z-10">{story.quote}</p>
-                <div className="mb-4">
-                  <p className="font-medium text-deep-charcoal">{story.author}</p>
-                  <p className="text-sm text-text-secondary">{story.company}</p>
+              <div key={index} className="bg-gradient-to-br from-soft-pink to-white p-10 rounded-xl shadow-lg">
+                {/* Header with logo and metrics */}
+                <div className="flex flex-col md:flex-row gap-8 mb-8">
+                  {/* Brand info with logo */}
+                  <div className="flex items-center gap-6">
+                    <div className="w-32 h-32 bg-white rounded-lg shadow-sm flex items-center justify-center p-4">
+                      <img 
+                        src={story.logo} 
+                        alt={story.company}
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-medium text-deep-charcoal">{story.company}</h3>
+                      <p className="text-text-secondary mt-1">{story.author}</p>
+                      <div className="flex gap-1 mt-3">
+                        {[...Array(story.rating)].map((_, i) => (
+                          <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                          </svg>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Metrics */}
+                  <div className="flex-1 flex items-center justify-end gap-6">
+                    <div className="text-center">
+                      <p className="text-3xl font-light text-rose-gold">{story.nps}/10</p>
+                      <p className="text-sm text-text-secondary">NPS Score</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-3xl font-light text-success-green">{story.satisfaction}</p>
+                      <p className="text-sm text-text-secondary">Satisfaction</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 pt-4 border-t border-rose-gold/30">
-                  <span className="text-success-green">{story.metricIcon}</span>
-                  <span className="font-medium">{story.metric}</span>
+                
+                {/* Main testimonial */}
+                <div className="relative mb-8">
+                  <span className="text-6xl text-rose-gold/20 absolute -top-4 -left-2">"</span>
+                  <p className="text-lg italic text-deep-charcoal relative z-10 pl-8">
+                    {story.quote}
+                  </p>
+                </div>
+                
+                {/* Key achievement */}
+                <div className="bg-rose-gold text-white py-4 px-6 rounded-lg mb-6 flex items-center justify-center gap-3">
+                  <span className="text-white">{story.metricIcon}</span>
+                  <span className="font-medium text-lg">{story.metric}</span>
+                </div>
+                
+                {/* Additional feedback */}
+                {story.additionalQuotes && (
+                  <div className="space-y-3">
+                    <p className="text-sm font-medium text-deep-charcoal">Additional Feedback:</p>
+                    {story.additionalQuotes.map((quote, i) => (
+                      <div key={i} className="flex items-start gap-2">
+                        <svg className="w-5 h-5 text-rose-gold flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <p className="text-text-secondary italic">"{quote}"</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                
+                {/* Survey insights */}
+                <div className="mt-6 pt-6 border-t border-border-gray">
+                  <p className="text-sm font-medium text-deep-charcoal mb-3">Partnership Highlights:</p>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div>
+                      <p className="text-lg font-medium text-rose-gold">France</p>
+                      <p className="text-xs text-text-secondary">Market Entry</p>
+                    </div>
+                    <div>
+                      <p className="text-lg font-medium text-rose-gold">Very Clear</p>
+                      <p className="text-xs text-text-secondary">Communication</p>
+                    </div>
+                    <div>
+                      <p className="text-lg font-medium text-rose-gold">No Issues</p>
+                      <p className="text-xs text-text-secondary">Process</p>
+                    </div>
+                    <div>
+                      <p className="text-lg font-medium text-rose-gold">Yes</p>
+                      <p className="text-xs text-text-secondary">Expand Further</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}

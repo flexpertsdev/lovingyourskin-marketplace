@@ -92,19 +92,12 @@ const features = [
 
 const testimonials = [
   {
-    quote: "LYS has transformed how we source K-beauty products. The process is so simple, and we've never had issues with customs or documentation.",
-    author: 'Sarah Mitchell',
-    company: 'Beauty Boutique London'
-  },
-  {
-    quote: "Finally, a platform that understands retailers' needs. The minimum order quantities are reasonable, and the support team is always helpful.",
-    author: 'Marco Rossi',
-    company: 'Milano Beauty Store'
-  },
-  {
-    quote: "The in-app messaging system is brilliant. We can track everything in one place and never miss important updates about our orders.",
-    author: 'Emma Schmidt',
-    company: 'Berlin Cosmetics'
+    quote: "Very clear and complete communication with excellent responsiveness. They fully met our specific needs for products, lead times, and exclusivities with no difficulties throughout our collaboration.",
+    author: 'Camille',
+    company: 'Beauté Privée',
+    companyDetails: '5 million members across France, Belgium, Luxembourg',
+    rating: 5,
+    logo: 'https://media.licdn.com/dms/image/v2/C4E0BAQG82zVO9g8uyw/company-logo_200_200/company-logo_200_200/0/1672739255113/beauteprivee_logo?e=2147483647&v=beta&t=5cBvLIlKpRh4E8Uyrwp0nz3V9cmNn8Gv6kz0hnsB6L4'
   }
 ]
 
@@ -181,16 +174,54 @@ export const ForRetailers: React.FC = () => {
       {/* Testimonials Section */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-light text-center mb-16 text-deep-charcoal">
-            What Retailers Say
+          <h2 className="text-3xl font-light text-center mb-4 text-deep-charcoal">
+            Trusted by Leading European Retailers
           </h2>
+          <p className="text-center text-text-secondary mb-16 max-w-3xl mx-auto">
+            Join successful retailers who are already transforming their business with authentic K-beauty
+          </p>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="max-w-4xl mx-auto">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-soft-pink p-8 rounded-lg relative">
-                <span className="text-6xl text-rose-gold/30 absolute top-4 left-4">"</span>
-                <p className="italic mb-6 relative z-10">{testimonial.quote}</p>
-                <div>
+              <div key={index} className="bg-gradient-to-br from-soft-pink to-white p-10 rounded-xl shadow-lg">
+                {/* Header with logo and rating */}
+                <div className="flex items-start justify-between mb-6">
+                  <div className="flex items-center gap-4">
+                    {testimonial.logo && (
+                      <img 
+                        src={testimonial.logo} 
+                        alt={testimonial.company}
+                        className="h-16 w-auto object-contain"
+                      />
+                    )}
+                    <div>
+                      <h3 className="font-medium text-deep-charcoal text-lg">{testimonial.company}</h3>
+                      {testimonial.companyDetails && (
+                        <p className="text-sm text-text-secondary">{testimonial.companyDetails}</p>
+                      )}
+                    </div>
+                  </div>
+                  {testimonial.rating && (
+                    <div className="flex gap-1">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                        </svg>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                
+                {/* Testimonial */}
+                <div className="relative mb-6">
+                  <span className="text-6xl text-rose-gold/20 absolute -top-4 -left-2">"</span>
+                  <p className="text-lg italic text-deep-charcoal relative z-10 pl-8">
+                    {testimonial.quote}
+                  </p>
+                </div>
+                
+                {/* Author */}
+                <div className="text-right">
                   <p className="font-medium text-deep-charcoal">{testimonial.author}</p>
                   <p className="text-sm text-text-secondary">{testimonial.company}</p>
                 </div>

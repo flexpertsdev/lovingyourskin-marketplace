@@ -1,9 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Layout } from '../components/layout'
 import { Section, Container } from '../components/layout'
 import { Card, CardContent } from '../components/ui'
 import { Button } from '../components/ui'
-import { Input } from '../components/ui'
+import { Input, Textarea } from '../components/ui'
+
+// Add Calendly styles and scripts
+declare global {
+  interface Window {
+    Calendly: any;
+  }
+}
 
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -14,11 +21,22 @@ export const Contact: React.FC = () => {
     subject: 'general',
     message: ''
   })
+  
+  // Load Calendly widget script
+  useEffect(() => {
+    const script = document.createElement('script')
+    script.src = 'https://assets.calendly.com/assets/external/widget.js'
+    script.async = true
+    document.body.appendChild(script)
+    
+    return () => {
+      document.body.removeChild(script)
+    }
+  }, [])
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // TODO: Implement form submission
-    console.log('Contact form submitted:', formData)
+    // Netlify Forms will handle the submission
+    // The default form action will be used
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -82,9 +100,9 @@ export const Contact: React.FC = () => {
                       <div>
                         <h3 className="font-medium text-deep-charcoal mb-2">Email</h3>
                         <p className="text-text-secondary">
-                          General Inquiries: hello@lovingyourskin.com<br />
-                          Sales: sales@lovingyourskin.com<br />
-                          Support: support@lovingyourskin.com
+                          For Brands: partnerships@lovingyourskin.net<br />
+                          For Retailers: julie@lovingyourskin.net<br />
+                          General: hello@lovingyourskin.com
                         </p>
                       </div>
                     </CardContent>
@@ -156,7 +174,17 @@ export const Contact: React.FC = () => {
                   Send Us a Message
                 </h2>
                 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form 
+                  name="contact"
+                  method="POST"
+                  data-netlify="true"
+                  data-netlify-honeypot="bot-field"
+                  onSubmit={handleSubmit} 
+                  className="space-y-6"
+                >
+                  {/* Hidden inputs for Netlify Forms */}
+                  <input type="hidden" name="form-name" value="contact" />
+                  <input type="hidden" name="bot-field" />
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-text-secondary mb-2">
@@ -258,6 +286,44 @@ export const Contact: React.FC = () => {
                     Send Message
                   </Button>
                 </form>
+              </div>
+            </div>
+
+            {/* Call Booking Section - Clean Embedded Version */}
+            <div className="mt-16 bg-soft-pink rounded-xl p-8">
+              <div className="max-w-5xl mx-auto">
+                <h2 className="text-2xl font-medium text-deep-charcoal mb-6 text-center">
+                  Schedule a Consultation
+                </h2>
+                <p className="text-text-secondary text-center mb-8 max-w-2xl mx-auto">
+                  Book a 30-minute consultation with our team to discuss how we can help bring premium K-beauty to your business.
+                </p>
+                
+                {/* Calendly inline widget */}
+                <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+                  <div 
+                    className="calendly-inline-widget" 
+                    data-url="https://calendly.com/julie-rosiespeople/30min?hide_gdpr_banner=1&background_color=ffffff&text_color=2d2d2d&primary_color=d4a5a5"
+                    style={{ minWidth: '320px', height: '630px' }}
+                  />
+                </div>
+                
+                {/* Alternative: Button to open Calendly in popup */}
+                <div className="text-center mt-6">
+                  <p className="text-sm text-text-secondary mb-3">Prefer to open in a new window?</p>
+                  <Button
+                    variant="secondary"
+                    onClick={() => {
+                      if (window.Calendly) {
+                        window.Calendly.initPopupWidget({
+                          url: 'https://calendly.com/julie-rosiespeople/30min?hide_gdpr_banner=1&background_color=fef5f5&text_color=2d2d2d&primary_color=d4a5a5'
+                        });
+                      }
+                    }}
+                  >
+                    Open Calendar
+                  </Button>
+                </div>
               </div>
             </div>
 

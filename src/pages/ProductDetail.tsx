@@ -67,9 +67,11 @@ export const ProductDetail: React.FC = () => {
   }
   
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-GB', {
+    const currency = product?.price.currency || 'GBP'
+    const locale = currency === 'USD' ? 'en-US' : currency === 'EUR' ? 'en-EU' : 'en-GB'
+    return new Intl.NumberFormat(locale, {
       style: 'currency',
-      currency: 'GBP'
+      currency: currency
     }).format(price)
   }
   
