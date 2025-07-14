@@ -75,6 +75,34 @@ export const ProductDetail: React.FC = () => {
     }).format(price)
   }
   
+  // Helper to get item price from different structures
+  const getItemPrice = () => {
+    if (!product) return 0
+    // Check for direct item price (Wismin structure)
+    if (product.price.item !== undefined) {
+      return product.price.item
+    }
+    // Check for wholesale offer price (Cell Lab structure)
+    if (product.price.wholesale?.offer?.price !== undefined) {
+      return product.price.wholesale.offer.price
+    }
+    return 0
+  }
+  
+  // Helper to get carton price from different structures
+  const getCartonPrice = () => {
+    if (!product) return 0
+    // Check for direct carton price (Wismin structure)
+    if (product.price.carton !== undefined) {
+      return product.price.carton
+    }
+    // Calculate from wholesale price and items per carton (Cell Lab structure)
+    if (product.price.wholesale?.offer?.price !== undefined) {
+      return product.price.wholesale.offer.price * product.itemsPerCarton
+    }
+    return 0
+  }
+  
   if (isLoading) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
@@ -199,23 +227,23 @@ export const ProductDetail: React.FC = () => {
                   <div>
                     <p className="text-sm text-text-secondary mb-1">Price per Item</p>
                     <p className="text-2xl font-medium text-rose-gold">
-                      {formatPrice(product.price.item)}
+                      {formatPrice(getItemPrice())}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm text-text-secondary mb-1">Price per Carton</p>
                     <p className="text-2xl font-medium text-deep-charcoal">
-                      {formatPrice(product.price.carton)}
+                      {formatPrice(getCartonPrice())}
                     </p>
                   </div>
                 </div>
                 
                 {/* Retail Price - Only show if available */}
-                {product.retailPrice && (
+                {(product.retailPrice || product.price.msrp) && (
                   <div className="pt-4 border-t border-border-gray">
                     <p className="text-sm text-text-secondary mb-1">Recommended Retail Price</p>
                     <p className="text-lg font-medium text-medium-gray">
-                      {formatPrice(product.retailPrice.item)} per item
+                      {formatPrice(product.retailPrice?.item || product.price.msrp)} per item
                     </p>
                   </div>
                 )}
@@ -273,7 +301,7 @@ export const ProductDetail: React.FC = () => {
                   <div>
                     <p className="text-sm text-text-secondary">Total Price</p>
                     <p className="text-2xl font-medium text-deep-charcoal">
-                      {formatPrice(quantity * product.price.carton)}
+                      {formatPrice(quantity * getCartonPrice())}
                     </p>
                   </div>
                   <Button

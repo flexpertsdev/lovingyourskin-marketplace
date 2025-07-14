@@ -377,7 +377,7 @@ export const Landing: React.FC = () => {
               brand={{
                 name: 'THE CELL LAB',
                 logo: 'https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/bae4b4cdb9c0307a6fd07f6fbfa5ad99.png',
-                heroImage: 'https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250627/8131a5ff4ef88c104d26a2725c5e257d.jpg',
+                heroImage: '/assets/thecelllab/blue_01.jpg',
                 description: 'Pioneering skincare innovation with BETA-SITOSTEROL #pine CICA and patented CELLTONE technology. The best combination surpassing proven science for fundamental skin concerns.',
                 highlights: [
                   'New generation Pine CICA technology',

@@ -111,8 +111,8 @@ export const authService = {
     const rosiePass = atob('UnRpeWx5c3AwNyE=') // Rtiylysp07!
     const juliePass = atob('SnRpeWx5c3AwNyE=') // Jtiylysp07!
     const defaultPass = atob('cGFzc3dvcmQxMjM=') // password123
-    const wisminPass = atob('V2lzbWluQDIwMjQhU2VjdXJl') // Wismin@2024!Secure
-    const cellLabPass = atob('Q2VsbExhYkAyMDI0IVNlY3VyZQ==') // CellLab@2024!Secure
+    const wisminPass = atob('VzE1bTFuS3NraW4wNyE=') // W15m1nKskin07!
+    const cellLabPass = atob('YzMxMUxhYjA3IQ==') // c311Lab07!
     
     if (email === 'rosie@lovingyourskin.net' && password === rosiePass) {
       validPassword = true
