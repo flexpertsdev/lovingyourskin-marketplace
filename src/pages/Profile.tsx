@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Layout } from '../components/layout'
 import { Button } from '../components/ui'
 import { useAuthStore } from '../stores/auth.store'
@@ -44,7 +45,8 @@ interface ProfileData {
 }
 
 export const Profile: React.FC = () => {
-  const { user } = useAuthStore()
+  const { user, logout } = useAuthStore()
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('account')
   const [saveStatus, setSaveStatus] = useState<string | null>(null)
   
@@ -104,11 +106,25 @@ export const Profile: React.FC = () => {
     setTimeout(() => setSaveStatus(null), 3000)
   }
   
+  const handleLogout = () => {
+    logout()
+    navigate('/')
+  }
+  
   return (
     <Layout>
       <div className="min-h-screen bg-background-gray">
         <div className="container mx-auto px-6 py-8">
-          <h1 className="text-3xl font-light mb-8">My Profile</h1>
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-3xl font-light">My Profile</h1>
+            <Button 
+              variant="secondary" 
+              size="small"
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
+          </div>
           
           {/* Tabs */}
           <div className="flex border-b border-border-gray mb-8">

@@ -341,7 +341,7 @@ export const Landing: React.FC = () => {
             {brands.lalucell && (
               <PartnerCard 
                 brand={{
-                  name: brands.lalucell.name,
+                  name: brands.lalucell.name.en,
                   logo: brands.lalucell.logo,
                   heroImage: brands.lalucell.heroImage,
                   description: 'The trusted choice of Korean mothers. Safe, natural skincare with patented technology and zero irritation - perfect for pregnancy and sensitive skin.',
@@ -355,7 +355,7 @@ export const Landing: React.FC = () => {
             {brands.sunnicorn && (
               <PartnerCard 
                 brand={{
-                  name: brands.sunnicorn.name,
+                  name: brands.sunnicorn.name.en,
                   logo: brands.sunnicorn.logo,
                   heroImage: brands.sunnicorn.heroImage,
                   description: 'Sustainable K-beauty through upcycled "ugly food" ingredients. 100% vegan formulations that respect your skin and our planet.',
@@ -369,7 +369,7 @@ export const Landing: React.FC = () => {
             {brands.baohlab && (
               <PartnerCard 
                 brand={{
-                  name: brands.baohlab.name,
+                  name: brands.baohlab.name.en,
                   logo: brands.baohlab.logo,
                   heroImage: brands.baohlab.heroImage,
                   description: 'Pioneering hair loss solutions through Biorenovation Technology. We combine eco-friendly microorganism technology with patented formulations to deliver effective hair growth and scalp care solutions.',
@@ -383,7 +383,7 @@ export const Landing: React.FC = () => {
             {brands.vanhalla && (
               <PartnerCard 
                 brand={{
-                  name: brands.vanhalla.name,
+                  name: brands.vanhalla.name.en,
                   logo: brands.vanhalla.logo,
                   heroImage: brands.vanhalla.heroImage,
                   description: 'Simple & Easy vegan skincare with V\'anhalla. We boldly reduce complex routines and enhance essential ingredients for each skin concern, bringing true rest and vitality to your daily life.',
@@ -397,7 +397,7 @@ export const Landing: React.FC = () => {
             {brands.thecelllab && (
               <PartnerCard 
                 brand={{
-                  name: brands.thecelllab.name,
+                  name: brands.thecelllab.name.en,
                   logo: brands.thecelllab.logo,
                   heroImage: brands.thecelllab.heroImage,
                   description: 'Pioneering skincare innovation with BETA-SITOSTEROL #pine CICA and patented CELLTONE technology. The best combination surpassing proven science for fundamental skin concerns.',
