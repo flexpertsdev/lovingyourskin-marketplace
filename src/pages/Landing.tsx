@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Section, Grid } from '../components/layout'
 import { Button, Input, Textarea, Card, CardContent } from '../components/ui'
 import { Layout } from '../components/layout'
 import { TestimonialCard, PartnerCard } from '../components/features'
+import { productService } from '../services'
+import type { Brand } from '../types'
 
 interface Feature {
   icon: React.ReactNode
@@ -111,6 +113,37 @@ export const Landing: React.FC = () => {
     email: '',
     message: ''
   })
+  const [brands, setBrands] = useState<{
+    lalucell?: Brand
+    sunnicorn?: Brand
+    baohlab?: Brand
+    vanhalla?: Brand
+    thecelllab?: Brand
+  }>({})
+  
+  useEffect(() => {
+    const loadBrands = async () => {
+      try {
+        const [lalucell, sunnicorn, baohlab, vanhalla, thecelllab] = await Promise.all([
+          productService.getBrand('lalucell'),
+          productService.getBrand('sunnicorn'),
+          productService.getBrand('baohlab'),
+          productService.getBrand('vanhalla'),
+          productService.getBrand('thecelllab')
+        ])
+        setBrands({
+          lalucell: lalucell || undefined,
+          sunnicorn: sunnicorn || undefined,
+          baohlab: baohlab || undefined,
+          vanhalla: vanhalla || undefined,
+          thecelllab: thecelllab || undefined
+        })
+      } catch (error) {
+        console.error('Failed to load brands:', error)
+      }
+    }
+    loadBrands()
+  }, [])
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -305,89 +338,74 @@ export const Landing: React.FC = () => {
           
           <div className="space-y-12 max-w-6xl mx-auto">
             {/* Lalucell */}
-            <PartnerCard 
-              brand={{
-                name: 'LALUCELL',
-                logo: 'https://contents.sixshop.com/uploadedFiles/240215/default/image_1682403801204.png',
-                heroImage: 'https://contents.sixshop.com/thumbnails/uploadedFiles/240215/default/image_1682583004318_2500.png',
-                description: 'The trusted choice of Korean mothers. Safe, natural skincare with patented technology and zero irritation - perfect for pregnancy and sensitive skin.',
-                highlights: [
-                  'Patented natural ingredient technology',
-                  'Zero irritation formula safe for pregnancy',
-                  'Trusted by thousands of Korean mothers',
-                  'Clinically tested for sensitive skin'
-                ]
-              }}
-              variant="side-by-side"
-            />
+            {brands.lalucell && (
+              <PartnerCard 
+                brand={{
+                  name: brands.lalucell.name,
+                  logo: brands.lalucell.logo,
+                  heroImage: brands.lalucell.heroImage,
+                  description: 'The trusted choice of Korean mothers. Safe, natural skincare with patented technology and zero irritation - perfect for pregnancy and sensitive skin.',
+                  highlights: brands.lalucell.featureTags
+                }}
+                variant="side-by-side"
+              />
+            )}
 
             {/* Sunnicorn */}
-            <PartnerCard 
-              brand={{
-                name: 'SUNNICORN',
-                logo: 'https://en.sunnicorn.com/web/upload/images/logo-color.png',
-                heroImage: 'https://en.sunnicorn.com/web/upload/images/press_img_02.jpg',
-                description: 'Sustainable K-beauty through upcycled "ugly food" ingredients. 100% vegan formulations that respect your skin and our planet.',
-                highlights: [
-                  'Upcycled food waste ingredients',
-                  '100% vegan certified formulations',
-                  'Carbon-neutral production process',
-                  'Award-winning sustainable beauty'
-                ]
-              }}
-              variant="side-by-side"
-            />
+            {brands.sunnicorn && (
+              <PartnerCard 
+                brand={{
+                  name: brands.sunnicorn.name,
+                  logo: brands.sunnicorn.logo,
+                  heroImage: brands.sunnicorn.heroImage,
+                  description: 'Sustainable K-beauty through upcycled "ugly food" ingredients. 100% vegan formulations that respect your skin and our planet.',
+                  highlights: brands.sunnicorn.featureTags
+                }}
+                variant="side-by-side"
+              />
+            )}
 
             {/* BAO H. LAB */}
-            <PartnerCard 
-              brand={{
-                name: 'BAO H. LAB',
-                logo: 'https://baohlab.com/clothic_studio/image/baohlab_logo.png',
-                heroImage: 'https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/aca91dd8cca6ec2264880e26abe3f316.jpg',
-                description: 'Pioneering hair loss solutions through Biorenovation Technology. We combine eco-friendly microorganism technology with patented formulations to deliver effective hair growth and scalp care solutions.',
-                highlights: [
-                  'Patented Biorenovation Technology',
-                  'Clinical proven hair growth results',
-                  'Eco-friendly microorganism formulas',
-                  '5-star customer satisfaction rating'
-                ]
-              }}
-              variant="side-by-side"
-            />
+            {brands.baohlab && (
+              <PartnerCard 
+                brand={{
+                  name: brands.baohlab.name,
+                  logo: brands.baohlab.logo,
+                  heroImage: brands.baohlab.heroImage,
+                  description: 'Pioneering hair loss solutions through Biorenovation Technology. We combine eco-friendly microorganism technology with patented formulations to deliver effective hair growth and scalp care solutions.',
+                  highlights: brands.baohlab.featureTags
+                }}
+                variant="side-by-side"
+              />
+            )}
 
             {/* V'anhalla */}
-            <PartnerCard 
-              brand={{
-                name: "V'anhalla",
-                logo: 'https://cdn.imweb.me/thumbnail/20250116/9e0c6043131f4.png',
-                heroImage: 'https://cdn.imweb.me/thumbnail/20250320/801f7de8bd96a.jpg',
-                description: 'Simple & Easy vegan skincare with V\'anhalla. We boldly reduce complex routines and enhance essential ingredients for each skin concern, bringing true rest and vitality to your daily life.',
-                highlights: [
-                  'Vegan Society certified formulas',
-                  'Simplified 2-in-1 skincare solutions',
-                  'Essential ingredients for targeted care',
-                  'Ceramide & Cica calm technology'
-                ]
-              }}
-              variant="side-by-side"
-            />
+            {brands.vanhalla && (
+              <PartnerCard 
+                brand={{
+                  name: brands.vanhalla.name,
+                  logo: brands.vanhalla.logo,
+                  heroImage: brands.vanhalla.heroImage,
+                  description: 'Simple & Easy vegan skincare with V\'anhalla. We boldly reduce complex routines and enhance essential ingredients for each skin concern, bringing true rest and vitality to your daily life.',
+                  highlights: brands.vanhalla.featureTags
+                }}
+                variant="side-by-side"
+              />
+            )}
 
             {/* THE CELL LAB */}
-            <PartnerCard 
-              brand={{
-                name: 'THE CELL LAB',
-                logo: 'https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/bae4b4cdb9c0307a6fd07f6fbfa5ad99.png',
-                heroImage: '/assets/thecelllab/blue_01.jpg',
-                description: 'Pioneering skincare innovation with BETA-SITOSTEROL #pine CICA and patented CELLTONE technology. The best combination surpassing proven science for fundamental skin concerns.',
-                highlights: [
-                  'New generation Pine CICA technology',
-                  'Patented CELLTONE complex',
-                  'Clinically proven soothing & calming benefits',
-                  'Advanced PDRN skin regeneration'
-                ]
-              }}
-              variant="side-by-side"
-            />
+            {brands.thecelllab && (
+              <PartnerCard 
+                brand={{
+                  name: brands.thecelllab.name,
+                  logo: brands.thecelllab.logo,
+                  heroImage: brands.thecelllab.heroImage,
+                  description: 'Pioneering skincare innovation with BETA-SITOSTEROL #pine CICA and patented CELLTONE technology. The best combination surpassing proven science for fundamental skin concerns.',
+                  highlights: brands.thecelllab.featureTags
+                }}
+                variant="side-by-side"
+              />
+            )}
           </div>
         </Container>
       </Section>

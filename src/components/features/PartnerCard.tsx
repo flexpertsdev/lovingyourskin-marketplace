@@ -33,7 +33,7 @@ export const PartnerCard: React.FC<PartnerCardProps> = ({
           <img 
             src={brand.heroImage}
             alt={`${brand.name} products`}
-            className="w-full h-full object-contain"
+            className="w-full h-full object-cover"
           />
           {/* Subtle gradient overlay for better text contrast */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
@@ -120,7 +120,7 @@ export const PartnerCard: React.FC<PartnerCardProps> = ({
           <img 
             src={brand.heroImage}
             alt={`${brand.name} products`}
-            className="w-full h-full object-contain hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
           />
         </div>
         

@@ -27,6 +27,8 @@ import { RefundPolicy } from '../pages/RefundPolicy'
 import { Contact } from '../pages/Contact'
 import { Careers } from '../pages/Careers'
 import { CookiePolicy } from '../pages/CookiePolicy'
+import { Preorder } from '../pages/Preorder'
+import { PreorderDetail } from '../pages/PreorderDetail'
 
 export const AppRoutes: React.FC = () => {
   return (
@@ -58,6 +60,10 @@ export const AppRoutes: React.FC = () => {
       <Route path="/orders/:orderId" element={<OrderDetail />} />
       <Route path="/messages" element={<Messages />} />
       
+      {/* Preorder Routes */}
+      <Route path="/preorder" element={<Preorder />} />
+      <Route path="/preorder/:id" element={<PreorderDetail />} />
+      
       {/* Admin Routes */}
       <Route path="/admin" element={<AdminDashboard />} />
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
@@ -71,7 +77,7 @@ export const AppRoutes: React.FC = () => {
       <Route path="/contact" element={<Contact />} />
       <Route path="/careers" element={<Careers />} />
       
-      {/* 404 */}
+      {/* 44 */}
       <Route path="*" element={<div className="p-8 text-center">404 - Page Not Found</div>} />
     </Routes>
   )
