@@ -35,7 +35,7 @@ export const PreorderDetail: FunctionComponent = () => {
     <div>
       <PageHeader
         title={product.name.en}
-        description={`Preorder ${product.name.en}`}
+        subtitle={`Preorder ${product.name.en}`}
       />
       <Container>
         <Section>

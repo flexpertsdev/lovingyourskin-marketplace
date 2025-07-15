@@ -30,7 +30,7 @@ export const Preorder: FunctionComponent = () => {
     <div>
       <PageHeader
         title="Exclusive Preorders"
-        description="Be the first to get your hands on our upcoming products."
+        subtitle="Be the first to get your hands on our upcoming products."
       />
       <img src="/assets/promotional-banner.png" alt="Promotional Banner" className="w-full h-64 object-cover" />
       <Container>
