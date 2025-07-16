@@ -102,7 +102,7 @@ const features = [
 
 const successStories = [
   {
-    quote: "I'm really satisfying LYS to represent as my brand to EU countries. LYS is my No.1 priority VIP partner and every time I contact to you, I always learn something new including sales skill, wisdom, and how to approach end customer, especially BP project.",
+    quote: "I'm really satisfied with LYS representing my brand in EU countries. LYS is my number one priority VIP partner. Every time I contact you, I always learn something new including sales skills, wisdom, and how to approach end customers, especially for BP projects.",
     author: 'Minsu Park',
     company: 'WISMIN',
     logo: 'https://cafe24.poxo.com/ec01/newglab01/EjglQcnyYl9oLKpqUS6wZj7l3BQ8UVIze0OCEPC9yP8yvptJW9uyGG+88Z9/l/V/z2Hpl9MvqmKtsVq7YHSMaw==/_/web/upload/wismin/logo_top.png',

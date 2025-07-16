@@ -30,7 +30,7 @@ const features: Feature[] = [
       </svg>
     ),
     title: 'Curated Selection',
-    description: 'Hand-selected brands certified for your market, ensuring quality and compliance every time'
+    description: 'Hand selected & tested brands certified for your market, ensuring quality and compliance every time'
   },
   {
     icon: (
@@ -117,25 +117,22 @@ export const Landing: React.FC = () => {
     lalucell?: Brand
     sunnicorn?: Brand
     baohlab?: Brand
-    vanhalla?: Brand
     thecelllab?: Brand
   }>({})
   
   useEffect(() => {
     const loadBrands = async () => {
       try {
-        const [lalucell, sunnicorn, baohlab, vanhalla, thecelllab] = await Promise.all([
+        const [lalucell, sunnicorn, baohlab, thecelllab] = await Promise.all([
           productService.getBrand('lalucell'),
           productService.getBrand('sunnicorn'),
           productService.getBrand('baohlab'),
-          productService.getBrand('vanhalla'),
           productService.getBrand('thecelllab')
         ])
         setBrands({
           lalucell: lalucell || undefined,
           sunnicorn: sunnicorn || undefined,
           baohlab: baohlab || undefined,
-          vanhalla: vanhalla || undefined,
           thecelllab: thecelllab || undefined
         })
       } catch (error) {
@@ -147,15 +144,22 @@ export const Landing: React.FC = () => {
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // TODO: Handle form submission
-    console.log('Form submitted:', { userType, ...formData })
+    // Form will be handled by Netlify
   }
   
   return (
     <Layout>
       {/* Hero Section */}
-      <Section className="text-center bg-gradient-to-br from-soft-pink to-white py-20">
-        <Container>
+      <Section className="relative text-center bg-gradient-to-br from-soft-pink to-white py-20">
+        <div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1920)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        />
+        <Container className="relative z-10">
           <div className="mb-8">
             <img 
               src="https://firebasestorage.googleapis.com/v0/b/lovingyourskinshop.firebasestorage.app/o/WhatsApp_Image_2025-06-22_at_11.43.11-removebg-preview.png?alt=media&token=237442fd-02cb-48ee-9628-1c68fd45add5" 
@@ -283,8 +287,8 @@ export const Landing: React.FC = () => {
             </div>
             <div className="group hover:scale-105 transition-transform duration-300">
               <div className="text-5xl font-light text-rose-gold mb-3">9.61%</div>
-              <h3 className="text-lg font-medium text-deep-charcoal mb-2">Rapid Market Growth</h3>
-              <p className="text-text-secondary">Europe K-beauty market CAGR (2024-2032)</p>
+              <h3 className="text-lg font-medium text-deep-charcoal mb-2">Annual Growth Rate</h3>
+              <p className="text-text-secondary">Europe K-beauty market growing yearly (2024-2032)</p>
               <p className="text-sm text-rose-gold mt-2 font-medium">Growing Market Segment</p>
             </div>
           </div>
@@ -379,20 +383,6 @@ export const Landing: React.FC = () => {
               />
             )}
 
-            {/* V'anhalla */}
-            {brands.vanhalla && (
-              <PartnerCard 
-                brand={{
-                  name: brands.vanhalla.name.en,
-                  logo: brands.vanhalla.logo,
-                  heroImage: brands.vanhalla.heroImage,
-                  description: 'Simple & Easy vegan skincare with V\'anhalla. We boldly reduce complex routines and enhance essential ingredients for each skin concern, bringing true rest and vitality to your daily life.',
-                  highlights: brands.vanhalla.featureTags
-                }}
-                variant="side-by-side"
-              />
-            )}
-
             {/* THE CELL LAB */}
             {brands.thecelllab && (
               <PartnerCard 
@@ -423,7 +413,19 @@ export const Landing: React.FC = () => {
             
             <Card>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form 
+                  name="lys-network"
+                  method="POST"
+                  data-netlify="true"
+                  data-netlify-honeypot="bot-field"
+                  action="/thank-you"
+                  onSubmit={handleSubmit} 
+                  className="space-y-6"
+                >
+                  {/* Hidden inputs for Netlify Forms */}
+                  <input type="hidden" name="form-name" value="lys-network" />
+                  <input type="hidden" name="bot-field" />
+                  
                   {/* User Type */}
                   <div>
                     <label className="block text-sm font-medium text-text-primary mb-3">
@@ -449,6 +451,7 @@ export const Landing: React.FC = () => {
                   {/* Name */}
                   <Input
                     label="Name"
+                    name="name"
                     placeholder="Your name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -458,6 +461,7 @@ export const Landing: React.FC = () => {
                   {/* Email */}
                   <Input
                     label="Email"
+                    name="email"
                     type="email"
                     placeholder="your@email.com"
                     value={formData.email}
@@ -468,6 +472,7 @@ export const Landing: React.FC = () => {
                   {/* Message */}
                   <Textarea
                     label="Message"
+                    name="message"
                     placeholder="Tell us about your business..."
                     rows={4}
                     value={formData.message}

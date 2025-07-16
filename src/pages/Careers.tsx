@@ -14,50 +14,7 @@ interface JobOpening {
   requirements: string[]
 }
 
-const jobOpenings: JobOpening[] = [
-  {
-    id: '1',
-    title: 'Business Development Manager - EMEA',
-    department: 'Sales',
-    location: 'London, UK (Hybrid)',
-    type: 'full-time',
-    description: 'Lead our expansion into European markets by building relationships with premium beauty retailers.',
-    requirements: [
-      '5+ years B2B sales experience in beauty/cosmetics',
-      'Existing network in European beauty retail',
-      'Fluent in English + one other European language',
-      'Experience with wholesale and distribution'
-    ]
-  },
-  {
-    id: '2',
-    title: 'K-Beauty Brand Partnership Manager',
-    department: 'Partnerships',
-    location: 'Seoul, South Korea',
-    type: 'full-time',
-    description: 'Source and onboard new Korean beauty brands, maintaining relationships with existing partners.',
-    requirements: [
-      'Native Korean speaker with business English',
-      '3+ years in beauty industry partnerships',
-      'Deep knowledge of K-beauty market trends',
-      'Strong negotiation and relationship skills'
-    ]
-  },
-  {
-    id: '3',
-    title: 'Customer Success Manager',
-    department: 'Operations',
-    location: 'London, UK (Remote)',
-    type: 'full-time',
-    description: 'Ensure retailer success by providing exceptional support throughout their journey with LYS.',
-    requirements: [
-      '3+ years in B2B customer success',
-      'Experience in e-commerce or wholesale',
-      'Excellent communication skills',
-      'Data-driven approach to customer retention'
-    ]
-  }
-]
+const jobOpenings: JobOpening[] = []
 
 const benefits = [
   {
@@ -74,16 +31,6 @@ const benefits = [
     icon: '📈',
     title: 'Growth Opportunities',
     description: 'Fast-growing company with career advancement'
-  },
-  {
-    icon: '🎓',
-    title: 'Learning & Development',
-    description: 'Industry conferences and training budget'
-  },
-  {
-    icon: '🏥',
-    title: 'Health & Wellness',
-    description: 'Comprehensive health insurance and wellness programs'
   },
   {
     icon: '✨',
@@ -270,8 +217,11 @@ export const Careers: React.FC = () => {
             ) : (
               <Card variant="default">
                 <CardContent className="text-center py-12">
-                  <p className="text-text-secondary mb-4">
-                    No open positions at the moment, but we're always looking for talented people!
+                  <h3 className="text-xl font-medium text-deep-charcoal mb-4">
+                    No open positions... but stay tuned!
+                  </h3>
+                  <p className="text-text-secondary mb-6">
+                    We're always looking for talented individuals. Check back soon or send us your CV.
                   </p>
                   <Button variant="secondary" size="medium">
                     Send General Application

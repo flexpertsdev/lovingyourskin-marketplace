@@ -29,11 +29,6 @@ const faqs: FAQItem[] = [
     category: 'account'
   },
   {
-    question: 'What documents do I need to provide?',
-    answer: 'During registration, we\'ll need your business registration details, VAT/tax ID, and basic company information. For certain territories, additional documentation may be required to comply with local regulations.',
-    category: 'account'
-  },
-  {
     question: 'Can I have multiple users for my company account?',
     answer: 'Yes, you can add multiple users under your company account. Each user can have different permissions based on their role in your organization. Contact your account manager to set up additional users.',
     category: 'account'
@@ -51,13 +46,8 @@ const faqs: FAQItem[] = [
     category: 'ordering'
   },
   {
-    question: 'What payment methods do you accept?',
-    answer: 'We accept bank transfers (SWIFT/SEPA), and offer NET 30 or NET 60 payment terms for established accounts. New accounts may require prepayment for initial orders. All prices are in USD, EUR, or GBP depending on the brand.',
-    category: 'ordering'
-  },
-  {
     question: 'Can I cancel or modify an order?',
-    answer: 'Orders can be modified or cancelled within 24 hours of placement. After this period, orders enter processing and cannot be changed. Please review your orders carefully before confirming.',
+    answer: 'Yes, until shipment - as we\'re working closely with our brands, we offer more flexibility. Contact us as soon as possible if you need to modify your order.',
     category: 'ordering'
   },
   
@@ -75,11 +65,6 @@ const faqs: FAQItem[] = [
   {
     question: 'Who handles customs and import duties?',
     answer: 'As the importer of record, you are responsible for all customs duties, taxes, and import fees. We provide all necessary documentation including commercial invoices and certificates. We recommend working with a customs broker familiar with cosmetics imports.',
-    category: 'shipping'
-  },
-  {
-    question: 'How is shipping calculated?',
-    answer: 'Shipping costs are calculated based on order weight, dimensions, and destination. We work with reliable logistics partners to ensure competitive rates. Shipping quotes are provided before order confirmation.',
     category: 'shipping'
   },
   
@@ -101,7 +86,7 @@ const faqs: FAQItem[] = [
   },
   {
     question: 'Can I request products not currently listed?',
-    answer: 'Yes! We\'re always expanding our catalog. If you\'re looking for specific K-beauty brands or products, contact your account manager. We\'ll work to bring them onto our platform if they meet our quality standards.',
+    answer: 'Yes, at LYS we also track the brands we don\'t have in our portfolio for you. If you\'re interested in having a particular brand on your shelves and need a provider, contact us.',
     category: 'products'
   },
   {

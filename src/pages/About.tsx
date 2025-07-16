@@ -11,14 +11,14 @@ const stats = [
     description: 'In skincare retail and distribution'
   },
   {
-    value: '100+',
-    label: 'Retail Partners',
-    description: 'Across Europe and beyond'
+    value: 'KTA',
+    label: 'Associated with',
+    description: 'Korean Trade Association'
   },
   {
-    value: '15+',
-    label: 'Verified Brands',
-    description: 'Carefully curated K-beauty selection'
+    value: '5',
+    label: 'New Partners Yearly',
+    description: 'Exclusive brand partnerships added annually'
   },
   {
     value: '24/7',
@@ -90,6 +90,21 @@ export const About: React.FC = () => {
                 innovative K-beauty brands and ambitious retailers looking to offer their customers 
                 the very best in skincare.
               </p>
+            </div>
+          </div>
+          
+          {/* VSL Video Placeholder */}
+          <div className="mt-8 max-w-3xl mx-auto">
+            <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <svg className="w-16 h-16 mx-auto mb-4 text-rose-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <p className="text-text-secondary">Video coming soon</p>
+                </div>
+              </div>
             </div>
           </div>
         </Container>
@@ -205,31 +220,6 @@ export const About: React.FC = () => {
               <p>
                 Today, we're proud to be the trusted partner for retailers across Europe and beyond, 
                 helping them bring the innovation and quality of K-beauty to their customers.
-              </p>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      {/* VSL Placeholder Section */}
-      <Section background="gray">
-        <Container>
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-light text-deep-charcoal mb-8">
-              See How We're Transforming K-Beauty Wholesale
-            </h2>
-            <div className="bg-white rounded-lg shadow-sm p-8 md:p-12">
-              <div className="aspect-video bg-gradient-to-br from-rose-gold/10 to-soft-pink rounded-lg flex items-center justify-center mb-6">
-                <div className="text-center">
-                  <svg className="w-20 h-20 text-rose-gold mb-4 mx-auto" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                  <p className="text-text-secondary">Video Sales Letter Coming Soon</p>
-                </div>
-              </div>
-              <p className="text-lg text-text-secondary">
-                Discover how Loving Your Skin is revolutionizing the way retailers 
-                access authentic Korean beauty products.
               </p>
             </div>
           </div>

@@ -39,8 +39,8 @@ export const Privacy: React.FC = () => {
                 <div className="bg-gray-50 p-6 rounded-lg">
                   <p><strong>Company:</strong> Loving Your Skin Ltd</p>
                   <p><strong>Registered Address:</strong> London, United Kingdom</p>
-                  <p><strong>Contact Email:</strong> privacy@lovingyourskin.com</p>
-                  <p><strong>Data Protection Officer:</strong> dpo@lovingyourskin.com</p>
+                  <p><strong>Contact:</strong> Via our contact form</p>
+                  <p><strong>Data Protection Officer:</strong> Available through contact form</p>
                 </div>
               </section>
 

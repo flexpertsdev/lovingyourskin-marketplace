@@ -202,8 +202,8 @@ export const RefundPolicy: React.FC = () => {
               <section>
                 <h2 className="text-2xl font-medium text-deep-charcoal mb-4">Contact for Refunds</h2>
                 <div className="bg-gray-50 p-6 rounded-lg">
-                  <p><strong>Email:</strong> returns@lovingyourskin.com</p>
-                  <p><strong>Phone:</strong> +44 20 XXXX XXXX (Mon-Fri, 9am-5pm GMT)</p>
+                  <p><strong>Email:</strong> julie@lovingyourskin.net</p>
+                  <p><strong>Phone:</strong> +39 377 025 1222</p>
                   <p><strong>Response Time:</strong> Within 24 business hours</p>
                   <p className="mt-4">
                     Please include your order number in all correspondence.

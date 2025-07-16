@@ -102,7 +102,7 @@ export const Contact: React.FC = () => {
                         <p className="text-text-secondary">
                           For Brands: partnerships@lovingyourskin.net<br />
                           For Retailers: julie@lovingyourskin.net<br />
-                          General: hello@lovingyourskin.com
+                          General: info@lovingyourskin.net
                         </p>
                       </div>
                     </CardContent>
@@ -118,9 +118,8 @@ export const Contact: React.FC = () => {
                       <div>
                         <h3 className="font-medium text-deep-charcoal mb-2">Business Hours</h3>
                         <p className="text-text-secondary">
-                          Monday - Friday: 9:00 AM - 6:00 PM GMT<br />
-                          Saturday - Sunday: Closed<br />
-                          <span className="text-sm">Response within 24 business hours</span>
+                          We're available 24/7 to serve you better!<br />
+                          <span className="text-sm">Expect a response within 24 hours</span>
                         </p>
                       </div>
                     </CardContent>
