@@ -1,7 +1,7 @@
 // Fix brands migration script for use with Firebase Emulator
 // This script connects to the emulator to avoid permission issues
 
-import { collection, doc, setDoc, getDocs, deleteDoc, writeBatch, Timestamp, connectFirestoreEmulator } from 'firebase/firestore'
+import { collection, doc, getDocs, deleteDoc, writeBatch, Timestamp, connectFirestoreEmulator } from 'firebase/firestore'
 import fs from 'fs/promises'
 import path from 'path'
 import { fileURLToPath } from 'url'

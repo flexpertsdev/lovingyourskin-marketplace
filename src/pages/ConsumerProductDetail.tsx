@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link, useLocation } from 'react-router-dom'
 import { productService } from '../services'
 import { Product } from '../types'
-import { Container } from '../components/layout'
+import { Layout, Container } from '../components/layout'
 import { Button } from '../components/ui/Button'
 import { Card, CardContent } from '../components/ui/Card'
 import { Badge } from '../components/ui/Badge'
@@ -123,7 +123,7 @@ export const ConsumerProductDetail: React.FC = () => {
     if (!product) return
     
     addItem(product, quantity)
-    toast.success(`${product.name.en} added to cart`)
+    toast.success(`${typeof product.name === 'object' ? product.name.en : product.name} added to cart`)
   }
   
   const handleQuantityChange = (delta: number) => {
@@ -135,7 +135,7 @@ export const ConsumerProductDetail: React.FC = () => {
   
   const handleWishlistToggle = async () => {
     if (!user || !product) {
-      navigate('/shop/login', { state: { from: location } })
+      navigate('/consumer/login', { state: { from: location } })
       return
     }
     
@@ -182,22 +182,26 @@ export const ConsumerProductDetail: React.FC = () => {
   
   if (loading) {
     return (
-      <Container className="py-12">
-        <div className="flex justify-center">
-          <Spinner size="large" />
-        </div>
-      </Container>
+      <Layout mode="consumer">
+        <Container className="py-12">
+          <div className="flex justify-center">
+            <Spinner size="large" />
+          </div>
+        </Container>
+      </Layout>
     )
   }
   
   if (error || !product) {
     return (
-      <Container className="py-12">
-        <div className="text-center">
-          <p className="text-red-600 mb-4">{error || 'Product not found'}</p>
-          <Button onClick={() => navigate('/shop')}>Back to Shop</Button>
-        </div>
-      </Container>
+      <Layout mode="consumer">
+        <Container className="py-12">
+          <div className="text-center">
+            <p className="text-red-600 mb-4">{error || 'Product not found'}</p>
+            <Button onClick={() => navigate('/consumer/shop')}>Back to Shop</Button>
+          </div>
+        </Container>
+      </Layout>
     )
   }
   
@@ -209,9 +213,10 @@ export const ConsumerProductDetail: React.FC = () => {
     : effectivePrice
   
   return (
-    <Container className="py-8">
-      {/* Back Button */}
-      <Link to="/shop" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6">
+    <Layout mode="consumer">
+      <Container className="py-8">
+        {/* Back Button */}
+        <Link to="/consumer/shop" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6">
         <ChevronLeftIcon />
         <span>Back to Shop</span>
       </Link>
@@ -462,6 +467,7 @@ export const ConsumerProductDetail: React.FC = () => {
           <p className="text-sm mt-2">30-Day Returns</p>
         </div>
       </div>
-    </Container>
+      </Container>
+    </Layout>
   )
 }

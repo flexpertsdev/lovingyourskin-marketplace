@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Layout, Container, Section, Grid } from '../components/layout'
 import { Button, Select, Badge, Spinner, Card, CardContent } from '../components/ui'
-import { HeroCarousel } from '../components/features/HeroCarousel'
+// Removed unused import
 import { productService } from '../services'
 import { Brand, Product } from '../types'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
@@ -26,13 +26,13 @@ const ConsumerProductCard: React.FC<{ product: Product }> = ({ product }) => {
     <Card className="group overflow-hidden h-full flex flex-col">
       <div className="relative aspect-square overflow-hidden">
         <img 
-          src={product.image} 
+          src={product.images[0]} 
           alt={productName}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer"
           onClick={() => navigate(`/consumer/products/${product.id}`)}
         />
         {product.preOrderEnabled && (
-          <Badge variant="primary" className="absolute top-4 left-4">
+          <Badge variant="default" className="absolute top-4 left-4">
             Pre-order
           </Badge>
         )}
@@ -220,7 +220,7 @@ export const ConsumerBrandDetail: React.FC = () => {
             {/* Brand Features */}
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               {brand.featureTags?.map((tag, index) => (
-                <Badge key={index} variant="secondary">
+                <Badge key={index} variant="default">
                   {tag}
                 </Badge>
               ))}

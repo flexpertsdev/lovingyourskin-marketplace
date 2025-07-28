@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Container } from '../components/layout'
+import { Layout, Container } from '../components/layout'
 import { Card, CardContent, Badge, Button } from '../components/ui'
 import { Spinner } from '../components/ui/Spinner'
 import { productService } from '../services'
 import { Product } from '../types'
-import { ConsumerNav } from './ConsumerShop'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
 import toast from 'react-hot-toast'
 
@@ -88,29 +87,28 @@ export const ConsumerPreorders: React.FC = () => {
 
   const handlePreorder = (product: Product) => {
     addItem(product, 1)
-    toast.success(`${product.name.en} added to cart for pre-order`)
+    const productName = typeof product.name === 'object' ? product.name.en : product.name
+    toast.success(`${productName} added to cart for pre-order`)
   }
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-soft-pink">
-        <ConsumerNav />
+      <Layout mode="consumer">
         <div className="flex justify-center items-center h-96">
           <Spinner size="large" />
         </div>
-      </div>
+      </Layout>
     )
   }
 
   return (
-    <div className="min-h-screen bg-soft-pink">
-      <ConsumerNav />
+    <Layout mode="consumer">
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-rose-gold to-rose-gold-dark text-white py-12 md:py-20">
         <Container>
           <div className="text-center">
-            <Badge variant="secondary" className="bg-white/20 text-white mb-4">
+            <Badge variant="info" className="bg-white/20 text-white mb-4">
               LIMITED TIME
             </Badge>
             <h1 className="text-3xl md:text-5xl font-light mb-4">
@@ -173,25 +171,24 @@ export const ConsumerPreorders: React.FC = () => {
                   <div className="relative">
                     <Link to={`/consumer/products/${product.id}`}>
                       <img 
-                        src={product.image} 
-                        alt={product.name.en}
+                        src={product.images?.[0] || '/placeholder-product.png'} 
+                        alt={typeof product.name === 'object' ? product.name.en : product.name}
                         className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     </Link>
                     
                     {/* Pre-order Badge */}
                     <div className="absolute top-4 left-4">
-                      <Badge variant="secondary" className="bg-rose-gold text-white">
+                      <Badge variant="info" className="bg-rose-gold text-white">
                         PRE-ORDER
                       </Badge>
                     </div>
                     
                     {/* Discount Badge */}
-                    {product.preOrderPrice && product.retailPrice && 
-                     product.preOrderPrice < product.retailPrice.item && (
+                    {product.preOrderDiscount && product.retailPrice && (
                       <div className="absolute top-4 right-4">
-                        <Badge variant="secondary" className="bg-green-600 text-white">
-                          {Math.round((1 - product.preOrderPrice / product.retailPrice.item) * 100)}% OFF
+                        <Badge variant="info" className="bg-green-600 text-white">
+                          {product.preOrderDiscount}% OFF
                         </Badge>
                       </div>
                     )}
@@ -203,19 +200,19 @@ export const ConsumerPreorders: React.FC = () => {
                     </p>
                     <Link to={`/consumer/products/${product.id}`}>
                       <h3 className="font-medium text-deep-charcoal mb-2 hover:text-rose-gold transition-colors">
-                        {product.name.en}
+                        {typeof product.name === 'object' ? product.name.en : product.name}
                       </h3>
                     </Link>
                     <p className="text-sm text-text-secondary mb-4 line-clamp-2">
-                      {product.description.en}
+                      {typeof product.description === 'object' ? product.description.en : product.description}
                     </p>
                     
                     {/* Pricing */}
                     <div className="mb-4">
-                      {product.preOrderPrice ? (
+                      {product.preOrderDiscount && product.retailPrice ? (
                         <div className="flex items-center gap-2">
                           <span className="text-xl font-light text-rose-gold">
-                            £{product.preOrderPrice.toFixed(2)}
+                            £{(product.retailPrice.item * (1 - product.preOrderDiscount / 100)).toFixed(2)}
                           </span>
                           <span className="text-sm text-text-secondary line-through">
                             £{product.retailPrice?.item.toFixed(2)}
@@ -249,7 +246,7 @@ export const ConsumerPreorders: React.FC = () => {
                 No pre-order products available at the moment.
               </p>
               <Link to="/consumer/shop">
-                <Button variant="secondary">
+                <Button variant="primary">
                   Shop Available Products
                 </Button>
               </Link>
@@ -296,6 +293,6 @@ export const ConsumerPreorders: React.FC = () => {
           </div>
         </Container>
       </section>
-    </div>
+    </Layout>
   )
 }

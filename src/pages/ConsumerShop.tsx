@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Container } from '../components/layout'
 import { Layout } from '../components/layout'
-import { Button, Input, Card, CardContent } from '../components/ui'
+import { Button, Card, CardContent } from '../components/ui'
 import { Spinner } from '../components/ui/Spinner'
 import { productService } from '../services'
 import { Product, Brand } from '../types'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
-import { useAuthStore } from '../stores/auth.store'
+// Removed unused import
 import toast from 'react-hot-toast'
 
 // Icon components
@@ -193,7 +193,6 @@ const ShopFilters: React.FC<{
 
 // Main Shop Component
 export const ConsumerShop: React.FC = () => {
-  const navigate = useNavigate()
   const { addItem } = useConsumerCartStore()
   const [products, setProducts] = useState<Product[]>([])
   const [brands, setBrands] = useState<Brand[]>([])
@@ -392,7 +391,7 @@ export const ConsumerShop: React.FC = () => {
                       <div className="relative">
                         <Link to={`/consumer/products/${product.id}`}>
                           <img 
-                            src={product.image} 
+                            src={product.images[0]} 
                             alt={productName}
                             className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                           />

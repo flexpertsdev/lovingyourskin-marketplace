@@ -115,7 +115,7 @@ export const BoutiqueCollection: React.FC = () => {
             {brand.featureTags && brand.featureTags.length > 0 && (
               <div className="flex flex-wrap justify-center gap-2 mb-8">
                 {brand.featureTags.map((tag, index) => (
-                  <Badge key={index} variant="default">
+                  <Badge key={index} variant="info">
                     {tag}
                   </Badge>
                 ))}
@@ -175,13 +175,13 @@ export const BoutiqueCollection: React.FC = () => {
                   <Link to={`/shop/products/${product.id}`}>
                     <div className="relative overflow-hidden">
                       <img 
-                        src={product.image} 
+                        src={product.images[0]} 
                         alt={product.name.en}
                         className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                       {product.preOrderEnabled && (
                         <Badge 
-                          variant="secondary" 
+                          variant="info" 
                           className="absolute top-4 right-4"
                         >
                           Pre-order
@@ -232,7 +232,7 @@ export const BoutiqueCollection: React.FC = () => {
                 No products available for retail at this time.
               </p>
               <Link to="/shop">
-                <Button variant="secondary" className="mt-4">
+                <Button variant="primary" className="mt-4">
                   Browse All Products
                 </Button>
               </Link>

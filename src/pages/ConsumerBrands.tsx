@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Container } from '../components/layout'
+import { Layout, Container } from '../components/layout'
 import { Card, CardContent, Badge } from '../components/ui'
 import { Spinner } from '../components/ui/Spinner'
 import { productService } from '../services'
 import { Brand } from '../types'
-import { ConsumerNav } from './ConsumerShop'
 
 export const ConsumerBrands: React.FC = () => {
   const [brands, setBrands] = useState<Brand[]>([])
@@ -37,18 +36,16 @@ export const ConsumerBrands: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-soft-pink">
-        <ConsumerNav />
+      <Layout mode="consumer">
         <div className="flex justify-center items-center h-96">
           <Spinner size="large" />
         </div>
-      </div>
+      </Layout>
     )
   }
 
   return (
-    <div className="min-h-screen bg-soft-pink">
-      <ConsumerNav />
+    <Layout mode="consumer">
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-soft-pink to-white py-12 md:py-20">
@@ -180,6 +177,6 @@ export const ConsumerBrands: React.FC = () => {
           </div>
         </Container>
       </section>
-    </div>
+    </Layout>
   )
 }

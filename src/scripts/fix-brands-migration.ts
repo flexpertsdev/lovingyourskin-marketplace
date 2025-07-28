@@ -1,7 +1,7 @@
 // Fix brands migration script
 // This script deletes existing brands and re-imports them with proper data transformation
 
-import { collection, doc, setDoc, getDocs, deleteDoc, writeBatch, Timestamp } from 'firebase/firestore'
+import { collection, doc, getDocs, deleteDoc, writeBatch, Timestamp } from 'firebase/firestore'
 import fs from 'fs/promises'
 import path from 'path'
 import { fileURLToPath } from 'url'
