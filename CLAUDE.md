@@ -53,28 +53,27 @@ npm run firebase:deploy:hosting
   - Zustand for client state (auth, cart, UI)
   - React Query for server state
 - **Routing**: React Router v7
-- **Backend**: Firebase (configured but using mock services during development)
+- **Backend**: Firebase (Auth, Firestore, Storage, Analytics)
+- **Deployment**: Netlify
 - **Internationalization**: react-i18next (installed, not yet configured)
 
-### Firebase Integration Status
-- **Project**: lovingyourskinshop (Firebase project configured)
-- **Services**: Auth, Firestore, Storage, Analytics initialized in `src/lib/firebase/config.ts`
-- **Service Toggle**: Use `src/config/services.config.ts` to switch between mock and Firebase services
-- **Current Status**: All services set to use mock implementations (useFirebase: false)
-- **Firebase Auth Service**: Already implemented in `src/services/firebase/auth.service.ts`
+### Firebase Integration
+- **Project**: lovingyourskin (Firebase project configured)
+- **Services**: Auth, Firestore, Storage, Analytics initialized
+- **Service Configuration**: All services now use Firebase implementations
+- **Emulator Ports**: Auth (9099), Firestore (8080), Storage (9199), UI (4000)
 
 ### Key Architectural Patterns
 
 #### 1. Service Layer Pattern
-All API interactions go through services in `src/services/`. Service implementations can be toggled between mock and Firebase:
-- Mock services in `src/services/mock/` for development
-- Firebase services in `src/services/firebase/` for production
-- Toggle via `src/config/services.config.ts`
+All API interactions go through services in `src/services/`. The application uses Firebase services for all data operations:
+- Firebase services in `src/services/firebase/`
 - Services return typed responses matching `src/types/index.ts`
+- Central export through `src/services/index.ts`
 
 #### 2. State Management Strategy
 - **Auth Store** (`stores/auth.store.ts`): User authentication, persisted to localStorage
-- **Cart Store** (`stores/cart.store.ts`): Shopping cart with MOQ validation, persisted
+- **Cart Store** (`stores/consumer-cart.store.ts`): Shopping cart with MOQ validation, persisted
 - **UI Store** (`stores/ui.store.ts`): Language preference, theme, UI state, persisted
 
 #### 3. Multi-Language Architecture
@@ -94,7 +93,7 @@ Core business rule implemented in cart store:
 - Invite-only registration system
 - Registration requires valid invite code
 - Auth service validates codes and creates users
-- Role-based access (admin, retailer, brand)
+- Role-based access (admin, retailer, brand, consumer)
 
 ### Project Structure
 ```
@@ -102,22 +101,27 @@ src/
 ├── components/      # Reusable UI components
 │   ├── ui/         # Base components (Button, Input, etc.)
 │   ├── features/   # Feature components (BrandCard, ProductCard)
-│   └── layout/     # Layout components (Header, Footer)
+│   ├── layout/     # Layout components (Header, Footer)
+│   ├── admin/      # Admin-specific components
+│   └── auth/       # Authentication components
 ├── pages/          # Page components (route endpoints)
-├── services/       # API service layer (mock → Firebase)
+├── services/       # Firebase service layer
 ├── stores/         # Zustand state stores
 ├── types/          # TypeScript type definitions
 ├── routes/         # Route configuration
+├── lib/            # Firebase configuration
+├── data/           # Static data and constants
 └── theme/          # Design system constants
 ```
 
 ### Type System
 All data types are defined in `src/types/index.ts`. Key entities:
-- User (with roles: admin, retailer, brand)
+- User (with roles: admin, retailer, brand, consumer)
 - Product (with multi-language support, certifications)
 - Brand (with products, stats, technologies)
 - Order (with 9-status workflow)
 - Cart (with MOQ validation)
+- Invoice (B2B and B2C support)
 
 ### Design System
 - Primary color: Rose Gold (#D4A5A5)
