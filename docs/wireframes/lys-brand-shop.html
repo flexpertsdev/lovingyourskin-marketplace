@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INNISFREE - LYS Brand Shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-white: #FFFFFF;
+            --soft-pink: #FDF8F6;
+            --rose-gold: #D4A5A5;
+            --rose-gold-dark: #C48B8B;
+            --deep-charcoal: #1A1A1A;
+            --text-primary: #2D2D2D;
+            --text-secondary: #5A5A5A;
+            --light-gray: #F0F0F0;
+            --medium-gray: #8B8B8B;
+            --border-gray: #E0E0E0;
+            --success-green: #4CAF50;
+            --warning-amber: #FF9800;
+            --error-red: #F44336;
+            --soft-pink-hover: #F5E6E0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--light-gray);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        /* Navigation Styles */
+        .top-nav {
+            background: var(--primary-white);
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--deep-charcoal);
+        }
+        
+        .nav-items {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-item {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: var(--soft-pink-hover);
+            color: var(--deep-charcoal);
+        }
+        
+        .nav-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .lang-selector {
+            padding: 6px 12px;
+            border: 1px solid var(--border-gray);
+            border-radius: 20px;
+            background: var(--primary-white);
+            font-size: 12px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+        
+        /* Page Content */
+        .page-content {
+            background: var(--primary-white);
+            min-height: calc(100vh - 65px);
+        }
+        
+        /* Brand Header */
+        .brand-header {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--soft-pink);
+        }
+        
+        /* Product Controls */
+        .product-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            background: var(--primary-white);
+            border-bottom: 1px solid var(--border-gray);
+        }
+        
+        .form-select {
+            padding: 8px 16px;
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            background: var(--primary-white);
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 24px;
+        }
+        
+        .product-card {
+            background: var(--primary-white);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-gray);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-color: var(--rose-gold);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: var(--soft-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .product-info {
+            padding: 16px;
+        }
+        
+        .product-name {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .product-price {
+            color: var(--rose-gold);
+            font-weight: 500;
+        }
+        
+        /* Mobile Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary-white);
+            border-top: 1px solid var(--border-gray);
+            display: none;
+            padding: 8px 0;
+            z-index: 1000;
+        }
+        
+        .bottom-nav-items {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            color: var(--medium-gray);
+            text-decoration: none;
+            font-size: 12px;
+            gap: 4px;
+        }
+        
+        .bottom-nav-item.active {
+            color: var(--rose-gold);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-nav {
+                display: none;
+            }
+            
+            .bottom-nav {
+                display: block;
+            }
+            
+            .page-content {
+                padding-bottom: 80px;
+            }
+            
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-logo">LOVING YOUR SKIN</div>
+        <div class="nav-items">
+            <a href="retailer-dashboard.html" class="nav-item">Dashboard</a>
+            <a href="brands.html" class="nav-item active">Brands</a>
+            <a href="products.html" class="nav-item">Products</a>
+            <a href="orders.html" class="nav-item">Orders</a>
+            <a href="cart.html" class="nav-item">Shopping Cart</a>
+            <a href="settings.html" class="nav-item">Settings</a>
+        </div>
+        <div class="nav-user">
+            <select class="lang-selector">
+                <option>EN</option>
+                <option>KO</option>
+                <option>ZH</option>
+            </select>
+            <span style="color: var(--text-secondary);">Beauty Store</span>
+        </div>
+    </nav>
+    
+    <!-- Mobile Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="bottom-nav-items">
+            <a href="retailer-dashboard.html" class="bottom-nav-item">
+                <div class="nav-icon">🏠</div>
+                <span>Home</span>
+            </a>
+            <a href="brands.html" class="bottom-nav-item active">
+                <div class="nav-icon">🏪</div>
+                <span>Brands</span>
+            </a>
+            <a href="cart.html" class="bottom-nav-item">
+                <div class="nav-icon">🛒</div>
+                <span>Cart</span>
+            </a>
+            <a href="orders.html" class="bottom-nav-item">
+                <div class="nav-icon">📦</div>
+                <span>Orders</span>
+            </a>
+            <a href="settings.html" class="bottom-nav-item">
+                <div class="nav-icon">👤</div>
+                <span>Profile</span>
+            </a>
+        </div>
+    </div>
+    
+    <div class="page-content">
+        <div class="brand-header">
+            <h1 style="font-size: 36px; margin-bottom: 10px;">INNISFREE</h1>
+            <p style="color: var(--text-secondary);">Natural ingredients from Jeju Island</p>
+        </div>
+        
+        <div class="product-controls">
+            <h3>All Products (42)</h3>
+            <select class="form-select">
+                <option>Sort by: Popular</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+                <option>Newest First</option>
+            </select>
+        </div>
+        
+        <div class="product-grid">
+            <div class="product-card" onclick="window.location.href='product-detail.html'">
+                <div class="product-image">Product Image</div>
+                <div class="product-info">
+                    <h4 class="product-name">Green Tea Seed Serum</h4>
+                    <p style="font-size: 14px; color: var(--text-secondary);">50ml bottle</p>
+                    <div class="product-price">£12.50/item</div>
+                    <p style="font-size: 12px; color: var(--text-secondary);">£150/carton (12 items)</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">Product Image</div>
+                <div class="product-info">
+                    <h4 class="product-name">Volcanic Pore Clay Mask</h4>
+                    <p style="font-size: 14px; color: var(--text-secondary);">100ml jar</p>
+                    <div class="product-price">£8.00/item</div>
+                    <p style="font-size: 12px; color: var(--text-secondary);">£192/carton (24 items)</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">Product Image</div>
+                <div class="product-info">
+                    <h4 class="product-name">Bija Trouble Facial Foam</h4>
+                    <p style="font-size: 14px; color: var(--text-secondary);">150ml tube</p>
+                    <div class="product-price">£6.50/item</div>
+                    <p style="font-size: 12px; color: var(--text-secondary);">£234/carton (36 items)</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">Product Image</div>
+                <div class="product-info">
+                    <h4 class="product-name">Cherry Blossom Jelly Cream</h4>
+                    <p style="font-size: 14px; color: var(--text-secondary);">50ml jar</p>
+                    <div class="product-price">£15.00/item</div>
+                    <p style="font-size: 12px; color: var(--text-secondary);">£180/carton (12 items)</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">Product Image</div>
+                <div class="product-info">
+                    <h4 class="product-name">Jeju Orchid Enriched Cream</h4>
+                    <p style="font-size: 14px; color: var(--text-secondary);">50ml jar</p>
+                    <div class="product-price">£22.00/item</div>
+                    <p style="font-size: 12px; color: var(--text-secondary);">£264/carton (12 items)</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">Product Image</div>
+                <div class="product-info">
+                    <h4 class="product-name">Black Tea Youth Serum</h4>
+                    <p style="font-size: 14px; color: var(--text-secondary);">30ml bottle</p>
+                    <div class="product-price">£18.50/item</div>
+                    <p style="font-size: 12px; color: var(--text-secondary);">£222/carton (12 items)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

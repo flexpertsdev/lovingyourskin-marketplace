@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Container, Section } from '../../components/layout'
 import { Button, Input, Select, Card, CardHeader, CardTitle, CardDescription, CardContent } from '../../components/ui'
 import { useAuthStore } from '../../stores/auth.store'
 
 export const Register: React.FC = () => {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const { register, isLoading, error, clearError } = useAuthStore()
   
   const [step, setStep] = useState<'invite' | 'details'>('invite')
@@ -19,6 +20,26 @@ export const Register: React.FC = () => {
   })
   
   const [validationError, setValidationError] = useState('')
+  
+  // Handle URL parameters on mount
+  useEffect(() => {
+    const codeParam = searchParams.get('code')
+    const emailParam = searchParams.get('email')
+    
+    if (codeParam) {
+      setInviteCode(codeParam.toUpperCase())
+      
+      // If email is also provided, pre-fill it
+      if (emailParam) {
+        setFormData(prev => ({ ...prev, email: emailParam }))
+      }
+      
+      // Auto-advance to details step if code is provided
+      if (codeParam.trim().length >= 6) {
+        setStep('details')
+      }
+    }
+  }, [searchParams])
   
   const handleInviteSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -84,7 +105,7 @@ export const Register: React.FC = () => {
                   error={validationError || (error && step === 'invite' ? error : undefined)}
                   hint="Don't have a code? Request one on our homepage"
                   required
-                  maxLength={10}
+                  maxLength={30}
                 />
                 
                 <Button type="submit" fullWidth size="large">

@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Order Exclusive Products - Loving Your Skin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-white: #FFFFFF;
+            --soft-pink: #FDF8F6;
+            --rose-gold: #D4A5A5;
+            --rose-gold-dark: #C48B8B;
+            --deep-charcoal: #1A1A1A;
+            --text-primary: #2D2D2D;
+            --text-secondary: #5A5A5A;
+            --light-gray: #F0F0F0;
+            --medium-gray: #8B8B8B;
+            --border-gray: #E0E0E0;
+            --success-green: #4CAF50;
+            --warning-amber: #FF9800;
+            --error-red: #F44336;
+            --soft-pink-hover: #F5E6E0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--light-gray);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        /* Navigation - Consumer focused */
+        .consumer-nav {
+            background: var(--primary-white);
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-logo {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--deep-charcoal);
+            text-decoration: none;
+        }
+        
+        .nav-items {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-item {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: var(--soft-pink-hover);
+            color: var(--deep-charcoal);
+        }
+        
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--rose-gold);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--soft-pink) 0%, #fff 100%);
+            padding: 80px 24px;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: var(--rose-gold);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+        
+        .hero-title {
+            font-size: 48px;
+            font-weight: 300;
+            margin-bottom: 20px;
+            color: var(--deep-charcoal);
+        }
+        
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        /* Discount Banner */
+        .discount-banner {
+            background: var(--rose-gold);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        /* Brand Sections */
+        .brand-section {
+            padding: 60px 24px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+        
+        .brand-section:nth-child(even) {
+            background: var(--soft-pink);
+        }
+        
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .brand-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .brand-info h2 {
+            font-size: 36px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: var(--deep-charcoal);
+        }
+        
+        .brand-tagline {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+        
+        .launch-date {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--rose-gold);
+            font-weight: 500;
+        }
+        
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        
+        .preorder-card {
+            background: var(--primary-white);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-gray);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .preorder-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+        
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+        
+        .preorder-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: var(--rose-gold);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .discount-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--success-green);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-name {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--deep-charcoal);
+        }
+        
+        .product-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+        
+        .price-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .preorder-price {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--rose-gold);
+        }
+        
+        .original-price {
+            font-size: 18px;
+            color: var(--medium-gray);
+            text-decoration: line-through;
+        }
+        
+        .preorder-cta {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: var(--rose-gold);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .preorder-cta:hover {
+            background: var(--rose-gold-dark);
+            transform: translateY(-1px);
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 24px;
+            background: var(--primary-white);
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-title {
+            font-size: 36px;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--deep-charcoal);
+        }
+        
+        .faq-item {
+            margin-bottom: 24px;
+            border: 1px solid var(--border-gray);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .faq-item:hover {
+            border-color: var(--rose-gold);
+        }
+        
+        .faq-question {
+            padding: 20px 24px;
+            background: var(--soft-pink);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            font-size: 16px;
+        }
+        
+        .faq-answer {
+            padding: 20px 24px;
+            background: white;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            display: none;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        .faq-icon {
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--deep-charcoal);
+            color: white;
+            padding: 40px 24px;
+            text-align: center;
+        }
+        
+        /* Mobile Bottom Navigation */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary-white);
+            border-top: 1px solid var(--border-gray);
+            display: none;
+            padding: 8px 0;
+            z-index: 1000;
+        }
+        
+        .mobile-nav-items {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .mobile-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            color: var(--medium-gray);
+            text-decoration: none;
+            font-size: 12px;
+            gap: 4px;
+        }
+        
+        .mobile-nav-item.active {
+            color: var(--rose-gold);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .consumer-nav {
+                display: none;
+            }
+            
+            .mobile-nav {
+                display: block;
+            }
+            
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .hero-subtitle {
+                font-size: 16px;
+            }
+            
+            .brand-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+            
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            
+            .product-image-container {
+                height: 200px;
+            }
+            
+            .faq-section {
+                padding-bottom: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Desktop Navigation -->
+    <nav class="consumer-nav">
+        <a href="lys-b2c-shop.html" class="nav-logo">LOVING YOUR SKIN</a>
+        <div class="nav-items">
+            <a href="lys-b2c-shop.html" class="nav-item">Shop</a>
+            <a href="#" class="nav-item">Brands</a>
+            <a href="index.html" class="nav-item active">Pre-Order</a>
+            <a href="#" class="nav-item">About</a>
+        </div>
+        <div class="nav-actions">
+            <select class="lang-selector" style="padding: 6px 12px; border: 1px solid var(--border-gray); border-radius: 20px; background: var(--primary-white); font-size: 12px;">
+                <option>EN</option>
+                <option>KO</option>
+                <option>ZH</option>
+            </select>
+            <div class="cart-icon" onclick="window.location.href='lys-b2c-checkout.html'" style="cursor: pointer;">
+                🛒
+                <span class="cart-count">3</span>
+            </div>
+            <a href="#" class="nav-item">Account</a>
+        </div>
+    </nav>
+    
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+        <div class="mobile-nav-items">
+            <a href="lys-b2c-shop.html" class="mobile-nav-item">
+                <span>🛍️</span>
+                <span>Shop</span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <span>🏪</span>
+                <span>Brands</span>
+            </a>
+            <a href="index.html" class="mobile-nav-item active">
+                <span>⏰</span>
+                <span>Pre-Order</span>
+            </a>
+            <a href="lys-b2c-checkout.html" class="mobile-nav-item">
+                <span>🛒</span>
+                <span>Cart (3)</span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <span>👤</span>
+                <span>Account</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge">✨ EXCLUSIVE PRE-LAUNCH ACCESS</div>
+            <h1 class="hero-title">Be First to Try Tomorrow's Beauty Favorites</h1>
+            <p class="hero-subtitle">Get exclusive early access to upcoming product launches from Korea's most innovative beauty brands. Pre-order now and save 20% before they hit the shelves.</p>
+        </div>
+    </section>
+    
+    <!-- Discount Banner -->
+    <div class="discount-banner">
+        🎉 Pre-order any product and save 20% off retail price - Limited time only!
+    </div>
+    
+    <!-- Brand Section: INNISFREE -->
+    <section class="brand-section">
+        <div class="section-container">
+            <div class="brand-header">
+                <div class="brand-info">
+                    <h2>INNISFREE</h2>
+                    <p class="brand-tagline">Nature's gift from Jeju Island - Coming Soon</p>
+                </div>
+                <div class="launch-date">
+                    📅 Launches March 15, 2025
+                </div>
+            </div>
+            
+            <div class="product-grid">
+                <div class="preorder-card">
+                    <div class="product-image-container">
+                        <span class="preorder-badge">PRE-ORDER</span>
+                        <span class="discount-badge">-20%</span>
+                        Product Image
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Black Tea Youth Enhancing Serum</h3>
+                        <p class="product-description">Revolutionary anti-aging serum with fermented black tea extract</p>
+                        <div class="price-container">
+                            <span class="preorder-price">£28.00</span>
+                            <span class="original-price">£35.00</span>
+                        </div>
+                        <a href="lys-preorder-detail.html" class="preorder-cta">Pre-Order Now</a>
+                    </div>
+                </div>
+                
+                <div class="preorder-card">
+                    <div class="product-image-container">
+                        <span class="preorder-badge">PRE-ORDER</span>
+                        <span class="discount-badge">-20%</span>
+                        Product Image
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Retinol Cica Repair Ampoule</h3>
+                        <p class="product-description">Gentle retinol treatment with cica for sensitive skin</p>
+                        <div class="price-container">
+                            <span class="preorder-price">£32.00</span>
+                            <span class="original-price">£40.00</span>
+                        </div>
+                        <a href="lys-preorder-detail.html" class="preorder-cta">Pre-Order Now</a>
+                    </div>
+                </div>
+                
+                <div class="preorder-card">
+                    <div class="product-image-container">
+                        <span class="preorder-badge">PRE-ORDER</span>
+                        <span class="discount-badge">-20%</span>
+                        Product Image
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Vitamin C Green Tea Enzyme Wash</h3>
+                        <p class="product-description">Brightening powder cleanser with vitamin C and enzymes</p>
+                        <div class="price-container">
+                            <span class="preorder-price">£16.00</span>
+                            <span class="original-price">£20.00</span>
+                        </div>
+                        <a href="lys-preorder-detail.html" class="preorder-cta">Pre-Order Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Brand Section: LANEIGE -->
+    <section class="brand-section">
+        <div class="section-container">
+            <div class="brand-header">
+                <div class="brand-info">
+                    <h2>LANEIGE</h2>
+                    <p class="brand-tagline">Water Science for Radiant Skin - New Collection</p>
+                </div>
+                <div class="launch-date">
+                    📅 Launches March 22, 2025
+                </div>
+            </div>
+            
+            <div class="product-grid">
+                <div class="preorder-card">
+                    <div class="product-image-container">
+                        <span class="preorder-badge">PRE-ORDER</span>
+                        <span class="discount-badge">-20%</span>
+                        Product Image
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Water Bank Blue Hyaluronic Serum</h3>
+                        <p class="product-description">Intensive hydration with blue hyaluronic acid complex</p>
+                        <div class="price-container">
+                            <span class="preorder-price">£36.00</span>
+                            <span class="original-price">£45.00</span>
+                        </div>
+                        <a href="lys-preorder-detail.html" class="preorder-cta">Pre-Order Now</a>
+                    </div>
+                </div>
+                
+                <div class="preorder-card">
+                    <div class="product-image-container">
+                        <span class="preorder-badge">PRE-ORDER</span>
+                        <span class="discount-badge">-20%</span>
+                        Product Image
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Cica Sleeping Mask Intense</h3>
+                        <p class="product-description">Overnight repair mask with forest yeast extract</p>
+                        <div class="price-container">
+                            <span class="preorder-price">£24.00</span>
+                            <span class="original-price">£30.00</span>
+                        </div>
+                        <a href="lys-preorder-detail.html" class="preorder-cta">Pre-Order Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Brand Section: COSRX -->
+    <section class="brand-section">
+        <div class="section-container">
+            <div class="brand-header">
+                <div class="brand-info">
+                    <h2>COSRX</h2>
+                    <p class="brand-tagline">Expecting Tomorrow - Advanced Formulas</p>
+                </div>
+                <div class="launch-date">
+                    📅 Launches April 1, 2025
+                </div>
+            </div>
+            
+            <div class="product-grid">
+                <div class="preorder-card">
+                    <div class="product-image-container">
+                        <span class="preorder-badge">PRE-ORDER</span>
+                        <span class="discount-badge">-20%</span>
+                        Product Image
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">The Niacinamide 15% Serum</h3>
+                        <p class="product-description">High-strength niacinamide with zinc and NAG</p>
+                        <div class="price-container">
+                            <span class="preorder-price">£22.40</span>
+                            <span class="original-price">£28.00</span>
+                        </div>
+                        <a href="lys-preorder-detail.html" class="preorder-cta">Pre-Order Now</a>
+                    </div>
+                </div>
+                
+                <div class="preorder-card">
+                    <div class="product-image-container">
+                        <span class="preorder-badge">PRE-ORDER</span>
+                        <span class="discount-badge">-20%</span>
+                        Product Image
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Full Fit Propolis Synergy Pad</h3>
+                        <p class="product-description">Daily treatment pads with 83.25% propolis extract</p>
+                        <div class="price-container">
+                            <span class="preorder-price">£20.00</span>
+                            <span class="original-price">£25.00</span>
+                        </div>
+                        <a href="lys-preorder-detail.html" class="preorder-cta">Pre-Order Now</a>
+                    </div>
+                </div>
+                
+                <div class="preorder-card">
+                    <div class="product-image-container">
+                        <span class="preorder-badge">PRE-ORDER</span>
+                        <span class="discount-badge">-20%</span>
+                        Product Image
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Vitamin E Vitalizing Sunscreen</h3>
+                        <p class="product-description">SPF 50+ PA++++ with vitamin E and silymarin</p>
+                        <div class="price-container">
+                            <span class="preorder-price">£14.40</span>
+                            <span class="original-price">£18.00</span>
+                        </div>
+                        <a href="lys-preorder-detail.html" class="preorder-cta">Pre-Order Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="faq-container">
+            <h2 class="faq-title">Pre-Order FAQs</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    How does pre-ordering work?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    Pre-ordering allows you to secure products before their official launch. Simply add items to your cart and complete checkout. You'll be charged immediately, and products will ship on the launch date specified for each brand.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    When will I receive my pre-ordered items?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    Each brand has its own launch date displayed on the product cards. Your pre-ordered items will ship on or shortly after the launch date. You'll receive tracking information once your order ships. Typical delivery is 3-5 business days after shipping.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Why do I pay now for products that ship later?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    Payment at the time of pre-order secures your items and guarantees the 20% discount. This helps us ensure we have adequate stock for all pre-orders and prevents disappointment when products launch.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Can I cancel or modify my pre-order?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    Pre-orders can be cancelled up to 7 days before the product launch date for a full refund. After this period, orders cannot be cancelled as they enter the fulfillment process. Modifications to shipping addresses can be made up to 48 hours before launch.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Are pre-order items limited in quantity?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    Yes, pre-order quantities are limited based on our exclusive agreements with brands. Once the allocated pre-order stock is sold out, items won't be available until the general launch at full retail price.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Can I combine pre-orders from different brands?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    Yes! You can add pre-order items from multiple brands to your cart. However, each brand's products will ship separately on their respective launch dates. You'll only pay shipping once per brand order.
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Loving Your Skin. All rights reserved.</p>
+        <p style="margin-top: 10px; font-size: 14px;">Bringing the best of K-Beauty to Europe</p>
+    </footer>
+    
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

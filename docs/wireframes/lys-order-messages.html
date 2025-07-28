@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order #12345 Messages - LYS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-white: #FFFFFF;
+            --soft-pink: #FDF8F6;
+            --rose-gold: #D4A5A5;
+            --rose-gold-dark: #C48B8B;
+            --deep-charcoal: #1A1A1A;
+            --text-primary: #2D2D2D;
+            --text-secondary: #5A5A5A;
+            --light-gray: #F0F0F0;
+            --medium-gray: #8B8B8B;
+            --border-gray: #E0E0E0;
+            --success-green: #4CAF50;
+            --warning-amber: #FF9800;
+            --error-red: #F44336;
+            --soft-pink-hover: #F5E6E0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--light-gray);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        /* Navigation Styles */
+        .top-nav {
+            background: var(--primary-white);
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--deep-charcoal);
+        }
+        
+        .nav-items {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-item {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: var(--soft-pink-hover);
+            color: var(--deep-charcoal);
+        }
+        
+        .nav-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .lang-selector {
+            padding: 6px 12px;
+            border: 1px solid var(--border-gray);
+            border-radius: 20px;
+            background: var(--primary-white);
+            font-size: 12px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+        
+        /* Page Content */
+        .page-content {
+            padding: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        /* Message Container */
+        .message-container {
+            background: var(--primary-white);
+            border-radius: 12px;
+            border: 1px solid var(--border-gray);
+            overflow: hidden;
+            height: calc(100vh - 150px);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Order Header */
+        .order-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Message Thread */
+        .message-thread {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #FAFAFA;
+        }
+        
+        /* Messages */
+        .message {
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            max-width: 70%;
+        }
+        
+        .message.sent {
+            background: var(--rose-gold);
+            color: var(--primary-white);
+            margin-left: auto;
+        }
+        
+        .message.received {
+            background: var(--primary-white);
+            border: 1px solid var(--border-gray);
+            color: var(--text-primary);
+        }
+        
+        .message.system {
+            background: var(--success-green);
+            color: var(--primary-white);
+            max-width: 100%;
+            text-align: center;
+        }
+        
+        /* Message Input */
+        .message-input-container {
+            display: flex;
+            gap: 12px;
+            padding: 16px;
+            border-top: 1px solid var(--border-gray);
+            background: var(--primary-white);
+        }
+        
+        .message-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid var(--border-gray);
+            border-radius: 24px;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+        
+        .message-input:focus {
+            outline: none;
+            border-color: var(--rose-gold);
+        }
+        
+        .attach-btn, .send-btn {
+            padding: 12px;
+            background: var(--rose-gold);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .attach-btn:hover, .send-btn:hover {
+            background: var(--rose-gold-dark);
+        }
+        
+        .view-btn {
+            padding: 10px 20px;
+            border: 1px solid var(--border-gray);
+            background: var(--primary-white);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+        
+        /* Mobile Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary-white);
+            border-top: 1px solid var(--border-gray);
+            display: none;
+            padding: 8px 0;
+            z-index: 1000;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-nav {
+                display: none;
+            }
+            
+            .bottom-nav {
+                display: block;
+            }
+            
+            .page-content {
+                padding: 16px;
+                padding-bottom: 80px;
+            }
+            
+            .message-container {
+                height: calc(100vh - 200px);
+            }
+            
+            .message {
+                max-width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-logo">LOVING YOUR SKIN</div>
+        <div class="nav-items">
+            <a href="retailer-dashboard.html" class="nav-item">Dashboard</a>
+            <a href="brands.html" class="nav-item">Brands</a>
+            <a href="products.html" class="nav-item">Products</a>
+            <a href="orders.html" class="nav-item active">Orders</a>
+            <a href="cart.html" class="nav-item">Shopping Cart</a>
+            <a href="settings.html" class="nav-item">Settings</a>
+        </div>
+        <div class="nav-user">
+            <select class="lang-selector">
+                <option>EN</option>
+                <option>KO</option>
+                <option>ZH</option>
+            </select>
+            <span style="color: var(--text-secondary);">Beauty Store</span>
+        </div>
+    </nav>
+    
+    <div class="page-content">
+        <div class="message-container">
+            <div class="order-header">
+                <div>
+                    <h2>Order #12345 - INNISFREE</h2>
+                    <p style="color: var(--text-secondary);">Status: <span style="color: var(--success-green);">Processing</span></p>
+                </div>
+                <button class="view-btn">Order Details</button>
+            </div>
+            
+            <div class="message-thread">
+                <div class="message received">
+                    <strong>System</strong>
+                    <p>Order #12345 has been confirmed. We're processing your order with the manufacturer.</p>
+                    <span style="font-size: 12px; color: var(--medium-gray);">2 hours ago</span>
+                </div>
+                
+                <div class="message received">
+                    <strong>LYS Team</strong>
+                    <p>Hi! We've received your order and forwarded it to INNISFREE. You should receive confirmation within 24-48 hours.</p>
+                    <span style="font-size: 12px; color: var(--medium-gray);">2 hours ago</span>
+                </div>
+                
+                <div class="message sent">
+                    <strong>You</strong>
+                    <p>Great, thanks! Can you confirm the estimated delivery date?</p>
+                    <span style="font-size: 12px; color: rgba(255,255,255,0.7);">1 hour ago</span>
+                </div>
+                
+                <div class="message received">
+                    <strong>INNISFREE Brand Rep</strong>
+                    <p>Hello! We've received your order. Based on current stock, we can ship within 3 business days. Estimated delivery to your location is 7-10 days after shipment.</p>
+                    <span style="font-size: 12px; color: var(--medium-gray);">30 minutes ago</span>
+                </div>
+                
+                <div class="message system">
+                    <strong>System</strong>
+                    <p>📎 Invoice #INV-12345 has been generated and attached.</p>
+                    <span style="font-size: 12px; color: rgba(255,255,255,0.7);">15 minutes ago</span>
+                </div>
+            </div>
+            
+            <div class="message-input-container">
+                <input type="text" class="message-input" placeholder="Type your message...">
+                <button class="attach-btn">📎</button>
+                <button class="send-btn">➤</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

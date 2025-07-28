@@ -81,10 +81,12 @@ export const Contact: React.FC = () => {
                         </svg>
                       </div>
                       <div>
-                        <h3 className="font-medium text-deep-charcoal mb-2">Headquarters</h3>
+                        <h3 className="font-medium text-deep-charcoal mb-2">Registered Address</h3>
                         <p className="text-text-secondary">
-                          London, United Kingdom<br />
-                          <span className="text-sm">UK Company Registration: 123456789</span>
+                          LOVING YOUR SKIN LIMITED<br />
+                          850 Green Lanes<br />
+                          London, England, N21 2RS<br />
+                          <span className="text-sm">Company Number: 15980602</span>
                         </p>
                       </div>
                     </CardContent>
@@ -102,7 +104,7 @@ export const Contact: React.FC = () => {
                         <p className="text-text-secondary">
                           For Brands: partnerships@lovingyourskin.net<br />
                           For Retailers: julie@lovingyourskin.net<br />
-                          General: info@lovingyourskin.net
+                          General: help@lovingyourskin.net
                         </p>
                       </div>
                     </CardContent>

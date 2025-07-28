@@ -1,279 +1,182 @@
 {
   "brands": [
-{
-  "id": "vanhalla",
-  "slug": "vanhalla",
-  "name": "V'anhalla",
-  "tagline": "Simple & Easy vegan skincare with v'anhalla",
-  "description": "V'anhalla started with the question 'As much as number of basic care, did skin get better?' We're boldly reducing complex and overlapping basic care routine and enhancing essential ingredients for each skin concern. Hope to permeate your daily life with basic cosmetics that bring true rest and vitality in a busy daily life.",
-  "logo": "https://cdn.imweb.me/thumbnail/20250116/9e0c6043131f4.png",
-  "heroImage": "https://cdn-optimized.imweb.me/upload/S202306302de9b8419d948/69b60421903f2.jpg",
-  "heroImages": [
-    "https://cdn-optimized.imweb.me/upload/S202306302de9b8419d948/69b60421903f2.jpg"
-  ],
-  "establishedYear": 2020,
-  "productCount": 9,
-  "certifications": [
-    "VEGAN_SOCIETY",
-    "CPNP",
-    "SCPN"
-  ],
-  "featureTags": [
-    "Vegan Certified",
-    "Simple & Easy Skincare",
-    "Essential Ingredients",
-    "2-in-1 Solutions"
-  ],
-  "technologies": [
     {
-      "name": "Ceramide Complex",
-      "description": "Ceramide NP with panthenol and 3 complex hyaluronic acid for deep moisturizing and skin barrier strengthening"
-    },
-    {
-      "name": "Cica Calm Technology",
-      "description": "Centella asiatica extract for rapid calming and refreshing hydration"
-    },
-    {
-      "name": "Tranexamic Acid Formula",
-      "description": "3% Tranexamic acid for effective blemish and dark spot care"
-    }
-  ],
-  "clinicalResults": {
-    "skinBarrierStrengthening": {
-      "value": 90,
-      "duration": "4 weeks"
-    },
-    "moistureRetention": {
-      "value": 95,
-      "duration": "24 hours"
-    },
-    "irritationReduction": {
-      "value": 88,
-      "duration": "1 week"
-    },
-    "customerSatisfaction": {
-      "value": 92,
-      "unit": "%"
-    }
-  },
-  "categories": [
-    {
-      "id": "moisturizing-care",
-      "name": "Moisturizing Care",
-      "productCount": 3
-    },
-    {
-      "id": "soothing-care",
-      "name": "Soothing Care",
-      "productCount": 2
-    },
-    {
-      "id": "brightening-care",
-      "name": "Brightening/Pore & Sebum Care",
-      "productCount": 2
-    },
-    {
-      "id": "anti-aging-care",
-      "name": "Anti-aging/Elasticity Care",
-      "productCount": 2
-    },
-    {
-      "id": "blemish-care",
-      "name": "Blemish & Freckles Care",
-      "productCount": 1
-    }
-  ],
-  "stats": {
-    "yearsInBusiness": 5,
-    "productsSold": "50K+",
-    "customerSatisfaction": 92
-  },
-  "active": true,
-  "featured": true,
-  "logoStyle": {
-    "height": "40px",
-    "objectFit": "contain",
-    "backgroundColor": "transparent"
-  }
-},
-{
-  "id": "thecelllab",
-  "slug": "thecelllab",
-  "name": "THE CELL LAB",
-  "tagline": "New next generation CICA ingredient",
-  "description": "THE CELL LAB pioneers skincare innovation with BETA-SITOSTEROL #pine CICA and patented CELLTONE technology. The best combination surpassing proven science, delivering solutions when you need to solve fundamental skin concerns.",
-  "logo": "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/bae4b4cdb9c0307a6fd07f6fbfa5ad99.png",
-  "heroImage": "/assets/thecelllab/blue_01.jpg",
-  "heroImages": [
-    "/assets/thecelllab/blue_01.jpg",
-    "/assets/thecelllab/blue_001.jpg",
-    "/assets/thecelllab/blue_05.jpg"
-  ],
-  "establishedYear": 2019,
-  "productCount": 14,
-  "certifications": [
-    "CPNP_EU",
-    "DERMATOLOGICALLY_TESTED",
-    "CLINICAL_TEST"
-  ],
-  "featureTags": [
-    "Beta-Sitosterol",
-    "Pine CICA",
-    "Patented CELLTONE",
-    "Clinical Proven"
-  ],
-  "technologies": [
-    {
-      "name": "BETA-SITOSTEROL Technology",
-      "description": "New next generation CICA ingredient from pine extract for superior skin calming"
+      "id": "thecelllab",
+      "slug": "thecelllab",
+      "name": "THE CELL LAB",
+      "tagline": "New next generation CICA ingredient",
+      "description": "THE CELL LAB pioneers skincare innovation with BETA-SITOSTEROL #pine CICA and patented CELLTONE technology. The best combination surpassing proven science, delivering solutions when you need to solve fundamental skin concerns.",
+      "logo": "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/bae4b4cdb9c0307a6fd07f6fbfa5ad99.png",
+      "heroImage": "/assets/thecelllab/blue_01.jpg",
+      "heroImages": [
+        "/assets/thecelllab/blue_01.jpg",
+        "/assets/thecelllab/blue_001.jpg",
+        "/assets/thecelllab/blue_05.jpg"
+      ],
+      "establishedYear": 2019,
+      "productCount": 14,
+      "certifications": [
+        "CPNP_EU",
+        "DERMATOLOGICALLY_TESTED",
+        "CLINICAL_TEST"
+      ],
+      "featureTags": [
+        "Beta-Sitosterol",
+        "Pine CICA",
+        "Patented CELLTONE",
+        "Clinical Proven"
+      ],
+      "technologies": [
+        {
+          "name": "BETA-SITOSTEROL Technology",
+          "description": "New next generation CICA ingredient from pine extract for superior skin calming"
+        },
+        {
+          "name": "Patented CELLTONE",
+          "description": "Proprietary complex for skin barrier improvement and deep moisture"
+        },
+        {
+          "name": "PDRN Complex",
+          "description": "Advanced skin regeneration technology for elasticity and anti-aging"
+        }
+      ],
+      "clinicalResults": {
+        "skinTemperatureReduction": {
+          "value": -7,
+          "unit": "°C",
+          "duration": "immediate"
+        },
+        "skinBarrierImprovement": {
+          "value": 85,
+          "duration": "2 weeks"
+        },
+        "deepMoisture": {
+          "value": 92,
+          "duration": "48 hours"
+        },
+        "liftingEffect": {
+          "value": 88,
+          "duration": "4 weeks"
+        }
+      },
+      "categories": [
+        {
+          "id": "cleansing",
+          "name": "Cleansing",
+          "productCount": 1
+        },
+        {
+          "id": "skincare",
+          "name": "Skincare",
+          "productCount": 5
+        },
+        {
+          "id": "mask-pack",
+          "name": "Mask Pack",
+          "productCount": 1
+        },
+        {
+          "id": "sun-care",
+          "name": "Sun Care",
+          "productCount": 1
+        }
+      ],
+      "stats": {
+        "yearsInBusiness": 6,
+        "productsSold": "80K+",
+        "customerSatisfaction": 94
+      },
+      "active": true,
+      "featured": true,
+      "logoStyle": {
+        "height": "40px",
+        "objectFit": "contain",
+        "backgroundColor": "transparent"
+      }
     },
     {
-      "name": "Patented CELLTONE",
-      "description": "Proprietary complex for skin barrier improvement and deep moisture"
-    },
-    {
-      "name": "PDRN Complex",
-      "description": "Advanced skin regeneration technology for elasticity and anti-aging"
-    }
-  ],
-  "clinicalResults": {
-    "skinTemperatureReduction": {
-      "value": -7,
-      "unit": "°C",
-      "duration": "immediate"
-    },
-    "skinBarrierImprovement": {
-      "value": 85,
-      "duration": "2 weeks"
-    },
-    "deepMoisture": {
-      "value": 92,
-      "duration": "48 hours"
-    },
-    "liftingEffect": {
-      "value": 88,
-      "duration": "4 weeks"
-    }
-  },
-  "categories": [
-    {
-      "id": "cleansing",
-      "name": "Cleansing",
-      "productCount": 1
-    },
-    {
-      "id": "skincare",
-      "name": "Skincare",
-      "productCount": 5
-    },
-    {
-      "id": "mask-pack",
-      "name": "Mask Pack",
-      "productCount": 1
-    },
-    {
-      "id": "sun-care",
-      "name": "Sun Care",
-      "productCount": 1
-    }
-  ],
-  "stats": {
-    "yearsInBusiness": 6,
-    "productsSold": "80K+",
-    "customerSatisfaction": 94
-  },
-  "active": true,
-  "featured": true,
-  "logoStyle": {
-    "height": "40px",
-    "objectFit": "contain",
-    "backgroundColor": "transparent"
-  }
-},
+      "id": "baohlab",
+      "slug": "baohlab",
+      "name": "BAO H. LAB",
+      "tagline": "We solved hair loss with Biorenovation",
+      "description": "Pioneering hair loss solutions through Biorenovation Technology since 2017. BAO H. LAB combines eco-friendly microorganism technology with patented formulations to deliver effective hair growth and scalp care solutions, opening infinite possibilities by blending nature and science.",
+      "logo": "https://baohlab.com/clothic_studio/image/baohlab_logo.png",
+      "heroImage": "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/aca91dd8cca6ec2264880e26abe3f316.jpg",
+      "heroImages": [
+        "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/aca91dd8cca6ec2264880e26abe3f316.jpg",
+        "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/3295e621c8c81a6effba32f7db4cd672.jpg"
 
-   {
-  "id": "baohlab",
-  "slug": "baohlab",
-  "name": "BAO H. LAB",
-  "tagline": "We solved hair loss with Biorenovation",
-  "description": "Pioneering hair loss solutions through Biorenovation Technology since 2017. BAO H. LAB combines eco-friendly microorganism technology with patented formulations to deliver effective hair growth and scalp care solutions, opening infinite possibilities by blending nature and science.",
-  "logo": "https://baohlab.com/clothic_studio/image/baohlab_logo.png",
-  "heroImage": "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/aca91dd8cca6ec2264880e26abe3f316.jpg",
-  "heroImages": [
-    "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/3295e621c8c81a6effba32f7db4cd672.jpg",
-    "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/aca91dd8cca6ec2264880e26abe3f316.jpg"
-  ],
-  "establishedYear": 2017,
-  "productCount": 1,
-  "certifications": [
-    "CPNP_UK",
-    "CPNP_EU",
-    "CPNP_CH"
-  ],
-  "featureTags": [
-    "Biorenovation Technology",
-    "Patented Formula",
-    "Hair Loss Solution",
-    "Scalp Nourishment"
-  ],
-  "technologies": [
-    {
-      "name": "Biorenovation Technology",
-      "description": "Proprietary microorganism technology derived from nature for biological revolution in hair care"
+      ],
+      "establishedYear": 2017,
+      "productCount": 1,
+      "certifications": [
+        "CPNP_UK",
+        "CPNP_EU",
+        "CPNP_CH"
+      ],
+      "featureTags": [
+        "Biorenovation Technology",
+        "Patented Formula",
+        "Hair Loss Solution",
+        "Scalp Nourishment"
+      ],
+      "technologies": [
+        {
+          "name": "Biorenovation Technology",
+          "description": "Proprietary microorganism technology derived from nature for biological revolution in hair care"
+        },
+        {
+          "name": "Patented Hair Growth Formula",
+          "description": "Special patented ingredients that stimulate and nourish the scalp"
+        },
+        {
+          "name": "Eco-Friendly Process",
+          "description": "Sustainable technology for a better future"
+        }
+      ],
+      "clinicalResults": {
+        "hairLossReduction": {
+          "value": 90,
+          "duration": "3 months"
+        },
+        "hairGrowthVisible": {
+          "value": 85,
+          "duration": "4 months"
+        },
+        "scalpHealth": {
+          "value": 95,
+          "duration": "2 months"
+        },
+        "customerSatisfaction": {
+          "value": 95,
+          "unit": "%"
+        }
+      },
+      "categories": [
+        {
+          "id": "hair-loss-care",
+          "name": "Hair Loss Care",
+          "productCount": 1
+        },
+        {
+          "id": "scalp-treatment",
+          "name": "Scalp Treatment",
+          "productCount": 1
+        }
+      ],
+      "stats": {
+        "yearsInBusiness": 8,
+        "productsSold": "100K+",
+        "customerSatisfaction": 95
+      },
+      "active": true,
+      "featured": true,
+      "logoStyle": {
+        "height": "40px",
+        "objectFit": "contain",
+        "backgroundColor": "transparent"
+      }
     },
-    {
-      "name": "Patented Hair Growth Formula",
-      "description": "Special patented ingredients that stimulate and nourish the scalp"
-    },
-    {
-      "name": "Eco-Friendly Process",
-      "description": "Sustainable technology for a better future"
-    }
-  ],
-  "clinicalResults": {
-    "hairLossReduction": {
-      "value": 90,
-      "duration": "3 months"
-    },
-    "hairGrowthVisible": {
-      "value": 85,
-      "duration": "4 months"
-    },
-    "scalpHealth": {
-      "value": 95,
-      "duration": "2 months"
-    },
-    "customerSatisfaction": {
-      "value": 95,
-      "unit": "%"
-    }
-  },
-  "categories": [
-    {
-      "id": "hair-loss-care",
-      "name": "Hair Loss Care",
-      "productCount": 1
-    },
-    {
-      "id": "scalp-treatment",
-      "name": "Scalp Treatment",
-      "productCount": 1
-    }
-  ],
-  "stats": {
-    "yearsInBusiness": 8,
-    "productsSold": "100K+",
-    "customerSatisfaction": 95
-  },
-  "active": true,
-  "featured": true,
-  "logoStyle": {
-    "height": "40px",
-    "objectFit": "contain",
-    "backgroundColor": "transparent"
-  }
-},
-
     {
       "id": "wismin",
       "slug": "wismin",

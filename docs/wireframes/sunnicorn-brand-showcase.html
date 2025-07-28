@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUNNICORN - Sustainable K-Beauty Innovation - LYS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-white: #FFFFFF;
+            --soft-pink: #FDF8F6;
+            --rose-gold: #D4A5A5;
+            --rose-gold-dark: #C48B8B;
+            --deep-charcoal: #1A1A1A;
+            --text-primary: #2D2D2D;
+            --text-secondary: #5A5A5A;
+            --light-gray: #F0F0F0;
+            --medium-gray: #8B8B8B;
+            --border-gray: #E0E0E0;
+            --success-green: #4CAF50;
+            --warning-amber: #FF9800;
+            --error-red: #F44336;
+            --soft-pink-hover: #F5E6E0;
+            --sunnicorn-green: #8BC34A;
+            --sunnicorn-earth: #795548;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--light-gray);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        /* Navigation - Same as before */
+        .top-nav {
+            background: var(--primary-white);
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--deep-charcoal);
+        }
+        
+        .nav-items {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-item {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: var(--soft-pink-hover);
+            color: var(--deep-charcoal);
+        }
+        
+        /* Brand Hero Section */
+        .brand-hero {
+            background: linear-gradient(135deg, #E8F5E9 0%, #FFF3E0 100%);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .brand-hero::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%238BC34A" stroke-width="1" opacity="0.1"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>') no-repeat center;
+            top: -50px;
+            right: 10%;
+            transform: rotate(-15deg);
+        }
+        
+        .brand-logo {
+            font-size: 64px;
+            font-weight: 300;
+            letter-spacing: 6px;
+            color: var(--sunnicorn-green);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .brand-tagline {
+            font-size: 24px;
+            color: var(--sunnicorn-earth);
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+        
+        .brand-intro {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .eco-badges {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .eco-badge {
+            background: var(--primary-white);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--sunnicorn-green);
+            border: 2px solid var(--sunnicorn-green);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .badge-icon {
+            width: 16px;
+            height: 16px;
+        }
+        
+        /* Sustainability Story Section */
+        .sustainability-section {
+            padding: 80px 20px;
+            background: var(--primary-white);
+        }
+        
+        .sustainability-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .sustainability-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .sustainability-card {
+            background: #F5F5F5;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sustainability-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+        }
+        
+        .sustainability-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: var(--sunnicorn-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sustainability-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--deep-charcoal);
+            margin-bottom: 16px;
+        }
+        
+        .sustainability-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Ugly Food Section */
+        .ugly-food-section {
+            padding: 80px 20px;
+            background: #FFF8E1;
+        }
+        
+        .ugly-food-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .food-philosophy {
+            background: var(--primary-white);
+            padding: 40px;
+            border-radius: 16px;
+            margin: 40px auto;
+            max-width: 800px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .ugly-food-visual {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            margin: 60px auto;
+            max-width: 900px;
+        }
+        
+        .ugly-food-item {
+            text-align: center;
+            background: var(--primary-white);
+            padding: 20px;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        
+        .ugly-food-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .food-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 12px;
+            background: var(--sunnicorn-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .food-name {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .food-benefit {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        /* Product Showcase Section */
+        .products-section {
+            padding: 80px 20px;
+            background: var(--primary-white);
+        }
+        
+        .product-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+        
+        .category-card {
+            background: var(--light-gray);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+        }
+        
+        .category-header {
+            background: var(--sunnicorn-green);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .category-name {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .category-count {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .category-products {
+            padding: 30px;
+        }
+        
+        .category-product {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-gray);
+        }
+        
+        .category-product:last-child {
+            border-bottom: none;
+        }
+        
+        /* Impact Section */
+        .impact-section {
+            padding: 80px 20px;
+            background: var(--soft-pink);
+        }
+        
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 800px;
+            margin: 60px auto 0;
+        }
+        
+        .impact-stat {
+            text-align: center;
+        }
+        
+        .impact-number {
+            font-size: 48px;
+            font-weight: 300;
+            color: var(--sunnicorn-green);
+            margin-bottom: 12px;
+        }
+        
+        .impact-label {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+        
+        /* Partnership Benefits */
+        .benefits-section {
+            padding: 80px 20px;
+            background: var(--primary-white);
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 60px auto 0;
+        }
+        
+        .benefit-item {
+            text-align: center;
+        }
+        
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--sunnicorn-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .benefit-title {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: var(--deep-charcoal);
+        }
+        
+        .benefit-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 20px;
+            background: var(--sunnicorn-green);
+            text-align: center;
+            color: var(--primary-white);
+        }
+        
+        .cta-title {
+            font-size: 40px;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+        
+        .cta-subtitle {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--primary-white);
+            color: var(--sunnicorn-green);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button-outline {
+            background: transparent;
+            color: var(--primary-white);
+            border: 2px solid var(--primary-white);
+        }
+        
+        .cta-button-outline:hover {
+            background: var(--primary-white);
+            color: var(--sunnicorn-green);
+        }
+        
+        /* Icon styles */
+        .icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .brand-logo {
+                font-size: 48px;
+            }
+            
+            .sustainability-grid, .product-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .ugly-food-visual {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .impact-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-logo">LOVING YOUR SKIN</div>
+        <div class="nav-items">
+            <a href="retailer-dashboard.html" class="nav-item">Dashboard</a>
+            <a href="brands.html" class="nav-item active">Brands</a>
+            <a href="products.html" class="nav-item">Products</a>
+            <a href="orders.html" class="nav-item">Orders</a>
+            <a href="cart.html" class="nav-item">Shopping Cart</a>
+            <a href="settings.html" class="nav-item">Settings</a>
+        </div>
+    </nav>
+    
+    <!-- Brand Hero -->
+    <div class="brand-hero">
+        <h1 class="brand-logo">SUNNICORN</h1>
+        <p class="brand-tagline">"Have a sunnyday with sunnicorn"</p>
+        <p class="brand-intro">
+            Pioneering sustainable K-beauty through upcycled "ugly food" ingredients and circular packaging. 
+            SUNNICORN transforms perfectly good produce rejected for cosmetic imperfections into powerful skincare actives, 
+            proving that true beauty comes from respecting our planet's resources while delivering sensitive skin solutions.
+        </p>
+        <div class="eco-badges">
+            <span class="eco-badge">
+                <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2a3 3 0 0 0-3 3c0 1.5-1.5 3-3 3s-3-1.5-3-3a3 3 0 0 0-3 3c0 1.5 1.5 3 3 3s3 1.5 3 3a3 3 0 0 0 3 3"/>
+                </svg>
+                100% Vegan
+            </span>
+            <span class="eco-badge">
+                <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/>
+                </svg>
+                Upcycled Ingredients
+            </span>
+            <span class="eco-badge">
+                <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v12M6 12h12"/>
+                </svg>
+                Carbon Neutral
+            </span>
+            <span class="eco-badge">
+                <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="m9 12 2 2 4-4"/>
+                </svg>
+                Cruelty Free
+            </span>
+        </div>
+    </div>
+    
+    <!-- Sustainability Story Section -->
+    <div class="sustainability-section">
+        <div class="sustainability-content">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h2 style="font-size: 36px; font-weight: 300; color: var(--deep-charcoal);">Our Circular Beauty Revolution</h2>
+                <p style="color: var(--text-secondary); font-size: 18px; max-width: 800px; margin: 20px auto;">
+                    Every SUNNICORN product tells a story of transformation - from rescued ugly food ingredients to recycled packaging, 
+                    we're redefining what sustainable vegan beauty means for sensitive skin.
+                </p>
+            </div>
+            
+            <div class="sustainability-grid">
+                <div class="sustainability-card">
+                    <div class="sustainability-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M3 3h18v18H3zM9 9h6v6H9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="sustainability-title">Ugly Food Heroes</h3>
+                    <p class="sustainability-description">
+                        We rescue perfectly good produce rejected for cosmetic imperfections, extracting potent active vegetable ingredients 
+                        that would otherwise go to waste from clean agricultural environments.
+                    </p>
+                </div>
+                
+                <div class="sustainability-card">
+                    <div class="sustainability-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/>
+                        </svg>
+                    </div>
+                    <h3 class="sustainability-title">True Upcycling</h3>
+                    <p class="sustainability-description">
+                        From performance to package, we practice genuine upcycling by processing excess plastics and glass 
+                        to create eco-friendly cosmetic containers designed for disposal consideration.
+                    </p>
+                </div>
+                
+                <div class="sustainability-card">
+                    <div class="sustainability-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <line x1="22" y1="21" x2="16" y2="15"/>
+                        </svg>
+                    </div>
+                    <h3 class="sustainability-title">Sensitive Skin Focus</h3>
+                    <p class="sustainability-description">
+                        Continuous research and development for sensitive skin through vegan formulations, 
+                        ensuring our sustainable ingredients are gentle yet effective for all skin types.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ugly Food Philosophy Section -->
+    <div class="ugly-food-section">
+        <div class="ugly-food-content">
+            <h2 style="font-size: 36px; font-weight: 300; color: var(--deep-charcoal); margin-bottom: 20px;">
+                From Rejected to Respected
+            </h2>
+            <p style="font-size: 18px; color: var(--text-secondary); max-width: 700px; margin: 0 auto;">
+                These "imperfect" ingredients are nutritional powerhouses, grown in clean environments 
+                but rejected simply for their irregular shapes. We see their true beauty and potential.
+            </p>
+            
+            <div class="food-philosophy">
+                <h3 style="font-size: 24px; color: var(--deep-charcoal); margin-bottom: 16px;">Our Philosophy</h3>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    We use ugly food which failed to reach the market due to their irregular, ugly shapes despite being grown in clean environments. 
+                    These fresh vegetables contain the same powerful active ingredients as their "perfect" counterparts, 
+                    making them ideal for sensitive skin formulations while reducing agricultural waste.
+                </p>
+            </div>
+            
+            <div class="ugly-food-visual">
+                <div class="ugly-food-item">
+                    <div class="food-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M3 3h18v18H3zM9 9h6v6H9z"/>
+                        </svg>
+                    </div>
+                    <div class="food-name">Wonky Carrots</div>
+                    <div class="food-benefit">Beta-carotene for natural glow</div>
+                </div>
+                
+                <div class="ugly-food-item">
+                    <div class="food-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                        </svg>
+                    </div>
+                    <div class="food-name">Spotted Apples</div>
+                    <div class="food-benefit">Natural AHAs for gentle exfoliation</div>
+                </div>
+                
+                <div class="ugly-food-item">
+                    <div class="food-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M3 12h18m-9-9v18"/>
+                        </svg>
+                    </div>
+                    <div class="food-name">Curved Cucumbers</div>
+                    <div class="food-benefit">Hydration & soothing compounds</div>
+                </div>
+                
+                <div class="ugly-food-item">
+                    <div class="food-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <circle cx="12" cy="12" r="8"/>
+                        </svg>
+                    </div>
+                    <div class="food-name">Irregular Tomatoes</div>
+                    <div class="food-benefit">Lycopene antioxidant protection</div>
+                </div>
+                
+                <div class="ugly-food-item">
+                    <div class="food-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <ellipse cx="12" cy="12" rx="8" ry="6"/>
+                        </svg>
+                    </div>
+                    <div class="food-name">Small Potatoes</div>
+                    <div class="food-benefit">Vitamin C for brightening</div>
+                </div>
+                
+                <div class="ugly-food-item">
+                    <div class="food-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        </svg>
+                    </div>
+                    <div class="food-name">Misshapen Berries</div>
+                    <div class="food-benefit">Powerful antioxidant defense</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Product Categories Section -->
+    <div class="products-section">
+        <div style="text-align: center; margin-bottom: 60px;">
+            <h2 style="font-size: 36px; font-weight: 300; color: var(--deep-charcoal);">Sustainable Vegan Product Lines</h2>
+            <p style="color: var(--text-secondary); font-size: 18px;">Clean beauty that makes a difference for sensitive skin</p>
+        </div>
+        
+        <div class="product-categories">
+            <div class="category-card">
+                <div class="category-header">
+                    <h3 class="category-name">Veagan All-in-One</h3>
+                    <p class="category-count">Essential sensitive skin care</p>
+                </div>
+                <div class="category-products">
+                    <div class="category-product">
+                        <span>I'm Proud of You Calming Toner</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£12.88/item</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Mushroom Deep Hydrating Cream</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£23.18/item</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Vegan Toner Pad Set</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£15.94/set</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Complete Starter Set</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£19.88/set</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-header" style="background: var(--sunnicorn-earth);">
+                    <h3 class="category-name">Sun Protection</h3>
+                    <p class="category-count">Eco-friendly UV defense</p>
+                </div>
+                <div class="category-products">
+                    <div class="category-product">
+                        <span>Bambu Soothing UV Sun Essence</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£14.65/item</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Sensitive Skin Organic Tea SPF</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£16.50/item</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Mineral Sun Shield</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£18.20/item</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Hydrating Sun Mist</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£13.45/item</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-header" style="background: #FF7043;">
+                    <h3 class="category-name">Eco-Lifestyle</h3>
+                    <p class="category-count">Sustainable living essentials</p>
+                </div>
+                <div class="category-products">
+                    <div class="category-product">
+                        <span>Bambu Toothbrush (3-piece)</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£5.55/set</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Bambu Toothbrush (5-piece)</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£8.25/set</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Reusable Toner Pads</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£7.80/set</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Zero Waste Beauty Kit</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£24.90/set</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Impact Section -->
+    <div class="impact-section">
+        <div style="text-align: center;">
+            <h2 style="font-size: 36px; font-weight: 300; color: var(--deep-charcoal); margin-bottom: 20px;">
+                Our Sustainability Impact
+            </h2>
+            <p style="font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                Every purchase helps reduce food waste and plastic pollution while supporting sensitive skin care
+            </p>
+        </div>
+        
+        <div class="impact-stats">
+            <div class="impact-stat">
+                <div class="impact-number">2.5M kg</div>
+                <div class="impact-label">Ugly produce rescued</div>
+            </div>
+            <div class="impact-stat">
+                <div class="impact-number">180K</div>
+                <div class="impact-label">Plastic containers upcycled</div>
+            </div>
+            <div class="impact-stat">
+                <div class="impact-number">95%</div>
+                <div class="impact-label">Customers love vegan formulas</div>
+            </div>
+            <div class="impact-stat">
+                <div class="impact-number">Zero</div>
+                <div class="impact-label">Waste to landfill goal</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Partnership Benefits -->
+    <div class="benefits-section">
+        <div style="text-align: center; margin-bottom: 60px;">
+            <h2 style="font-size: 36px; font-weight: 300; color: var(--deep-charcoal);">Partnership Benefits</h2>
+            <p style="color: var(--text-secondary); font-size: 18px;">Join the sustainable beauty movement for sensitive skin</p>
+        </div>
+        
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/>
+                    </svg>
+                </div>
+                <h3 class="benefit-title">Unique Story</h3>
+                <p class="benefit-description">Stand out with products that have a powerful sustainability narrative customers love to share and support</p>
+            </div>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M12 2a3 3 0 0 0-3 3c0 1.5-1.5 3-3 3s-3-1.5-3-3a3 3 0 0 0-3 3c0 1.5 1.5 3 3 3s3 1.5 3 3a3 3 0 0 0 3 3"/>
+                    </svg>
+                </div>
+                <h3 class="benefit-title">Eco-Conscious Customers</h3>
+                <p class="benefit-description">Attract and retain environmentally aware consumers willing to pay premium for values-aligned vegan beauty brands</p>
+            </div>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <line x1="22" y1="21" x2="16" y2="15"/>
+                    </svg>
+                </div>
+                <h3 class="benefit-title">Sensitive Skin Market</h3>
+                <p class="benefit-description">Tap into the growing sensitive skin market with gentle, effective vegan formulations backed by sustainable practices</p>
+            </div>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v12M6 12h12"/>
+                    </svg>
+                </div>
+                <h3 class="benefit-title">Complete Lifestyle</h3>
+                <p class="benefit-description">Offer a complete sustainable lifestyle range from skincare to bamboo accessories, increasing basket size and loyalty</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <h2 class="cta-title">Be Part of the Solution</h2>
+        <p class="cta-subtitle">Offer your customers vegan beauty that's good for their sensitive skin and the planet</p>
+        <div class="cta-buttons">
+            <a href="#" class="cta-button">Explore Products</a>
+            <a href="#" class="cta-button-outline">Learn About Sustainability</a>
+        </div>
+    </div>
+</body>
+</html>

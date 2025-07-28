@@ -142,9 +142,9 @@ export const Landing: React.FC = () => {
     loadBrands()
   }, [])
   
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Form will be handled by Netlify
+  const handleSubmit = (_e: React.FormEvent) => {
+    // Let Netlify handle the form submission
+    // Don't prevent default - Netlify needs the form to submit normally
   }
   
   return (
@@ -184,6 +184,18 @@ export const Landing: React.FC = () => {
           </div>
         </Container>
       </Section>
+      
+      {/* Boutique Shop Banner */}
+      <div className="bg-rose-gold text-white py-4">
+        <Container>
+          <Link to="/consumer/shop" className="flex items-center justify-center gap-3 hover:opacity-80 transition-opacity">
+            <span className="text-lg font-light">Looking for our retail boutique?</span>
+            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </Link>
+        </Container>
+      </div>
       
       {/* Value Proposition */}
       <Section background="white">
@@ -286,10 +298,10 @@ export const Landing: React.FC = () => {
               <p className="text-sm text-rose-gold mt-2 font-medium">Profitable Product</p>
             </div>
             <div className="group hover:scale-105 transition-transform duration-300">
-              <div className="text-5xl font-light text-rose-gold mb-3">9.61%</div>
-              <h3 className="text-lg font-medium text-deep-charcoal mb-2">Annual Growth Rate</h3>
-              <p className="text-text-secondary">Europe K-beauty market growing yearly (2024-2032)</p>
-              <p className="text-sm text-rose-gold mt-2 font-medium">Growing Market Segment</p>
+              <div className="text-5xl font-light text-rose-gold mb-3">128.4%</div>
+              <h3 className="text-lg font-medium text-deep-charcoal mb-2">Total Accumulated Growth</h3>
+              <p className="text-text-secondary">Europe K-beauty market (2024-2032)</p>
+              <p className="text-sm text-rose-gold mt-2 font-medium">Explosive Growth Ahead</p>
             </div>
           </div>
           <p className="text-lg text-text-secondary mt-12 max-w-3xl mx-auto">
@@ -345,7 +357,7 @@ export const Landing: React.FC = () => {
             {brands.lalucell && (
               <PartnerCard 
                 brand={{
-                  name: brands.lalucell.name.en,
+                  name: typeof brands.lalucell.name === 'object' ? brands.lalucell.name.en : brands.lalucell.name || '',
                   logo: brands.lalucell.logo,
                   heroImage: brands.lalucell.heroImage,
                   description: 'The trusted choice of Korean mothers. Safe, natural skincare with patented technology and zero irritation - perfect for pregnancy and sensitive skin.',
@@ -359,7 +371,7 @@ export const Landing: React.FC = () => {
             {brands.sunnicorn && (
               <PartnerCard 
                 brand={{
-                  name: brands.sunnicorn.name.en,
+                  name: typeof brands.sunnicorn.name === 'object' ? brands.sunnicorn.name.en : brands.sunnicorn.name || '',
                   logo: brands.sunnicorn.logo,
                   heroImage: brands.sunnicorn.heroImage,
                   description: 'Sustainable K-beauty through upcycled "ugly food" ingredients. 100% vegan formulations that respect your skin and our planet.',
@@ -373,7 +385,7 @@ export const Landing: React.FC = () => {
             {brands.baohlab && (
               <PartnerCard 
                 brand={{
-                  name: brands.baohlab.name.en,
+                  name: typeof brands.baohlab.name === 'object' ? brands.baohlab.name.en : brands.baohlab.name || '',
                   logo: brands.baohlab.logo,
                   heroImage: brands.baohlab.heroImage,
                   description: 'Pioneering hair loss solutions through Biorenovation Technology. We combine eco-friendly microorganism technology with patented formulations to deliver effective hair growth and scalp care solutions.',
@@ -387,7 +399,7 @@ export const Landing: React.FC = () => {
             {brands.thecelllab && (
               <PartnerCard 
                 brand={{
-                  name: brands.thecelllab.name.en,
+                  name: typeof brands.thecelllab.name === 'object' ? brands.thecelllab.name.en : brands.thecelllab.name || '',
                   logo: brands.thecelllab.logo,
                   heroImage: brands.thecelllab.heroImage,
                   description: 'Pioneering skincare innovation with BETA-SITOSTEROL #pine CICA and patented CELLTONE technology. The best combination surpassing proven science for fundamental skin concerns.',

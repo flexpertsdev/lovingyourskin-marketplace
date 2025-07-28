@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Korean Beauty - Loving Your Skin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-white: #FFFFFF;
+            --soft-pink: #FDF8F6;
+            --rose-gold: #D4A5A5;
+            --rose-gold-dark: #C48B8B;
+            --deep-charcoal: #1A1A1A;
+            --text-primary: #2D2D2D;
+            --text-secondary: #5A5A5A;
+            --light-gray: #F0F0F0;
+            --medium-gray: #8B8B8B;
+            --border-gray: #E0E0E0;
+            --success-green: #4CAF50;
+            --warning-amber: #FF9800;
+            --error-red: #F44336;
+            --soft-pink-hover: #F5E6E0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--primary-white);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        /* Navigation - Consumer focused */
+        .consumer-nav {
+            background: var(--primary-white);
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-logo {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--deep-charcoal);
+            text-decoration: none;
+        }
+        
+        .nav-items {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-item {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: var(--soft-pink-hover);
+            color: var(--deep-charcoal);
+        }
+        
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        /* Hero Banner */
+        .hero-banner {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(135deg, var(--soft-pink) 0%, #fff 50%, var(--soft-pink) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 24px;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-size: 48px;
+            font-weight: 300;
+            margin-bottom: 20px;
+            color: var(--deep-charcoal);
+        }
+        
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+        
+        .hero-cta {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--rose-gold);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .hero-cta:hover {
+            background: var(--rose-gold-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 165, 165, 0.3);
+        }
+        
+        /* Shop Layout */
+        .shop-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            gap: 40px;
+        }
+        
+        /* Filters Sidebar */
+        .filters-sidebar {
+            width: 280px;
+            flex-shrink: 0;
+        }
+        
+        .filter-section {
+            margin-bottom: 32px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+        
+        .filter-section:last-child {
+            border-bottom: none;
+        }
+        
+        .filter-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            color: var(--deep-charcoal);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .filter-toggle {
+            font-size: 12px;
+            transition: transform 0.3s;
+        }
+        
+        .filter-content {
+            margin-top: 12px;
+        }
+        
+        .filter-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+        
+        .filter-checkbox {
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+        
+        .filter-label {
+            font-size: 14px;
+            color: var(--text-primary);
+            flex: 1;
+        }
+        
+        .filter-count {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        /* Price Range Slider */
+        .price-range {
+            margin-top: 16px;
+        }
+        
+        .price-inputs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .price-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .range-slider {
+            width: 100%;
+            height: 4px;
+            background: var(--border-gray);
+            border-radius: 2px;
+            position: relative;
+            margin: 20px 0;
+        }
+        
+        .range-fill {
+            position: absolute;
+            height: 100%;
+            background: var(--rose-gold);
+            border-radius: 2px;
+            left: 20%;
+            right: 30%;
+        }
+        
+        /* Main Content */
+        .shop-main {
+            flex: 1;
+        }
+        
+        /* Shop Header */
+        .shop-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        
+        .results-count {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+        
+        .shop-controls {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        
+        .sort-select {
+            padding: 8px 16px;
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            background: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .view-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--border-gray);
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .view-btn.active {
+            background: var(--rose-gold);
+            color: white;
+            border-color: var(--rose-gold);
+        }
+        
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+        
+        .product-card {
+            background: var(--primary-white);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-gray);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+        }
+        
+        .product-image {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            overflow: hidden;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 6px 12px;
+            background: var(--rose-gold);
+            color: white;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .wishlist-icon {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .wishlist-icon:hover {
+            background: var(--rose-gold);
+            color: white;
+        }
+        
+        .quick-add {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            padding: 16px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover .quick-add {
+            transform: translateY(0);
+        }
+        
+        .quick-add-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--rose-gold);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .quick-add-btn:hover {
+            background: var(--rose-gold-dark);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-brand {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        
+        .product-name {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--deep-charcoal);
+        }
+        
+        .product-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .price {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--rose-gold);
+        }
+        
+        .original-price {
+            font-size: 16px;
+            color: var(--medium-gray);
+            text-decoration: line-through;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 60px;
+        }
+        
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-gray);
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+        
+        .page-btn:hover {
+            border-color: var(--rose-gold);
+            color: var(--rose-gold);
+        }
+        
+        .page-btn.active {
+            background: var(--rose-gold);
+            color: white;
+            border-color: var(--rose-gold);
+        }
+        
+        /* Mobile Filter Button */
+        .mobile-filter-btn {
+            display: none;
+            width: 100%;
+            padding: 14px;
+            background: white;
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 24px;
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary-white);
+            border-top: 1px solid var(--border-gray);
+            display: none;
+            padding: 8px 0;
+            z-index: 1000;
+        }
+        
+        .mobile-nav-items {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .mobile-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            color: var(--medium-gray);
+            text-decoration: none;
+            font-size: 12px;
+            gap: 4px;
+        }
+        
+        .mobile-nav-item.active {
+            color: var(--rose-gold);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .shop-container {
+                gap: 24px;
+            }
+            
+            .filters-sidebar {
+                width: 240px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .consumer-nav {
+                display: none;
+            }
+            
+            .mobile-nav {
+                display: block;
+            }
+            
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .hero-subtitle {
+                font-size: 16px;
+            }
+            
+            .shop-container {
+                flex-direction: column;
+                padding: 24px 16px 100px;
+            }
+            
+            .filters-sidebar {
+                display: none;
+                width: 100%;
+            }
+            
+            .mobile-filter-btn {
+                display: block;
+            }
+            
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            
+            .product-image {
+                height: 200px;
+            }
+            
+            .quick-add {
+                transform: translateY(0);
+                position: relative;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Desktop Navigation -->
+    <nav class="consumer-nav">
+        <a href="lys-b2c-shop.html" class="nav-logo">LOVING YOUR SKIN</a>
+        <div class="nav-items">
+            <a href="lys-b2c-shop.html" class="nav-item active">Shop</a>
+            <a href="#" class="nav-item">Brands</a>
+            <a href="index.html" class="nav-item">Pre-Order</a>
+            <a href="#" class="nav-item">About</a>
+        </div>
+        <div class="nav-actions">
+            <input type="search" placeholder="Search products..." style="padding: 8px 16px; border: 1px solid var(--border-gray); border-radius: 20px; width: 200px;">
+            <div style="position: relative; cursor: pointer;" onclick="window.location.href='lys-b2c-checkout.html'">
+                🛒
+                <span style="position: absolute; top: -8px; right: -8px; background: var(--rose-gold); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">3</span>
+            </div>
+            <a href="#" class="nav-item">Account</a>
+        </div>
+    </nav>
+    
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+        <div class="mobile-nav-items">
+            <a href="lys-b2c-shop.html" class="mobile-nav-item active">
+                <span>🛍️</span>
+                <span>Shop</span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <span>🏪</span>
+                <span>Brands</span>
+            </a>
+            <a href="index.html" class="mobile-nav-item">
+                <span>⏰</span>
+                <span>Pre-Order</span>
+            </a>
+            <a href="lys-b2c-checkout.html" class="mobile-nav-item">
+                <span>🛒</span>
+                <span>Cart (3)</span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <span>👤</span>
+                <span>Account</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="hero-content">
+            <h1 class="hero-title">Discover K-Beauty Essentials</h1>
+            <p class="hero-subtitle">Curated collection of authentic Korean skincare from trusted brands</p>
+            <a href="#products" class="hero-cta">Shop Now</a>
+        </div>
+    </section>
+    
+    <!-- Shop Container -->
+    <div class="shop-container">
+        <!-- Filters Sidebar -->
+        <aside class="filters-sidebar">
+            <div class="filter-section">
+                <h3 class="filter-title">
+                    Categories
+                    <span class="filter-toggle">−</span>
+                </h3>
+                <div class="filter-content">
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">Cleansers</span>
+                        <span class="filter-count">(45)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">Toners</span>
+                        <span class="filter-count">(32)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">Serums</span>
+                        <span class="filter-count">(58)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">Moisturizers</span>
+                        <span class="filter-count">(41)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">Masks</span>
+                        <span class="filter-count">(67)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">Sunscreen</span>
+                        <span class="filter-count">(23)</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <h3 class="filter-title">
+                    Brands
+                    <span class="filter-toggle">−</span>
+                </h3>
+                <div class="filter-content">
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">INNISFREE</span>
+                        <span class="filter-count">(42)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">LANEIGE</span>
+                        <span class="filter-count">(38)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">COSRX</span>
+                        <span class="filter-count">(45)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">ETUDE</span>
+                        <span class="filter-count">(31)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">MISSHA</span>
+                        <span class="filter-count">(29)</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <h3 class="filter-title">
+                    Skin Type
+                    <span class="filter-toggle">−</span>
+                </h3>
+                <div class="filter-content">
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">All Skin Types</span>
+                        <span class="filter-count">(156)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">Dry</span>
+                        <span class="filter-count">(78)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">Oily</span>
+                        <span class="filter-count">(65)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">Combination</span>
+                        <span class="filter-count">(82)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">Sensitive</span>
+                        <span class="filter-count">(54)</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <h3 class="filter-title">
+                    Price Range
+                    <span class="filter-toggle">−</span>
+                </h3>
+                <div class="filter-content">
+                    <div class="price-range">
+                        <div class="price-inputs">
+                            <input type="number" class="price-input" placeholder="£ Min" value="10">
+                            <input type="number" class="price-input" placeholder="£ Max" value="100">
+                        </div>
+                        <div class="range-slider">
+                            <div class="range-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <h3 class="filter-title">
+                    Concerns
+                    <span class="filter-toggle">−</span>
+                </h3>
+                <div class="filter-content">
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">Anti-aging</span>
+                        <span class="filter-count">(43)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">Brightening</span>
+                        <span class="filter-count">(56)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">Acne</span>
+                        <span class="filter-count">(34)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" class="filter-checkbox">
+                        <span class="filter-label">Hydrating</span>
+                        <span class="filter-count">(89)</span>
+                    </label>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="shop-main" id="products">
+            <button class="mobile-filter-btn">Filter & Sort</button>
+            
+            <div class="shop-header">
+                <p class="results-count">Showing 266 products</p>
+                <div class="shop-controls">
+                    <select class="sort-select">
+                        <option>Sort by: Featured</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Newest First</option>
+                        <option>Best Sellers</option>
+                    </select>
+                    <div class="view-toggle">
+                        <button class="view-btn active">⊞</button>
+                        <button class="view-btn">☰</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-grid">
+                <!-- Product Card 1 -->
+                <div class="product-card" onclick="window.location.href='lys-preorder-detail.html'" style="cursor: pointer;">
+                    <div class="product-image">
+                        <span class="product-badge">BESTSELLER</span>
+                        <div class="wishlist-icon">❤️</div>
+                        <div class="quick-add">
+                            <button class="quick-add-btn" onclick="window.location.href='lys-b2c-checkout.html'">Quick Add +</button>
+                        </div>
+                        Product Image
+                    </div>
+                    <div class="product-info">
+                        <p class="product-brand">LANEIGE</p>
+                        <h3 class="product-name">Water Sleeping Mask</h3>
+                        <p class="product-description">Overnight hydrating gel mask</p>
+                        <div class="product-price">
+                            <span class="price">£25.00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 2 -->
+                <div class="product-card" onclick="window.location.href='lys-preorder-detail.html'" style="cursor: pointer;">
+                    <div class="product-image">
+                        <span class="product-badge" style="background: var(--success-green);">NEW</span>
+                        <div class="wishlist-icon">❤️</div>
+                        <div class="quick-add">
+                            <button class="quick-add-btn" onclick="window.location.href='lys-b2c-checkout.html'">Quick Add +</button>
+                        </div>
+                        Product Image
+                    </div>
+                    <div class="product-info">
+                        <p class="product-brand">COSRX</p>
+                        <h3 class="product-name">Advanced Snail 96 Mucin Power Essence</h3>
+                        <p class="product-description">Repair and hydrate with snail mucin</p>
+                        <div class="product-price">
+                            <span class="price">£22.00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 3 -->
+                <div class="product-card" onclick="window.location.href='lys-preorder-detail.html'" style="cursor: pointer;">
+                    <div class="product-image">
+                        <span class="product-badge" style="background: var(--error-red);">-15%</span>
+                        <div class="wishlist-icon">❤️</div>
+                        <div class="quick-add">
+                            <button class="quick-add-btn" onclick="window.location.href='lys-b2c-checkout.html'">Quick Add +</button>
+                        </div>
+                        Product Image
+                    </div>
+                    <div class="product-info">
+                        <p class="product-brand">INNISFREE</p>
+                        <h3 class="product-name">Green Tea Seed Serum</h3>
+                        <p class="product-description">Antioxidant-rich hydrating serum</p>
+                        <div class="product-price">
+                            <span class="price">£18.70</span>
+                            <span class="original-price">£22.00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 4 -->
+                <div class="product-card" onclick="window.location.href='lys-preorder-detail.html'" style="cursor: pointer;">
+                    <div class="product-image">
+                        <div class="wishlist-icon">❤️</div>
+                        <div class="quick-add">
+                            <button class="quick-add-btn" onclick="window.location.href='lys-b2c-checkout.html'">Quick Add +</button>
+                        </div>
+                        Product Image
+                    </div>
+                    <div class="product-info">
+                        <p class="product-brand">ETUDE</p>
+                        <h3 class="product-name">SoonJung pH 6.5 Whip Cleanser</h3>
+                        <p class="product-description">Gentle foam cleanser for sensitive skin</p>
+                        <div class="product-price">
+                            <span class="price">£12.00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 5 -->
+                <div class="product-card" onclick="window.location.href='lys-preorder-detail.html'" style="cursor: pointer;">
+                    <div class="product-image">
+                        <span class="product-badge">BESTSELLER</span>
+                        <div class="wishlist-icon">❤️</div>
+                        <div class="quick-add">
+                            <button class="quick-add-btn" onclick="window.location.href='lys-b2c-checkout.html'">Quick Add +</button>
+                        </div>
+                        Product Image
+                    </div>
+                    <div class="product-info">
+                        <p class="product-brand">BEAUTY OF JOSEON</p>
+                        <h3 class="product-name">Relief Sun: Rice + Probiotics SPF50+</h3>
+                        <p class="product-description">Lightweight sunscreen with rice water</p>
+                        <div class="product-price">
+                            <span class="price">£16.00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 6 -->
+                <div class="product-card" onclick="window.location.href='lys-preorder-detail.html'" style="cursor: pointer;">
+                    <div class="product-image">
+                        <div class="wishlist-icon">❤️</div>
+                        <div class="quick-add">
+                            <button class="quick-add-btn" onclick="window.location.href='lys-b2c-checkout.html'">Quick Add +</button>
+                        </div>
+                        Product Image
+                    </div>
+                    <div class="product-info">
+                        <p class="product-brand">MISSHA</p>
+                        <h3 class="product-name">Time Revolution First Treatment Essence</h3>
+                        <p class="product-description">Fermented essence for glowing skin</p>
+                        <div class="product-price">
+                            <span class="price">£38.00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 7 -->
+                <div class="product-card" onclick="window.location.href='lys-preorder-detail.html'" style="cursor: pointer;">
+                    <div class="product-image">
+                        <span class="product-badge" style="background: var(--warning-amber);">LIMITED</span>
+                        <div class="wishlist-icon">❤️</div>
+                        <div class="quick-add">
+                            <button class="quick-add-btn" onclick="window.location.href='lys-b2c-checkout.html'">Quick Add +</button>
+                        </div>
+                        Product Image
+                    </div>
+                    <div class="product-info">
+                        <p class="product-brand">SOME BY MI</p>
+                        <h3 class="product-name">AHA BHA PHA 30 Days Miracle Toner</h3>
+                        <p class="product-description">Exfoliating toner for clear skin</p>
+                        <div class="product-price">
+                            <span class="price">£15.00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 8 -->
+                <div class="product-card" onclick="window.location.href='lys-preorder-detail.html'" style="cursor: pointer;">
+                    <div class="product-image">
+                        <div class="wishlist-icon">❤️</div>
+                        <div class="quick-add">
+                            <button class="quick-add-btn" onclick="window.location.href='lys-b2c-checkout.html'">Quick Add +</button>
+                        </div>
+                        Product Image
+                    </div>
+                    <div class="product-info">
+                        <p class="product-brand">KLAIRS</p>
+                        <h3 class="product-name">Freshly Juiced Vitamin C Serum</h3>
+                        <p class="product-description">Brightening serum with pure vitamin C</p>
+                        <div class="product-price">
+                            <span class="price">£21.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="page-btn">←</a>
+                <a href="#" class="page-btn active">1</a>
+                <a href="#" class="page-btn">2</a>
+                <a href="#" class="page-btn">3</a>
+                <span style="color: var(--text-secondary);">...</span>
+                <a href="#" class="page-btn">12</a>
+                <a href="#" class="page-btn">→</a>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        // Handle filter toggles
+        document.querySelectorAll('.filter-title').forEach(title => {
+            title.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const toggle = this.querySelector('.filter-toggle');
+                
+                if (content.style.display === 'none') {
+                    content.style.display = 'block';
+                    toggle.textContent = '−';
+                } else {
+                    content.style.display = 'none';
+                    toggle.textContent = '+';
+                }
+            });
+        });
+        
+        // Mobile filter toggle
+        document.querySelector('.mobile-filter-btn').addEventListener('click', function() {
+            const sidebar = document.querySelector('.filters-sidebar');
+            sidebar.style.display = sidebar.style.display === 'block' ? 'none' : 'block';
+        });
+        
+        // Make product cards clickable
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Don't navigate if clicking on wishlist or quick add button
+                if (!e.target.closest('.wishlist-icon') && !e.target.closest('.quick-add-btn')) {
+                    window.location.href = 'lys-preorder-detail.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

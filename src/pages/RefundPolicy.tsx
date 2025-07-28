@@ -47,21 +47,21 @@ export const RefundPolicy: React.FC = () => {
                 <h3 className="text-xl font-medium text-deep-charcoal mb-2">Defective Products</h3>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>Manufacturing defects not caused by shipping</li>
-                  <li>Products that arrive damaged (must be reported within 48 hours)</li>
+                  <li>Products that arrive damaged - must be reported within 48 hours</li>
                   <li>Products with compromised packaging affecting product integrity</li>
-                  <li>Expired products (less than 18 months shelf life remaining)</li>
+                  <li>Expired products - less than 18 months shelf life remaining</li>
                 </ul>
 
                 <h3 className="text-xl font-medium text-deep-charcoal mb-2 mt-4">Incorrect Orders</h3>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>Wrong products shipped</li>
-                  <li>Incorrect quantities (overages or shortages)</li>
+                  <li>Incorrect quantities - overages or shortages</li>
                   <li>Products not matching the specifications on the order</li>
                 </ul>
 
                 <h3 className="text-xl font-medium text-deep-charcoal mb-2 mt-4">Documentation Issues</h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>Missing required certifications (CPNP, etc.)</li>
+                  <li>Missing required certifications - CPNP, etc.</li>
                   <li>Products without proper labeling for your market</li>
                 </ul>
               </section>
@@ -71,7 +71,7 @@ export const RefundPolicy: React.FC = () => {
                 <ul className="list-disc pl-6 space-y-2">
                   <li>Change of mind or buyer's remorse</li>
                   <li>Slow-moving inventory or poor sales performance</li>
-                  <li>Products ordered in error (wrong selection by buyer)</li>
+                  <li>Products ordered in error - wrong selection by buyer</li>
                   <li>Minor cosmetic damage to outer packaging not affecting product</li>
                   <li>Products that have been opened, used, or tampered with</li>
                   <li>Custom or specially ordered products</li>
@@ -194,7 +194,7 @@ export const RefundPolicy: React.FC = () => {
 
                 <h3 className="text-xl font-medium text-deep-charcoal mb-2 mt-4">Force Majeure</h3>
                 <p>
-                  Delays or issues due to circumstances beyond our control (natural disasters, pandemics, etc.) 
+                  Delays or issues due to circumstances beyond our control - natural disasters, pandemics, etc. - 
                   are handled on a case-by-case basis.
                 </p>
               </section>

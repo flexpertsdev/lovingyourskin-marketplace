@@ -4,6 +4,7 @@ import { Layout } from '../../components/layout'
 import { Container, Section, Grid } from '../../components/layout'
 import { Card, CardContent, Button, Badge } from '../../components/ui'
 import { dashboardService } from '../../services'
+import { useAuthStore } from '../../stores/auth.store'
 import type { AdminMetrics } from '../../services/mock/dashboard.service'
 
 const activityIcons: Record<string, string> = {
@@ -15,6 +16,7 @@ const activityIcons: Record<string, string> = {
 
 export const AdminDashboard: React.FC = () => {
   const navigate = useNavigate()
+  const { user } = useAuthStore()
   const [metrics, setMetrics] = useState<AdminMetrics | null>(null)
   const [loading, setLoading] = useState(true)
   
@@ -67,8 +69,16 @@ export const AdminDashboard: React.FC = () => {
       <Section>
         <Container>
           <div className="mb-8">
-            <h1 className="text-3xl font-light mb-2">Admin Dashboard</h1>
-            <p className="text-text-secondary">System overview and management</p>
+            <div className="flex justify-between items-start">
+              <div>
+                <h1 className="text-3xl font-light mb-2">Admin Dashboard</h1>
+                <p className="text-text-secondary">System overview and management</p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-text-secondary">Logged in as</p>
+                <p className="font-medium">{user?.email}</p>
+              </div>
+            </div>
           </div>
           
           {/* Key Metrics */}
@@ -150,13 +160,13 @@ export const AdminDashboard: React.FC = () => {
               
               <Card 
                 className="hover:shadow-lg transition-shadow cursor-pointer"
-                onClick={() => navigate('/admin/retailers?status=new')}
+                onClick={() => navigate('/admin/users')}
               >
                 <CardContent className="text-center py-6">
-                  <div className="text-3xl mb-2">👥</div>
-                  <p className="font-medium">New Retailers</p>
+                  <div className="text-3xl mb-2">👤</div>
+                  <p className="font-medium">User Management</p>
                   <Badge className="bg-blue-500 text-white mt-2">
-                    5 this week
+                    Manage Users
                   </Badge>
                 </CardContent>
               </Card>
@@ -266,13 +276,25 @@ export const AdminDashboard: React.FC = () => {
                 <CardContent>
                   <h3 className="font-medium mb-4">Admin Actions</h3>
                   <div className="space-y-3">
-                    <Button variant="secondary" fullWidth>
+                    <Button 
+                      variant="secondary" 
+                      fullWidth
+                      onClick={() => navigate('/admin/analytics')}
+                    >
                       📊 View Full Analytics
                     </Button>
-                    <Button variant="secondary" fullWidth>
-                      📧 Send Invite Codes
+                    <Button 
+                      variant="secondary" 
+                      fullWidth
+                      onClick={() => navigate('/admin/users')}
+                    >
+                      👤 Manage Users & Invites
                     </Button>
-                    <Button variant="secondary" fullWidth>
+                    <Button 
+                      variant="secondary" 
+                      fullWidth
+                      onClick={() => navigate('/admin/settings')}
+                    >
                       🔧 System Settings
                     </Button>
                   </div>

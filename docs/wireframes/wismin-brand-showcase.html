@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WISMIN - Plant-Powered Anti-Aging - LYS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-white: #FFFFFF;
+            --soft-pink: #FDF8F6;
+            --rose-gold: #D4A5A5;
+            --rose-gold-dark: #C48B8B;
+            --deep-charcoal: #1A1A1A;
+            --text-primary: #2D2D2D;
+            --text-secondary: #5A5A5A;
+            --light-gray: #F0F0F0;
+            --medium-gray: #8B8B8B;
+            --border-gray: #E0E0E0;
+            --success-green: #4CAF50;
+            --warning-amber: #FF9800;
+            --error-red: #F44336;
+            --soft-pink-hover: #F5E6E0;
+            --wismin-purple: #8B5A9B;
+            --wismin-gold: #D4A853;
+            --wismin-cream: #F7F4EC;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--light-gray);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        /* Navigation - Same as before */
+        .top-nav {
+            background: var(--primary-white);
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--deep-charcoal);
+        }
+        
+        .nav-items {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-item {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: var(--soft-pink-hover);
+            color: var(--deep-charcoal);
+        }
+        
+        /* Brand Hero Section */
+        .brand-hero {
+            background: linear-gradient(135deg, var(--wismin-cream) 0%, #FAF7F0 100%);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .brand-hero::before {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%238B5A9B" stroke-width="1" opacity="0.1"><path d="M12 3a6.364 6.364 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>') no-repeat center;
+            top: -30px;
+            right: 15%;
+            transform: rotate(15deg);
+        }
+        
+        .brand-logo {
+            font-size: 64px;
+            font-weight: 300;
+            letter-spacing: 6px;
+            color: var(--wismin-purple);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .brand-tagline {
+            font-size: 24px;
+            color: var(--wismin-gold);
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+        
+        .brand-intro {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .science-badges {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .science-badge {
+            background: var(--primary-white);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--wismin-purple);
+            border: 2px solid var(--wismin-purple);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .badge-icon {
+            width: 16px;
+            height: 16px;
+        }
+        
+        /* Plant-Based Science Section */
+        .science-section {
+            padding: 80px 20px;
+            background: var(--primary-white);
+        }
+        
+        .science-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .science-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .science-card {
+            background: var(--wismin-cream);
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .science-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+        }
+        
+        .science-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: var(--wismin-purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .science-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--deep-charcoal);
+            margin-bottom: 16px;
+        }
+        
+        .science-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Bakuchiol Innovation Section */
+        .bakuchiol-section {
+            padding: 80px 20px;
+            background: #F8F5FF;
+        }
+        
+        .bakuchiol-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .ingredient-spotlight {
+            background: var(--primary-white);
+            padding: 40px;
+            border-radius: 16px;
+            margin: 40px auto;
+            max-width: 800px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .vs-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 60px auto;
+            max-width: 800px;
+        }
+        
+        .comparison-item {
+            text-align: center;
+            background: var(--primary-white);
+            padding: 30px 20px;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        
+        .comparison-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 12px;
+            background: var(--wismin-purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .comparison-title {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .comparison-benefit {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        /* Product Showcase Section */
+        .products-section {
+            padding: 80px 20px;
+            background: var(--primary-white);
+        }
+        
+        .product-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+        
+        .category-card {
+            background: var(--light-gray);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+        }
+        
+        .category-header {
+            background: var(--wismin-purple);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .category-name {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .category-description {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .category-products {
+            padding: 30px;
+        }
+        
+        .category-product {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-gray);
+        }
+        
+        .category-product:last-child {
+            border-bottom: none;
+        }
+        
+        /* Cottonseed Heritage Section */
+        .cottonseed-section {
+            padding: 80px 20px;
+            background: var(--wismin-cream);
+        }
+        
+        .cottonseed-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 60px auto 0;
+        }
+        
+        .cottonseed-benefit {
+            text-align: center;
+            background: var(--primary-white);
+            padding: 30px;
+            border-radius: 12px;
+        }
+        
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--wismin-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .benefit-title {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: var(--deep-charcoal);
+        }
+        
+        .benefit-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Clinical Results Section */
+        .results-section {
+            padding: 80px 20px;
+            background: var(--primary-white);
+        }
+        
+        .results-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 800px;
+            margin: 60px auto 0;
+        }
+        
+        .result-stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 300;
+            color: var(--wismin-purple);
+            margin-bottom: 12px;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 20px;
+            background: var(--wismin-purple);
+            text-align: center;
+            color: var(--primary-white);
+        }
+        
+        .cta-title {
+            font-size: 40px;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+        
+        .cta-subtitle {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--primary-white);
+            color: var(--wismin-purple);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button-outline {
+            background: transparent;
+            color: var(--primary-white);
+            border: 2px solid var(--primary-white);
+        }
+        
+        .cta-button-outline:hover {
+            background: var(--primary-white);
+            color: var(--wismin-purple);
+        }
+        
+        /* Icon styles */
+        .icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .brand-logo {
+                font-size: 48px;
+            }
+            
+            .science-grid, .product-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .vs-comparison {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .results-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-logo">LOVING YOUR SKIN</div>
+        <div class="nav-items">
+            <a href="retailer-dashboard.html" class="nav-item">Dashboard</a>
+            <a href="brands.html" class="nav-item active">Brands</a>
+            <a href="products.html" class="nav-item">Products</a>
+            <a href="orders.html" class="nav-item">Orders</a>
+            <a href="cart.html" class="nav-item">Shopping Cart</a>
+            <a href="settings.html" class="nav-item">Settings</a>
+        </div>
+    </nav>
+    
+    <!-- Brand Hero -->
+    <div class="brand-hero">
+        <h1 class="brand-logo">WISMIN</h1>
+        <p class="brand-tagline">"Wisdom in Every Drop - Nature's Anti-Aging Secret"</p>
+        <p class="brand-intro">
+            Pioneering plant-powered anti-aging with bakuchiol and cottonseed extract, WISMIN bridges ancient botanical wisdom 
+            with modern Korean skincare science. Our gentle yet effective formulations deliver retinol-like results without irritation, 
+            making advanced anti-aging accessible to all skin types, including the most sensitive.
+        </p>
+        <div class="science-badges">
+            <span class="science-badge">
+                <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 3a6.364 6.364 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                </svg>
+                Plant-Based Retinol Alternative
+            </span>
+            <span class="science-badge">
+                <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                </svg>
+                Sensitive Skin Safe
+            </span>
+            <span class="science-badge">
+                <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="m9 12 2 2 4-4"/>
+                </svg>
+                Vegan & EWG Certified
+            </span>
+            <span class="science-badge">
+                <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="m9 12 2 2 4-4"/>
+                </svg>
+                Dermatologically Tested
+            </span>
+        </div>
+    </div>
+    
+    <!-- Plant-Based Science Section -->
+    <div class="science-section">
+        <div class="science-content">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h2 style="font-size: 36px; font-weight: 300; color: var(--deep-charcoal);">Plant-Powered Anti-Aging Science</h2>
+                <p style="color: var(--text-secondary); font-size: 18px; max-width: 800px; margin: 20px auto;">
+                    WISMIN harnesses the power of bakuchiol and cottonseed extract to deliver advanced anti-aging benefits 
+                    through nature's gentlest approach, proving that effective skincare doesn't require harsh chemicals.
+                </p>
+            </div>
+            
+            <div class="science-grid">
+                <div class="science-card">
+                    <div class="science-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M12 3a6.364 6.364 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="science-title">Bakuchiol Mastery</h3>
+                    <p class="science-description">
+                        Derived from the babchi plant, our bakuchiol delivers retinol-like benefits—stimulating collagen, 
+                        reducing fine lines, and improving skin elasticity—all without the photosensitivity or irritation.
+                    </p>
+                </div>
+                
+                <div class="science-card">
+                    <div class="science-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M12 2a3 3 0 0 0-3 3c0 1.5-1.5 3-3 3s-3-1.5-3-3a3 3 0 0 0-3 3c0 1.5 1.5 3 3 3s3 1.5 3 3a3 3 0 0 0 3 3"/>
+                        </svg>
+                    </div>
+                    <h3 class="science-title">Cottonseed Innovation</h3>
+                    <p class="science-description">
+                        Rich in essential fatty acids and antioxidants, cottonseed extract deeply nourishes while providing 
+                        natural barrier protection and enhanced moisture retention for all-day hydration.
+                    </p>
+                </div>
+                
+                <div class="science-card">
+                    <div class="science-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <line x1="22" y1="21" x2="16" y2="15"/>
+                        </svg>
+                    </div>
+                    <h3 class="science-title">Gentle Efficacy</h3>
+                    <p class="science-description">
+                        Our formulations are 4x gentler than traditional retinol while delivering comparable results, 
+                        making advanced anti-aging accessible to sensitive skin and safe for pregnancy.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bakuchiol Innovation Section -->
+    <div class="bakuchiol-section">
+        <div class="bakuchiol-content">
+            <h2 style="font-size: 36px; font-weight: 300; color: var(--deep-charcoal); margin-bottom: 20px;">
+                Why Bakuchiol is Revolutionary
+            </h2>
+            <p style="font-size: 18px; color: var(--text-secondary); max-width: 700px; margin: 0 auto;">
+                Ancient Ayurvedic wisdom meets cutting-edge Korean skincare technology. Bakuchiol mimics retinol's cellular pathways 
+                while remaining gentle enough for daily use and safe for all life stages.
+            </p>
+            
+            <div class="ingredient-spotlight">
+                <h3 style="font-size: 24px; color: var(--deep-charcoal); margin-bottom: 16px;">The Science Behind Bakuchiol</h3>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    Bakuchiol activates the same genetic pathways as retinol, increasing collagen production and cell turnover 
+                    without causing irritation. This plant-derived compound also provides powerful antioxidant protection 
+                    and anti-inflammatory benefits, making it the perfect choice for sensitive or reactive skin types.
+                </p>
+            </div>
+            
+            <div class="vs-comparison">
+                <div class="comparison-item">
+                    <div class="comparison-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/>
+                        </svg>
+                    </div>
+                    <div class="comparison-title">Day & Night Safe</div>
+                    <div class="comparison-benefit">No photosensitivity concerns</div>
+                </div>
+                
+                <div class="comparison-item">
+                    <div class="comparison-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="m22 21-3-3m0 0a5 5 0 1 0-7-7 5 5 0 0 0 7 7z"/>
+                        </svg>
+                    </div>
+                    <div class="comparison-title">Pregnancy Safe</div>
+                    <div class="comparison-benefit">Unlike retinol alternatives</div>
+                </div>
+                
+                <div class="comparison-item">
+                    <div class="comparison-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v12M6 12h12"/>
+                        </svg>
+                    </div>
+                    <div class="comparison-title">4x Gentler</div>
+                    <div class="comparison-benefit">Than traditional retinol</div>
+                </div>
+                
+                <div class="comparison-item">
+                    <div class="comparison-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M12 2a3 3 0 0 0-3 3c0 1.5-1.5 3-3 3s-3-1.5-3-3a3 3 0 0 0-3 3c0 1.5 1.5 3 3 3s3 1.5 3 3a3 3 0 0 0 3 3"/>
+                        </svg>
+                    </div>
+                    <div class="comparison-title">Plant-Based</div>
+                    <div class="comparison-benefit">100% natural origin</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Product Categories Section -->
+    <div class="products-section">
+        <div style="text-align: center; margin-bottom: 60px;">
+            <h2 style="font-size: 36px; font-weight: 300; color: var(--deep-charcoal);">WISMIN Product Collections</h2>
+            <p style="color: var(--text-secondary); font-size: 18px;">Advanced anti-aging made gentle and accessible</p>
+        </div>
+        
+        <div class="product-categories">
+            <div class="category-card">
+                <div class="category-header">
+                    <h3 class="category-name">Bakuchiol Anti-Aging</h3>
+                    <p class="category-description">Plant-powered retinol alternatives</p>
+                </div>
+                <div class="category-products">
+                    <div class="category-product">
+                        <span>Bakuchiol All Day Young Ampoule</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£28.50/item</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Bakuchiol Anti-Aging Ampoule Set (4x15ml)</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£108.00/set</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Bakuchiol Brightening Night Cream</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£32.00/item</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Bakuchiol Eye Treatment Serum</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£24.80/item</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-header" style="background: var(--wismin-gold);">
+                    <h3 class="category-name">Cottonseed Care</h3>
+                    <p class="category-description">Gentle hydration & barrier protection</p>
+                </div>
+                <div class="category-products">
+                    <div class="category-product">
+                        <span>Cottonseed Cica Defense Barrier Cream</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£26.40/item</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Cottonseed Calming Hydro Toner</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£18.90/item</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Cottonseed Travel Cleansing Balls (6pcs)</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£14.70/set</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Cottonseed Gentle Daily Cleanser</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£21.60/item</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-header" style="background: #8B4A6B;">
+                    <h3 class="category-name">WISOA Hair Care</h3>
+                    <p class="category-description">Scalp strengthening & hair loss prevention</p>
+                </div>
+                <div class="category-products">
+                    <div class="category-product">
+                        <span>Anti-Hair Loss Scalp Strengthening Shampoo</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£19.80/item</span>
+                    </div>
+                    <div class="category-product">
+                        <span>First Scalp Deep Cleansing Shampoo</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£17.20/item</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Scalp Care Treatment Mask</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£22.40/item</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Hair Growth Stimulating Serum</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£31.50/item</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-header" style="background: #A67C52;">
+                    <h3 class="category-name">All Day Young Masks</h3>
+                    <p class="category-description">Deep collagen & intensive care</p>
+                </div>
+                <div class="category-products">
+                    <div class="category-product">
+                        <span>Real Deep Collagen Mask Pack</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£4.80/item</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Bakuchiol Overnight Recovery Mask</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£6.50/item</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Cottonseed Hydrating Sheet Mask (5-pack)</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£18.00/set</span>
+                    </div>
+                    <div class="category-product">
+                        <span>Anti-Aging Intensive Care Set</span>
+                        <span style="color: var(--rose-gold); font-weight: 500;">£35.20/set</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Cottonseed Heritage Section -->
+    <div class="cottonseed-section">
+        <div style="text-align: center; margin-bottom: 60px;">
+            <h2 style="font-size: 36px; font-weight: 300; color: var(--deep-charcoal);">The Cottonseed Difference</h2>
+            <p style="color: var(--text-secondary); font-size: 18px; max-width: 600px; margin: 0 auto;">
+                Rediscovering the skincare benefits of cottonseed oil, a treasured ingredient rich in natural antioxidants 
+                and essential fatty acids for optimal skin health
+            </p>
+        </div>
+        
+        <div class="cottonseed-grid">
+            <div class="cottonseed-benefit">
+                <div class="benefit-icon">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M12 2a3 3 0 0 0-3 3c0 1.5-1.5 3-3 3s-3-1.5-3-3a3 3 0 0 0-3 3c0 1.5 1.5 3 3 3s3 1.5 3 3a3 3 0 0 0 3 3"/>
+                    </svg>
+                </div>
+                <h3 class="benefit-title">Rich in Vitamin E</h3>
+                <p class="benefit-description">Natural antioxidant protection against environmental damage and premature aging</p>
+            </div>
+            
+            <div class="cottonseed-benefit">
+                <div class="benefit-icon">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M3 12h18m-9-9v18"/>
+                    </svg>
+                </div>
+                <h3 class="benefit-title">Essential Fatty Acids</h3>
+                <p class="benefit-description">Linoleic acid content strengthens skin barrier and improves moisture retention</p>
+            </div>
+            
+            <div class="cottonseed-benefit">
+                <div class="benefit-icon">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v12M6 12h12"/>
+                    </svg>
+                </div>
+                <h3 class="benefit-title">Lightweight Texture</h3>
+                <p class="benefit-description">Fast-absorbing formula that doesn't clog pores or leave greasy residue</p>
+            </div>
+            
+            <div class="cottonseed-benefit">
+                <div class="benefit-icon">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <line x1="22" y1="21" x2="16" y2="15"/>
+                    </svg>
+                </div>
+                <h3 class="benefit-title">Hypoallergenic</h3>
+                <p class="benefit-description">Gentle enough for sensitive skin with minimal risk of allergic reactions</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Clinical Results Section -->
+    <div class="results-section">
+        <div style="text-align: center;">
+            <h2 style="font-size: 36px; font-weight: 300; color: var(--deep-charcoal); margin-bottom: 20px;">
+                Proven Clinical Results
+            </h2>
+            <p style="font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                Independent clinical testing confirms WISMIN's effectiveness in delivering visible anti-aging results 
+                without the irritation associated with traditional retinol products
+            </p>
+        </div>
+        
+        <div class="results-stats">
+            <div class="result-stat">
+                <div class="stat-number">87%</div>
+                <div class="stat-label">Fine line reduction after 8 weeks</div>
+            </div>
+            <div class="result-stat">
+                <div class="stat-number">92%</div>
+                <div class="stat-label">Improved skin elasticity</div>
+            </div>
+            <div class="result-stat">
+                <div class="stat-number">4x</div>
+                <div class="stat-label">Gentler than retinol</div>
+            </div>
+            <div class="result-stat">
+                <div class="stat-number">24hr</div>
+                <div class="stat-label">Moisture retention</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <h2 class="cta-title">Experience Plant-Powered Anti-Aging</h2>
+        <p class="cta-subtitle">Offer your customers the gentlest path to visible results with WISMIN's innovative formulations</p>
+        <div class="cta-buttons">
+            <a href="#" class="cta-button">View Product Catalog</a>
+            <a href="#" class="cta-button-outline">Request Samples</a>
+        </div>
+    </div>
+</body>
+</html>

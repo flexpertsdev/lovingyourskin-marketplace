@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Layout, Container, Section, PageHeader } from '../components/layout'
 import { Spinner } from '../components/ui'
 import { BrandCardHero } from '../components/features/BrandCardHero'
-import { productService } from '../services/mock/product.service'
+import { productService } from '../services'
 import { Brand } from '../types'
 
 export const Brands: React.FC = () => {

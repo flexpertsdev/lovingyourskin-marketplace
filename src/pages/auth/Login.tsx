@@ -19,7 +19,13 @@ export const Login: React.FC = () => {
     
     try {
       await login(formData.email, formData.password)
-      navigate('/dashboard')
+      // Get updated user after login
+      const authStore = useAuthStore.getState()
+      if (authStore.user?.role === 'admin') {
+        navigate('/admin/dashboard')
+      } else {
+        navigate('/dashboard')
+      }
     } catch (error) {
       // Error is handled by the store
     }
@@ -88,6 +94,19 @@ export const Login: React.FC = () => {
                   Request invitation
                 </Link>
               </p>
+            </div>
+            
+            {/* Temporary link to admin dashboard for already logged in users */}
+            <div className="mt-6 text-center border-t pt-6">
+              <p className="text-sm text-text-secondary mb-2">Already logged in?</p>
+              <div className="space-x-4">
+                <Link to="/admin/dashboard" className="text-rose-gold hover:text-rose-gold-dark text-sm">
+                  Go to Admin Dashboard
+                </Link>
+                <Link to="/dashboard" className="text-rose-gold hover:text-rose-gold-dark text-sm">
+                  Go to Dashboard
+                </Link>
+              </div>
             </div>
             
           </CardContent>

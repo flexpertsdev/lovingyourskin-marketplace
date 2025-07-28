@@ -1,0 +1,162 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    function isBrand() {
+      return isAuthenticated() && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'brand';
+    }
+    
+    function isRetailer() {
+      return isAuthenticated() && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'retailer';
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function hasValidRole() {
+      return request.resource.data.role in ['admin', 'retailer', 'brand'];
+    }
+    
+    function hasValidUserStatus() {
+      return request.resource.data.status in ['active', 'inactive', 'pending'];
+    }
+
+    // Users collection
+    match /users/{userId} {
+      // Users can read their own data, admins can read all
+      allow read: if isOwner(userId) || isAdmin();
+      
+      // Users can update their own profile (except role), admins can update all
+      allow update: if (isOwner(userId) && 
+        request.resource.data.role == resource.data.role && 
+        request.resource.data.id == resource.data.id) || 
+        isAdmin();
+      
+      // Only admins can create users (or the auth system during registration)
+      allow create: if isAdmin() || 
+        (request.auth.uid == userId && hasValidRole() && hasValidUserStatus());
+      
+      // Only admins can delete users
+      allow delete: if isAdmin();
+    }
+
+    // Products collection
+    match /products/{productId} {
+      // All authenticated users can read active products
+      allow read: if isAuthenticated() && 
+        (resource.data.status == 'active' || isAdmin() || 
+         (isBrand() && resource.data.brandId == request.auth.uid));
+      
+      // Only admins and brand owners can create/update their products
+      allow create: if isAdmin() || 
+        (isBrand() && request.resource.data.brandId == request.auth.uid);
+      
+      allow update: if isAdmin() || 
+        (isBrand() && resource.data.brandId == request.auth.uid);
+      
+      // Only admins can delete products
+      allow delete: if isAdmin();
+    }
+
+    // Brands collection
+    match /brands/{brandId} {
+      // All authenticated users can read active brands
+      allow read: if isAuthenticated() && 
+        (resource.data.status == 'active' || isAdmin());
+      
+      // Only admins can manage brands
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Orders collection
+    match /orders/{orderId} {
+      // Users can read their own orders, admins can read all
+      allow read: if isOwner(resource.data.userId) || isAdmin();
+      
+      // Retailers can create orders, admins can create any
+      allow create: if (isRetailer() && request.resource.data.userId == request.auth.uid) || 
+        isAdmin();
+      
+      // Only admins can update orders (status changes, etc.)
+      allow update: if isAdmin();
+      
+      // Only admins can delete orders
+      allow delete: if isAdmin();
+    }
+
+    // Messages collection
+    match /messages/{messageId} {
+      // Admins can read all messages
+      allow read: if isAdmin();
+      
+      // Anyone can create a message (contact form)
+      allow create: if true;
+      
+      // Only admins can update messages (mark as read, etc.)
+      allow update: if isAdmin();
+      
+      // Only admins can delete messages
+      allow delete: if isAdmin();
+    }
+
+    // Invites collection (legacy)
+    match /invites/{inviteId} {
+      // Anyone can read an invite to validate it (by code)
+      allow read: if true;
+      
+      // Only admins can create invites
+      allow create: if isAdmin();
+      
+      // System can update invite when used
+      allow update: if isAdmin() || 
+        (request.resource.data.status == 'used' && 
+         request.resource.data.usedBy == request.auth.uid);
+      
+      // Only admins can delete invites
+      allow delete: if isAdmin();
+    }
+
+    // InviteCodes collection (current)
+    match /inviteCodes/{inviteCodeId} {
+      // Anyone can read an invite code to validate it
+      allow read: if true;
+      
+      // Only admins can create invite codes
+      allow create: if isAdmin();
+      
+      // Allow updates when marking as used or by admin
+      allow update: if isAdmin() || 
+        (request.resource.data.used == true && 
+         request.resource.data.usedBy == request.auth.uid &&
+         resource.data.used == false);
+      
+      // Only admins can delete invite codes
+      allow delete: if isAdmin();
+    }
+
+    // Analytics data (future)
+    match /analytics/{document=**} {
+      // Only admins can access analytics
+      allow read, write: if isAdmin();
+    }
+
+    // System configuration (future)
+    match /config/{document=**} {
+      // Only admins can manage system config
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+  }
+}

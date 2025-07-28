@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Layout } from '../components/layout'
-import { orderService } from '../services/mock/order.service'
+import { orderService } from '../services'
 import { cn } from '../lib/utils/cn'
 import { formatDistanceToNow } from 'date-fns'
 import { Message } from '../types'
@@ -32,11 +32,10 @@ export const Messages: React.FC = () => {
     queryKey: ['messageThread', selectedThread],
     queryFn: async () => {
       if (!selectedThread) return null
-      const thread = await orderService.getMessageThread(selectedThread)
-      if (!thread) return null
-      // Get messages for the thread
-      const messages = await orderService.getMessages(thread.id)
-      return { thread, messages }
+      // Get messages for the order - currently returns empty array
+      // TODO: Implement proper order message threading
+      const messages: Message[] = [] // await messageService.getOrderMessages(selectedThread) 
+      return { messages }
     },
     enabled: !!selectedThread
   })

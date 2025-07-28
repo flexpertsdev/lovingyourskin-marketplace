@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LALUCELL - Pregnancy-Safe K-Beauty - LYS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-white: #FFFFFF;
+            --soft-pink: #FDF8F6;
+            --rose-gold: #D4A5A5;
+            --rose-gold-dark: #C48B8B;
+            --deep-charcoal: #1A1A1A;
+            --text-primary: #2D2D2D;
+            --text-secondary: #5A5A5A;
+            --light-gray: #F0F0F0;
+            --medium-gray: #8B8B8B;
+            --border-gray: #E0E0E0;
+            --success-green: #4CAF50;
+            --warning-amber: #FF9800;
+            --error-red: #F44336;
+            --soft-pink-hover: #F5E6E0;
+            --lalucell-lavender: #E8E3F5;
+            --lalucell-mint: #E3F2ED;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--light-gray);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        /* Navigation - Same as before */
+        .top-nav {
+            background: var(--primary-white);
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--deep-charcoal);
+        }
+        
+        .nav-items {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-item {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: var(--soft-pink-hover);
+            color: var(--deep-charcoal);
+        }
+        
+        /* Brand Hero Section */
+        .brand-hero {
+            background: linear-gradient(135deg, var(--lalucell-lavender) 0%, var(--lalucell-mint) 100%);
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .brand-logo {
+            font-size: 64px;
+            font-weight: 300;
+            letter-spacing: 6px;
+            color: var(--deep-charcoal);
+            margin-bottom: 20px;
+        }
+        
+        .brand-tagline {
+            font-size: 24px;
+            color: var(--rose-gold);
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+        
+        .brand-intro {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        .safety-badges {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .safety-badge {
+            background: var(--primary-white);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--success-green);
+            border: 2px solid var(--success-green);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .badge-icon {
+            width: 16px;
+            height: 16px;
+        }
+        
+        /* Trust Section */
+        .trust-section {
+            padding: 80px 20px;
+            background: var(--primary-white);
+        }
+        
+        .trust-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .trust-title {
+            font-size: 36px;
+            font-weight: 300;
+            color: var(--deep-charcoal);
+            margin-bottom: 40px;
+        }
+        
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .trust-card {
+            background: var(--soft-pink);
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+        }
+        
+        .trust-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: var(--rose-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .trust-card-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--deep-charcoal);
+            margin-bottom: 16px;
+        }
+        
+        .trust-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Technologies Section */
+        .tech-section {
+            padding: 80px 20px;
+            background: var(--light-gray);
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+        
+        .tech-card {
+            background: var(--primary-white);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid var(--border-gray);
+        }
+        
+        .tech-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+        }
+        
+        .tech-header {
+            padding: 30px;
+            background: var(--lalucell-lavender);
+            text-align: center;
+        }
+        
+        .tech-name {
+            font-size: 28px;
+            font-weight: 500;
+            color: var(--deep-charcoal);
+            margin-bottom: 12px;
+        }
+        
+        .patent-number {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .tech-content {
+            padding: 30px;
+        }
+        
+        .tech-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Product Lines Section */
+        .lines-section {
+            padding: 80px 20px;
+            background: var(--primary-white);
+        }
+        
+        .product-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+        
+        .product-card {
+            background: var(--primary-white);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-gray);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-color: var(--rose-gold);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: var(--lalucell-mint);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-name {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--deep-charcoal);
+        }
+        
+        .product-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+        
+        .product-price {
+            color: var(--rose-gold);
+            font-weight: 500;
+            font-size: 16px;
+        }
+        
+        /* Market Section */
+        .market-section {
+            padding: 80px 20px;
+            background: var(--soft-pink);
+        }
+        
+        .market-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 800px;
+            margin: 60px auto 0;
+        }
+        
+        .market-stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 300;
+            color: var(--rose-gold);
+            margin-bottom: 12px;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 20px;
+            background: var(--rose-gold);
+            text-align: center;
+            color: var(--primary-white);
+        }
+        
+        .cta-title {
+            font-size: 40px;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+        
+        .cta-subtitle {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--primary-white);
+            color: var(--rose-gold);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button-outline {
+            background: transparent;
+            color: var(--primary-white);
+            border: 2px solid var(--primary-white);
+        }
+        
+        .cta-button-outline:hover {
+            background: var(--primary-white);
+            color: var(--rose-gold);
+        }
+        
+        /* Icon styles */
+        .icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .brand-logo {
+                font-size: 48px;
+            }
+            
+            .trust-grid, .tech-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .market-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-logo">LOVING YOUR SKIN</div>
+        <div class="nav-items">
+            <a href="retailer-dashboard.html" class="nav-item">Dashboard</a>
+            <a href="brands.html" class="nav-item active">Brands</a>
+            <a href="products.html" class="nav-item">Products</a>
+            <a href="orders.html" class="nav-item">Orders</a>
+            <a href="cart.html" class="nav-item">Shopping Cart</a>
+            <a href="settings.html" class="nav-item">Settings</a>
+        </div>
+    </nav>
+    
+    <!-- Brand Hero -->
+    <div class="brand-hero">
+        <h1 class="brand-logo">LALUCELL</h1>
+        <p class="brand-tagline">"Cotton Like Derma - Unceasing Beauty for All Women"</p>
+        <p class="brand-intro">
+            The trusted choice of Korean mothers, LALUCELL provides safe, natural skincare with scientific innovation. 
+            Strictly excluding ingredients prohibited for pregnant women, we deliver effective solutions without compromise, 
+            earning recognition from the most meticulous mothers in South Korea.
+        </p>
+        <div class="safety-badges">
+            <span class="safety-badge">
+                <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="m9 12 2 2 4-4"/>
+                </svg>
+                Pregnancy Safe
+            </span>
+            <span class="safety-badge">
+                <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                </svg>
+                0.00 Irritation Score
+            </span>
+            <span class="safety-badge">
+                <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                    <line x1="12" y1="22.08" x2="12" y2="12"/>
+                </svg>
+                Dermatologist Tested
+            </span>
+            <span class="safety-badge">
+                <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="m9 12 2 2 4-4"/>
+                </svg>
+                CPNP Certified
+            </span>
+        </div>
+    </div>
+    
+    <!-- Trust Section -->
+    <div class="trust-section">
+        <div class="trust-content">
+            <h2 class="trust-title">Why Korean Mothers Trust LALUCELL</h2>
+            <p style="font-size: 18px; color: var(--text-secondary); max-width: 800px; margin: 0 auto;">
+                In South Korea, pregnant mothers are known for their meticulous approach to skincare ingredients. 
+                LALUCELL has become their go-to brand by maintaining the highest safety standards without sacrificing results.
+            </p>
+            
+            <div class="trust-grid">
+                <div class="trust-card">
+                    <div class="trust-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="m22 21-3-3m0 0a5 5 0 1 0-7-7 5 5 0 0 0 7 7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="trust-card-title">Pregnancy-First Formula</h3>
+                    <p class="trust-description">
+                        Every ingredient is carefully selected and tested to ensure absolute safety during pregnancy and breastfeeding, 
+                        with zero compromise on effectiveness for sensitive skin care.
+                    </p>
+                </div>
+                
+                <div class="trust-card">
+                    <div class="trust-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M12 2a3 3 0 0 0-3 3c0 1.5-1.5 3-3 3s-3-1.5-3-3a3 3 0 0 0-3 3c0 1.5 1.5 3 3 3s3 1.5 3 3a3 3 0 0 0 3 3"/>
+                            <path d="M21 9c-1.5 0-3-1.5-3-3s1.5-3 3-3"/>
+                            <path d="M15 21c0-1.5 1.5-3 3-3s3 1.5 3 3"/>
+                        </svg>
+                    </div>
+                    <h3 class="trust-card-title">Cotton-Like Gentleness</h3>
+                    <p class="trust-description">
+                        Our signature "Cotton Like Derma" approach delivers ultra-gentle care that soothes and treats 
+                        sensitive skin without harmful chemicals or irritating ingredients.
+                    </p>
+                </div>
+                
+                <div class="trust-card">
+                    <div class="trust-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+                        </svg>
+                    </div>
+                    <h3 class="trust-card-title">Scientific Innovation</h3>
+                    <p class="trust-description">
+                        Advanced patented technologies like ELASOME® liposome delivery and TARAX III® natural extracts 
+                        enhance ingredient effectiveness while maintaining complete safety.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Patented Technologies Section -->
+    <div class="tech-section">
+        <div style="text-align: center; margin-bottom: 60px;">
+            <h2 style="font-size: 36px; font-weight: 300; color: var(--deep-charcoal);">Patented Technologies</h2>
+            <p style="color: var(--text-secondary); font-size: 18px;">Science by Nature, LALUCELL innovations</p>
+        </div>
+        
+        <div class="tech-grid">
+            <div class="tech-card">
+                <div class="tech-header">
+                    <h3 class="tech-name">ELASOME®</h3>
+                    <p class="patent-number">Patent #10-1796822</p>
+                </div>
+                <div class="tech-content">
+                    <p class="tech-description">
+                        Proprietary liposome technology that increases skin absorption by at least 4 times, 
+                        delivering active ingredients deeper into the skin for maximum efficacy while maintaining gentleness.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="tech-card">
+                <div class="tech-header">
+                    <h3 class="tech-name">TARAX III®</h3>
+                    <p class="patent-number">Patent #10-1376202</p>
+                </div>
+                <div class="tech-content">
+                    <p class="tech-description">
+                        Pharmaceutical composition combining dandelion and barley extracts to provide natural 
+                        anti-inflammatory and soothing benefits for sensitive and pregnancy-safe skincare.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="tech-card">
+                <div class="tech-header">
+                    <h3 class="tech-name">E-Beam Hydrogel</h3>
+                    <p class="patent-number">Patent #10-2466953</p>
+                </div>
+                <div class="tech-content">
+                    <p class="tech-description">
+                        Revolutionary manufacturing technology using E-beam to simultaneously sterilize and form 
+                        Mesh Pocket® structures for enhanced product safety and ingredient stability.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Product Showcase Section -->
+    <div class="lines-section">
+        <div style="text-align: center; margin-bottom: 60px;">
+            <h2 style="font-size: 36px; font-weight: 300; color: var(--deep-charcoal);">Cotton Like Derma Collection</h2>
+            <p style="color: var(--text-secondary); font-size: 18px;">Gentle care for life's most precious moments</p>
+        </div>
+        
+        <div class="product-showcase">
+            <div class="product-card">
+                <div class="product-image">Cotton Gentle Cleanser</div>
+                <div class="product-info">
+                    <h4 class="product-name">Cotton Gentle Daily Cleanser</h4>
+                    <p class="product-description">Ultra-mild daily cleanser safe for pregnancy</p>
+                    <p class="product-price">£24/item • £288/carton (12 items)</p>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">Barrier Repair Serum</div>
+                <div class="product-info">
+                    <h4 class="product-name">Cotton Barrier Repair Serum</h4>
+                    <p class="product-description">ELASOME® enhanced hydration serum</p>
+                    <p class="product-price">£32/item • £384/carton (12 items)</p>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">Calming Face Cream</div>
+                <div class="product-info">
+                    <h4 class="product-name">Cotton Calming Face Cream</h4>
+                    <p class="product-description">TARAX III® anti-inflammatory moisturizer</p>
+                    <p class="product-price">£28/item • £336/carton (12 items)</p>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">Pregnancy Body Oil</div>
+                <div class="product-info">
+                    <h4 class="product-name">Belly Care Nourishing Oil</h4>
+                    <p class="product-description">Stretch mark prevention body oil</p>
+                    <p class="product-price">£35/item • £420/carton (12 items)</p>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">Hydrogel Mask</div>
+                <div class="product-info">
+                    <h4 class="product-name">E-Beam Hydrogel Mask</h4>
+                    <p class="product-description">Sterilized hydrogel mask with Mesh Pocket®</p>
+                    <p class="product-price">£6/item • £144/carton (24 items)</p>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">Sensitive Toner</div>
+                <div class="product-info">
+                    <h4 class="product-name">Cotton Sensitive Toner</h4>
+                    <p class="product-description">Alcohol-free pH-balanced toner</p>
+                    <p class="product-price">£22/item • £264/carton (12 items)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Market Opportunity -->
+    <div class="market-section">
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <h2 style="font-size: 36px; font-weight: 300; color: var(--deep-charcoal); margin-bottom: 20px;">
+                Growing Pregnancy Skincare Market
+            </h2>
+            <p style="font-size: 18px; color: var(--text-secondary);">
+                The pregnancy skincare market is expanding as more women seek safe, effective solutions
+            </p>
+        </div>
+        
+        <div class="market-stats">
+            <div class="market-stat">
+                <div class="stat-number">£2.8B</div>
+                <div class="stat-label">Global pregnancy skincare market</div>
+            </div>
+            <div class="market-stat">
+                <div class="stat-number">18%</div>
+                <div class="stat-label">Annual growth rate</div>
+            </div>
+            <div class="market-stat">
+                <div class="stat-number">73%</div>
+                <div class="stat-label">Mothers switch to safe brands</div>
+            </div>
+            <div class="market-stat">
+                <div class="stat-number">4.2x</div>
+                <div class="stat-label">Higher customer lifetime value</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <h2 class="cta-title">Capture the Pregnancy Beauty Market</h2>
+        <p class="cta-subtitle">Be the first in your area to offer truly pregnancy-safe K-beauty from Korea's most trusted brand</p>
+        <div class="cta-buttons">
+            <a href="#" class="cta-button">View Product Catalog</a>
+            <a href="#" class="cta-button-outline">Request Information Pack</a>
+        </div>
+    </div>
+</body>
+</html>

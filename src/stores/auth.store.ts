@@ -9,6 +9,9 @@ interface AuthState {
   isLoading: boolean
   error: string | null
   
+  // Computed
+  isAuthenticated: boolean
+  
   // Actions
   login: (email: string, password: string) => Promise<void>
   logout: () => Promise<void>
@@ -20,7 +23,9 @@ interface AuthState {
   }) => Promise<void>
   checkAuth: () => Promise<void>
   updateLanguage: (language: 'en' | 'ko' | 'zh') => Promise<void>
+  updateUserRole: (role: 'admin' | 'retailer' | 'brand') => void
   clearError: () => void
+  setUser: (user: User) => void
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -30,15 +35,19 @@ export const useAuthStore = create<AuthState>()(
       isLoading: false,
       error: null,
       
+      // Computed - make this a regular property that updates with user
+      isAuthenticated: false,
+      
       login: async (email, password) => {
         set({ isLoading: true, error: null })
         try {
           const user = await authService.login(email, password)
-          set({ user, isLoading: false })
+          set({ user, isLoading: false, isAuthenticated: true })
         } catch (error) {
           set({ 
             error: error instanceof Error ? error.message : 'Login failed',
-            isLoading: false 
+            isLoading: false,
+            isAuthenticated: false
           })
           throw error
         }
@@ -48,7 +57,7 @@ export const useAuthStore = create<AuthState>()(
         set({ isLoading: true })
         try {
           await authService.logout()
-          set({ user: null, isLoading: false })
+          set({ user: null, isLoading: false, isAuthenticated: false })
         } catch (error) {
           set({ isLoading: false })
           console.error('Logout error:', error)
@@ -59,11 +68,12 @@ export const useAuthStore = create<AuthState>()(
         set({ isLoading: true, error: null })
         try {
           const user = await authService.register(inviteCode, userData)
-          set({ user, isLoading: false })
+          set({ user, isLoading: false, isAuthenticated: true })
         } catch (error) {
           set({ 
             error: error instanceof Error ? error.message : 'Registration failed',
-            isLoading: false 
+            isLoading: false,
+            isAuthenticated: false
           })
           throw error
         }
@@ -73,9 +83,9 @@ export const useAuthStore = create<AuthState>()(
         set({ isLoading: true })
         try {
           const user = await authService.getCurrentUser()
-          set({ user, isLoading: false })
+          set({ user, isLoading: false, isAuthenticated: !!user })
         } catch (error) {
-          set({ user: null, isLoading: false })
+          set({ user: null, isLoading: false, isAuthenticated: false })
         }
       },
       
@@ -91,7 +101,17 @@ export const useAuthStore = create<AuthState>()(
         }
       },
       
+      updateUserRole: (role) => {
+        const { user } = get()
+        if (!user) return
+        
+        console.log(`[Auth Store] Updating user role from ${user.role} to ${role}`)
+        set({ user: { ...user, role } })
+      },
+      
       clearError: () => set({ error: null }),
+      
+      setUser: (user) => set({ user, isAuthenticated: true }),
     }),
     {
       name: 'auth-storage',

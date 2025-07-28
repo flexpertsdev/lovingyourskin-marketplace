@@ -96,7 +96,7 @@ export const BrandCardHero: React.FC<BrandCardHeroProps> = ({
               <img 
                 src={heroImage}
                 alt={`${brand.name.en} products`}
-                className="w-full h-full object-contain hover:scale-105 transition-transform duration-500"
+                className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-500"
               />
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-rose-gold/10 to-soft-pink flex items-center justify-center">

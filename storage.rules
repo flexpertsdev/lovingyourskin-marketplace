@@ -1,0 +1,64 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    function isBrand() {
+      return isAuthenticated() && 
+        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'brand';
+    }
+    
+    // Product images
+    match /products/{productId}/{allPaths=**} {
+      // Anyone can read product images
+      allow read: if true;
+      
+      // Only admins and brand owners can upload product images
+      allow write: if isAdmin() || isBrand();
+    }
+    
+    // Brand logos and assets
+    match /brands/{brandId}/{allPaths=**} {
+      // Anyone can read brand assets
+      allow read: if true;
+      
+      // Only admins can upload brand assets
+      allow write: if isAdmin();
+    }
+    
+    // User uploads (avatars, etc)
+    match /users/{userId}/{allPaths=**} {
+      // Users can read their own files, admins can read all
+      allow read: if request.auth.uid == userId || isAdmin();
+      
+      // Users can upload their own files, admins can upload any
+      allow write: if request.auth.uid == userId || isAdmin();
+    }
+    
+    // Order documents (invoices, etc)
+    match /orders/{orderId}/{allPaths=**} {
+      // Only authenticated users can read order documents
+      allow read: if isAuthenticated();
+      
+      // Only admins can upload order documents
+      allow write: if isAdmin();
+    }
+    
+    // Public assets
+    match /public/{allPaths=**} {
+      // Anyone can read public assets
+      allow read: if true;
+      
+      // Only admins can upload public assets
+      allow write: if isAdmin();
+    }
+  }
+}

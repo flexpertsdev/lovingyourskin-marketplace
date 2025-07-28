@@ -1,16 +1,36 @@
 // Core types based on feature requirements from lys-project-plan-features.md
 
 // User types with role-based access (lines 57-61)
+export type UserRole = 'admin' | 'retailer' | 'brand' | 'consumer'
+
 export interface User {
   id: string
   email: string
-  role: 'admin' | 'retailer' | 'brand'
-  companyId: string
+  role: UserRole
+  companyId?: string // Optional for admin users and consumers
   salesRepId?: string // Auto-linked from invite
   language: 'en' | 'ko' | 'zh'
   name: string
   createdAt: Date
   lastLoginAt: Date
+  // Consumer-specific fields
+  wishlist?: string[] // Product IDs
+  addresses?: Address[]
+  phoneNumber?: string
+  newsletter?: boolean
+}
+
+// Address type for consumers
+export interface Address {
+  id: string
+  label?: string // e.g., "Home", "Work"
+  name: string
+  street: string
+  city: string
+  postalCode: string
+  country: string
+  phone?: string
+  isDefault?: boolean
 }
 
 export interface Company {
@@ -34,11 +54,14 @@ export interface Company {
 export interface InviteCode {
   id: string
   code: string
-  companyId: string
-  salesRepId: string
-  role: 'retailer' | 'brand'
+  companyId?: string
+  salesRepId?: string
+  role: UserRole
   email: string
   used: boolean
+  usedBy?: string
+  usedAt?: Date
+  createdBy: string
   expiresAt: Date
   createdAt: Date
 }
@@ -65,6 +88,12 @@ export interface Product {
     item: number
     currency: 'GBP' | 'EUR' | 'CHF'
   }
+  // B2C specific fields
+  retailQuantity?: number // Available stock for B2C
+  preOrderEnabled?: boolean
+  preOrderDiscount?: number // Percentage discount for pre-orders
+  launchDate?: Date
+  maxPreOrderQuantity?: number
   moq: number // Minimum order quantity
   moqUnit: 'items' | 'cartons'
   itemsPerCarton: number
@@ -78,6 +107,8 @@ export interface Product {
   featured: boolean
   active: boolean
   leadTime: string // e.g. "3-5 days"
+  isNew?: boolean // For "New" badge display
+  keyBenefits?: string[] // List of key benefits for B2C display
 }
 
 export type CertificationType = 'CPNP' | 'CPNP_UK' | 'CPNP_EU' | 'CPNP_CH' | 'VEGAN' | 'CRUELTY_FREE' | 'EWG' | 'DERMATOLOGIST_TESTED' | 'CARBON_NEUTRAL'
@@ -174,8 +205,12 @@ export type OrderStatus =
 export interface Order {
   id: string
   orderNumber: string
-  retailerId: string
-  retailerCompanyId: string
+  // User identification - either retailer or consumer
+  userId: string
+  userType: 'retailer' | 'consumer'
+  retailerId?: string // Only for B2B orders
+  retailerCompanyId?: string // Only for B2B orders
+  consumerId?: string // Only for B2C orders
   brandId: string // Orders separated by brand
   brandName: string
   status: OrderStatus
@@ -183,16 +218,32 @@ export interface Order {
   totalAmount: {
     items: number
     shipping: number
+    tax: number
+    discount?: number
     total: number
     currency: 'GBP' | 'EUR' | 'CHF'
   }
   shippingAddress: {
     name: string
-    company: string
+    company?: string
     street: string
     city: string
     postalCode: string
     country: string
+    phone?: string
+  }
+  // Payment information
+  paymentMethod: 'stripe_card' | 'stripe_invoice' | 'bank_transfer'
+  paymentStatus: 'pending' | 'processing' | 'paid' | 'failed' | 'refunded'
+  stripeSessionId?: string
+  stripePaymentIntentId?: string
+  // Invoice information
+  invoice?: {
+    id: string
+    number: string
+    status: 'draft' | 'sent' | 'paid' | 'overdue'
+    pdfUrl: string
+    dueDate?: Date // B2B only
   }
   timeline: OrderEvent[]
   documents: OrderDocument[]
@@ -263,6 +314,69 @@ export interface MessageAttachment {
   url: string
 }
 
+// Invoice types
+export interface Invoice {
+  id: string
+  orderId: string
+  invoiceNumber: string
+  type: 'b2b' | 'b2c'
+  status: 'draft' | 'sent' | 'paid' | 'overdue'
+  dueDate?: Date // For B2B with payment terms
+  stripeInvoiceId?: string
+  pdfUrl?: string
+  customerInfo: {
+    name: string
+    email: string
+    company?: string
+    address: Address | Order['shippingAddress']
+  }
+  items: InvoiceItem[]
+  subtotal: number
+  tax: number
+  taxRate: number
+  shipping: number
+  discount?: {
+    amount: number
+    description: string
+  }
+  total: number
+  currency: 'GBP' | 'EUR' | 'CHF'
+  paymentTerms?: number // Days for B2B
+  notes?: string
+  createdAt: Date
+  sentAt?: Date
+  paidAt?: Date
+}
+
+export interface InvoiceItem {
+  productId: string
+  productName: string
+  quantity: number
+  unitPrice: number
+  totalPrice: number
+  description?: string
+}
+
+// Stripe configuration types
+export interface StripeConfig {
+  mode: 'b2b' | 'b2c'
+  paymentMethods: ('card' | 'bank_transfer' | 'invoice')[]
+  invoiceSettings: {
+    autoGenerate: boolean
+    dueInDays?: number // For B2B
+    customFields?: Record<string, any>
+  }
+}
+
+// Consumer cart specific types
+export interface ConsumerCartItem {
+  id: string
+  product: Product
+  quantity: number
+  preOrderDiscount?: number // Applied discount percentage
+  addedAt: Date
+}
+
 // UI State types
 export interface UIState {
   language: 'en' | 'ko' | 'zh'
@@ -270,3 +384,5 @@ export interface UIState {
   sidebarOpen: boolean
   activeModal: string | null
 }
+// Re-export ContactMessage from message service
+export type { ContactMessage } from '../services/firebase/message.service'

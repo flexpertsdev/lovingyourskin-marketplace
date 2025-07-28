@@ -2,11 +2,14 @@
 export const SERVICE_CONFIG = {
   // Set to true to use Firebase services, false for mock services
   useFirebase: {
-    auth: false, // Start with false, we'll enable gradually
-    products: false,
-    brands: false,
-    orders: false,
-    storage: false
+    auth: true,     // Firebase auth is enabled
+    products: true, // Firebase products service is enabled
+    brands: true,   // Firebase brands service is enabled
+    orders: true,   // Firebase orders service is enabled
+    storage: true,  // Firebase storage service is enabled
+    cart: true,     // Firebase cart service is enabled
+    dashboard: true,// Firebase dashboard service is enabled
+    messages: true  // Firebase messages service is enabled
   }
 }
 

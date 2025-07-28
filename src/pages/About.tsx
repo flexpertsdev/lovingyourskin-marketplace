@@ -8,17 +8,23 @@ const stats = [
   {
     value: '10+',
     label: 'Years of Experience',
-    description: 'In skincare retail and distribution'
+    description: 'In skincare retail & distribution'
   },
   {
-    value: 'KTA',
-    label: 'Associated with',
-    description: 'Korean Trade Association'
+    value: (
+      <img 
+        src="/assets/kotra-logo.png"
+        alt="KOTRA Logo"
+        className="h-16 w-auto object-contain"
+      />
+    ),
+    label: 'Official KOTRA Partner',
+    description: 'Certified K-beauty network'
   },
   {
     value: '5',
-    label: 'New Partners Yearly',
-    description: 'Exclusive brand partnerships added annually'
+    label: 'New Brands Yearly',
+    description: 'Exclusive partnerships'
   },
   {
     value: '24/7',
@@ -111,23 +117,33 @@ export const About: React.FC = () => {
       </Section>
 
       {/* Stats Section */}
-      <Section background="gray">
+      <Section background="gray" className="py-16">
         <Container>
-          <Grid cols={4} gap="lg">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-4xl md:text-5xl font-light text-rose-gold mb-2">
-                  {stat.value}
+              <div key={index} className="text-center group">
+                <div className="h-20 flex justify-center items-center mb-4 transition-transform duration-300 group-hover:scale-110">
+                  {typeof stat.value === 'string' ? (
+                    <span className="text-5xl md:text-6xl font-light text-rose-gold">{stat.value}</span>
+                  ) : (
+                    <div className="relative">
+                      {stat.value}
+                      {/* Add subtle animation for KOTRA logo */}
+                      {index === 1 && (
+                        <div className="absolute inset-0 bg-rose-gold/10 rounded-full blur-2xl animate-pulse" />
+                      )}
+                    </div>
+                  )}
                 </div>
-                <h3 className="text-lg font-medium text-deep-charcoal mb-1">
+                <h3 className="text-sm font-bold text-deep-charcoal mb-1 uppercase tracking-wider">
                   {stat.label}
                 </h3>
-                <p className="text-sm text-text-secondary">
+                <p className="text-xs text-text-secondary leading-relaxed max-w-[150px] mx-auto">
                   {stat.description}
                 </p>
               </div>
             ))}
-          </Grid>
+          </div>
         </Container>
       </Section>
 
@@ -157,42 +173,7 @@ export const About: React.FC = () => {
         </Container>
       </Section>
 
-      {/* Meet Rosie Section */}
-      <Section background="gray">
-        <Container>
-          <h2 className="text-3xl md:text-4xl font-light text-center text-deep-charcoal mb-12">
-            Meet Our Team
-          </h2>
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-              <div className="md:flex">
-                <div className="md:w-1/3">
-                  <div className="h-64 md:h-full bg-gradient-to-br from-rose-gold/20 to-soft-pink flex items-center justify-center">
-                    <div className="text-6xl text-rose-gold">👤</div>
-                  </div>
-                </div>
-                <div className="md:w-2/3 p-8">
-                  <h3 className="text-2xl font-medium text-deep-charcoal mb-2">
-                    Rosie
-                  </h3>
-                  <p className="text-rose-gold font-medium mb-4">
-                    Brand Ambassador & K-Beauty Expert
-                  </p>
-                  <p className="text-text-secondary mb-4">
-                    With over a decade of experience in the skincare industry, Rosie brings unparalleled 
-                    expertise in Korean beauty trends and retail dynamics. Her passion for K-beauty and 
-                    deep understanding of both Eastern and Western markets makes her the perfect bridge 
-                    between brands and retailers.
-                  </p>
-                  <p className="text-sm text-text-secondary italic">
-                    [Detailed bio to be added - Rosie will provide her preferred introduction during our call]
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </Section>
+
 
       {/* Our Story Section */}
       <Section background="white">

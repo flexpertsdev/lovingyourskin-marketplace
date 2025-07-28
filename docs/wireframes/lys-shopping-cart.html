@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - LYS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-white: #FFFFFF;
+            --soft-pink: #FDF8F6;
+            --rose-gold: #D4A5A5;
+            --rose-gold-dark: #C48B8B;
+            --deep-charcoal: #1A1A1A;
+            --text-primary: #2D2D2D;
+            --text-secondary: #5A5A5A;
+            --light-gray: #F0F0F0;
+            --medium-gray: #8B8B8B;
+            --border-gray: #E0E0E0;
+            --success-green: #4CAF50;
+            --warning-amber: #FF9800;
+            --error-red: #F44336;
+            --soft-pink-hover: #F5E6E0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--light-gray);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        /* Navigation Styles */
+        .top-nav {
+            background: var(--primary-white);
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--deep-charcoal);
+        }
+        
+        .nav-items {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-item {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: var(--soft-pink-hover);
+            color: var(--deep-charcoal);
+        }
+        
+        .nav-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .lang-selector {
+            padding: 6px 12px;
+            border: 1px solid var(--border-gray);
+            border-radius: 20px;
+            background: var(--primary-white);
+            font-size: 12px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+        
+        /* Page Content */
+        .page-content {
+            padding: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Brand Group Card */
+        .brand-group {
+            background: var(--primary-white);
+            border-radius: 12px;
+            border: 1px solid var(--border-gray);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .brand-header {
+            padding: 20px;
+            background: var(--soft-pink);
+            border-radius: 12px 12px 0 0;
+        }
+        
+        /* Cart Item */
+        .cart-item {
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            background: var(--soft-pink);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        /* MOQ Progress */
+        .moq-section {
+            padding: 20px;
+        }
+        
+        .moq-progress {
+            margin-top: 10px;
+            background: var(--light-gray);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .moq-bar {
+            height: 100%;
+            background: var(--rose-gold);
+            transition: width 0.3s;
+        }
+        
+        .moq-bar.complete {
+            background: var(--success-green);
+        }
+        
+        .moq-bar.warning {
+            background: var(--warning-amber);
+        }
+        
+        /* Summary Card */
+        .summary-card {
+            background: var(--primary-white);
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border-gray);
+        }
+        
+        /* Button */
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--rose-gold);
+            color: var(--primary-white);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            background: var(--rose-gold-dark);
+            box-shadow: 0 4px 12px rgba(212, 165, 165, 0.3);
+        }
+        
+        /* Mobile Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary-white);
+            border-top: 1px solid var(--border-gray);
+            display: none;
+            padding: 8px 0;
+            z-index: 1000;
+        }
+        
+        .bottom-nav-items {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            color: var(--medium-gray);
+            text-decoration: none;
+            font-size: 12px;
+            gap: 4px;
+        }
+        
+        .bottom-nav-item.active {
+            color: var(--rose-gold);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-nav {
+                display: none;
+            }
+            
+            .bottom-nav {
+                display: block;
+            }
+            
+            .page-content {
+                padding: 16px;
+                padding-bottom: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-logo">LOVING YOUR SKIN</div>
+        <div class="nav-items">
+            <a href="retailer-dashboard.html" class="nav-item">Dashboard</a>
+            <a href="brands.html" class="nav-item">Brands</a>
+            <a href="products.html" class="nav-item">Products</a>
+            <a href="orders.html" class="nav-item">Orders</a>
+            <a href="cart.html" class="nav-item active">Shopping Cart</a>
+            <a href="settings.html" class="nav-item">Settings</a>
+        </div>
+        <div class="nav-user">
+            <select class="lang-selector">
+                <option>EN</option>
+                <option>KO</option>
+                <option>ZH</option>
+            </select>
+            <span style="color: var(--text-secondary);">Beauty Store</span>
+        </div>
+    </nav>
+    
+    <!-- Mobile Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="bottom-nav-items">
+            <a href="retailer-dashboard.html" class="bottom-nav-item">
+                <div class="nav-icon">🏠</div>
+                <span>Home</span>
+            </a>
+            <a href="brands.html" class="bottom-nav-item">
+                <div class="nav-icon">🏪</div>
+                <span>Brands</span>
+            </a>
+            <a href="cart.html" class="bottom-nav-item active">
+                <div class="nav-icon">🛒</div>
+                <span>Cart</span>
+            </a>
+            <a href="orders.html" class="bottom-nav-item">
+                <div class="nav-icon">📦</div>
+                <span>Orders</span>
+            </a>
+            <a href="settings.html" class="bottom-nav-item">
+                <div class="nav-icon">👤</div>
+                <span>Profile</span>
+            </a>
+        </div>
+    </div>
+    
+    <div class="page-content">
+        <h2 style="margin-bottom: 24px;">Shopping Cart</h2>
+        
+        <!-- INNISFREE Brand Group -->
+        <div class="brand-group">
+            <div class="brand-header">
+                <h3>INNISFREE</h3>
+                <p style="font-size: 14px; color: var(--text-secondary);">Minimum order: 100 items</p>
+            </div>
+            
+            <div class="cart-item">
+                <div class="cart-item-image">Image</div>
+                <div class="cart-item-details">
+                    <h4>Green Tea Seed Serum</h4>
+                    <p style="color: var(--text-secondary); font-size: 14px;">9 cartons × 12 items = 108 items</p>
+                    <p style="color: var(--rose-gold); font-weight: 500;">£1,350.00</p>
+                </div>
+            </div>
+            
+            <div class="cart-item">
+                <div class="cart-item-image">Image</div>
+                <div class="cart-item-details">
+                    <h4>Volcanic Pore Clay Mask</h4>
+                    <p style="color: var(--text-secondary); font-size: 14px;">2 cartons × 24 items = 48 items</p>
+                    <p style="color: var(--rose-gold); font-weight: 500;">£384.00</p>
+                </div>
+            </div>
+            
+            <div class="moq-section">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <p style="font-size: 14px; color: var(--text-secondary);">MOQ Progress: 156/100 items</p>
+                        <div class="moq-progress">
+                            <div class="moq-bar complete" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <p style="font-size: 14px; color: var(--text-secondary);">Subtotal</p>
+                        <p style="font-size: 20px; font-weight: 500;">£1,734.00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- LANEIGE Brand Group -->
+        <div class="brand-group">
+            <div class="brand-header">
+                <h3>LANEIGE</h3>
+                <p style="font-size: 14px; color: var(--text-secondary);">Minimum order: 120 items</p>
+            </div>
+            
+            <div class="cart-item">
+                <div class="cart-item-image">Image</div>
+                <div class="cart-item-details">
+                    <h4>Water Bank Moisture Cream</h4>
+                    <p style="color: var(--text-secondary); font-size: 14px;">3 cartons × 20 items = 60 items</p>
+                    <p style="color: var(--rose-gold); font-weight: 500;">£540.00</p>
+                </div>
+            </div>
+            
+            <div class="moq-section">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <p style="font-size: 14px; color: var(--warning-amber);">MOQ Progress: 60/120 items ⚠️</p>
+                        <div class="moq-progress">
+                            <div class="moq-bar warning" style="width: 50%;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <p style="font-size: 14px; color: var(--text-secondary);">Subtotal</p>
+                        <p style="font-size: 20px; font-weight: 500;">£540.00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Total Summary -->
+        <div class="summary-card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3>Total (2 Brands)</h3>
+                <h2 style="color: var(--rose-gold);">£2,274.00</h2>
+            </div>
+            <p style="color: var(--warning-amber); margin-top: 10px;">⚠️ LANEIGE order does not meet minimum requirements</p>
+            <button class="cta-button" onclick="window.location.href='checkout-flow.html'">Proceed to Checkout</button>
+        </div>
+    </div>
+</body>
+</html>

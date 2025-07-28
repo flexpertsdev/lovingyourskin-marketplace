@@ -9,11 +9,15 @@ const mockOrders: Order[] = [
   {
     id: 'order-1',
     orderNumber: '#12345',
+    userId: 'user-1',
+    userType: 'retailer',
     retailerId: 'user-1',
     retailerCompanyId: 'company-1',
     brandId: 'innisfree',
     brandName: 'INNISFREE',
     status: 'processing',
+    paymentMethod: 'bank_transfer',
+    paymentStatus: 'pending',
     items: [
       {
         productId: 'prod-1',
@@ -35,6 +39,7 @@ const mockOrders: Order[] = [
     totalAmount: {
       items: 1734,
       shipping: 0, // To be calculated
+      tax: 0, // VAT already included in item prices
       total: 1734,
       currency: 'GBP'
     },
@@ -79,11 +84,15 @@ const mockOrders: Order[] = [
   {
     id: 'order-2',
     orderNumber: '#12344',
+    userId: 'user-1',
+    userType: 'retailer',
     retailerId: 'user-1',
     retailerCompanyId: 'company-1',
     brandId: 'laneige',
     brandName: 'LANEIGE',
     status: 'delivered',
+    paymentMethod: 'stripe_invoice',
+    paymentStatus: 'paid',
     items: [
       {
         productId: 'prod-3',
@@ -97,6 +106,7 @@ const mockOrders: Order[] = [
     totalAmount: {
       items: 900,
       shipping: 45,
+      tax: 0, // VAT calculated at checkout
       total: 945,
       currency: 'GBP'
     },
@@ -173,11 +183,15 @@ const mockOrders: Order[] = [
   {
     id: 'order-3',
     orderNumber: '#12346',
+    userId: 'user-1',
+    userType: 'retailer',
     retailerId: 'user-1',
     retailerCompanyId: 'company-1',
     brandId: 'etude',
     brandName: 'ETUDE',
     status: 'invoiced',
+    paymentMethod: 'stripe_invoice',
+    paymentStatus: 'pending',
     items: [
       {
         productId: 'prod-4',
@@ -191,6 +205,7 @@ const mockOrders: Order[] = [
     totalAmount: {
       items: 1440,
       shipping: 0,
+      tax: 0, // VAT calculated at checkout
       total: 1440,
       currency: 'GBP'
     },
@@ -535,15 +550,20 @@ export const orderService = {
     const newOrder: Order = {
       id: orderId,
       orderNumber,
+      userId: 'user-1',
+      userType: 'retailer',
       retailerId: 'user-1',
       retailerCompanyId: 'company-1',
       brandId: orderData.brandId,
       brandName: orderData.brandName,
       status: 'pending',
+      paymentMethod: 'bank_transfer',
+      paymentStatus: 'pending',
       items: orderData.items,
       totalAmount: {
         items: orderData.items.reduce((sum, item) => sum + item.totalPrice, 0),
         shipping: 0,
+        tax: 0, // VAT calculated at checkout
         total: orderData.items.reduce((sum, item) => sum + item.totalPrice, 0),
         currency: 'GBP'
       },

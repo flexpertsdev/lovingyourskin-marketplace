@@ -118,7 +118,7 @@ const successStories = [
     satisfaction: '100%',
     additionalQuotes: [
       "LYS is doing great. I like it.",
-      "LYS is doing perfect work. I believe we learned each other for sharing progress and idea."
+      "LYS is doing perfect work. I believe we've learned from each other by sharing progress and ideas."
     ]
   }
 ]
