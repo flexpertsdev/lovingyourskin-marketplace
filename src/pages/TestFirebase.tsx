@@ -49,4 +49,35 @@ export const TestFirebase: React.FC = () => {
         {brands.length === 0 ? (
           <p className="text-gray-500">No brands found in Firebase</p>
         ) : (
-          <div className="space
+          <div className="space-y-2">
+            {brands.map(brand => (
+              <div key={brand.id} className="p-4 border rounded">
+                <h3 className="font-semibold">{brand.name.en}</h3>
+                <p className="text-sm text-gray-600">ID: {brand.id}</p>
+                <p className="text-sm text-gray-600">Products: {brand.productCount}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      
+      <div>
+        <h2 className="text-xl font-semibold mb-2">Products ({products.length})</h2>
+        {products.length === 0 ? (
+          <p className="text-gray-500">No products found in Firebase</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {products.map(product => (
+              <div key={product.id} className="p-4 border rounded">
+                <h3 className="font-semibold">{product.name.en}</h3>
+                <p className="text-sm text-gray-600">Brand: {product.brandId}</p>
+                <p className="text-sm text-gray-600">Price: {product.price?.item || 'N/A'}</p>
+                <p className="text-sm text-gray-600">MOQ: {product.moq}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
