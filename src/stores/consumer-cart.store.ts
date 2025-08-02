@@ -6,12 +6,18 @@ import toast from 'react-hot-toast'
 interface ConsumerCartStore {
   items: ConsumerCartItem[]
   lastUpdated: Date
+  affiliateCode?: string
+  affiliateDiscount?: {
+    type: 'percentage' | 'fixed'
+    value: number
+  }
   
   // Actions
   addItem: (product: Product, quantity?: number) => void
   updateQuantity: (itemId: string, quantity: number) => void
   removeItem: (itemId: string) => void
   clearCart: () => void
+  setAffiliateCode: (code?: string, discount?: { type: 'percentage' | 'fixed', value: number }) => void
   
   // Getters
   getTotalItems: () => number
@@ -20,6 +26,7 @@ interface ConsumerCartStore {
   getEstimatedTax: () => number
   getTotalAmount: () => number
   getPreOrderDiscount: () => number
+  getAffiliateDiscount: () => number
   isPreOrderCart: () => boolean
   getCheckoutData: () => {
     items: ConsumerCartItem[]
@@ -28,8 +35,10 @@ interface ConsumerCartStore {
       shipping: number
       tax: number
       discount: number
+      affiliateDiscount: number
       total: number
       isPreOrder: boolean
+      affiliateCode?: string
     }
   }
 }
@@ -147,9 +156,18 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
       clearCart: () => {
         set({
           items: [],
-          lastUpdated: new Date()
+          lastUpdated: new Date(),
+          affiliateCode: undefined,
+          affiliateDiscount: undefined
         })
         toast.success('Cart cleared')
+      },
+      
+      setAffiliateCode: (code?: string, discount?: { type: 'percentage' | 'fixed', value: number }) => {
+        set({
+          affiliateCode: code,
+          affiliateDiscount: discount
+        })
       },
       
       getTotalItems: () => {
@@ -160,7 +178,11 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
       getSubtotal: () => {
         const { items } = get()
         return items.reduce((total, item) => {
-          const price = item.product.retailPrice?.item || 0
+          // Get price from either retailPrice or unified price structure
+          const price = item.product.retailPrice?.item || 
+                       item.product.price?.retail || 
+                       item.product.price?.wholesale || 
+                       0
           return total + (price * item.quantity)
         }, 0)
       },
@@ -172,28 +194,48 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
       
       getEstimatedTax: () => {
         const subtotal = get().getSubtotal()
-        const discount = get().getPreOrderDiscount()
-        return calculateTax(subtotal - discount)
+        const preOrderDiscount = get().getPreOrderDiscount()
+        const affiliateDiscount = get().getAffiliateDiscount()
+        return calculateTax(subtotal - preOrderDiscount - affiliateDiscount)
       },
       
       getTotalAmount: () => {
         const subtotal = get().getSubtotal()
         const shipping = get().getEstimatedShipping()
         const tax = get().getEstimatedTax()
-        const discount = get().getPreOrderDiscount()
-        return subtotal + shipping + tax - discount
+        const preOrderDiscount = get().getPreOrderDiscount()
+        const affiliateDiscount = get().getAffiliateDiscount()
+        return subtotal + shipping + tax - preOrderDiscount - affiliateDiscount
       },
       
       getPreOrderDiscount: () => {
         const { items } = get()
         return items.reduce((total, item) => {
           if (item.preOrderDiscount) {
-            const price = item.product.retailPrice?.item || 0
+            const price = item.product.retailPrice?.item || 
+                         item.product.price?.retail || 
+                         item.product.price?.wholesale || 
+                         0
             const discountAmount = (price * item.quantity * item.preOrderDiscount) / 100
             return total + discountAmount
           }
           return total
         }, 0)
+      },
+      
+      getAffiliateDiscount: () => {
+        const state = get()
+        if (!state.affiliateDiscount) return 0
+        
+        const subtotal = state.getSubtotal()
+        const { type, value } = state.affiliateDiscount
+        
+        if (type === 'percentage') {
+          return (subtotal * value) / 100
+        } else {
+          // Fixed discount, but not more than subtotal
+          return Math.min(value, subtotal)
+        }
       },
       
       isPreOrderCart: () => {
@@ -207,6 +249,7 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
         const shipping = state.getEstimatedShipping()
         const tax = state.getEstimatedTax()
         const discount = state.getPreOrderDiscount()
+        const affiliateDiscount = state.getAffiliateDiscount()
         const total = state.getTotalAmount()
         const isPreOrder = state.isPreOrderCart()
         
@@ -217,8 +260,10 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
             shipping,
             tax,
             discount,
+            affiliateDiscount,
             total,
-            isPreOrder
+            isPreOrder,
+            affiliateCode: state.affiliateCode
           }
         }
       }

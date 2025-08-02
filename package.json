@@ -23,6 +23,7 @@
     "@tanstack/react-query": "^5.81.2",
     "axios": "^1.10.0",
     "clsx": "^2.1.1",
+    "csv-parse": "^6.1.0",
     "date-fns": "^4.1.0",
     "firebase": "^11.10.0",
     "i18next": "^25.2.1",
@@ -33,6 +34,7 @@
     "react-i18next": "^15.5.3",
     "react-router-dom": "^7.6.2",
     "tailwind-merge": "^3.3.1",
+    "uuid": "^11.1.0",
     "zod": "^3.25.67",
     "zustand": "^5.0.5"
   },

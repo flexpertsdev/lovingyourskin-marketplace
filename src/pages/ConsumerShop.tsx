@@ -217,17 +217,11 @@ export const ConsumerShop: React.FC = () => {
         productService.getBrands()
       ])
       
-      console.log('Loaded products:', allProducts)
-      console.log('Loaded brands:', allBrands)
-      
-      // Filter only retail products (products that have retail prices)
+      // Filter products that are sold B2C - since we're marking all as B2C in transform, just filter active products
       const retailProducts = allProducts.filter(p => {
-        const hasRetailPrice = p.retailPrice && p.retailPrice.item > 0
-        const hasPrice = p.price && (p.price.retail > 0 || p.price.wholesale > 0)
-        return hasRetailPrice || hasPrice
+        // Include all active products since they're all marked as B2C
+        return p.active !== false
       })
-      
-      console.log('Retail products:', retailProducts)
       
       setProducts(retailProducts)
       setBrands(allBrands)

@@ -1,0 +1,2997 @@
+[
+  {
+    "id": "prod_1",
+    "brandId": "wismin",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Cotton Seed Barrier Cleansing Ball",
+      "ko": "Cotton Seed Barrier Cleansing Ball",
+      "zh": "Cotton Seed Barrier Cleansing Ball"
+    },
+    "description": {
+      "en": "A revolutionary, water-activated cleanser in a compact, freeze-dried format. Ultra-hygienic, travel-friendly, and ideal for sensitive skin. Perfect for on-the-go beauty routines.",
+      "ko": "A revolutionary, water-activated cleanser in a compact, freeze-dried format. Ultra-hygienic, travel-friendly, and ideal for sensitive skin. Perfect for on-the-go beauty routines.",
+      "zh": "A revolutionary, water-activated cleanser in a compact, freeze-dried format. Ultra-hygienic, travel-friendly, and ideal for sensitive skin. Perfect for on-the-go beauty routines."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 5.8,
+      "retail": 14.99,
+      "currency": "USD"
+    },
+    "soldB2C": false,
+    "soldB2B": true,
+    "stock": 4971,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 72,
+    "packSize": "72",
+    "volume": "0.31g",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Sodium Cocoyl Glutamate",
+      "Sodium Lauroyl Glutamate",
+      "Silica",
+      "Hydroxypropyl Methylcellulose",
+      "Lauryl Hydroxysultaine",
+      "Trehalose",
+      "Zea Mays (Corn) Starch",
+      "Sodium Chloride",
+      "PVP",
+      "Maltodextrin",
+      "Sodium Acrylates Crosspolymer-2",
+      "Ammonium Acryloyldimethyltaurate/​VP Copolymer",
+      "Sodium Hyaluronate",
+      "Gossypium Herbaceum (Cotton) Extract",
+      "3-O-Ethyl Ascorbic Acid",
+      "Lactobacillus/​Rice Ferment",
+      "Hydrolyzed Adansonia Digitata Seed Extract",
+      "Hydrolyzed Soy Protein",
+      "Rice Amino Acids",
+      "Proline",
+      "1",
+      "2-Hexanediol",
+      "Glycerin",
+      "Sodium Benzoate"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2026.09.13"
+  },
+  {
+    "id": "prod_2",
+    "brandId": "wismin",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Cotton Seed Cicafence Toner 150ml",
+      "ko": "Cotton Seed Cicafence Toner 150ml",
+      "zh": "Cotton Seed Cicafence Toner 150ml"
+    },
+    "description": {
+      "en": "A multifunctional toner that soothes, hydrates, and supports skin regeneration while reinforcing the skin barrier—ideal for post-treatment care or everyday use.",
+      "ko": "A multifunctional toner that soothes, hydrates, and supports skin regeneration while reinforcing the skin barrier—ideal for post-treatment care or everyday use.",
+      "zh": "A multifunctional toner that soothes, hydrates, and supports skin regeneration while reinforcing the skin barrier—ideal for post-treatment care or everyday use."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 6.3,
+      "retail": 29.99,
+      "currency": "USD"
+    },
+    "soldB2C": false,
+    "soldB2B": true,
+    "stock": 3069,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 48,
+    "packSize": "48",
+    "volume": "150ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Aqua",
+      "Butylene Glycol",
+      "1",
+      "2-Hexanediol",
+      "Glycerin",
+      "Gossypium Herbaceum (Cotton) Fruit Water",
+      "C12-14 removed comma Alketh-12",
+      "Panthenol",
+      "Hydrolyzed Jojoba Esters",
+      "Betaine",
+      "Diphenyl Dimethicone",
+      "Xanthan Gum",
+      "Sodium Citrate",
+      "Allantoin",
+      "Xylitylglucoside",
+      "Citric Acid",
+      "Anhydroxylitol",
+      "Disodium EDTA",
+      "Hydrogenated Lecithin",
+      "Polyglyceryl-10 Oleate",
+      "Pyrus Communis (Pear) Fruit Extract",
+      "Xylitol",
+      "Corallina Officinalis Extract",
+      "Sucrose Palmitate",
+      "Rosa Damascena Flower Water",
+      "Iris Florentina Root Extract",
+      "Glucose",
+      "Cucumis Melo (Melon) Seed Extract",
+      "Lactobacillus Ferment Lysate",
+      "Cynara Scolymus (Artichoke) Leaf Extract",
+      "Bifida Ferment Lysate",
+      "Hedera Helix (Ivy) Leaf/​Stem Extract",
+      "Polyglutamic Acid",
+      "Melissa Officinalis Leaf Extract",
+      "Melaleuca Alternifolia (Tea Tree) Leaf Extract",
+      "Chamaecyparis Obtusa Leaf Extract",
+      "Centella Asiatica Root Extract",
+      "Centella Asiatica Leaf Extract",
+      "Centella Asiatica Extract",
+      "Cetearyl Alcohol",
+      "Stearic Acid",
+      "Glycine",
+      "Asiaticoside",
+      "Asiatic Acid",
+      "Alanine",
+      "Ceramide NP",
+      "Palmitoyl Pentapeptide-4",
+      "Copper Tripeptide-1",
+      "Acetyl Hexapeptide-8",
+      "Ceramide NS",
+      "Phytosphingosine",
+      "Madecassoside",
+      "Madecassic Acid",
+      "Glutamic Acid",
+      "Cholesterol",
+      "Ceramide AS",
+      "Ceramide AP",
+      "Ceramide EOP"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2027.10.30"
+  },
+  {
+    "id": "prod_3",
+    "brandId": "wismin",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Cotton Seed Cicafence Cream 50ml",
+      "ko": "Cotton Seed Cicafence Cream 50ml",
+      "zh": "Cotton Seed Cicafence Cream 50ml"
+    },
+    "description": {
+      "en": "Rich and repairing, this intensive cream targets damaged or weakened skin barriers. Its dense, nourishing texture is perfect for nighttime recovery and dry skin conditions.",
+      "ko": "Rich and repairing, this intensive cream targets damaged or weakened skin barriers. Its dense, nourishing texture is perfect for nighttime recovery and dry skin conditions.",
+      "zh": "Rich and repairing, this intensive cream targets damaged or weakened skin barriers. Its dense, nourishing texture is perfect for nighttime recovery and dry skin conditions."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 7.5,
+      "retail": 34.99,
+      "currency": "USD"
+    },
+    "soldB2C": false,
+    "soldB2B": true,
+    "stock": 3325,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 60,
+    "packSize": "60",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Gossypium Herbaceum (Cotton) Fruit Water",
+      "Butylene Glycol",
+      "Glycerin",
+      "Aqua",
+      "Vinyl Dimethicone",
+      "1",
+      "2-Hexanediol",
+      "Sodium Acrylate/​Sodium Acryloyldimethyl Taurate Copolymer",
+      "Silica",
+      "Hydroxyacetophenone",
+      "Polyisobutene",
+      "Acrylates/​C10-30 removed comma Alkyl Acrylate Crosspolymer",
+      "Hydrolyzed Jojoba Esters",
+      "Arginine",
+      "Caprylyl/​Capryl Glucoside",
+      "Sorbitan Oleate",
+      "C12-14 Alketh-12",
+      "Disodium EDTA",
+      "Coptis Japonica Extract",
+      "Corallina Officinalis Extract",
+      "Panthenol",
+      "Melia Azadirachta Leaf Extract",
+      "Betaine",
+      "Pyrus Communis (Pear) Fruit Extract",
+      "Melia Azadirachta Flower Extract",
+      "Rosa Damascena Flower Water",
+      "Coccinia Indica Fruit Extract",
+      "Lactobacillus Ferment Lysate",
+      "Iris Florentina Root Extract",
+      "Cynara Scolymus (Artichoke) Leaf Extract",
+      "Bifida Ferment Lysate",
+      "Cynanchum Atratum Extract",
+      "Cucumis Melo (Melon) Seed Extract",
+      "Hedera Helix (Ivy) Leaf/​Stem Extract",
+      "Solanum Melongena (Eggplant) Fruit Extract",
+      "Aloe Barbadensis Flower Extract",
+      "Centella Asiatica Root Extract",
+      "Centella Asiatica Leaf Extract",
+      "Centella Asiatica Extract",
+      "Ocimum Sanctum Leaf Extract",
+      "Curcuma Longa (Turmeric) Root Extract",
+      "Polyglutamic Acid",
+      "Hydrogenated Lecithin",
+      "Cetearyl Alcohol",
+      "Stearic Acid",
+      "Asiaticoside",
+      "Asiatic Acid",
+      "Glycine",
+      "Alanine",
+      "Palmitoyl Pentapeptide-4",
+      "Copper Tripeptide-1",
+      "Acetyl Hexapeptide-8",
+      "Madecassoside",
+      "Madecassic Acid",
+      "Ceramide NP",
+      "Glutamic Acid",
+      "Ceramide NS",
+      "Phytosphingosine",
+      "Cholesterol",
+      "Ceramide AS",
+      "Ceramide AP",
+      "Ceramide EOP"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2027.10.15"
+  },
+  {
+    "id": "prod_4",
+    "brandId": "wismin",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Bakuchiol All Day Young Ampoule 15ml",
+      "ko": "Bakuchiol All Day Young Ampoule 15ml",
+      "zh": "Bakuchiol All Day Young Ampoule 15ml"
+    },
+    "description": {
+      "en": "Formulated with bakuchiol and a vitamin complex, this gentle yet effective serum targets blemishes, boosts glow, and enhances skin texture—without irritation.",
+      "ko": "Formulated with bakuchiol and a vitamin complex, this gentle yet effective serum targets blemishes, boosts glow, and enhances skin texture—without irritation.",
+      "zh": "Formulated with bakuchiol and a vitamin complex, this gentle yet effective serum targets blemishes, boosts glow, and enhances skin texture—without irritation."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 6,
+      "retail": 24.99,
+      "currency": "USD"
+    },
+    "soldB2C": false,
+    "soldB2B": true,
+    "stock": 5085,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 80,
+    "packSize": "80",
+    "volume": "15ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Gossypium Herbaceum (Cotton) Fruit Water",
+      "Aqua",
+      "Butylene Glycol",
+      "Glycerin",
+      "1",
+      "2-Hexanediol",
+      "Niacinamide",
+      "Caprylic/​Capric Triglyceride",
+      "Hydrogenated Lecithin",
+      "Hydroxyacetophenone",
+      "Bakuchiol",
+      "Alcohol",
+      "Ammonium Acryloyldimethyltaurate/​VP Copolymer",
+      "Arachidyl Alcohol",
+      "Behenyl Alcohol",
+      "Arginine",
+      "Vinyl Dimethicone",
+      "Panthenol",
+      "Disodium EDTA",
+      "Carbomer",
+      "Arachidyl Glucoside",
+      "Corallina Officinalis Extract",
+      "Palmitic Acid",
+      "Sodium Citrate",
+      "Dipotassium Glycyrrhizate",
+      "Allantoin",
+      "Stearic Acid",
+      "Xylitylglucoside",
+      "Adenosine",
+      "Xanthan Gum",
+      "Anhydroxylitol",
+      "Taraxacum Officinale (Dandelion) Leaf Extract",
+      "Lactococcus Ferment",
+      "Lactobacillus Ferment Lysate",
+      "Cynara Scolymus (Artichoke) Leaf Extract",
+      "Citric Acid",
+      "Bifida Ferment Lysate",
+      "Aureobasidium Pullulans Ferment",
+      "Asparagus Officinalis Extract",
+      "Xylitol",
+      "Soluble Collagen",
+      "Melissa Officinalis Leaf Extract",
+      "Melaleuca Alternifolia (Tea Tree) Leaf Extract",
+      "Cynanchum Atratum Extract",
+      "Chamaecyparis Obtusa Leaf Extract",
+      "Saccharomyces Ferment Filtrate",
+      "Mannose",
+      "Panax Ginseng Extract",
+      "Thamnolia Vermicularis Leaf Extract",
+      "Glucose",
+      "Hippophae Rhamnoides Fruit Extract",
+      "Helianthus Annuus (Sunflower) Extract",
+      "Camellia Sinensis Leaf Extract",
+      "Tocopherol",
+      "Polyglutamic Acid",
+      "Ectoin",
+      "Centella Asiatica Root Extract",
+      "Centella Asiatica Leaf Extract",
+      "Centella Asiatica Extract",
+      "Ascorbic Acid",
+      "Panax Ginseng Root Protoplasts",
+      "Acacia Catechu Wood Extract",
+      "Scutellaria Baicalensis Root Extract",
+      "Sodium Hyaluronate",
+      "Magnolol",
+      "Honokiol",
+      "Myristic Acid",
+      "Beta-Glucan",
+      "Arachidic Acid",
+      "Bambusa Vulgaris Extract",
+      "Cetearyl Alcohol",
+      "Scutellaria Baicalensis Root Extract",
+      "Hydrolyzed Hyaluronic Acid",
+      "Dimethylsilanol Hyaluronate",
+      "Hydrolyzed Sodium Hyaluronate",
+      "Hydroxypropyltrimonium Hyaluronate",
+      "Polyglyceryl-10 Laurate",
+      "Phytosterols",
+      "Menadione",
+      "Asiaticoside",
+      "Asiatic Acid",
+      "Ceramide NP",
+      "Ceramide NS",
+      "Phytosphingosine",
+      "Madecassoside",
+      "Madecassic Acid",
+      "Cholesterol",
+      "Ceramide AS",
+      "Ceramide AP",
+      "Ceramide EOP"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2028.06.29"
+  },
+  {
+    "id": "prod_5",
+    "brandId": "wismin",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Bakuchiol All Day Young Ampoule Set (15ml * 4pcs)",
+      "ko": "Bakuchiol All Day Young Ampoule Set (15ml * 4pcs)",
+      "zh": "Bakuchiol All Day Young Ampoule Set (15ml * 4pcs)"
+    },
+    "description": {
+      "en": "A curated set featuring a full-spectrum bakuchiol and vitamin complex, designed to visibly reduce blemishes and even skin tone—offering a natural retinol alternative safe for all skin types.",
+      "ko": "A curated set featuring a full-spectrum bakuchiol and vitamin complex, designed to visibly reduce blemishes and even skin tone—offering a natural retinol alternative safe for all skin types.",
+      "zh": "A curated set featuring a full-spectrum bakuchiol and vitamin complex, designed to visibly reduce blemishes and even skin tone—offering a natural retinol alternative safe for all skin types."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 21,
+      "retail": 89.99,
+      "currency": "USD"
+    },
+    "soldB2C": false,
+    "soldB2B": true,
+    "stock": 2052,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 20,
+    "packSize": "20",
+    "volume": "15* 4ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Gossypium Herbaceum (Cotton) Fruit Water",
+      "Aqua",
+      "Butylene Glycol",
+      "Glycerin",
+      "1",
+      "2-Hexanediol",
+      "Niacinamide",
+      "Caprylic/​Capric Triglyceride",
+      "Hydrogenated Lecithin",
+      "Hydroxyacetophenone",
+      "Bakuchiol",
+      "Alcohol",
+      "Ammonium Acryloyldimethyltaurate/​VP Copolymer",
+      "Arachidyl Alcohol",
+      "Behenyl Alcohol",
+      "Arginine",
+      "Vinyl Dimethicone",
+      "Panthenol",
+      "Disodium EDTA",
+      "Carbomer",
+      "Arachidyl Glucoside",
+      "Corallina Officinalis Extract",
+      "Palmitic Acid",
+      "Sodium Citrate",
+      "Dipotassium Glycyrrhizate",
+      "Allantoin",
+      "Stearic Acid",
+      "Xylitylglucoside",
+      "Adenosine",
+      "Xanthan Gum",
+      "Anhydroxylitol",
+      "Taraxacum Officinale (Dandelion) Leaf Extract",
+      "Lactococcus Ferment",
+      "Lactobacillus Ferment Lysate",
+      "Cynara Scolymus (Artichoke) Leaf Extract",
+      "Citric Acid",
+      "Bifida Ferment Lysate",
+      "Aureobasidium Pullulans Ferment",
+      "Asparagus Officinalis Extract",
+      "Xylitol",
+      "Soluble Collagen",
+      "Melissa Officinalis Leaf Extract",
+      "Melaleuca Alternifolia (Tea Tree) Leaf Extract",
+      "Cynanchum Atratum Extract",
+      "Chamaecyparis Obtusa Leaf Extract",
+      "Saccharomyces Ferment Filtrate",
+      "Mannose",
+      "Panax Ginseng Extract",
+      "Thamnolia Vermicularis Leaf Extract",
+      "Glucose",
+      "Hippophae Rhamnoides Fruit Extract",
+      "Helianthus Annuus (Sunflower) Extract",
+      "Camellia Sinensis Leaf Extract",
+      "Tocopherol",
+      "Polyglutamic Acid",
+      "Ectoin",
+      "Centella Asiatica Root Extract",
+      "Centella Asiatica Leaf Extract",
+      "Centella Asiatica Extract",
+      "Ascorbic Acid",
+      "Panax Ginseng Root Protoplasts",
+      "Acacia Catechu Wood Extract",
+      "Scutellaria Baicalensis Root Extract",
+      "Sodium Hyaluronate",
+      "Magnolol",
+      "Honokiol",
+      "Myristic Acid",
+      "Beta-Glucan",
+      "Arachidic Acid",
+      "Bambusa Vulgaris Extract",
+      "Cetearyl Alcohol",
+      "Scutellaria Baicalensis Root Extract",
+      "Hydrolyzed Hyaluronic Acid",
+      "Dimethylsilanol Hyaluronate",
+      "Hydrolyzed Sodium Hyaluronate",
+      "Hydroxypropyltrimonium Hyaluronate",
+      "Polyglyceryl-10 Laurate",
+      "Phytosterols",
+      "Menadione",
+      "Asiaticoside",
+      "Asiatic Acid",
+      "Ceramide NP",
+      "Ceramide NS",
+      "Phytosphingosine",
+      "Madecassoside",
+      "Madecassic Acid",
+      "Cholesterol",
+      "Ceramide AS",
+      "Ceramide AP",
+      "Ceramide EOP"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2028.06.29"
+  },
+  {
+    "id": "prod_6",
+    "brandId": "wismin",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Bakuchiol All Day Young Ampoule 30ml",
+      "ko": "Bakuchiol All Day Young Ampoule 30ml",
+      "zh": "Bakuchiol All Day Young Ampoule 30ml"
+    },
+    "description": {
+      "en": "Formulated with bakuchiol and a vitamin complex, this gentle yet effective serum targets blemishes, boosts glow, and enhances skin texture—without irritation.",
+      "ko": "Formulated with bakuchiol and a vitamin complex, this gentle yet effective serum targets blemishes, boosts glow, and enhances skin texture—without irritation.",
+      "zh": "Formulated with bakuchiol and a vitamin complex, this gentle yet effective serum targets blemishes, boosts glow, and enhances skin texture—without irritation."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 9.5,
+      "retail": 39.99,
+      "currency": "USD"
+    },
+    "soldB2C": false,
+    "soldB2B": true,
+    "stock": 4642,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 40,
+    "packSize": "40",
+    "volume": "30ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Gossypium Herbaceum (Cotton) Fruit Water",
+      "Aqua",
+      "Butylene Glycol",
+      "Glycerin",
+      "1",
+      "2-Hexanediol",
+      "Niacinamide",
+      "Caprylic/​Capric Triglyceride",
+      "Hydrogenated Lecithin",
+      "Hydroxyacetophenone",
+      "Bakuchiol",
+      "Alcohol",
+      "Ammonium Acryloyldimethyltaurate/​VP Copolymer",
+      "Arachidyl Alcohol",
+      "Behenyl Alcohol",
+      "Arginine",
+      "Vinyl Dimethicone",
+      "Panthenol",
+      "Disodium EDTA",
+      "Carbomer",
+      "Arachidyl Glucoside",
+      "Corallina Officinalis Extract",
+      "Palmitic Acid",
+      "Sodium Citrate",
+      "Dipotassium Glycyrrhizate",
+      "Allantoin",
+      "Stearic Acid",
+      "Xylitylglucoside",
+      "Adenosine",
+      "Xanthan Gum",
+      "Anhydroxylitol",
+      "Taraxacum Officinale (Dandelion) Leaf Extract",
+      "Lactococcus Ferment",
+      "Lactobacillus Ferment Lysate",
+      "Cynara Scolymus (Artichoke) Leaf Extract",
+      "Citric Acid",
+      "Bifida Ferment Lysate",
+      "Aureobasidium Pullulans Ferment",
+      "Asparagus Officinalis Extract",
+      "Xylitol",
+      "Soluble Collagen",
+      "Melissa Officinalis Leaf Extract",
+      "Melaleuca Alternifolia (Tea Tree) Leaf Extract",
+      "Cynanchum Atratum Extract",
+      "Chamaecyparis Obtusa Leaf Extract",
+      "Saccharomyces Ferment Filtrate",
+      "Mannose",
+      "Panax Ginseng Extract",
+      "Thamnolia Vermicularis Leaf Extract",
+      "Glucose",
+      "Hippophae Rhamnoides Fruit Extract",
+      "Helianthus Annuus (Sunflower) Extract",
+      "Camellia Sinensis Leaf Extract",
+      "Tocopherol",
+      "Polyglutamic Acid",
+      "Ectoin",
+      "Centella Asiatica Root Extract",
+      "Centella Asiatica Leaf Extract",
+      "Centella Asiatica Extract",
+      "Ascorbic Acid",
+      "Panax Ginseng Root Protoplasts",
+      "Acacia Catechu Wood Extract",
+      "Scutellaria Baicalensis Root Extract",
+      "Sodium Hyaluronate",
+      "Magnolol",
+      "Honokiol",
+      "Myristic Acid",
+      "Beta-Glucan",
+      "Arachidic Acid",
+      "Bambusa Vulgaris Extract",
+      "Cetearyl Alcohol",
+      "Scutellaria Baicalensis Root Extract",
+      "Hydrolyzed Hyaluronic Acid",
+      "Dimethylsilanol Hyaluronate",
+      "Hydrolyzed Sodium Hyaluronate",
+      "Hydroxypropyltrimonium Hyaluronate",
+      "Polyglyceryl-10 Laurate",
+      "Phytosterols",
+      "Menadione",
+      "Asiaticoside",
+      "Asiatic Acid",
+      "Ceramide NP",
+      "Ceramide NS",
+      "Phytosphingosine",
+      "Madecassoside",
+      "Madecassic Acid",
+      "Cholesterol",
+      "Ceramide AS",
+      "Ceramide AP",
+      "Ceramide EOP"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2028.06.29"
+  },
+  {
+    "id": "prod_7",
+    "brandId": "wismin",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Sample Kit 3 types of lines",
+      "ko": "Sample Kit 3 types of lines",
+      "zh": "Sample Kit 3 types of lines"
+    },
+    "description": {
+      "en": "Sample Kit 3 types of lines",
+      "ko": "Sample Kit 3 types of lines",
+      "zh": "Sample Kit 3 types of lines"
+    },
+    "images": [],
+    "price": {
+      "wholesale": 2.5,
+      "retail": 0,
+      "currency": "USD"
+    },
+    "soldB2C": false,
+    "soldB2B": true,
+    "stock": 1450,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 90,
+    "packSize": "90",
+    "volume": "(1ml * 5) * 3ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_8",
+    "brandId": "wismin",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Sample Kit 4 types of lines",
+      "ko": "Sample Kit 4 types of lines",
+      "zh": "Sample Kit 4 types of lines"
+    },
+    "description": {
+      "en": "Sample Kit 4 types of lines",
+      "ko": "Sample Kit 4 types of lines",
+      "zh": "Sample Kit 4 types of lines"
+    },
+    "images": [],
+    "price": {
+      "wholesale": 3.5,
+      "retail": 0,
+      "currency": "USD"
+    },
+    "soldB2C": false,
+    "soldB2B": true,
+    "stock": 1450,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 60,
+    "packSize": "60",
+    "volume": "(1ml * 5) * 3  + 0.31g * 2ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_9",
+    "brandId": "wismin",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Cotton Seed Cicafence Toner (Sachet 1ml)",
+      "ko": "Cotton Seed Cicafence Toner (Sachet 1ml)",
+      "zh": "Cotton Seed Cicafence Toner (Sachet 1ml)"
+    },
+    "description": {
+      "en": "Cotton Seed Cicafence Toner (Sachet 1ml)",
+      "ko": "Cotton Seed Cicafence Toner (Sachet 1ml)",
+      "zh": "Cotton Seed Cicafence Toner (Sachet 1ml)"
+    },
+    "images": [],
+    "price": {
+      "wholesale": 0,
+      "retail": 0,
+      "currency": "USD"
+    },
+    "soldB2C": false,
+    "soldB2B": false,
+    "stock": 67997,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 1,
+    "packSize": "1",
+    "volume": "1ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Aqua",
+      "Butylene Glycol",
+      "1",
+      "2-Hexanediol",
+      "Glycerin",
+      "Gossypium Herbaceum (Cotton) Fruit Water",
+      "C12-14 removed comma Alketh-12",
+      "Panthenol",
+      "Hydrolyzed Jojoba Esters",
+      "Betaine",
+      "Diphenyl Dimethicone",
+      "Xanthan Gum",
+      "Sodium Citrate",
+      "Allantoin",
+      "Xylitylglucoside",
+      "Citric Acid",
+      "Anhydroxylitol",
+      "Disodium EDTA",
+      "Hydrogenated Lecithin",
+      "Polyglyceryl-10 Oleate",
+      "Pyrus Communis (Pear) Fruit Extract",
+      "Xylitol",
+      "Corallina Officinalis Extract",
+      "Sucrose Palmitate",
+      "Rosa Damascena Flower Water",
+      "Iris Florentina Root Extract",
+      "Glucose",
+      "Cucumis Melo (Melon) Seed Extract",
+      "Lactobacillus Ferment Lysate",
+      "Cynara Scolymus (Artichoke) Leaf Extract",
+      "Bifida Ferment Lysate",
+      "Hedera Helix (Ivy) Leaf/​Stem Extract",
+      "Polyglutamic Acid",
+      "Melissa Officinalis Leaf Extract",
+      "Melaleuca Alternifolia (Tea Tree) Leaf Extract",
+      "Chamaecyparis Obtusa Leaf Extract",
+      "Centella Asiatica Root Extract",
+      "Centella Asiatica Leaf Extract",
+      "Centella Asiatica Extract",
+      "Cetearyl Alcohol",
+      "Stearic Acid",
+      "Glycine",
+      "Asiaticoside",
+      "Asiatic Acid",
+      "Alanine",
+      "Ceramide NP",
+      "Palmitoyl Pentapeptide-4",
+      "Copper Tripeptide-1",
+      "Acetyl Hexapeptide-8",
+      "Ceramide NS",
+      "Phytosphingosine",
+      "Madecassoside",
+      "Madecassic Acid",
+      "Glutamic Acid",
+      "Cholesterol",
+      "Ceramide AS",
+      "Ceramide AP",
+      "Ceramide EOP"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2027.03.26"
+  },
+  {
+    "id": "prod_10",
+    "brandId": "wismin",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Cotton Seed Cicafence Cream (Sachet 1ml)",
+      "ko": "Cotton Seed Cicafence Cream (Sachet 1ml)",
+      "zh": "Cotton Seed Cicafence Cream (Sachet 1ml)"
+    },
+    "description": {
+      "en": "Cotton Seed Cicafence Cream (Sachet 1ml)",
+      "ko": "Cotton Seed Cicafence Cream (Sachet 1ml)",
+      "zh": "Cotton Seed Cicafence Cream (Sachet 1ml)"
+    },
+    "images": [],
+    "price": {
+      "wholesale": 0,
+      "retail": 0,
+      "currency": "USD"
+    },
+    "soldB2C": false,
+    "soldB2B": false,
+    "stock": 80497,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 1,
+    "packSize": "1",
+    "volume": "1ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Gossypium Herbaceum (Cotton) Fruit Water",
+      "Butylene Glycol",
+      "Glycerin",
+      "Aqua",
+      "Vinyl Dimethicone",
+      "1",
+      "2-Hexanediol",
+      "Sodium Acrylate/​Sodium Acryloyldimethyl Taurate Copolymer",
+      "Silica",
+      "Hydroxyacetophenone",
+      "Polyisobutene",
+      "Acrylates/​C10-30 removed comma Alkyl Acrylate Crosspolymer",
+      "Hydrolyzed Jojoba Esters",
+      "Arginine",
+      "Caprylyl/​Capryl Glucoside",
+      "Sorbitan Oleate",
+      "C12-14 Alketh-12",
+      "Disodium EDTA",
+      "Coptis Japonica Extract",
+      "Corallina Officinalis Extract",
+      "Panthenol",
+      "Melia Azadirachta Leaf Extract",
+      "Betaine",
+      "Pyrus Communis (Pear) Fruit Extract",
+      "Melia Azadirachta Flower Extract",
+      "Rosa Damascena Flower Water",
+      "Coccinia Indica Fruit Extract",
+      "Lactobacillus Ferment Lysate",
+      "Iris Florentina Root Extract",
+      "Cynara Scolymus (Artichoke) Leaf Extract",
+      "Bifida Ferment Lysate",
+      "Cynanchum Atratum Extract",
+      "Cucumis Melo (Melon) Seed Extract",
+      "Hedera Helix (Ivy) Leaf/​Stem Extract",
+      "Solanum Melongena (Eggplant) Fruit Extract",
+      "Aloe Barbadensis Flower Extract",
+      "Centella Asiatica Root Extract",
+      "Centella Asiatica Leaf Extract",
+      "Centella Asiatica Extract",
+      "Ocimum Sanctum Leaf Extract",
+      "Curcuma Longa (Turmeric) Root Extract",
+      "Polyglutamic Acid",
+      "Hydrogenated Lecithin",
+      "Cetearyl Alcohol",
+      "Stearic Acid",
+      "Asiaticoside",
+      "Asiatic Acid",
+      "Glycine",
+      "Alanine",
+      "Palmitoyl Pentapeptide-4",
+      "Copper Tripeptide-1",
+      "Acetyl Hexapeptide-8",
+      "Madecassoside",
+      "Madecassic Acid",
+      "Ceramide NP",
+      "Glutamic Acid",
+      "Ceramide NS",
+      "Phytosphingosine",
+      "Cholesterol",
+      "Ceramide AS",
+      "Ceramide AP",
+      "Ceramide EOP"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2027.03.24"
+  },
+  {
+    "id": "prod_11",
+    "brandId": "wismin",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Cotton Seed Cicafence Ampoule (Sachet 1ml)",
+      "ko": "Cotton Seed Cicafence Ampoule (Sachet 1ml)",
+      "zh": "Cotton Seed Cicafence Ampoule (Sachet 1ml)"
+    },
+    "description": {
+      "en": "Cotton Seed Cicafence Ampoule (Sachet 1ml)",
+      "ko": "Cotton Seed Cicafence Ampoule (Sachet 1ml)",
+      "zh": "Cotton Seed Cicafence Ampoule (Sachet 1ml)"
+    },
+    "images": [],
+    "price": {
+      "wholesale": 0,
+      "retail": 0,
+      "currency": "USD"
+    },
+    "soldB2C": false,
+    "soldB2B": false,
+    "stock": 83497,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 1,
+    "packSize": "1",
+    "volume": "1ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2027.03.21"
+  },
+  {
+    "id": "prod_12",
+    "brandId": "wismin",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Cotton Fruit Water Hawaiian Sun Cream 50ml",
+      "ko": "Cotton Fruit Water Hawaiian Sun Cream 50ml",
+      "zh": "Cotton Fruit Water Hawaiian Sun Cream 50ml"
+    },
+    "description": {
+      "en": "Combines sun protection, brightening, and skincare in one. Lightweight texture with tone-up effect for radiant skin and a smooth base under makeup.",
+      "ko": "Combines sun protection, brightening, and skincare in one. Lightweight texture with tone-up effect for radiant skin and a smooth base under makeup.",
+      "zh": "Combines sun protection, brightening, and skincare in one. Lightweight texture with tone-up effect for radiant skin and a smooth base under makeup."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 6,
+      "retail": 19.99,
+      "currency": "USD"
+    },
+    "soldB2C": false,
+    "soldB2B": true,
+    "stock": 2810,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 45,
+    "packSize": "45",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Aqua",
+      "Dibutyl Adipate",
+      "Butyloctyl Salicylate",
+      "Ethylhexyl Triazone",
+      "Propanediol",
+      "Titanium Dioxide",
+      "Niacinamide",
+      "Drometrizole Trisiloxane",
+      "Caprylic/Capric Triglyceride",
+      "Ethylhexyl Palmitate",
+      "Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine",
+      "C12-15 Alkyl Benzoate",
+      "Polyglyceryl-3 Methylglucose Distearate",
+      "Terephthalylidene Dicamphor Sulfonic Acid",
+      "1",
+      "2-Hexanediol",
+      "Glycerin",
+      "Dipropylene Glycol",
+      "Cetearyl Alcohol",
+      "Gossypium Herbaceum (Cotton) Fruit Water",
+      "Xanthan Gum",
+      "Tromethamine",
+      "Poly C10-30 Alkyl Acrylate",
+      "Polymethyl Methacrylate",
+      "Stearic Acid",
+      "Aluminum Hydroxide",
+      "Sodium Polyacryloyldimethyl Taurate",
+      "Polyhydroxystearic Acid",
+      "Polymethylsilsesquioxane",
+      "Hydroxypropyl Methylcellulose Stearoxy Ether",
+      "Ammonium Polyacryloyldimethyl Taurate",
+      "Ethylhexylglycerin",
+      "Sodium Stearoyl Glutamate",
+      "Adenosine",
+      "Parfum",
+      "Iron Oxides (CI 77491)",
+      "Copernicia Cerifera (Carnauba) Wax",
+      "Sodium Acrylate/Sodium Acryloyldimethyl Taurate Copolymer",
+      "Hydrogenated Poly(C6-14 Olefin)",
+      "t-Butyl Alcohol",
+      "Psidium Guajava Leaf Extract",
+      "Oryza Sativa (Rice) Bran Wax",
+      "Sasa Quelpaertensis Extract",
+      "Triethoxycaprylylsilane",
+      "Lauryl Glucoside",
+      "Opuntia Ficus-Indica Stem Extract",
+      "Glutathione",
+      "Panthenol",
+      "Melia Azadirachta Leaf Extract",
+      "Melia Azadirachta Flower Extract",
+      "Lactobacillus Ferment Lysate",
+      "Coccinia Indica Fruit Extract",
+      "Olea Europaea (Olive) Fruit Oil",
+      "Butylene Glycol",
+      "Bifida Ferment Lysate",
+      "Streptococcus Thermophilus Ferment",
+      "Hydrogenated Lecithin",
+      "Solanum Melongena (Eggplant) Fruit Extract",
+      "Ocimum Sanctum Leaf Extract",
+      "Ceramide NP",
+      "Ceramide NS",
+      "Curcuma Longa (Turmeric) Root Extract",
+      "Corallina Officinalis Extract",
+      "Chamaecyparis Obtusa Leaf Extract",
+      "Sodium Hyaluronate",
+      "Ceramide AP",
+      "Ceramide EOP",
+      "Polyglutamic Acid",
+      "Sodium Hyaluronate Crosspolymer",
+      "Potassium Hyaluronate",
+      "Hydroxypropyltrimonium Hyaluronate",
+      "Hydrolyzed Sodium Hyaluronate",
+      "Hydrolyzed Hyaluronic Acid",
+      "Hyaluronic Acid",
+      "Sodium Acetylated Hyaluronate",
+      "Pentylene Glycol"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2027.10.16"
+  },
+  {
+    "id": "prod_13",
+    "brandId": "wismin",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Pore Tight All Day Young Cream 50ml",
+      "ko": "Pore Tight All Day Young Cream 50ml",
+      "zh": "Pore Tight All Day Young Cream 50ml"
+    },
+    "description": {
+      "en": "An upgraded version of our cult-favorite barrier cream, now enhanced with pore-minimizing actives for a smoother, refined texture—ideal for combination to oily skin.",
+      "ko": "An upgraded version of our cult-favorite barrier cream, now enhanced with pore-minimizing actives for a smoother, refined texture—ideal for combination to oily skin.",
+      "zh": "An upgraded version of our cult-favorite barrier cream, now enhanced with pore-minimizing actives for a smoother, refined texture—ideal for combination to oily skin."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 7.5,
+      "retail": 34.99,
+      "currency": "USD"
+    },
+    "soldB2C": false,
+    "soldB2B": true,
+    "stock": 3219,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 48,
+    "packSize": "48",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Gossypium Herbaceum (Cotton) Fruit Aqua",
+      "Aqua",
+      "Butylene Glycol",
+      "Propanediol",
+      "Cetyl Ethylhexanoate",
+      "Cetearyl Olivate",
+      "Sorbitan Olivate",
+      "1",
+      "2-Hexanediol",
+      "Hydroxyacetophenone",
+      "Vinyl Dimethicone",
+      "Ammonium Acryloyldimethyltaurate/VP Copolymer",
+      "Tromethamine",
+      "Acrylates/C10-30 Alkyl Acrylate Crosspolymer",
+      "Glycerin",
+      "Niacinamide",
+      "Panthenol",
+      "Citric Acid",
+      "Gluconolactone",
+      "Allantoin",
+      "Eclipta Prostrata Extract",
+      "Disodium EDTA",
+      "Corallina Officinalis Extract",
+      "Pyrus Communis (Pear) Fruit Extract",
+      "Aloe Barbadensis Leaf Extract",
+      "Laminaria Japonica Extract",
+      "Dioscorea Japonica Root Extract",
+      "Ulmus Davidiana Root Extract",
+      "Viola Mandshurica Flower Extract",
+      "Eucalyptus Globulus Leaf Extract",
+      "Laurus Nobilis Leaf Extract",
+      "Hydrogenated Lecithin",
+      "Melia Azadirachta Leaf Extract",
+      "Rosa Damascena Flower Aqua",
+      "Biosaccharide Gum-1",
+      "Cetearyl Alcohol",
+      "Lactobacillus Ferment Lysate",
+      "Bifida Ferment Lysate",
+      "Cynara Scolymus (Artichoke) Leaf Extract",
+      "Iris Florentina Root Extract",
+      "Cucumis Melo (Melon) Seed Extract",
+      "Stearic Acid",
+      "Hedera Helix (Ivy) Leaf/Stem Extract",
+      "Ascorbic Acid",
+      "Hamamelis Virginiana (Witch Hazel) Extract",
+      "Polyglutamic Acid",
+      "Centella Asiatica Leaf Extract",
+      "Centella Asiatica Root Extract",
+      "Centella Asiatica Extract",
+      "Moringa Oleifera Seed Oil",
+      "Ethylhexylglycerin",
+      "Ceramide NP",
+      "Ceramide NS",
+      "Phytosphingosine",
+      "Cholesterol",
+      "Asiatic Acid",
+      "Asiaticoside",
+      "Ceramide AS",
+      "Ceramide AP",
+      "Acetyl Hexapeptide-8",
+      "Palmitoyl Pentapeptide-4",
+      "Copper Tripeptide-1",
+      "Madecassic Acid",
+      "Madecassoside",
+      "Ceramide EOP"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2027.11.04"
+  },
+  {
+    "id": "prod_14",
+    "brandId": "wismin",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Bakuchiol All Day Young Eye Cream 40g",
+      "ko": "Bakuchiol All Day Young Eye Cream 40g",
+      "zh": "Bakuchiol All Day Young Eye Cream 40g"
+    },
+    "description": {
+      "en": "A delicate yet powerful formula infused with plant-based retinol and hydrating botanicals to smooth fine lines, depuff, and revitalize the eye area.",
+      "ko": "A delicate yet powerful formula infused with plant-based retinol and hydrating botanicals to smooth fine lines, depuff, and revitalize the eye area.",
+      "zh": "A delicate yet powerful formula infused with plant-based retinol and hydrating botanicals to smooth fine lines, depuff, and revitalize the eye area."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 7,
+      "retail": 25.99,
+      "currency": "USD"
+    },
+    "soldB2C": false,
+    "soldB2B": true,
+    "stock": 1657,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 80,
+    "packSize": "80",
+    "volume": "40ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Cocoa seed extract",
+      "Purified water",
+      "Butylene glycol",
+      "Glyceryl stearate (C13-16)",
+      "Niacinamide",
+      "Pentylene glycol",
+      "Betaine",
+      "Ethylhexyl stearate",
+      "Caprylic/capric triglyceride",
+      "Propanediol",
+      "Diisostearyl malate",
+      "1",
+      "2-Hexanediol",
+      "Hydrogenated lecithin",
+      "Stearyl alcohol",
+      "Hydroxyacetophenone",
+      "Cetearyl glucoside",
+      "Sucrose distearate",
+      "Sodium hyaluronate",
+      "Sodium hyaluronate crosspolymer",
+      "Hydrolyzed hyaluronic acid",
+      "Hyaluronic acid",
+      "Beta-glucan",
+      "Glycerin",
+      "Rice extract",
+      "Green tea extract",
+      "Centella asiatica extract",
+      "Chamomile flower extract",
+      "Licorice root extract",
+      "Rosemary extract",
+      "Lavender extract",
+      "Camellia sinensis leaf extract",
+      "Olive fruit oil",
+      "Avocado oil",
+      "Argan kernel oil",
+      "Coffee seed extract",
+      "Tea tree oil",
+      "Calendula flower extract",
+      "Turmeric root extract",
+      "Ginger root extract",
+      "Goldenseal extract",
+      "Aloe vera leaf extract",
+      "Basil extract",
+      "Oregano extract",
+      "Pepper fruit extract",
+      "Skullcap extract",
+      "Peony root extract",
+      "Scutellaria baicalensis root extract",
+      "Honeysuckle flower extract",
+      "Dioscorea japonica root extract",
+      "Lonicera japonica extract",
+      "Amaranth seed extract",
+      "Licorice leaf extract",
+      "Bergamot fruit oil",
+      "Orange peel oil",
+      "Lemon peel oil",
+      "Mandarin orange peel oil",
+      "Bitter orange flower extract",
+      "Ceramide NP",
+      "Ceramide AP",
+      "Ceramide EOP",
+      "Cholesterol",
+      "Phytosphingosine",
+      "Caprooyl sphingolipid."
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2027.12.04"
+  },
+  {
+    "id": "prod_15",
+    "brandId": "wismin",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "All Day Young Real Deep Collagen Mask (4ea)",
+      "ko": "All Day Young Real Deep Collagen Mask (4ea)",
+      "zh": "All Day Young Real Deep Collagen Mask (4ea)"
+    },
+    "description": {
+      "en": "This innovative mask transforms texture upon application to deeply deliver collagen-boosting actives—designed to firm, lift, and rejuvenate the skin.",
+      "ko": "This innovative mask transforms texture upon application to deeply deliver collagen-boosting actives—designed to firm, lift, and rejuvenate the skin.",
+      "zh": "This innovative mask transforms texture upon application to deeply deliver collagen-boosting actives—designed to firm, lift, and rejuvenate the skin."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 8,
+      "retail": 21.99,
+      "currency": "USD"
+    },
+    "soldB2C": false,
+    "soldB2B": true,
+    "stock": 365,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 40,
+    "packSize": "40",
+    "volume": "30* 4g",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Aqua",
+      "Glycerin",
+      "Dipropylene Glycol",
+      "Acrylates Copolymer",
+      "Niacinamide",
+      "Butylene Glycol",
+      "1",
+      "2-Hexanediol",
+      "Ceratonia Siliqua (Carob) Gum",
+      "Xanthan Gum",
+      "Hydroxyacetophenone",
+      "Carrageenan",
+      "Allantoin",
+      "Sucrose",
+      "Polyglyceryl-10 Laurate",
+      "Propanediol",
+      "Potassium Chloride",
+      "Gossypium Herbaceum (Cotton) Fruit Water",
+      "Caprylyl Glycol",
+      "Cellulose Gum",
+      "Sodium Polyacrylate",
+      "Gellan Gum",
+      "Adenosine",
+      "Dipotassium Glycyrrhizate",
+      "Panthenol",
+      "Ethylhexylglycerin",
+      "Parfum",
+      "Sodium Phytate",
+      "Lactobacillus Ferment Lysate",
+      "Bifida Ferment Lysate",
+      "Streptococcus Thermophilus Ferment",
+      "Curcuma Longa (Turmeric) Root Extract",
+      "Sodium Hyaluronate",
+      "Centella Asiatica Leaf Extract",
+      "Houttuynia Cordata Extract",
+      "Melia Azadirachta Flower Extract",
+      "Hydrogenated Lecithin",
+      "Prunella Vulgaris Extract",
+      "Fucus Vesiculosus Extract",
+      "Melia Azadirachta Leaf Extract",
+      "Melia Azadirachta Bark Extract",
+      "Corallina Officinalis Extract",
+      "Moringa Oleifera Seed Oil",
+      "Ocimum Sanctum Leaf Extract",
+      "Soluble Collagen",
+      "Hydroxypropyltrimonium Hyaluronate",
+      "Ceramide NP",
+      "Sodium Acetylated Hyaluronate",
+      "Hydrolyzed Hyaluronic Acid",
+      "Hyaluronic Acid",
+      "Madecassic Acid",
+      "Sodium Hyaluronate Crosspolymer",
+      "Hydrolyzed Sodium Hyaluronate",
+      "Asiatic Acid",
+      "Potassium Hyaluronate",
+      "Asiaticoside"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2027.10.16"
+  },
+  {
+    "id": "prod_16",
+    "brandId": "wismin",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "All Day Young Real Deep Hydro Mask (4ea)",
+      "ko": "All Day Young Real Deep Hydro Mask (4ea)",
+      "zh": "All Day Young Real Deep Hydro Mask (4ea)"
+    },
+    "description": {
+      "en": "An ultra-moisturizing treatment mask that changes form as it melts into the skin, delivering intense hydration and soothing relief for dry, stressed skin.",
+      "ko": "An ultra-moisturizing treatment mask that changes form as it melts into the skin, delivering intense hydration and soothing relief for dry, stressed skin.",
+      "zh": "An ultra-moisturizing treatment mask that changes form as it melts into the skin, delivering intense hydration and soothing relief for dry, stressed skin."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 8,
+      "retail": 21.99,
+      "currency": "USD"
+    },
+    "soldB2C": false,
+    "soldB2B": true,
+    "stock": 1608,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 40,
+    "packSize": "40",
+    "volume": "30 * 4g",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Aqua",
+      "Glycerin",
+      "Niacinamide",
+      "Methyl Gluceth-20",
+      "Acrylates Copolymer",
+      "1",
+      "2-Hexanediol",
+      "Ceratonia Siliqua (Carob) Gum",
+      "Dipotassium Glycyrrhizate",
+      "Carrageenan",
+      "Potassium Chloride",
+      "Cellulose Gum",
+      "Xanthan Gum",
+      "Sodium Polyacrylate",
+      "Caprylyl Glycol",
+      "Sucrose",
+      "Propanediol",
+      "Polyglyceryl-10 Laurate",
+      "Hydroxyacetophenone",
+      "Gellan Gum",
+      "Gossypium Herbaceum (Cotton) Fruit Water",
+      "Allantoin",
+      "Adenosine",
+      "Ethylhexylglycerin",
+      "Panthenol",
+      "Parfum",
+      "Butylene Glycol",
+      "Streptococcus Thermophilus Ferment",
+      "Bifida Ferment Lysate",
+      "Lactobacillus Ferment Lysate",
+      "Xylitol",
+      "Melia Azadirachta Leaf Extract",
+      "Melia Azadirachta Flower Extract",
+      "Hydrogenated Lecithin",
+      "Coccinia Indica Fruit Extract",
+      "Caprylic/Capric Triglyceride",
+      "Sodium Hyaluronate",
+      "Solanum Melongena (Eggplant) Fruit Extract",
+      "Beta-Glucan",
+      "Polyglyceryl-10 Oleate",
+      "Ocimum Sanctum Leaf Extract",
+      "Hydroxypropyltrimonium Hyaluronate",
+      "Curcuma Longa (Turmeric) Root Extract",
+      "Corallina Officinalis Extract",
+      "Houttuynia Cordata Extract",
+      "Azulene",
+      "Ceramide NP",
+      "Sodium Acetylated Hyaluronate",
+      "Hydrolyzed Hyaluronic Acid",
+      "Hyaluronic Acid",
+      "Sodium Hyaluronate Crosspolymer",
+      "Hydrolyzed Sodium Hyaluronate",
+      "Madecassic Acid",
+      "Asiatic Acid",
+      "Potassium Hyaluronate",
+      "Asiaticoside"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2027.10.16"
+  },
+  {
+    "id": "prod_17",
+    "brandId": "baohlab",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Hair Loss Care Ampoule",
+      "ko": "Hair Loss Care Ampoule",
+      "zh": "Hair Loss Care Ampoule"
+    },
+    "description": {
+      "en": "🔬 𝘾𝙇𝙄𝙉𝙄𝘾𝘼𝙇𝙇𝙔 𝙋𝙍𝙊𝙑𝙀𝙉 𝙃𝘼𝙄𝙍 𝙇𝙊𝙎𝙎 𝙏𝙍𝙀𝘼𝙏𝙈𝙀𝙉𝙏 𝙁𝙊𝙍 𝙈𝙀𝙉 & 𝙒𝙊𝙈𝙀𝙉 – Formulated with BEFF, a patented post-biotic extract derived from Bacillus/Esculetin fermentation, this ampoule targets scalp fatigue by activating dermal papilla cells and promoting their growth, enhancing follicle organoid development, and improving overall scalp density. Clinically shown to support the foundational structures of healthy hair, it’s ideal for postpartum, stress-induced, or age-related thinning.\r\n🧠 𝘽𝙇𝙊𝘾𝙆𝙎 𝘿𝙃𝙏 𝘼𝙉𝘿 𝘾𝘼𝙇𝙈𝙎 𝙎𝘾𝘼𝙇𝙋 𝙄𝙉𝙁𝙇𝘼𝙈𝙈𝘼𝙏𝙄𝙊𝙉 𝙁𝙊𝙍 𝙇𝘼𝙎𝙏𝙄𝙉𝙂 𝙂𝙍𝙊𝙒𝙏𝙃 – Effectively reduces scalp DHT sensitivity, one of the main causes of pattern hair loss, while alleviating irritation and redness. Creates a healthier environment for new hair to grow stronger and denser without interruption.\r\n🧴 𝙊𝙉𝙀-𝙈𝙊𝙉𝙏𝙃 𝙄𝙉𝙏𝙀𝙉𝙎𝙄𝙑𝙀 𝙋𝙍𝙊𝙂𝙍𝘼𝙈 𝙒𝙄𝙏𝙃 2 𝙁𝙐𝙇𝙇-𝙎𝙄𝙕𝙀 𝘼𝙈𝙋𝙊𝙐𝙇𝙀𝙎 – Includes two 12.5ml high-potency ampoules, carefully designed for a full 30-day treatment cycle. Daily use helps reinforce the scalp barrier, prevent excessive shedding, and promote consistent, visible improvement in volume and texture.\r\n💧 𝙉𝙊𝙉-𝙂𝙍𝙀𝘼𝙎𝙔, 𝙇𝙄𝙂𝙃𝙏𝙒𝙀𝙄𝙂𝙃𝙏 𝙁𝙊𝙍𝙈𝙐𝙇𝘼 𝙏𝙃𝘼𝙏 𝘼𝘽𝙎𝙊𝙍𝘽𝙎 𝙄𝙉𝙎𝙏𝘼𝙉𝙏𝙇𝙔 – Unlike heavy oils or sticky serums, this fast-absorbing ampoule disappears into the scalp without residue. Suitable for daily AM or PM routines, even under styling products, and perfect for oily, dry, or sensitive scalps alike.\r\n🌿 𝙆𝙊𝙍𝙀𝘼𝙉 𝘾𝙇𝙀𝘼𝙉 𝘽𝙀𝘼𝙐𝙏𝙔 𝙄𝙉𝙉𝙊𝙑𝘼𝙏𝙄𝙊𝙉, 𝙁𝙍𝙀𝙀 𝙁𝙍𝙊𝙈 𝙃𝘼𝙍𝙎𝙃 𝘾𝙃𝙀𝙈𝙄𝘾𝘼𝙇𝙎 – Dermatologist-tested and free from parabens, sulfates, silicones, synthetic fragrances, or mineral oils. Safe for color-treated hair and suitable for long-term use without causing buildup or irritation.",
+      "ko": "🔬 𝘾𝙇𝙄𝙉𝙄𝘾𝘼𝙇𝙇𝙔 𝙋𝙍𝙊𝙑𝙀𝙉 𝙃𝘼𝙄𝙍 𝙇𝙊𝙎𝙎 𝙏𝙍𝙀𝘼𝙏𝙈𝙀𝙉𝙏 𝙁𝙊𝙍 𝙈𝙀𝙉 & 𝙒𝙊𝙈𝙀𝙉 – Formulated with BEFF, a patented post-biotic extract derived from Bacillus/Esculetin fermentation, this ampoule targets scalp fatigue by activating dermal papilla cells and promoting their growth, enhancing follicle organoid development, and improving overall scalp density. Clinically shown to support the foundational structures of healthy hair, it’s ideal for postpartum, stress-induced, or age-related thinning.\r\n🧠 𝘽𝙇𝙊𝘾𝙆𝙎 𝘿𝙃𝙏 𝘼𝙉𝘿 𝘾𝘼𝙇𝙈𝙎 𝙎𝘾𝘼𝙇𝙋 𝙄𝙉𝙁𝙇𝘼𝙈𝙈𝘼𝙏𝙄𝙊𝙉 𝙁𝙊𝙍 𝙇𝘼𝙎𝙏𝙄𝙉𝙂 𝙂𝙍𝙊𝙒𝙏𝙃 – Effectively reduces scalp DHT sensitivity, one of the main causes of pattern hair loss, while alleviating irritation and redness. Creates a healthier environment for new hair to grow stronger and denser without interruption.\r\n🧴 𝙊𝙉𝙀-𝙈𝙊𝙉𝙏𝙃 𝙄𝙉𝙏𝙀𝙉𝙎𝙄𝙑𝙀 𝙋𝙍𝙊𝙂𝙍𝘼𝙈 𝙒𝙄𝙏𝙃 2 𝙁𝙐𝙇𝙇-𝙎𝙄𝙕𝙀 𝘼𝙈𝙋𝙊𝙐𝙇𝙀𝙎 – Includes two 12.5ml high-potency ampoules, carefully designed for a full 30-day treatment cycle. Daily use helps reinforce the scalp barrier, prevent excessive shedding, and promote consistent, visible improvement in volume and texture.\r\n💧 𝙉𝙊𝙉-𝙂𝙍𝙀𝘼𝙎𝙔, 𝙇𝙄𝙂𝙃𝙏𝙒𝙀𝙄𝙂𝙃𝙏 𝙁𝙊𝙍𝙈𝙐𝙇𝘼 𝙏𝙃𝘼𝙏 𝘼𝘽𝙎𝙊𝙍𝘽𝙎 𝙄𝙉𝙎𝙏𝘼𝙉𝙏𝙇𝙔 – Unlike heavy oils or sticky serums, this fast-absorbing ampoule disappears into the scalp without residue. Suitable for daily AM or PM routines, even under styling products, and perfect for oily, dry, or sensitive scalps alike.\r\n🌿 𝙆𝙊𝙍𝙀𝘼𝙉 𝘾𝙇𝙀𝘼𝙉 𝘽𝙀𝘼𝙐𝙏𝙔 𝙄𝙉𝙉𝙊𝙑𝘼𝙏𝙄𝙊𝙉, 𝙁𝙍𝙀𝙀 𝙁𝙍𝙊𝙈 𝙃𝘼𝙍𝙎𝙃 𝘾𝙃𝙀𝙈𝙄𝘾𝘼𝙇𝙎 – Dermatologist-tested and free from parabens, sulfates, silicones, synthetic fragrances, or mineral oils. Safe for color-treated hair and suitable for long-term use without causing buildup or irritation.",
+      "zh": "🔬 𝘾𝙇𝙄𝙉𝙄𝘾𝘼𝙇𝙇𝙔 𝙋𝙍𝙊𝙑𝙀𝙉 𝙃𝘼𝙄𝙍 𝙇𝙊𝙎𝙎 𝙏𝙍𝙀𝘼𝙏𝙈𝙀𝙉𝙏 𝙁𝙊𝙍 𝙈𝙀𝙉 & 𝙒𝙊𝙈𝙀𝙉 – Formulated with BEFF, a patented post-biotic extract derived from Bacillus/Esculetin fermentation, this ampoule targets scalp fatigue by activating dermal papilla cells and promoting their growth, enhancing follicle organoid development, and improving overall scalp density. Clinically shown to support the foundational structures of healthy hair, it’s ideal for postpartum, stress-induced, or age-related thinning.\r\n🧠 𝘽𝙇𝙊𝘾𝙆𝙎 𝘿𝙃𝙏 𝘼𝙉𝘿 𝘾𝘼𝙇𝙈𝙎 𝙎𝘾𝘼𝙇𝙋 𝙄𝙉𝙁𝙇𝘼𝙈𝙈𝘼𝙏𝙄𝙊𝙉 𝙁𝙊𝙍 𝙇𝘼𝙎𝙏𝙄𝙉𝙂 𝙂𝙍𝙊𝙒𝙏𝙃 – Effectively reduces scalp DHT sensitivity, one of the main causes of pattern hair loss, while alleviating irritation and redness. Creates a healthier environment for new hair to grow stronger and denser without interruption.\r\n🧴 𝙊𝙉𝙀-𝙈𝙊𝙉𝙏𝙃 𝙄𝙉𝙏𝙀𝙉𝙎𝙄𝙑𝙀 𝙋𝙍𝙊𝙂𝙍𝘼𝙈 𝙒𝙄𝙏𝙃 2 𝙁𝙐𝙇𝙇-𝙎𝙄𝙕𝙀 𝘼𝙈𝙋𝙊𝙐𝙇𝙀𝙎 – Includes two 12.5ml high-potency ampoules, carefully designed for a full 30-day treatment cycle. Daily use helps reinforce the scalp barrier, prevent excessive shedding, and promote consistent, visible improvement in volume and texture.\r\n💧 𝙉𝙊𝙉-𝙂𝙍𝙀𝘼𝙎𝙔, 𝙇𝙄𝙂𝙃𝙏𝙒𝙀𝙄𝙂𝙃𝙏 𝙁𝙊𝙍𝙈𝙐𝙇𝘼 𝙏𝙃𝘼𝙏 𝘼𝘽𝙎𝙊𝙍𝘽𝙎 𝙄𝙉𝙎𝙏𝘼𝙉𝙏𝙇𝙔 – Unlike heavy oils or sticky serums, this fast-absorbing ampoule disappears into the scalp without residue. Suitable for daily AM or PM routines, even under styling products, and perfect for oily, dry, or sensitive scalps alike.\r\n🌿 𝙆𝙊𝙍𝙀𝘼𝙉 𝘾𝙇𝙀𝘼𝙉 𝘽𝙀𝘼𝙐𝙏𝙔 𝙄𝙉𝙉𝙊𝙑𝘼𝙏𝙄𝙊𝙉, 𝙁𝙍𝙀𝙀 𝙁𝙍𝙊𝙈 𝙃𝘼𝙍𝙎𝙃 𝘾𝙃𝙀𝙈𝙄𝘾𝘼𝙇𝙎 – Dermatologist-tested and free from parabens, sulfates, silicones, synthetic fragrances, or mineral oils. Safe for color-treated hair and suitable for long-term use without causing buildup or irritation."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 40,
+      "retail": 110,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 110,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 2,
+    "stockLevel": "low",
+    "inStock": true,
+    "moq": 1,
+    "itemsPerCarton": 1,
+    "packSize": "1",
+    "volume": "2*12ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Bacillus",
+      "Esculetin Ferment Filtrate",
+      "Purified Water",
+      "Denatured Alcohol",
+      "C12-14 Pareth-12",
+      "1",
+      "2-Hexanediol",
+      "Butylene Glycol",
+      "Glycerin",
+      "Salicylic Acid",
+      "Xanthan Gum",
+      "Niacinamide",
+      "Menthol",
+      "Exthylhexylglycerin",
+      "Disodium EDTA",
+      "Bacillus/Esculetin Ferment Filtrate",
+      "Persimmon Extract",
+      "Camellia Leaf Extract",
+      "Carob Fruit Extract",
+      "Biotin",
+      "Arginine"
+    ],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_18",
+    "brandId": "lalucell",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Biome Vegan Repair Cream",
+      "ko": "Biome Vegan Repair Cream",
+      "zh": "Biome Vegan Repair Cream"
+    },
+    "description": {
+      "en": "1. Efficacy\nHigh-nutrition biome vegan cream designed for the face and body, delivers soft hydration with complete nourishments from Galactomyces ferment filtrate.\n2. Selling Point\n. Multi-purpose cream for face and body\n. Galatomyces for\nskin nutrition and skin texture improvement \n. Moist and translucent moisturizing cream texture\n3. Key Ingredient : Galactomyces + TARAXII® (Patent)",
+      "ko": "1. Efficacy\nHigh-nutrition biome vegan cream designed for the face and body, delivers soft hydration with complete nourishments from Galactomyces ferment filtrate.\n2. Selling Point\n. Multi-purpose cream for face and body\n. Galatomyces for\nskin nutrition and skin texture improvement \n. Moist and translucent moisturizing cream texture\n3. Key Ingredient : Galactomyces + TARAXII® (Patent)",
+      "zh": "1. Efficacy\nHigh-nutrition biome vegan cream designed for the face and body, delivers soft hydration with complete nourishments from Galactomyces ferment filtrate.\n2. Selling Point\n. Multi-purpose cream for face and body\n. Galatomyces for\nskin nutrition and skin texture improvement \n. Moist and translucent moisturizing cream texture\n3. Key Ingredient : Galactomyces + TARAXII® (Patent)"
+    },
+    "images": [],
+    "price": {
+      "wholesale": 13.5,
+      "retail": 37,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 37,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 7,
+    "stockLevel": "low",
+    "inStock": true,
+    "moq": 108,
+    "itemsPerCarton": 54,
+    "packSize": "54",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_19",
+    "brandId": "lalucell",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Biome Vegan Balance Essence",
+      "ko": "Biome Vegan Balance Essence",
+      "zh": "Biome Vegan Balance Essence"
+    },
+    "description": {
+      "en": "1. Skin Adhesion Vegan Biome Essence with full moisture and rich nutrition of Galactomyces Fermented Filters\n2. Selling Point\n. Highly moisturizing vegan biome essence that complements every skin with rich hydration and nourishments from Galactomyces ferment filtrate.\n. Microbiome care that balances skin. \n. Healthy skin barrier with Galatomyces andTaraxll\n. Combination Srum and Toner \n3. Key Ingredient : Galactomyces + TARAXII® (Patent)",
+      "ko": "1. Skin Adhesion Vegan Biome Essence with full moisture and rich nutrition of Galactomyces Fermented Filters\n2. Selling Point\n. Highly moisturizing vegan biome essence that complements every skin with rich hydration and nourishments from Galactomyces ferment filtrate.\n. Microbiome care that balances skin. \n. Healthy skin barrier with Galatomyces andTaraxll\n. Combination Srum and Toner \n3. Key Ingredient : Galactomyces + TARAXII® (Patent)",
+      "zh": "1. Skin Adhesion Vegan Biome Essence with full moisture and rich nutrition of Galactomyces Fermented Filters\n2. Selling Point\n. Highly moisturizing vegan biome essence that complements every skin with rich hydration and nourishments from Galactomyces ferment filtrate.\n. Microbiome care that balances skin. \n. Healthy skin barrier with Galatomyces andTaraxll\n. Combination Srum and Toner \n3. Key Ingredient : Galactomyces + TARAXII® (Patent)"
+    },
+    "images": [],
+    "price": {
+      "wholesale": 14.5,
+      "retail": 27,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 27,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 8,
+    "stockLevel": "low",
+    "inStock": true,
+    "moq": 162,
+    "itemsPerCarton": 54,
+    "packSize": "54",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_20",
+    "brandId": "lalucell",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Biome Vegan Pure Cleansing Bar",
+      "ko": "Biome Vegan Pure Cleansing Bar",
+      "zh": "Biome Vegan Pure Cleansing Bar"
+    },
+    "description": {
+      "en": "Cleansing mask pack bar boosted with highly nourishing galactomyces ferment filtrate base which helps to flawlessly cleanses your pores with gooey like lather.\n\nKey Point : Galactomyces +TARAXII®\n\nCharacter : Dissolves sebum and dead skin cells, Provides moisture and nutrition in 60 sec., Pore and moisturizing management",
+      "ko": "Cleansing mask pack bar boosted with highly nourishing galactomyces ferment filtrate base which helps to flawlessly cleanses your pores with gooey like lather.\n\nKey Point : Galactomyces +TARAXII®\n\nCharacter : Dissolves sebum and dead skin cells, Provides moisture and nutrition in 60 sec., Pore and moisturizing management",
+      "zh": "Cleansing mask pack bar boosted with highly nourishing galactomyces ferment filtrate base which helps to flawlessly cleanses your pores with gooey like lather.\n\nKey Point : Galactomyces +TARAXII®\n\nCharacter : Dissolves sebum and dead skin cells, Provides moisture and nutrition in 60 sec., Pore and moisturizing management"
+    },
+    "images": [],
+    "price": {
+      "wholesale": 11.5,
+      "retail": 26,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 26,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 7,
+    "stockLevel": "low",
+    "inStock": true,
+    "moq": 120,
+    "itemsPerCarton": 40,
+    "packSize": "40",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_21",
+    "brandId": "lalucell",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Mystic Light Cica Refreshing Hydrogel Mask (1 EA)",
+      "ko": "Mystic Light Cica Refreshing Hydrogel Mask (1 EA)",
+      "zh": "Mystic Light Cica Refreshing Hydrogel Mask (1 EA)"
+    },
+    "description": {
+      "en": "1. Efficacy\nMesh pocket hydrogel mask to quickly soothe sensitive skin with Cica moisture formula without harmful crosslinking agents.\n2. Selling Point\n. Hydrogel manufacturing method using cross-linked structure control with electron beam irradiation \n. Smart resourceful miracle light E.Beam is even used to sterilize medical devices\n. Pure hydrogel structured like entangled weaves\n. Filled  with  active  ingredients  inside  the  essence  pouch  Mesh  Pocket (Patent : 10-2466953)\n. Refreshing and hydrating finish without stickiness \n3. Mesh Pocket®\n. The flexible and gentle quality allows room to hold more essence, and with the sheet carrying more vital active ingredients, the overall hydration and colling sensations are ennanced.",
+      "ko": "1. Efficacy\nMesh pocket hydrogel mask to quickly soothe sensitive skin with Cica moisture formula without harmful crosslinking agents.\n2. Selling Point\n. Hydrogel manufacturing method using cross-linked structure control with electron beam irradiation \n. Smart resourceful miracle light E.Beam is even used to sterilize medical devices\n. Pure hydrogel structured like entangled weaves\n. Filled  with  active  ingredients  inside  the  essence  pouch  Mesh  Pocket (Patent : 10-2466953)\n. Refreshing and hydrating finish without stickiness \n3. Mesh Pocket®\n. The flexible and gentle quality allows room to hold more essence, and with the sheet carrying more vital active ingredients, the overall hydration and colling sensations are ennanced.",
+      "zh": "1. Efficacy\nMesh pocket hydrogel mask to quickly soothe sensitive skin with Cica moisture formula without harmful crosslinking agents.\n2. Selling Point\n. Hydrogel manufacturing method using cross-linked structure control with electron beam irradiation \n. Smart resourceful miracle light E.Beam is even used to sterilize medical devices\n. Pure hydrogel structured like entangled weaves\n. Filled  with  active  ingredients  inside  the  essence  pouch  Mesh  Pocket (Patent : 10-2466953)\n. Refreshing and hydrating finish without stickiness \n3. Mesh Pocket®\n. The flexible and gentle quality allows room to hold more essence, and with the sheet carrying more vital active ingredients, the overall hydration and colling sensations are ennanced."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 5.5,
+      "retail": 9,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 9,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 10,
+    "stockLevel": "low",
+    "inStock": true,
+    "moq": 180,
+    "itemsPerCarton": 180,
+    "packSize": "180",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_22",
+    "brandId": "lalucell",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Mystic Light Mark Control Body Patch (1 EA)",
+      "ko": "Mystic Light Mark Control Body Patch (1 EA)",
+      "zh": "Mystic Light Mark Control Body Patch (1 EA)"
+    },
+    "description": {
+      "en": "Body patch with patented soothing formula that moisturizes and enhances skin elasticity\n\nKey Point : Molokhia extract + Tarax III\n\nCharacter : Body patch that manages stretch marks and elasticity, Custom design for curved body, No adhesive, No preservatives, No cross -linking agent",
+      "ko": "Body patch with patented soothing formula that moisturizes and enhances skin elasticity\n\nKey Point : Molokhia extract + Tarax III\n\nCharacter : Body patch that manages stretch marks and elasticity, Custom design for curved body, No adhesive, No preservatives, No cross -linking agent",
+      "zh": "Body patch with patented soothing formula that moisturizes and enhances skin elasticity\n\nKey Point : Molokhia extract + Tarax III\n\nCharacter : Body patch that manages stretch marks and elasticity, Custom design for curved body, No adhesive, No preservatives, No cross -linking agent"
+    },
+    "images": [],
+    "price": {
+      "wholesale": 6.5,
+      "retail": 13,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 13,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 9,
+    "stockLevel": "low",
+    "inStock": true,
+    "moq": 240,
+    "itemsPerCarton": 120,
+    "packSize": "120",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_23",
+    "brandId": "lalucell",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Mystic Light Mark Control Breast Patch (",
+      "ko": "Mystic Light Mark Control Breast Patch (",
+      "zh": "Mystic Light Mark Control Breast Patch ("
+    },
+    "description": {
+      "en": "Breast patch with patented soothing formula that provides elasticity and cooling sensation.\n\nKey Point : Molokhia extract + Tarax III\n\nCharacter : Hydrogel patch that lowers skin temperature, Chest patch to help breast elasticity, A new concept adhesive patch made with E.BEAM without harmful ingredients",
+      "ko": "Breast patch with patented soothing formula that provides elasticity and cooling sensation.\n\nKey Point : Molokhia extract + Tarax III\n\nCharacter : Hydrogel patch that lowers skin temperature, Chest patch to help breast elasticity, A new concept adhesive patch made with E.BEAM without harmful ingredients",
+      "zh": "Breast patch with patented soothing formula that provides elasticity and cooling sensation.\n\nKey Point : Molokhia extract + Tarax III\n\nCharacter : Hydrogel patch that lowers skin temperature, Chest patch to help breast elasticity, A new concept adhesive patch made with E.BEAM without harmful ingredients"
+    },
+    "images": [],
+    "price": {
+      "wholesale": 6.5,
+      "retail": 13,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 13,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 10,
+    "stockLevel": "low",
+    "inStock": true,
+    "moq": 240,
+    "itemsPerCarton": 120,
+    "packSize": "120",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_24",
+    "brandId": "sunnicorn",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Only For You Butter Lip Balm 4color #01 Clear",
+      "ko": "Only For You Butter Lip Balm 4color #01 Clear",
+      "zh": "Only For You Butter Lip Balm 4color #01 Clear"
+    },
+    "description": {
+      "en": "\"1. Efficacy\nNon-greasy, natural lip balm infused with hydrating herb butter melts softly onto lips and oﬀers ultra-comfortable, weightless wear.\nLip moisturizing repair: provides instant relief to extremely dry, cracked lips.\n2. Selling Point\n. HYPOALLERGENIC TESTED\n. Shea butter and ugly avocado oil\n  Moisturizing and improving skin texture super-delicate and  rough lips while providing natural and healthy gloss. \n. Apple Mint's deliver cooling and plump for your lips,   \n It make your lips voluminous and smooth.\"",
+      "ko": "\"1. Efficacy\nNon-greasy, natural lip balm infused with hydrating herb butter melts softly onto lips and oﬀers ultra-comfortable, weightless wear.\nLip moisturizing repair: provides instant relief to extremely dry, cracked lips.\n2. Selling Point\n. HYPOALLERGENIC TESTED\n. Shea butter and ugly avocado oil\n  Moisturizing and improving skin texture super-delicate and  rough lips while providing natural and healthy gloss. \n. Apple Mint's deliver cooling and plump for your lips,   \n It make your lips voluminous and smooth.\"",
+      "zh": "\"1. Efficacy\nNon-greasy, natural lip balm infused with hydrating herb butter melts softly onto lips and oﬀers ultra-comfortable, weightless wear.\nLip moisturizing repair: provides instant relief to extremely dry, cracked lips.\n2. Selling Point\n. HYPOALLERGENIC TESTED\n. Shea butter and ugly avocado oil\n  Moisturizing and improving skin texture super-delicate and  rough lips while providing natural and healthy gloss. \n. Apple Mint's deliver cooling and plump for your lips,   \n It make your lips voluminous and smooth.\""
+    },
+    "images": [],
+    "price": {
+      "wholesale": 7,
+      "retail": 13,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 13,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 10,
+    "stockLevel": "low",
+    "inStock": true,
+    "moq": 126,
+    "itemsPerCarton": 63,
+    "packSize": "63",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_25",
+    "brandId": "sunnicorn",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Only For You Butter Lip Balm 4color #02 Kinda Coral",
+      "ko": "Only For You Butter Lip Balm 4color #02 Kinda Coral",
+      "zh": "Only For You Butter Lip Balm 4color #02 Kinda Coral"
+    },
+    "description": {
+      "en": "\"1. Efficacy\nNon-greasy, natural lip balm infused with hydrating herb butter melts softly onto lips and oﬀers ultra-comfortable, weightless wear.\nLip moisturizing repair: provides instant relief to extremely dry, cracked lips.\n2. Selling Point\n. HYPOALLERGENIC TESTED\n. Shea butter and ugly avocado oil\n  Moisturizing and improving skin texture super-delicate and  rough lips while providing natural and healthy gloss. \n. Apple Mint's deliver cooling and plump for your lips,   \n It make your lips voluminous and smooth.\"",
+      "ko": "\"1. Efficacy\nNon-greasy, natural lip balm infused with hydrating herb butter melts softly onto lips and oﬀers ultra-comfortable, weightless wear.\nLip moisturizing repair: provides instant relief to extremely dry, cracked lips.\n2. Selling Point\n. HYPOALLERGENIC TESTED\n. Shea butter and ugly avocado oil\n  Moisturizing and improving skin texture super-delicate and  rough lips while providing natural and healthy gloss. \n. Apple Mint's deliver cooling and plump for your lips,   \n It make your lips voluminous and smooth.\"",
+      "zh": "\"1. Efficacy\nNon-greasy, natural lip balm infused with hydrating herb butter melts softly onto lips and oﬀers ultra-comfortable, weightless wear.\nLip moisturizing repair: provides instant relief to extremely dry, cracked lips.\n2. Selling Point\n. HYPOALLERGENIC TESTED\n. Shea butter and ugly avocado oil\n  Moisturizing and improving skin texture super-delicate and  rough lips while providing natural and healthy gloss. \n. Apple Mint's deliver cooling and plump for your lips,   \n It make your lips voluminous and smooth.\""
+    },
+    "images": [],
+    "price": {
+      "wholesale": 7,
+      "retail": 13,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 13,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 0,
+    "stockLevel": "out",
+    "inStock": false,
+    "moq": 126,
+    "itemsPerCarton": 63,
+    "packSize": "63",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_26",
+    "brandId": "sunnicorn",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Only For You Butter Lip Balm 4color #03 Berry Rosy",
+      "ko": "Only For You Butter Lip Balm 4color #03 Berry Rosy",
+      "zh": "Only For You Butter Lip Balm 4color #03 Berry Rosy"
+    },
+    "description": {
+      "en": "\"1. Efficacy\nNon-greasy, natural lip balm infused with hydrating herb butter melts softly onto lips and oﬀers ultra-comfortable, weightless wear.\nLip moisturizing repair: provides instant relief to extremely dry, cracked lips.\n2. Selling Point\n. HYPOALLERGENIC TESTED\n. Shea butter and ugly avocado oil\n  Moisturizing and improving skin texture super-delicate and  rough lips while providing natural and healthy gloss. \n. Apple Mint's deliver cooling and plump for your lips,   \n It make your lips voluminous and smooth.\"",
+      "ko": "\"1. Efficacy\nNon-greasy, natural lip balm infused with hydrating herb butter melts softly onto lips and oﬀers ultra-comfortable, weightless wear.\nLip moisturizing repair: provides instant relief to extremely dry, cracked lips.\n2. Selling Point\n. HYPOALLERGENIC TESTED\n. Shea butter and ugly avocado oil\n  Moisturizing and improving skin texture super-delicate and  rough lips while providing natural and healthy gloss. \n. Apple Mint's deliver cooling and plump for your lips,   \n It make your lips voluminous and smooth.\"",
+      "zh": "\"1. Efficacy\nNon-greasy, natural lip balm infused with hydrating herb butter melts softly onto lips and oﬀers ultra-comfortable, weightless wear.\nLip moisturizing repair: provides instant relief to extremely dry, cracked lips.\n2. Selling Point\n. HYPOALLERGENIC TESTED\n. Shea butter and ugly avocado oil\n  Moisturizing and improving skin texture super-delicate and  rough lips while providing natural and healthy gloss. \n. Apple Mint's deliver cooling and plump for your lips,   \n It make your lips voluminous and smooth.\""
+    },
+    "images": [],
+    "price": {
+      "wholesale": 7,
+      "retail": 13,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 13,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 10,
+    "stockLevel": "low",
+    "inStock": true,
+    "moq": 126,
+    "itemsPerCarton": 63,
+    "packSize": "63",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_27",
+    "brandId": "sunnicorn",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Only For You Butter Lip Balm 4color #04 Ginger Beige",
+      "ko": "Only For You Butter Lip Balm 4color #04 Ginger Beige",
+      "zh": "Only For You Butter Lip Balm 4color #04 Ginger Beige"
+    },
+    "description": {
+      "en": "\"1. Efficacy\nNon-greasy, natural lip balm infused with hydrating herb butter melts softly onto lips and oﬀers ultra-comfortable, weightless wear.\nLip moisturizing repair: provides instant relief to extremely dry, cracked lips.\n2. Selling Point\n. HYPOALLERGENIC TESTED\n. Shea butter and ugly avocado oil\n  Moisturizing and improving skin texture super-delicate and  rough lips while providing natural and healthy gloss. \n. Apple Mint's deliver cooling and plump for your lips,   \n It make your lips voluminous and smooth.\"",
+      "ko": "\"1. Efficacy\nNon-greasy, natural lip balm infused with hydrating herb butter melts softly onto lips and oﬀers ultra-comfortable, weightless wear.\nLip moisturizing repair: provides instant relief to extremely dry, cracked lips.\n2. Selling Point\n. HYPOALLERGENIC TESTED\n. Shea butter and ugly avocado oil\n  Moisturizing and improving skin texture super-delicate and  rough lips while providing natural and healthy gloss. \n. Apple Mint's deliver cooling and plump for your lips,   \n It make your lips voluminous and smooth.\"",
+      "zh": "\"1. Efficacy\nNon-greasy, natural lip balm infused with hydrating herb butter melts softly onto lips and oﬀers ultra-comfortable, weightless wear.\nLip moisturizing repair: provides instant relief to extremely dry, cracked lips.\n2. Selling Point\n. HYPOALLERGENIC TESTED\n. Shea butter and ugly avocado oil\n  Moisturizing and improving skin texture super-delicate and  rough lips while providing natural and healthy gloss. \n. Apple Mint's deliver cooling and plump for your lips,   \n It make your lips voluminous and smooth.\""
+    },
+    "images": [],
+    "price": {
+      "wholesale": 7,
+      "retail": 13,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 13,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 9,
+    "stockLevel": "low",
+    "inStock": true,
+    "moq": 126,
+    "itemsPerCarton": 63,
+    "packSize": "63",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_28",
+    "brandId": "sunnicorn",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "I'm Proud of You Calming Toner [300ml]",
+      "ko": "I'm Proud of You Calming Toner [300ml]",
+      "zh": "I'm Proud of You Calming Toner [300ml]"
+    },
+    "description": {
+      "en": "Patented Soothing Effect, PureMedi™\nThe patented PureMedr formula, enriched with Glasswort and Reed Extracts, delivers instant calming effects to the skin. It helps reduce redness and heat sensitivity, providing relief for irritated skin.\nComfort & Restore Stressed Skin\nInfused with Herb Calming Complex, this formula revitalizes and purifies the skin while strengthening its natural resilience. It soothes irritation caused by external aggressors, leaving the skin calm and balanced.\nSkin-Loving pH-Balanced Hydration\nFormulated with a mildly acidic pH, similar to the skin’s natural state, this toner helps strengthen the skin barrier while delivering deep hydration. Its carefully balanced ingredients ensure long시asting moisture, penetrating deep into the skin for optimal hydration.",
+      "ko": "Patented Soothing Effect, PureMedi™\nThe patented PureMedr formula, enriched with Glasswort and Reed Extracts, delivers instant calming effects to the skin. It helps reduce redness and heat sensitivity, providing relief for irritated skin.\nComfort & Restore Stressed Skin\nInfused with Herb Calming Complex, this formula revitalizes and purifies the skin while strengthening its natural resilience. It soothes irritation caused by external aggressors, leaving the skin calm and balanced.\nSkin-Loving pH-Balanced Hydration\nFormulated with a mildly acidic pH, similar to the skin’s natural state, this toner helps strengthen the skin barrier while delivering deep hydration. Its carefully balanced ingredients ensure long시asting moisture, penetrating deep into the skin for optimal hydration.",
+      "zh": "Patented Soothing Effect, PureMedi™\nThe patented PureMedr formula, enriched with Glasswort and Reed Extracts, delivers instant calming effects to the skin. It helps reduce redness and heat sensitivity, providing relief for irritated skin.\nComfort & Restore Stressed Skin\nInfused with Herb Calming Complex, this formula revitalizes and purifies the skin while strengthening its natural resilience. It soothes irritation caused by external aggressors, leaving the skin calm and balanced.\nSkin-Loving pH-Balanced Hydration\nFormulated with a mildly acidic pH, similar to the skin’s natural state, this toner helps strengthen the skin barrier while delivering deep hydration. Its carefully balanced ingredients ensure long시asting moisture, penetrating deep into the skin for optimal hydration."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 11.5,
+      "retail": 25,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 25,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 10,
+    "stockLevel": "low",
+    "inStock": true,
+    "moq": 120,
+    "itemsPerCarton": 30,
+    "packSize": "30",
+    "volume": "300ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_29",
+    "brandId": "sunnicorn",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Mushroom Collagen Deep Hydrating Cream [50ml]",
+      "ko": "Mushroom Collagen Deep Hydrating Cream [50ml]",
+      "zh": "Mushroom Collagen Deep Hydrating Cream [50ml]"
+    },
+    "description": {
+      "en": "51.67% Vegan Collagen Instead of Purified Water\nInfused with Tremella Mushroom Extract, which contains four times the natural moisturizing factors of purified water, this formula delivers deep, long-lasting hydration that keeps skin moisturized today, tomorrow, and beyond. The vegan collagen content also helps enhance skin elasticity for a firmer, more youthful complexion.\nSunnicorn's Patented Soothing Effect\nFormulated with patented pesticide-free sprout extract, which provides significantly higher soothing benefits than licorice and houttuynia. This powerful ingredient gently calms and relieves irritated skin for a balanced, healthy complexion.\nA Natural Moisture Barrier from Olive\nInfused with olive-derived squalane, a natural moisturizing ingredient, this formula creates a moisture barrier on the skin’s surface to prevent hydration loss, keeping your skin soft and hydrated all day long.",
+      "ko": "51.67% Vegan Collagen Instead of Purified Water\nInfused with Tremella Mushroom Extract, which contains four times the natural moisturizing factors of purified water, this formula delivers deep, long-lasting hydration that keeps skin moisturized today, tomorrow, and beyond. The vegan collagen content also helps enhance skin elasticity for a firmer, more youthful complexion.\nSunnicorn's Patented Soothing Effect\nFormulated with patented pesticide-free sprout extract, which provides significantly higher soothing benefits than licorice and houttuynia. This powerful ingredient gently calms and relieves irritated skin for a balanced, healthy complexion.\nA Natural Moisture Barrier from Olive\nInfused with olive-derived squalane, a natural moisturizing ingredient, this formula creates a moisture barrier on the skin’s surface to prevent hydration loss, keeping your skin soft and hydrated all day long.",
+      "zh": "51.67% Vegan Collagen Instead of Purified Water\nInfused with Tremella Mushroom Extract, which contains four times the natural moisturizing factors of purified water, this formula delivers deep, long-lasting hydration that keeps skin moisturized today, tomorrow, and beyond. The vegan collagen content also helps enhance skin elasticity for a firmer, more youthful complexion.\nSunnicorn's Patented Soothing Effect\nFormulated with patented pesticide-free sprout extract, which provides significantly higher soothing benefits than licorice and houttuynia. This powerful ingredient gently calms and relieves irritated skin for a balanced, healthy complexion.\nA Natural Moisture Barrier from Olive\nInfused with olive-derived squalane, a natural moisturizing ingredient, this formula creates a moisture barrier on the skin’s surface to prevent hydration loss, keeping your skin soft and hydrated all day long."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 12.5,
+      "retail": 30,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 30,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 10,
+    "stockLevel": "low",
+    "inStock": true,
+    "moq": 120,
+    "itemsPerCarton": 60,
+    "packSize": "60",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_30",
+    "brandId": "sunnicorn",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Bamboo Soothing UV Essence Sunscreen [50ml]",
+      "ko": "Bamboo Soothing UV Essence Sunscreen [50ml]",
+      "zh": "Bamboo Soothing UV Essence Sunscreen [50ml]"
+    },
+    "description": {
+      "en": "1. Efficacy\nPURE INGREDIENTS FROM DAMYANG BAMBOO SOOTHE SENSITIVE SKIN AND PROVIDE ENOUGH MOISTURE. SUN ESSENCE PROTECTS YOU FROM UV RAYS\n2. Selling Point\n. lowering Oil UV Filter and providing moisture safely by Water UV                       \nFilter surrounding skin softly. \n. Water-drop-gel type formula, and being applied clearly without becoming white. Being applied smoothly and lightly without being sticky. Soothing skin by lowering sensitive skin temperature\n. Hypoallergenic tested for sensitive skin, skin stimulation grade 0.00\n. Whitening, wrinkle improvement, UV protection triple functional   cosmetics EWG green\n. grade Raw material Synthetic fragrances-Free",
+      "ko": "1. Efficacy\nPURE INGREDIENTS FROM DAMYANG BAMBOO SOOTHE SENSITIVE SKIN AND PROVIDE ENOUGH MOISTURE. SUN ESSENCE PROTECTS YOU FROM UV RAYS\n2. Selling Point\n. lowering Oil UV Filter and providing moisture safely by Water UV                       \nFilter surrounding skin softly. \n. Water-drop-gel type formula, and being applied clearly without becoming white. Being applied smoothly and lightly without being sticky. Soothing skin by lowering sensitive skin temperature\n. Hypoallergenic tested for sensitive skin, skin stimulation grade 0.00\n. Whitening, wrinkle improvement, UV protection triple functional   cosmetics EWG green\n. grade Raw material Synthetic fragrances-Free",
+      "zh": "1. Efficacy\nPURE INGREDIENTS FROM DAMYANG BAMBOO SOOTHE SENSITIVE SKIN AND PROVIDE ENOUGH MOISTURE. SUN ESSENCE PROTECTS YOU FROM UV RAYS\n2. Selling Point\n. lowering Oil UV Filter and providing moisture safely by Water UV                       \nFilter surrounding skin softly. \n. Water-drop-gel type formula, and being applied clearly without becoming white. Being applied smoothly and lightly without being sticky. Soothing skin by lowering sensitive skin temperature\n. Hypoallergenic tested for sensitive skin, skin stimulation grade 0.00\n. Whitening, wrinkle improvement, UV protection triple functional   cosmetics EWG green\n. grade Raw material Synthetic fragrances-Free"
+    },
+    "images": [],
+    "price": {
+      "wholesale": 11.5,
+      "retail": 23,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 23,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 9,
+    "stockLevel": "low",
+    "inStock": true,
+    "moq": 120,
+    "itemsPerCarton": 120,
+    "packSize": "120",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_31",
+    "brandId": "sunnicorn",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Sunnicorn Deep hydrating Lip Mask",
+      "ko": "Sunnicorn Deep hydrating Lip Mask",
+      "zh": "Sunnicorn Deep hydrating Lip Mask"
+    },
+    "description": {
+      "en": "1. Sunnicorn only for you lip mask providing ultra hydration and deep nourishment to dry and cracked lips.\n2. Selling Point\n. Maintain moisturizing 100 hour\n. Immediately improve dead skin for lips 83.3%. \n. Hypoallegenic tested grade 0.00",
+      "ko": "1. Sunnicorn only for you lip mask providing ultra hydration and deep nourishment to dry and cracked lips.\n2. Selling Point\n. Maintain moisturizing 100 hour\n. Immediately improve dead skin for lips 83.3%. \n. Hypoallegenic tested grade 0.00",
+      "zh": "1. Sunnicorn only for you lip mask providing ultra hydration and deep nourishment to dry and cracked lips.\n2. Selling Point\n. Maintain moisturizing 100 hour\n. Immediately improve dead skin for lips 83.3%. \n. Hypoallegenic tested grade 0.00"
+    },
+    "images": [],
+    "price": {
+      "wholesale": 11.5,
+      "retail": 18,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 18,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 0,
+    "stockLevel": "out",
+    "inStock": false,
+    "moq": 250,
+    "itemsPerCarton": 250,
+    "packSize": "250",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_32",
+    "brandId": "sunnicorn",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Sunnicorn bereum Microbiome Modeling pack _calming pore",
+      "ko": "Sunnicorn bereum Microbiome Modeling pack _calming pore",
+      "zh": "Sunnicorn bereum Microbiome Modeling pack _calming pore"
+    },
+    "description": {
+      "en": "Korea's First Skincare with 50 Billion Probiotic Cells\nThe modeling formula infused with 50 billion probiotic cells seamlessly penetrates deep into the pores, strengthening the skin barrier and clearing out impurities. It helps refine pores and promotes clean, healthy skin.\nInstant Cooling & Soothing\nDiatomaceous earth and algin rapidly cool and calm overheated skin while tightening and refining pores for a smoother, more refreshed complexion.\nEffortless & Easy Home Aesthetic Care\nMinimizing powder dispersion to prevent coughing, this formula remains pliable for smooth application without drying too quickly. Its elastic, skin-hugging texture ensures a clean, mess-free peel-off, allowing you to enjoy professional skincare from the comfort of your home.",
+      "ko": "Korea's First Skincare with 50 Billion Probiotic Cells\nThe modeling formula infused with 50 billion probiotic cells seamlessly penetrates deep into the pores, strengthening the skin barrier and clearing out impurities. It helps refine pores and promotes clean, healthy skin.\nInstant Cooling & Soothing\nDiatomaceous earth and algin rapidly cool and calm overheated skin while tightening and refining pores for a smoother, more refreshed complexion.\nEffortless & Easy Home Aesthetic Care\nMinimizing powder dispersion to prevent coughing, this formula remains pliable for smooth application without drying too quickly. Its elastic, skin-hugging texture ensures a clean, mess-free peel-off, allowing you to enjoy professional skincare from the comfort of your home.",
+      "zh": "Korea's First Skincare with 50 Billion Probiotic Cells\nThe modeling formula infused with 50 billion probiotic cells seamlessly penetrates deep into the pores, strengthening the skin barrier and clearing out impurities. It helps refine pores and promotes clean, healthy skin.\nInstant Cooling & Soothing\nDiatomaceous earth and algin rapidly cool and calm overheated skin while tightening and refining pores for a smoother, more refreshed complexion.\nEffortless & Easy Home Aesthetic Care\nMinimizing powder dispersion to prevent coughing, this formula remains pliable for smooth application without drying too quickly. Its elastic, skin-hugging texture ensures a clean, mess-free peel-off, allowing you to enjoy professional skincare from the comfort of your home."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 12,
+      "retail": 25,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 25,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 9,
+    "stockLevel": "low",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 20,
+    "packSize": "20",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_33",
+    "brandId": "sunnicorn",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Modeling pack kit",
+      "ko": "Modeling pack kit",
+      "zh": "Modeling pack kit"
+    },
+    "description": {
+      "en": "Modeling pack kit",
+      "ko": "Modeling pack kit",
+      "zh": "Modeling pack kit"
+    },
+    "images": [],
+    "price": {
+      "wholesale": 5,
+      "retail": 6,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 6,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 9,
+    "stockLevel": "low",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 100,
+    "packSize": "100",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_34",
+    "brandId": "sunnicorn",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "Sunnicorn bereum Microbiome Collagen Mask",
+      "ko": "Sunnicorn bereum Microbiome Collagen Mask",
+      "zh": "Sunnicorn bereum Microbiome Collagen Mask"
+    },
+    "description": {
+      "en": "Highly Concentrated Collagen Hydrogel Sheet\nThe ergonomically designed hydrogel sheet adheres Seamlessly to your skin, helping replenish sagging collagen for a firmer, more resilient complexion.\nAll-Night Hydration That Never Dries Out\nInstead of conventional sheet masks that lose moisture over time, our concentrated collagen gel sheet delivers continuous hydration throughout the night—resulting in silky-smooth, dewy skin by morning.\nNoticeable Improvement in Pore Elasticity\nThe snug-fitting gel sheet adheres closely to the skin, permeating enlarged pores and filling them for a firming, pore-tightening effect.",
+      "ko": "Highly Concentrated Collagen Hydrogel Sheet\nThe ergonomically designed hydrogel sheet adheres Seamlessly to your skin, helping replenish sagging collagen for a firmer, more resilient complexion.\nAll-Night Hydration That Never Dries Out\nInstead of conventional sheet masks that lose moisture over time, our concentrated collagen gel sheet delivers continuous hydration throughout the night—resulting in silky-smooth, dewy skin by morning.\nNoticeable Improvement in Pore Elasticity\nThe snug-fitting gel sheet adheres closely to the skin, permeating enlarged pores and filling them for a firming, pore-tightening effect.",
+      "zh": "Highly Concentrated Collagen Hydrogel Sheet\nThe ergonomically designed hydrogel sheet adheres Seamlessly to your skin, helping replenish sagging collagen for a firmer, more resilient complexion.\nAll-Night Hydration That Never Dries Out\nInstead of conventional sheet masks that lose moisture over time, our concentrated collagen gel sheet delivers continuous hydration throughout the night—resulting in silky-smooth, dewy skin by morning.\nNoticeable Improvement in Pore Elasticity\nThe snug-fitting gel sheet adheres closely to the skin, permeating enlarged pores and filling them for a firming, pore-tightening effect."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 12.5,
+      "retail": 25,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 25,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 0,
+    "stockLevel": "out",
+    "inStock": false,
+    "moq": 114,
+    "itemsPerCarton": 57,
+    "packSize": "57",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [],
+    "countryOfOrigin": "Korea"
+  },
+  {
+    "id": "prod_35",
+    "brandId": "the_cell_lab",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "CELLTONE FOAM CLEANSER",
+      "ko": "CELLTONE FOAM CLEANSER",
+      "zh": "CELLTONE FOAM CLEANSER"
+    },
+    "description": {
+      "en": "A rich yet gentle foam cleanser formulated with naturally-derived surfactants. Effectively removes impurities while delivering hydration—ideal for dry or sensitive skin types.",
+      "ko": "A rich yet gentle foam cleanser formulated with naturally-derived surfactants. Effectively removes impurities while delivering hydration—ideal for dry or sensitive skin types.",
+      "zh": "A rich yet gentle foam cleanser formulated with naturally-derived surfactants. Effectively removes impurities while delivering hydration—ideal for dry or sensitive skin types."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 11.5,
+      "retail": 27,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 27,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 3807,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 24,
+    "itemsPerCarton": 24,
+    "packSize": "24",
+    "volume": "100ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Water \nMyristic Acid \nGlycerin \nPotassium Hydroxide \nPalmitic Acid \nStearic Acid \nPotassium Cocoyl Glycinate \nCoco-Betaine \nCaprylic/Capric Triglyceride \nGlyceryl Stearate SE \nSodium Chloride \nButylene Glycol \nAcrylates/C10-30 Alkyl Acrylate Crosspolymer \nPolyquaternium-51 \nEthylhexylglycerin \nLauric Acid \nArachidic Acid \n2",
+      "3-Butanediol \nDisodium EDTA \n1",
+      "2-Hexanediol \nCaprylyl Glycol \nHydrogenated Lecithin \nSodium Hyaluronate \nDipropylene Glycol \nBeta-Sitosterol \nCopper Tripeptide-1 \nAcetyl Hexapeptide-8 \nTripeptide-1 \nPalmitoyl Pentapeptide-4 \nPalmitoyl Tripeptide-1 \nHexapeptide-9 \nCentella Asiatica Extract \nSodium DNA \nNonapeptide-1 \nSimmondsia Chinensis (Jojoba) Seed Oil \nPolyglyceryl-10 Stearate"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2027.06.03"
+  },
+  {
+    "id": "prod_36",
+    "brandId": "the_cell_lab",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "CELLTONE MILD FOAM CLEANSER",
+      "ko": "CELLTONE MILD FOAM CLEANSER",
+      "zh": "CELLTONE MILD FOAM CLEANSER"
+    },
+    "description": {
+      "en": "A mildly acidic, non-stripping formula designed to maintain the skin's natural pH balance. Soothes and purifies without causing irritation—perfect for sensitive or reactive skin.",
+      "ko": "A mildly acidic, non-stripping formula designed to maintain the skin's natural pH balance. Soothes and purifies without causing irritation—perfect for sensitive or reactive skin.",
+      "zh": "A mildly acidic, non-stripping formula designed to maintain the skin's natural pH balance. Soothes and purifies without causing irritation—perfect for sensitive or reactive skin."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 11.5,
+      "retail": 27,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 27,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 3117,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 24,
+    "itemsPerCarton": 24,
+    "packSize": "24",
+    "volume": "100ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Water\nSodium Cocoyl Isethionate\nGlycerin\nCoconut Acid\nDisodium Cocoamphodiacetate\n1",
+      "2-Hexanediol\nSodium Isethionate\nSodium Chloride\nSodium Methyl Cocoyl Taurate\nCitric Acid\nGlycol Distearate\nGlyceryl Stearate\nSodium Glycolate\nPolyquaternium-67\nEthylhexylglycerin\nSodium Methyltaurate\nButylene Glycol\n2",
+      "3-Butanediol\nCaprylyl Glycol\nSodium DNA\nCentella Asiatica Extract\nHydrogenated Lecithin\nSodium Hyaluronate\nDipropylene Glycol\nTripeptide-1\nPalmitoyl Tripeptide-1\nPalmitoyl Pentapeptide-4\nCopper Tripeptide-1\nBeta-Sitosterol\nAcetyl Hexapeptide-8\nHexapeptide-9\nNonapeptide-1"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2026.05.26"
+  },
+  {
+    "id": "prod_37",
+    "brandId": "the_cell_lab",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "CELLTONE CLEANSING OIL",
+      "ko": "CELLTONE CLEANSING OIL",
+      "zh": "CELLTONE CLEANSING OIL"
+    },
+    "description": {
+      "en": "This multitasking cleanser removes makeup, excess oil, and impurities with ease. Its fresh texture and added sebum control make it a great first step in any skincare routine.",
+      "ko": "This multitasking cleanser removes makeup, excess oil, and impurities with ease. Its fresh texture and added sebum control make it a great first step in any skincare routine.",
+      "zh": "This multitasking cleanser removes makeup, excess oil, and impurities with ease. Its fresh texture and added sebum control make it a great first step in any skincare routine."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 12,
+      "retail": 27,
+      "currency": "USD"
+    },
+    "soldB2C": false,
+    "soldB2B": false,
+    "stock": 0,
+    "stockLevel": "out",
+    "inStock": false,
+    "moq": 48,
+    "itemsPerCarton": 48,
+    "packSize": "48",
+    "volume": "200ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Glycine Soja (Soybean) Oil\nEthylhexyl Stearate\nSorbeth-30 Tetraoleate\nCetyl Ethylhexanoate\nCaprylic/Capric Triglyceride\nFragrance\nWater\nNigella Sativa Seed Oil\nButylene Glycol\nGlycerin\n1",
+      "2-Hexanediol\n2",
+      "3-Butanediol\nCaprylyl Glycol\nSodium DNA\nEthylhexylglycerin\nCentella Asiatica Extract\nHydrogenated Lecithin\nSodium Hyaluronate\nDipropylene Glycol\nTripeptide-1\nPalmitoyl Tripeptide-1\nPalmitoyl Pentapeptide-4\nCopper Tripeptide-1\nBeta-Sitosterol\nAcetyl Hexapeptide-8\nHexapeptide-9\nNonapeptide-1"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2025.08.28"
+  },
+  {
+    "id": "prod_38",
+    "brandId": "the_cell_lab",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "CELLTONE TONER",
+      "ko": "CELLTONE TONER",
+      "zh": "CELLTONE TONER"
+    },
+    "description": {
+      "en": "A low-irritation toner that delivers deep hydration while promoting gentle exfoliation and an even skin tone. Preps the skin for maximum absorption of active ingredients.",
+      "ko": "A low-irritation toner that delivers deep hydration while promoting gentle exfoliation and an even skin tone. Preps the skin for maximum absorption of active ingredients.",
+      "zh": "A low-irritation toner that delivers deep hydration while promoting gentle exfoliation and an even skin tone. Preps the skin for maximum absorption of active ingredients."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 11.5,
+      "retail": 27,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 27,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 2720,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 48,
+    "itemsPerCarton": 48,
+    "packSize": "48",
+    "volume": "150ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Water\nGlycerin\nButylene Glycol\n1",
+      "2-Hexanediol\nDipropylene Glycol\nNiacinamide\nPropanediol\nTrehalose\nPolyglyceryl-10 Laurate\nEthylhexylglycerin\nAdenosine\nCarbomer\nHydroxyethylcellulose\nSodium Hyaluronate\nHydrolyzed Sodium Hyaluronate\nHydrolyzed Hyaluronic Acid\nSodium Phosphate\nDisodium Phosphate\nSodium Benzoate\nSodium Acetylated Hyaluronate\nHydroxypropyltrimonium Hyaluronate\n2",
+      "3-Butanediol\nDimethylsilanol Hyaluronate\nSodium Hyaluronate Crosspolymer\nCaprylyl Glycol\nSoluble Collagen\nPentylene Glycol\nHyaluronic Acid\nSodium DNA\nCentella Asiatica Extract\nHydrogenated Lecithin\nPotassium Hyaluronate\nTripeptide-1\nPalmitoyl Tripeptide-1\nPalmitoyl Pentapeptide-4\nCopper Tripeptide-1\nBeta-Sitosterol\nAcetyl Hexapeptide-8\nHexapeptide-9\nNonapeptide-1"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2026.03.12"
+  },
+  {
+    "id": "prod_39",
+    "brandId": "the_cell_lab",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "CELLTONE AMPOULE",
+      "ko": "CELLTONE AMPOULE",
+      "zh": "CELLTONE AMPOULE"
+    },
+    "description": {
+      "en": "A concentrated ampoule that delivers immediate moisture replenishment while reinforcing the skin barrier. Free from common irritants—designed for dry, sensitive, or post-treatment skin.",
+      "ko": "A concentrated ampoule that delivers immediate moisture replenishment while reinforcing the skin barrier. Free from common irritants—designed for dry, sensitive, or post-treatment skin.",
+      "zh": "A concentrated ampoule that delivers immediate moisture replenishment while reinforcing the skin barrier. Free from common irritants—designed for dry, sensitive, or post-treatment skin."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 16,
+      "retail": 37,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 37,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 4940,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 48,
+    "itemsPerCarton": 48,
+    "packSize": "48",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Water\nGlycerin\nPropanediol\n1",
+      "2-Hexanediol\nNiacinamide\nTromethamine\nAcrylates/C10-30 Alkyl Acrylate Crosspolymer\nSodium Hyaluronate\nHyaluronic Acid\nButylene Glycol\nEthylhexylglycerin\nPolyglyceryl-10 Laurate\n2",
+      "3-Butanediol\nAdenosine\nCaprylyl Glycol\nGlyceryl Acrylate/Acrylic Acid Copolymer\nHydrogenated Lecithin\nDipropylene Glycol\nBeta-Sitosterol\nTripeptide-1\nPalmitoyl Tripeptide-1\nPalmitoyl Pentapeptide-4\nCopper Tripeptide-1\nAcetyl Hexapeptide-8\nHexapeptide-9\nSodium DNA\nCentella Asiatica Extract\nNonapeptide-1\nSimmondsia Chinensis (Jojoba) Seed Oil\nPolyglyceryl-10 Stearate"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2027.11.14"
+  },
+  {
+    "id": "prod_40",
+    "brandId": "the_cell_lab",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "CELLTONE CREAM",
+      "ko": "CELLTONE CREAM",
+      "zh": "CELLTONE CREAM"
+    },
+    "description": {
+      "en": "A soothing moisturizer that supports long-lasting hydration and reinforces the skin’s own protective layer. Prevents transepidermal water loss and improves skin resilience.",
+      "ko": "A soothing moisturizer that supports long-lasting hydration and reinforces the skin’s own protective layer. Prevents transepidermal water loss and improves skin resilience.",
+      "zh": "A soothing moisturizer that supports long-lasting hydration and reinforces the skin’s own protective layer. Prevents transepidermal water loss and improves skin resilience."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 16,
+      "retail": 36,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 36,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 618,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 24,
+    "itemsPerCarton": 24,
+    "packSize": "24",
+    "volume": "50ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Water\nGlycerin\nCaprylic/Capric Triglyceride\nSqualane\nPolyglyceryl-2 Stearate\nGlyceryl Stearate\n1",
+      "2-Hexanediol\nNiacinamide\nStearyl Alcohol\nCoco-Caprylate/Caprate\nSimmondsia Chinensis (Jojoba) Seed Oil\nCarbomer\nTromethamine\nButylene Glycol\nBeta-Sitosterol\nEthylhexylglycerin\nPolyglyceryl-10 Stearate\n2",
+      "3-Butanediol\nHydrogenated Lecithin\nAdenosine\nCaprylyl Glycol\nSodium Hyaluronate\nDipropylene Glycol\nTripeptide-1\nPalmitoyl Tripeptide-1\nPalmitoyl Pentapeptide-4\nCopper Tripeptide-1\nAcetyl Hexapeptide-8\nHexapeptide-9\nSodium DNA\nCentella Asiatica Extract\nNonapeptide-1"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2026.06.18"
+  },
+  {
+    "id": "prod_41",
+    "brandId": "the_cell_lab",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "CELLTONE SUN CREAM",
+      "ko": "CELLTONE SUN CREAM",
+      "zh": "CELLTONE SUN CREAM"
+    },
+    "description": {
+      "en": "A gentle, mineral-based sunscreen offering SPF protection, subtle tone correction, and easy rinse-off. Designed for daily wear—even suitable for compromised skin.",
+      "ko": "A gentle, mineral-based sunscreen offering SPF protection, subtle tone correction, and easy rinse-off. Designed for daily wear—even suitable for compromised skin.",
+      "zh": "A gentle, mineral-based sunscreen offering SPF protection, subtle tone correction, and easy rinse-off. Designed for daily wear—even suitable for compromised skin."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 14,
+      "retail": 33,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 33,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 1000,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 72,
+    "itemsPerCarton": 72,
+    "packSize": "72",
+    "volume": "70g",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Cyclohexasiloxane\nZinc Oxide\nWater\nButyloctyl Salicylate\nTitanium Dioxide\nPhenyl Trimethicone\nLauryl Polyglyceryl-3 Polydimethylsiloxyethyl Dimethicone\n2",
+      "3-Butanediol\nNiacinamide\nPropanediol\nPolyglyceryl-3 Polydimethylsiloxyethyl Dimethicone\nDimethicone\nDisteardimonium Hectorite\nPolyhydroxystearic Acid\nMagnesium Sulfate\nTriethoxycaprylylsilane\nSilica\nDimethicone/Vinyl Dimethicone Crosspolymer\n1",
+      "2-Hexanediol\nSorbitan Sesquioleate\nPolymethylsilsesquioxane\nCaprylyl Glycol\nIsododecane\nEthylhexylglycerin\nCI 77492\nAcrylates/Dimethicone Copolymer\nAdenosine\nCI 77491\nTocopherol\nButylene Glycol\nGlycerin\nCentella Asiatica Extract\nSodium DNA\nHydrogenated Lecithin\nSodium Hyaluronate\nDipropylene Glycol\nBeta-Sitosterol\nAcetyl Hexapeptide-8\nCopper Tripeptide-1\nTripeptide-1\nPalmitoyl Pentapeptide-4\nPalmitoyl Tripeptide-1\nHexapeptide-9\nNonapeptide-1"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2027.11.15"
+  },
+  {
+    "id": "prod_42",
+    "brandId": "the_cell_lab",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "CELLTONE BODY LOTION",
+      "ko": "CELLTONE BODY LOTION",
+      "zh": "CELLTONE BODY LOTION"
+    },
+    "description": {
+      "en": "A hypoallergenic formula that forms a moisture barrier to protect and soften dry or irritated skin. Ideal for full-body hydration with a non-greasy finish.",
+      "ko": "A hypoallergenic formula that forms a moisture barrier to protect and soften dry or irritated skin. Ideal for full-body hydration with a non-greasy finish.",
+      "zh": "A hypoallergenic formula that forms a moisture barrier to protect and soften dry or irritated skin. Ideal for full-body hydration with a non-greasy finish."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 14,
+      "retail": 30,
+      "currency": "USD"
+    },
+    "soldB2C": false,
+    "soldB2B": false,
+    "stock": 27,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 15,
+    "itemsPerCarton": 15,
+    "packSize": "15",
+    "volume": "315ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Water\nCaprylic/Capric Triglyceride\nGlycerin\nPolyglycerin-3\n1",
+      "2-Hexanediol\nPolyglyceryl-3 Methylglucose Distearate\nNiacinamide\nMacadamia Integrifolia Seed Oil\nOlea Europaea (Olive) Fruit Oil\nCetearyl Alcohol\nPanthenol\nBetaine\nArgania Spinosa Kernel Oil\nPolyglyceryl-2 Stearate\nGlyceryl Stearate\nPolyglyceryl-4 Laurate\nStearyl Alcohol\nPolyglyceryl-6 Laurate\nCarbomer\nArginine\nEthylhexylglycerin\nAllantoin\nHydroxyethyl Acrylate/Sodium Acryloyldimethyl Taurate Copolymer\nSodium Hyaluronate\nXanthan Gum\nAdenosine\nSorbitan Isostearate\nButylene Glycol\n2",
+      "3-Butanediol\nCaprylyl Glycol\nSodium DNA\nCentella Asiatica Extract\nHydrogenated Lecithin\nDipropylene Glycol\nTripeptide-1\nPalmitoyl Tripeptide-1\nPalmitoyl Pentapeptide-4\nCopper Tripeptide-1\nBeta-Sitosterol\nAcetyl Hexapeptide-8\nHexapeptide-9\nNonapeptide-1"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2026.03.12"
+  },
+  {
+    "id": "prod_43",
+    "brandId": "the_cell_lab",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "CELLTONE 7°C SOOTHING SHEET MASK",
+      "ko": "CELLTONE 7°C SOOTHING SHEET MASK",
+      "zh": "CELLTONE 7°C SOOTHING SHEET MASK"
+    },
+    "description": {
+      "en": "Infused with a patented fabric (Patent No. 10-2898048), this sheet mask delivers an instant cooling effect and soothes irritated skin. Ideal for after-sun care or calming treatments.",
+      "ko": "Infused with a patented fabric (Patent No. 10-2898048), this sheet mask delivers an instant cooling effect and soothes irritated skin. Ideal for after-sun care or calming treatments.",
+      "zh": "Infused with a patented fabric (Patent No. 10-2898048), this sheet mask delivers an instant cooling effect and soothes irritated skin. Ideal for after-sun care or calming treatments."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 13,
+      "retail": 23,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 23,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 8609,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 40,
+    "itemsPerCarton": 40,
+    "packSize": "40",
+    "volume": "27ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "WATER \nGLYCERIN \nDIPROPYLENE GLYCOL \nGLYCERETH-26 \nNIACINAMIDE \nCENTELLA ASIATICA EXTRACT \nFICUS CARICA (FIG) FRUIT EXTRACT \nHYDROGENATED LECITHIN \nSODIUM HYALURONATE \n1",
+      "2-HEXANEDIOL \nHYDROXYACETOPHENONE \nPANTHENOL \nARGININE \nCARBOMER \nOCTYLDODECETH-16 \nXANTHAN GUM \nMETHYL DIISOPROPYL PROPIONAMIDE \nADENOSINE \nDISODIUM EDTA \nBUTYLENE GLYCOL \nDIPOTASSIUM GLYCYRRHIZATE \nBETULIN \nALUMINUM SUCROSE OCTASULFATE \nBETA-SITOSTEROL \nGLYCERYL GLUCOSIDE \nCERAMIDE NP \nPHYTOSTEROLS \nSODIUM DNA \nETHYLHEXYLGLYCERIN \nHYDROLYZED HYALURONIC ACID \nBETA-GLUCAN \nGLYCERYL ACRYLATE/ACRYLIC ACID COPOLYMER \nSODIUM ACETYLATED HYALURONATE"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2027.08.12"
+  },
+  {
+    "id": "prod_44",
+    "brandId": "the_cell_lab",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "CELLTONE MILD FOAM CLEANSER",
+      "ko": "CELLTONE MILD FOAM CLEANSER",
+      "zh": "CELLTONE MILD FOAM CLEANSER"
+    },
+    "description": {
+      "en": "A rich yet gentle foam cleanser formulated with naturally-derived surfactants. Effectively removes impurities while delivering hydration—ideal for dry or sensitive skin types.",
+      "ko": "A rich yet gentle foam cleanser formulated with naturally-derived surfactants. Effectively removes impurities while delivering hydration—ideal for dry or sensitive skin types.",
+      "zh": "A rich yet gentle foam cleanser formulated with naturally-derived surfactants. Effectively removes impurities while delivering hydration—ideal for dry or sensitive skin types."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 0.5,
+      "retail": 1,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 1,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 2235,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 100,
+    "packSize": "100",
+    "volume": "10ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Water\nSodium Cocoyl Isethionate\nGlycerin\nCoconut Acid\nDisodium Cocoamphodiacetate\n1",
+      "2-Hexanediol\nSodium Isethionate\nSodium Chloride\nSodium Methyl Cocoyl Taurate\nCitric Acid\nGlycol Distearate\nGlyceryl Stearate\nSodium Glycolate\nPolyquaternium-67\nEthylhexylglycerin\nSodium Methyltaurate\nButylene Glycol\n2",
+      "3-Butanediol\nCaprylyl Glycol\nSodium DNA\nCentella Asiatica Extract\nHydrogenated Lecithin\nSodium Hyaluronate\nDipropylene Glycol\nTripeptide-1\nPalmitoyl Tripeptide-1\nPalmitoyl Pentapeptide-4\nCopper Tripeptide-1\nBeta-Sitosterol\nAcetyl Hexapeptide-8\nHexapeptide-9\nNonapeptide-1"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2026.04.01"
+  },
+  {
+    "id": "prod_45",
+    "brandId": "the_cell_lab",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "CELLTONE FOAM CLEANSER",
+      "ko": "CELLTONE FOAM CLEANSER",
+      "zh": "CELLTONE FOAM CLEANSER"
+    },
+    "description": {
+      "en": "A mildly acidic, non-stripping formula designed to maintain the skin's natural pH balance. Soothes and purifies without causing irritation—perfect for sensitive or reactive skin.",
+      "ko": "A mildly acidic, non-stripping formula designed to maintain the skin's natural pH balance. Soothes and purifies without causing irritation—perfect for sensitive or reactive skin.",
+      "zh": "A mildly acidic, non-stripping formula designed to maintain the skin's natural pH balance. Soothes and purifies without causing irritation—perfect for sensitive or reactive skin."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 0.5,
+      "retail": 1,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 1,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 3872,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 100,
+    "packSize": "100",
+    "volume": "2ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Water \nMyristic Acid \nGlycerin \nPotassium Hydroxide \nPalmitic Acid \nStearic Acid \nPotassium Cocoyl Glycinate \nCoco-Betaine \nCaprylic/Capric Triglyceride \nGlyceryl Stearate SE \nSodium Chloride \nButylene Glycol \nAcrylates/C10-30 Alkyl Acrylate Crosspolymer \nPolyquaternium-51 \nEthylhexylglycerin \nLauric Acid \nArachidic Acid \n2",
+      "3-Butanediol \nDisodium EDTA \n1",
+      "2-Hexanediol \nCaprylyl Glycol \nHydrogenated Lecithin \nSodium Hyaluronate \nDipropylene Glycol \nBeta-Sitosterol \nCopper Tripeptide-1 \nAcetyl Hexapeptide-8 \nTripeptide-1 \nPalmitoyl Pentapeptide-4 \nPalmitoyl Tripeptide-1 \nHexapeptide-9 \nCentella Asiatica Extract \nSodium DNA \nNonapeptide-1 \nSimmondsia Chinensis (Jojoba) Seed Oil \nPolyglyceryl-10 Stearate"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2027.06.03"
+  },
+  {
+    "id": "prod_46",
+    "brandId": "the_cell_lab",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "CELLTONE AMPOULE",
+      "ko": "CELLTONE AMPOULE",
+      "zh": "CELLTONE AMPOULE"
+    },
+    "description": {
+      "en": "A concentrated ampoule that delivers immediate moisture replenishment while reinforcing the skin barrier. Free from common irritants—designed for dry, sensitive, or post-treatment skin.",
+      "ko": "A concentrated ampoule that delivers immediate moisture replenishment while reinforcing the skin barrier. Free from common irritants—designed for dry, sensitive, or post-treatment skin.",
+      "zh": "A concentrated ampoule that delivers immediate moisture replenishment while reinforcing the skin barrier. Free from common irritants—designed for dry, sensitive, or post-treatment skin."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 0.5,
+      "retail": 1,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 1,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 8173,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 100,
+    "packSize": "100",
+    "volume": "2ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Water\nGlycerin\nPropanediol\n1",
+      "2-Hexanediol\nNiacinamide\nTromethamine\nAcrylates/C10-30 Alkyl Acrylate Crosspolymer\nSodium Hyaluronate\nHyaluronic Acid\nButylene Glycol\nEthylhexylglycerin\nPolyglyceryl-10 Laurate\n2",
+      "3-Butanediol\nAdenosine\nCaprylyl Glycol\nGlyceryl Acrylate/Acrylic Acid Copolymer\nHydrogenated Lecithin\nDipropylene Glycol\nBeta-Sitosterol\nTripeptide-1\nPalmitoyl Tripeptide-1\nPalmitoyl Pentapeptide-4\nCopper Tripeptide-1\nAcetyl Hexapeptide-8\nHexapeptide-9\nSodium DNA\nCentella Asiatica Extract\nNonapeptide-1\nSimmondsia Chinensis (Jojoba) Seed Oil\nPolyglyceryl-10 Stearate"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2027.11.14"
+  },
+  {
+    "id": "prod_47",
+    "brandId": "the_cell_lab",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "CELLTONE SUN CREAM",
+      "ko": "CELLTONE SUN CREAM",
+      "zh": "CELLTONE SUN CREAM"
+    },
+    "description": {
+      "en": "A gentle, mineral-based sunscreen offering SPF protection, subtle tone correction, and easy rinse-off. Designed for daily wear—even suitable for compromised skin.",
+      "ko": "A gentle, mineral-based sunscreen offering SPF protection, subtle tone correction, and easy rinse-off. Designed for daily wear—even suitable for compromised skin.",
+      "zh": "A gentle, mineral-based sunscreen offering SPF protection, subtle tone correction, and easy rinse-off. Designed for daily wear—even suitable for compromised skin."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 0.5,
+      "retail": 1,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 1,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 6000,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 72,
+    "itemsPerCarton": 72,
+    "packSize": "72",
+    "volume": "2ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Cyclohexasiloxane\nZinc Oxide\nWater\nButyloctyl Salicylate\nTitanium Dioxide\nPhenyl Trimethicone\nLauryl Polyglyceryl-3 Polydimethylsiloxyethyl Dimethicone\n2",
+      "3-Butanediol\nNiacinamide\nPropanediol\nPolyglyceryl-3 Polydimethylsiloxyethyl Dimethicone\nDimethicone\nDisteardimonium Hectorite\nPolyhydroxystearic Acid\nMagnesium Sulfate\nTriethoxycaprylylsilane\nSilica\nDimethicone/Vinyl Dimethicone Crosspolymer\n1",
+      "2-Hexanediol\nSorbitan Sesquioleate\nPolymethylsilsesquioxane\nCaprylyl Glycol\nIsododecane\nEthylhexylglycerin\nCI 77492\nAcrylates/Dimethicone Copolymer\nAdenosine\nCI 77491\nTocopherol\nButylene Glycol\nGlycerin\nCentella Asiatica Extract\nSodium DNA\nHydrogenated Lecithin\nSodium Hyaluronate\nDipropylene Glycol\nBeta-Sitosterol\nAcetyl Hexapeptide-8\nCopper Tripeptide-1\nTripeptide-1\nPalmitoyl Pentapeptide-4\nPalmitoyl Tripeptide-1\nHexapeptide-9\nNonapeptide-1"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2027.11.15"
+  },
+  {
+    "id": "prod_48",
+    "brandId": "the_cell_lab",
+    "categoryId": "skincare",
+    "category": "Skincare",
+    "name": {
+      "en": "CELLTONE CREAM",
+      "ko": "CELLTONE CREAM",
+      "zh": "CELLTONE CREAM"
+    },
+    "description": {
+      "en": "A soothing moisturizer that supports long-lasting hydration and reinforces the skin’s own protective layer. Prevents transepidermal water loss and improves skin resilience.",
+      "ko": "A soothing moisturizer that supports long-lasting hydration and reinforces the skin’s own protective layer. Prevents transepidermal water loss and improves skin resilience.",
+      "zh": "A soothing moisturizer that supports long-lasting hydration and reinforces the skin’s own protective layer. Prevents transepidermal water loss and improves skin resilience."
+    },
+    "images": [],
+    "price": {
+      "wholesale": 0.5,
+      "retail": 1,
+      "currency": "USD"
+    },
+    "retailPrice": {
+      "item": 1,
+      "currency": "USD"
+    },
+    "soldB2C": true,
+    "soldB2B": true,
+    "stock": 6000,
+    "stockLevel": "in",
+    "inStock": true,
+    "moq": 100,
+    "itemsPerCarton": 100,
+    "packSize": "100",
+    "volume": "2ml",
+    "leadTime": "3-5 days",
+    "certifications": [
+      "CPNP"
+    ],
+    "featured": false,
+    "active": true,
+    "ingredients": [
+      "Water\nGlycerin\nCaprylic/Capric Triglyceride\nSqualane\nPolyglyceryl-2 Stearate\nGlyceryl Stearate\n1",
+      "2-Hexanediol\nNiacinamide\nStearyl Alcohol\nCoco-Caprylate/Caprate\nSimmondsia Chinensis (Jojoba) Seed Oil\nCarbomer\nTromethamine\nButylene Glycol\nBeta-Sitosterol\nEthylhexylglycerin\nPolyglyceryl-10 Stearate\n2",
+      "3-Butanediol\nHydrogenated Lecithin\nAdenosine\nCaprylyl Glycol\nSodium Hyaluronate\nDipropylene Glycol\nTripeptide-1\nPalmitoyl Tripeptide-1\nPalmitoyl Pentapeptide-4\nCopper Tripeptide-1\nAcetyl Hexapeptide-8\nHexapeptide-9\nSodium DNA\nCentella Asiatica Extract\nNonapeptide-1"
+    ],
+    "countryOfOrigin": "Korea",
+    "expiryDate": "2026.06.18"
+  }
+]

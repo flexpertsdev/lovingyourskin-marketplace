@@ -5,6 +5,7 @@ import { AppRoutes } from './routes'
 import { ScrollToTop } from './components/utils/ScrollToTop'
 import { AuthProvider } from './components/auth'
 import { ErrorBoundary } from './components/ErrorBoundary'
+import { useAffiliateTracking } from './hooks/useAffiliateTracking'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,12 +16,19 @@ const queryClient = new QueryClient({
   },
 })
 
+// Component to handle affiliate tracking
+function AffiliateTracker() {
+  useAffiliateTracking()
+  return null
+}
+
 function App() {
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <AuthProvider>
+            <AffiliateTracker />
             <ScrollToTop />
             <AppRoutes />
             <Toaster 

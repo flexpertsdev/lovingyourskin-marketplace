@@ -1,0 +1,196 @@
+[
+  {
+    "id": "wismin",
+    "name": {
+      "en": "Wismin",
+      "ko": "Wismin",
+      "zh": "Wismin"
+    },
+    "slug": "wismin",
+    "description": {
+      "en": "Premium beauty brand Wismin",
+      "ko": "프리미엄 뷰티 브랜드 Wismin",
+      "zh": "高级美容品牌 Wismin"
+    },
+    "logo": "/placeholder-logo.png",
+    "coverImage": "/placeholder-cover.jpg",
+    "country": "Korea",
+    "website": "",
+    "categories": [
+      "Skincare"
+    ],
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "active": true,
+    "featured": false,
+    "productCount": 16,
+    "minimumOrder": 100,
+    "averageRating": 0,
+    "totalReviews": 0,
+    "tags": [],
+    "technologies": [],
+    "stats": {
+      "products": 16,
+      "categories": 1,
+      "countries": 1,
+      "certifications": 2
+    }
+  },
+  {
+    "id": "baohlab",
+    "name": {
+      "en": "Baohlab",
+      "ko": "Baohlab",
+      "zh": "Baohlab"
+    },
+    "slug": "baohlab",
+    "description": {
+      "en": "Premium beauty brand Baohlab",
+      "ko": "프리미엄 뷰티 브랜드 Baohlab",
+      "zh": "高级美容品牌 Baohlab"
+    },
+    "logo": "/placeholder-logo.png",
+    "coverImage": "/placeholder-cover.jpg",
+    "country": "Korea",
+    "website": "",
+    "categories": [
+      "Skincare"
+    ],
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "active": true,
+    "featured": false,
+    "productCount": 1,
+    "minimumOrder": 100,
+    "averageRating": 0,
+    "totalReviews": 0,
+    "tags": [],
+    "technologies": [],
+    "stats": {
+      "products": 1,
+      "categories": 1,
+      "countries": 1,
+      "certifications": 2
+    }
+  },
+  {
+    "id": "lalucell",
+    "name": {
+      "en": "Lalucell",
+      "ko": "Lalucell",
+      "zh": "Lalucell"
+    },
+    "slug": "lalucell",
+    "description": {
+      "en": "Premium beauty brand Lalucell",
+      "ko": "프리미엄 뷰티 브랜드 Lalucell",
+      "zh": "高级美容品牌 Lalucell"
+    },
+    "logo": "/placeholder-logo.png",
+    "coverImage": "/placeholder-cover.jpg",
+    "country": "Korea",
+    "website": "",
+    "categories": [
+      "Skincare"
+    ],
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "active": true,
+    "featured": false,
+    "productCount": 6,
+    "minimumOrder": 100,
+    "averageRating": 0,
+    "totalReviews": 0,
+    "tags": [],
+    "technologies": [],
+    "stats": {
+      "products": 6,
+      "categories": 1,
+      "countries": 1,
+      "certifications": 2
+    }
+  },
+  {
+    "id": "sunnicorn",
+    "name": {
+      "en": "Sunnicorn",
+      "ko": "Sunnicorn",
+      "zh": "Sunnicorn"
+    },
+    "slug": "sunnicorn",
+    "description": {
+      "en": "Premium beauty brand Sunnicorn",
+      "ko": "프리미엄 뷰티 브랜드 Sunnicorn",
+      "zh": "高级美容品牌 Sunnicorn"
+    },
+    "logo": "/placeholder-logo.png",
+    "coverImage": "/placeholder-cover.jpg",
+    "country": "Korea",
+    "website": "",
+    "categories": [
+      "Skincare"
+    ],
+    "certifications": [
+      "CPNP",
+      "SCPN"
+    ],
+    "active": true,
+    "featured": false,
+    "productCount": 11,
+    "minimumOrder": 100,
+    "averageRating": 0,
+    "totalReviews": 0,
+    "tags": [],
+    "technologies": [],
+    "stats": {
+      "products": 11,
+      "categories": 1,
+      "countries": 1,
+      "certifications": 2
+    }
+  },
+  {
+    "id": "the_cell_lab",
+    "name": {
+      "en": "The Cell Lab",
+      "ko": "The Cell Lab",
+      "zh": "The Cell Lab"
+    },
+    "slug": "the-cell-lab",
+    "description": {
+      "en": "Premium beauty brand The Cell Lab",
+      "ko": "프리미엄 뷰티 브랜드 The Cell Lab",
+      "zh": "高级美容品牌 The Cell Lab"
+    },
+    "logo": "/placeholder-logo.png",
+    "coverImage": "/placeholder-cover.jpg",
+    "country": "Korea",
+    "website": "",
+    "categories": [
+      "Skincare"
+    ],
+    "certifications": [
+      "CPNP"
+    ],
+    "active": true,
+    "featured": false,
+    "productCount": 14,
+    "minimumOrder": 100,
+    "averageRating": 0,
+    "totalReviews": 0,
+    "tags": [],
+    "technologies": [],
+    "stats": {
+      "products": 14,
+      "categories": 1,
+      "countries": 1,
+      "certifications": 1
+    }
+  }
+]

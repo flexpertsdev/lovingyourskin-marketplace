@@ -72,6 +72,9 @@ export interface Product {
   brandId: string
   categoryId: string
   category: string // Category name
+  subcategory?: string // Additional categorization
+  sku?: string // Product SKU
+  barcode?: string // Product barcode
   name: {
     en: string
     ko: string
@@ -83,31 +86,61 @@ export interface Product {
     zh: string
   }
   images: string[]
-  price: any // Temporary fix to handle both pricing structures
+  
+  // Unified pricing structure
+  price: {
+    wholesale?: number // B2B wholesale price
+    retail?: number // B2C retail price
+    currency: 'GBP' | 'EUR' | 'CHF' | 'USD'
+    mrp?: number // Maximum retail price
+  }
+  
+  // Legacy retail price support (for backward compatibility)
   retailPrice?: {
     item: number
-    currency: 'GBP' | 'EUR' | 'CHF'
+    currency: 'GBP' | 'EUR' | 'CHF' | 'USD'
   }
+  
+  // Sales channels
+  soldB2C?: boolean // Available for B2C
+  soldB2B?: boolean // Available for B2B
+  
+  // Stock information
+  stock?: number // Actual stock count
+  stockLevel: 'in' | 'low' | 'out'
+  inStock: boolean
+  
   // B2C specific fields
   retailQuantity?: number // Available stock for B2C
   preOrderEnabled?: boolean
   preOrderDiscount?: number // Percentage discount for pre-orders
   launchDate?: Date
   maxPreOrderQuantity?: number
+  
+  // B2B specific fields
   moq: number // Minimum order quantity
-  moqUnit: 'items' | 'cartons'
+  moqUnit?: 'items' | 'cartons'
   itemsPerCarton: number
   packSize: string // e.g. "12", "24" - number per carton/pack
+  
+  // Product details
   volume: string // e.g. "50ml", "100g"
+  weight?: string // e.g. "100g", "1kg"
   ingredients?: string[]
   certifications: CertificationType[]
   badges?: string[]
-  inStock: boolean
-  stockLevel: 'in' | 'low' | 'out'
+  
+  // Status flags
   featured: boolean
   active: boolean
   leadTime: string // e.g. "3-5 days"
   isNew?: boolean // For "New" badge display
+  
+  // Additional metadata
+  batchNumber?: string
+  expiryDate?: string
+  countryOfOrigin?: string
+  hazmat?: boolean
   keyBenefits?: string[] // List of key benefits for B2C display
 }
 
@@ -386,3 +419,6 @@ export interface UIState {
 }
 // Re-export ContactMessage from message service
 export type { ContactMessage } from '../services/firebase/message.service'
+
+// Re-export affiliate types
+export type { AffiliateCode, AffiliateTracking, AffiliateStats } from './affiliate'

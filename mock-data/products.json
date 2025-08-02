@@ -16,7 +16,7 @@
       "https://cdn.imweb.me/thumbnail/20250320/801f7de8bd96a.jpg"
     ],
     "price": {
-      "msrp": 22.0,
+      "msrp": 22,
       "wholesale": {
         "offer": {
           "rate": 0.19,
@@ -40,7 +40,19 @@
       "3 Complex Hyaluronic Acid"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 22,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "60",
+    "leadTime": "3-5 days"
   },
   {
     "id": "vanhalla-blemish-care-tranexamic-acid-3-serum",
@@ -59,7 +71,7 @@
       "https://cdn.imweb.me/thumbnail/20250320/4c802140e0190.jpg"
     ],
     "price": {
-      "msrp": 22.0,
+      "msrp": 22,
       "wholesale": {
         "offer": {
           "rate": 0.19,
@@ -84,7 +96,19 @@
       "Camellia Sinensis Leaf Water 58%"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 22,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "50",
+    "leadTime": "3-5 days"
   },
   {
     "id": "vanhalla-cica-calm-mist-toner",
@@ -103,7 +127,7 @@
       "https://cdn.imweb.me/thumbnail/20250320/5f0375d3253bb.jpg"
     ],
     "price": {
-      "msrp": 25.0,
+      "msrp": 25,
       "wholesale": {
         "offer": {
           "rate": 0.19,
@@ -126,7 +150,19 @@
       "Weak Acid Formula"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 25,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "50",
+    "leadTime": "3-5 days"
   },
   {
     "id": "vanhalla-retinol-anti-aging-serum",
@@ -145,7 +181,7 @@
       "https://cdn.imweb.me/thumbnail/20250320/801f7de8bd96a.jpg"
     ],
     "price": {
-      "msrp": 25.0,
+      "msrp": 25,
       "wholesale": {
         "offer": {
           "rate": 0.19,
@@ -167,7 +203,19 @@
       "Pure Retinol 0.1%"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 25,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "50",
+    "leadTime": "3-5 days"
   },
   {
     "id": "vanhalla-niacinamide-brightening-serum",
@@ -186,7 +234,7 @@
       "https://cdn.imweb.me/thumbnail/20250320/4c802140e0190.jpg"
     ],
     "price": {
-      "msrp": 22.0,
+      "msrp": 22,
       "wholesale": {
         "offer": {
           "rate": 0.19,
@@ -208,7 +256,19 @@
       "Niacinamide 15%"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 22,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "50",
+    "leadTime": "3-5 days"
   },
   {
     "id": "thecelllab-pdrn-pine-cica-celltone-cream",
@@ -227,7 +287,7 @@
       "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250627/1143d05187360fa38278685d7f59ab3d.jpg"
     ],
     "price": {
-      "msrp": 36.0,
+      "msrp": 36,
       "wholesale": {
         "offer": {
           "rate": 0.3,
@@ -252,7 +312,19 @@
       "Patented CELLTONE"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 36,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "50",
+    "leadTime": "3-5 days"
   },
   {
     "id": "thecelllab-pdrn-pine-cica-celltone-sunscreen",
@@ -271,11 +343,11 @@
       "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250627/8131a5ff4ef88c104d26a2725c5e257d.jpg"
     ],
     "price": {
-      "msrp": 33.0,
+      "msrp": 33,
       "wholesale": {
         "offer": {
           "rate": 0.3,
-          "price": 10.0,
+          "price": 10,
           "moq": 1
         }
       },
@@ -297,7 +369,19 @@
       "Mineral UV Filters"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 33,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "50",
+    "leadTime": "3-5 days"
   },
   {
     "id": "thecelllab-pdrn-pine-cica-celltone-foam-cleanser",
@@ -316,7 +400,7 @@
       "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250627/1143d05187360fa38278685d7f59ab3d.jpg"
     ],
     "price": {
-      "msrp": 27.0,
+      "msrp": 27,
       "wholesale": {
         "offer": {
           "rate": 0.3,
@@ -342,7 +426,19 @@
       "Mildly Acidic pH"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 27,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "50",
+    "leadTime": "3-5 days"
   },
   {
     "id": "thecelllab-pdrn-pine-cica-celltone-pore-mask-pack",
@@ -361,7 +457,7 @@
       "https://en.thecell-lab.com/web/product/medium/202501/pdrn-mask.jpg"
     ],
     "price": {
-      "msrp": 23.0,
+      "msrp": 23,
       "wholesale": {
         "offer": {
           "rate": 0.3,
@@ -386,7 +482,19 @@
       "Patented CELLTONE"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 23,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "48",
+    "leadTime": "3-5 days"
   },
   {
     "id": "baohlab-hair-loss-care-ampoule-serum",
@@ -427,7 +535,15 @@
       "5_STAR_REVIEWS"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "60",
+    "leadTime": "3-5 days"
   },
   {
     "id": "wismin-cotton-seed-barrier-cleansing-ball",
@@ -461,7 +577,15 @@
       "VEGAN"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "72",
+    "leadTime": "3-5 days"
   },
   {
     "id": "wismin-cotton-seed-cicafence-toner",
@@ -495,7 +619,15 @@
       "VEGAN"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "50",
+    "leadTime": "3-5 days"
   },
   {
     "id": "wismin-cotton-seed-cicafence-cream",
@@ -529,7 +661,15 @@
       "VEGAN"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "60",
+    "leadTime": "3-5 days"
   },
   {
     "id": "wismin-bakuchiol-ampoule-15ml",
@@ -563,7 +703,15 @@
       "VEGAN"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "80",
+    "leadTime": "3-5 days"
   },
   {
     "id": "wismin-bakuchiol-ampoule-set",
@@ -584,8 +732,8 @@
       "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/tiny/202504/6167866c60beb1bf36155f8e390de87a.jpg"
     ],
     "price": {
-      "item": 18.0,
-      "carton": 324.0,
+      "item": 18,
+      "carton": 324,
       "currency": "USD"
     },
     "moq": 6,
@@ -597,7 +745,15 @@
       "VEGAN"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "18",
+    "leadTime": "3-5 days"
   },
   {
     "id": "wismin-cotton-fruit-water-sunscreen",
@@ -631,7 +787,15 @@
       "SPF_TESTED"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "45",
+    "leadTime": "3-5 days"
   },
   {
     "id": "wismin-pore-tight-cream",
@@ -665,7 +829,15 @@
       "VEGAN"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "50",
+    "leadTime": "3-5 days"
   },
   {
     "id": "wismin-bakuchiol-eye-cream",
@@ -699,7 +871,15 @@
       "VEGAN"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "80",
+    "leadTime": "3-5 days"
   },
   {
     "id": "wismin-collagen-mask-pack",
@@ -733,7 +913,15 @@
       "VEGAN"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "40",
+    "leadTime": "3-5 days"
   },
   {
     "id": "wismin-hydro-mask-pack",
@@ -767,7 +955,15 @@
       "VEGAN"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "40",
+    "leadTime": "3-5 days"
   },
   {
     "id": "lalucell-biome-vegan-repair-cream",
@@ -788,7 +984,7 @@
     ],
     "price": {
       "item": 8.4,
-      "carton": 504.0,
+      "carton": 504,
       "currency": "USD"
     },
     "retailPrice": {
@@ -808,7 +1004,15 @@
       "MICROBIOME_TECH"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "60",
+    "leadTime": "3-5 days"
   },
   {
     "id": "lalucell-biome-vegan-balance-essence",
@@ -849,7 +1053,15 @@
       "MICROBIOME_TECH"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "45",
+    "leadTime": "3-5 days"
   },
   {
     "id": "lalucell-mystic-light-cica-hydrogel-mask",
@@ -870,7 +1082,7 @@
     ],
     "price": {
       "item": 3.4,
-      "carton": 408.0,
+      "carton": 408,
       "currency": "USD"
     },
     "retailPrice": {
@@ -894,7 +1106,15 @@
       "Grand Gold Quality Award 2025 - Monde Selection"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "120",
+    "leadTime": "3-5 days"
   },
   {
     "id": "lalucell-biome-vegan-pure-cleansing-bar",
@@ -915,7 +1135,7 @@
     ],
     "price": {
       "item": 6.7,
-      "carton": 268.0,
+      "carton": 268,
       "currency": "USD"
     },
     "moq": 3,
@@ -931,7 +1151,15 @@
       "SOLID_BAR"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "40",
+    "leadTime": "3-5 days"
   },
   {
     "id": "lalucell-mystic-light-mark-control-body-patch",
@@ -952,7 +1180,7 @@
     ],
     "price": {
       "item": 3.8,
-      "carton": 228.0,
+      "carton": 228,
       "currency": "USD"
     },
     "moq": 2,
@@ -966,7 +1194,15 @@
       "ELASTICITY_BOOST"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "60",
+    "leadTime": "3-5 days"
   },
   {
     "id": "lalucell-mystic-light-mark-control-breast-patch",
@@ -986,8 +1222,8 @@
       "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1684141246748_1000.jpg"
     ],
     "price": {
-      "item": 4.0,
-      "carton": 240.0,
+      "item": 4,
+      "carton": 240,
       "currency": "USD"
     },
     "moq": 2,
@@ -1001,7 +1237,15 @@
       "PREGNANCY_FRIENDLY"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "60",
+    "leadTime": "3-5 days"
   },
   {
     "id": "sunnicorn-only-for-you-butter-lip-balm-clear",
@@ -1021,8 +1265,8 @@
       "https://en.sunnicorn.com/web/product/medium/202409/8035d4fa50415851d874e394d93d696b.jpg"
     ],
     "price": {
-      "item": 9.0,
-      "carton": 567.0,
+      "item": 9,
+      "carton": 567,
       "currency": "USD"
     },
     "moq": 2,
@@ -1042,7 +1286,15 @@
       "Clear"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "63",
+    "leadTime": "3-5 days"
   },
   {
     "id": "sunnicorn-only-for-you-butter-lip-balm-coral",
@@ -1062,8 +1314,8 @@
       "https://en.sunnicorn.com/web/product/medium/202409/8035d4fa50415851d874e394d93d696b.jpg"
     ],
     "price": {
-      "item": 9.0,
-      "carton": 567.0,
+      "item": 9,
+      "carton": 567,
       "currency": "USD"
     },
     "moq": 2,
@@ -1083,7 +1335,15 @@
       "Kinda Coral"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "63",
+    "leadTime": "3-5 days"
   },
   {
     "id": "sunnicorn-only-for-you-butter-lip-balm-berry",
@@ -1103,8 +1363,8 @@
       "https://en.sunnicorn.com/web/product/medium/202409/8035d4fa50415851d874e394d93d696b.jpg"
     ],
     "price": {
-      "item": 9.0,
-      "carton": 567.0,
+      "item": 9,
+      "carton": 567,
       "currency": "USD"
     },
     "moq": 2,
@@ -1124,7 +1384,15 @@
       "Berry Rosy"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "63",
+    "leadTime": "3-5 days"
   },
   {
     "id": "sunnicorn-only-for-you-butter-lip-balm-ginger",
@@ -1144,8 +1412,8 @@
       "https://en.sunnicorn.com/web/product/medium/202409/8035d4fa50415851d874e394d93d696b.jpg"
     ],
     "price": {
-      "item": 9.0,
-      "carton": 567.0,
+      "item": 9,
+      "carton": 567,
       "currency": "USD"
     },
     "moq": 2,
@@ -1165,7 +1433,15 @@
       "Ginger Beige"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "63",
+    "leadTime": "3-5 days"
   },
   {
     "id": "sunnicorn-im-proud-of-you-calming-toner",
@@ -1185,8 +1461,8 @@
       "https://en.sunnicorn.com/web/product/medium/202411/d2f72f2361c8d254a0bdccdda33003b3.jpg"
     ],
     "price": {
-      "item": 20.0,
-      "carton": 600.0,
+      "item": 20,
+      "carton": 600,
       "currency": "USD"
     },
     "moq": 4,
@@ -1205,7 +1481,14 @@
       "SENSITIVE_SKIN"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "packSize": "30",
+    "leadTime": "3-5 days"
   },
   {
     "id": "sunnicorn-mushroom-deep-hydrating-cream",
@@ -1225,8 +1508,8 @@
       "https://en.sunnicorn.com/web/product/medium/202411/53934edede3411700fb67bceaa704a4f.jpg"
     ],
     "price": {
-      "item": 28.0,
-      "carton": 1680.0,
+      "item": 28,
+      "carton": 1680,
       "currency": "USD"
     },
     "moq": 2,
@@ -1244,7 +1527,14 @@
       "MUSHROOM_EXTRACT"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "packSize": "60",
+    "leadTime": "3-5 days"
   },
   {
     "id": "sunnicorn-bamboo-soothing-uv-essence",
@@ -1264,8 +1554,8 @@
       "https://en.sunnicorn.com/web/product/medium/202411/dfcbfe66184fb90ff8903ac24ed71a01.jpg"
     ],
     "price": {
-      "item": 20.0,
-      "carton": 2400.0,
+      "item": 20,
+      "carton": 2400,
       "currency": "USD"
     },
     "moq": 1,
@@ -1285,7 +1575,14 @@
       "SENSITIVE_SKIN"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "packSize": "120",
+    "leadTime": "3-5 days"
   },
   {
     "id": "sunnicorn-bereum-microbiome-modeling-pack",
@@ -1305,8 +1602,8 @@
       "https://en.sunnicorn.com/web/product/medium/202411/bf9ceca3bda4670a50e1a5cf840c72e2.jpg"
     ],
     "price": {
-      "item": 20.0,
-      "carton": 400.0,
+      "item": 20,
+      "carton": 400,
       "currency": "USD"
     },
     "moq": 5,
@@ -1323,7 +1620,15 @@
       "PORE_CALMING"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "20",
+    "leadTime": "3-5 days"
   },
   {
     "id": "sunnicorn-bereum-microbiome-collagen-mask",
@@ -1343,8 +1648,8 @@
       "/images/products/sunnicorn-bereum-microbiome-collagen-mask-1.jpg"
     ],
     "price": {
-      "item": 20.0,
-      "carton": 1140.0,
+      "item": 20,
+      "carton": 1140,
       "currency": "USD"
     },
     "moq": 2,
@@ -1361,7 +1666,15 @@
       "FIRMING_EFFECT"
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "57",
+    "leadTime": "3-5 days"
   },
   {
     "id": "sunnicorn-deep-hydrating-lip-mask",
@@ -1381,8 +1694,8 @@
       "https://en.sunnicorn.com/web/product/medium/202409/227a6c638e8fd59d2fa61a17f86e03a4.jpg"
     ],
     "price": {
-      "item": 16.0,
-      "carton": 4000.0,
+      "item": 16,
+      "carton": 4000,
       "currency": "USD"
     },
     "moq": 1,
@@ -1399,7 +1712,15 @@
       "DEEP_HYDRATION"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "250",
+    "leadTime": "3-5 days"
   },
   {
     "id": "sunnicorn-modeling-pack-kit",
@@ -1419,8 +1740,8 @@
       "https://en.sunnicorn.com/web/product/medium/202409/c75a07497e80db65888aca23ad1b7151.jpg"
     ],
     "price": {
-      "item": 6.0,
-      "carton": 600.0,
+      "item": 6,
+      "carton": 600,
       "currency": "USD"
     },
     "moq": 1,
@@ -1437,7 +1758,15 @@
       "ACCESSORIES_INCLUDED"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "100",
+    "leadTime": "3-5 days"
   },
   {
     "id": "vanhalla-ceramide-moisturizing-essence-in-toner",
@@ -1456,7 +1785,7 @@
       "https://cdn.imweb.me/thumbnail/20250320/ff14e5811064c.jpg"
     ],
     "price": {
-      "msrp": 25.0,
+      "msrp": 25,
       "wholesale": {
         "offer": {
           "rate": 0.19,
@@ -1480,7 +1809,19 @@
       "Panthenol"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 25,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "50",
+    "leadTime": "3-5 days"
   },
   {
     "id": "vanhalla-cica-calm-serum-in-cream",
@@ -1499,7 +1840,7 @@
       "https://cdn.imweb.me/thumbnail/20250320/7f5d0e486ff98.jpg"
     ],
     "price": {
-      "msrp": 22.0,
+      "msrp": 22,
       "wholesale": {
         "offer": {
           "rate": 0.19,
@@ -1523,7 +1864,19 @@
       "Asiaticoside"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 22,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "60",
+    "leadTime": "3-5 days"
   },
   {
     "id": "vanhalla-allday-uv-barrier-sunscreen",
@@ -1542,7 +1895,7 @@
       "https://cdn.imweb.me/thumbnail/20250509/cb0228d357e52.jpg"
     ],
     "price": {
-      "msrp": 22.0,
+      "msrp": 22,
       "wholesale": {
         "offer": {
           "rate": 0.19,
@@ -1567,7 +1920,19 @@
       "Hyaluronic Acid"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 22,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "50",
+    "leadTime": "3-5 days"
   },
   {
     "id": "vanhalla-perfect-deep-cleansing-balm",
@@ -1586,7 +1951,7 @@
       "https://cdn.imweb.me/thumbnail/20250320/801f7de8bd96a.jpg"
     ],
     "price": {
-      "msrp": 22.0,
+      "msrp": 22,
       "wholesale": {
         "offer": {
           "rate": 0.19,
@@ -1610,7 +1975,19 @@
       "Ceramide Complex"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 22,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "60",
+    "leadTime": "3-5 days"
   },
   {
     "id": "thecelllab-celltone-mild-foam-cleanser",
@@ -1629,7 +2006,7 @@
       "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250617/1275d0d8904068d82fee0df8c66f8539.jpg"
     ],
     "price": {
-      "msrp": 27.0,
+      "msrp": 27,
       "wholesale": {
         "offer": {
           "rate": 0.3,
@@ -1653,7 +2030,19 @@
       "Patented CELLTONE"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 27,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "24",
+    "leadTime": "3-5 days"
   },
   {
     "id": "thecelllab-celltone-cleansing-oil",
@@ -1672,7 +2061,7 @@
       "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250617/2d7b8d9511e92a7f88f12418b521a318.jpg"
     ],
     "price": {
-      "msrp": 27.0,
+      "msrp": 27,
       "wholesale": {
         "offer": {
           "rate": 0.3,
@@ -1695,7 +2084,19 @@
       "Sebum Care Complex"
     ],
     "inStock": false,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 27,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "out",
+    "volume": "50ml",
+    "packSize": "48",
+    "leadTime": "3-5 days"
   },
   {
     "id": "thecelllab-celltone-toner",
@@ -1714,7 +2115,7 @@
       "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250617/a53d8e8d3601757cd4e686d16c39fe83.jpg"
     ],
     "price": {
-      "msrp": 27.0,
+      "msrp": 27,
       "wholesale": {
         "offer": {
           "rate": 0.3,
@@ -1738,7 +2139,19 @@
       "Hydrating Agents"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 27,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "48",
+    "leadTime": "3-5 days"
   },
   {
     "id": "thecelllab-celltone-ampoule",
@@ -1757,7 +2170,7 @@
       "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250617/8ba8717626ab00f6f0ec7c04abefdc1a.jpg"
     ],
     "price": {
-      "msrp": 37.0,
+      "msrp": 37,
       "wholesale": {
         "offer": {
           "rate": 0.3,
@@ -1781,7 +2194,19 @@
       "High Concentration Actives"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 37,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "48",
+    "leadTime": "3-5 days"
   },
   {
     "id": "thecelllab-celltone-body-lotion",
@@ -1800,7 +2225,7 @@
       "https://api-new.yesbee.com/server/public/file/product/2025042312052788098964803769.jpeg"
     ],
     "price": {
-      "msrp": 30.0,
+      "msrp": 30,
       "wholesale": {
         "offer": {
           "rate": 0.3,
@@ -1823,7 +2248,19 @@
       "Nourishing Oils"
     ],
     "inStock": false,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 30,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "out",
+    "volume": "50ml",
+    "packSize": "15",
+    "leadTime": "3-5 days"
   },
   {
     "id": "thecelllab-celltone-ampoule-sample",
@@ -1842,7 +2279,7 @@
       "https://medicasting.com/cdn/shop/files/cell-ampoule1.jpg?v=1749017386"
     ],
     "price": {
-      "msrp": 1.0,
+      "msrp": 1,
       "wholesale": {
         "offer": {
           "rate": 0.3,
@@ -1864,7 +2301,19 @@
       "Barrier Strengthening Complex"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 1,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "100",
+    "leadTime": "3-5 days"
   },
   {
     "id": "thecelllab-celltone-sunscreen-sample",
@@ -1883,7 +2332,7 @@
       "https://roseroseshop.com/image/cache/catalog/data/brand/THE%20CELL%20LAB/light/thecelllab_2409005_light-800x800.jpg"
     ],
     "price": {
-      "msrp": 1.0,
+      "msrp": 1,
       "wholesale": {
         "offer": {
           "rate": 0.3,
@@ -1905,7 +2354,19 @@
       "Tone Correcting Complex"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 1,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "72",
+    "leadTime": "3-5 days"
   },
   {
     "id": "thecelllab-celltone-cream-sample",
@@ -1924,7 +2385,7 @@
       "https://roseroseshop.com/image/cache/catalog/data/brand/THE%20CELL%20LAB/light/thecelllab_2409006-500x500.jpg"
     ],
     "price": {
-      "msrp": 1.0,
+      "msrp": 1,
       "wholesale": {
         "offer": {
           "rate": 0.3,
@@ -1946,7 +2407,19 @@
       "Moisture Barrier Complex"
     ],
     "inStock": false,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 1,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "out",
+    "volume": "50ml",
+    "packSize": "100",
+    "leadTime": "3-5 days"
   },
   {
     "id": "thecelllab-celltone-mild-foam-cleanser-sample",
@@ -1965,7 +2438,7 @@
       "https://en.thecell-lab.com/web/product/tiny/202401/mild-cleanser-sample.jpg"
     ],
     "price": {
-      "msrp": 1.0,
+      "msrp": 1,
       "wholesale": {
         "offer": {
           "rate": 0.3,
@@ -1987,7 +2460,19 @@
       "Natural Surfactants"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 1,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "100",
+    "leadTime": "3-5 days"
   },
   {
     "id": "thecelllab-celltone-foam-cleanser-sample",
@@ -2006,7 +2491,7 @@
       "https://en.thecell-lab.com/web/product/tiny/202401/foam-cleanser-sample.jpg"
     ],
     "price": {
-      "msrp": 1.0,
+      "msrp": 1,
       "wholesale": {
         "offer": {
           "rate": 0.3,
@@ -2028,6 +2513,18 @@
       "Patented CELLTONE"
     ],
     "inStock": true,
-    "featured": false
+    "featured": false,
+    "soldB2C": true,
+    "soldB2B": true,
+    "active": true,
+    "retailPrice": {
+      "item": 1,
+      "currency": "USD"
+    },
+    "category": "Skincare",
+    "stockLevel": "in",
+    "volume": "50ml",
+    "packSize": "100",
+    "leadTime": "3-5 days"
   }
 ]

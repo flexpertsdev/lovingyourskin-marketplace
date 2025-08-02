@@ -37,6 +37,7 @@ import { PreorderDetail } from '../pages/PreorderDetail'
 import UserManagement from '../pages/admin/UserManagement'
 import { TestAuthFlow } from '../pages/TestAuthFlow'
 import { AdminMessages } from '../pages/admin/AdminMessages'
+import { AdminAffiliates } from '../pages/admin/AdminAffiliates'
 import { TestInviteCode } from '../pages/TestInviteCode'
 
 // Consumer Pages
@@ -262,6 +263,11 @@ export const AppRoutes: React.FC = () => {
       <Route path="/admin/messages" element={
         <AdminRoute>
           <AdminMessages />
+        </AdminRoute>
+      } />
+      <Route path="/admin/affiliates" element={
+        <AdminRoute>
+          <AdminAffiliates />
         </AdminRoute>
       } />
       

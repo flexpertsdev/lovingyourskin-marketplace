@@ -1,16 +1,23 @@
 // Mock product service with multi-language support and certifications
 import { Product, Brand } from '../../types'
 import { transformBrandData, transformProductData } from '../../utils/transformMockData'
-import brandsData from '../../../mock-data/brands.json'
-import productsData from '../../../mock-data/products.json'
+// Use original mock data with proper images
+import brandsDataOriginal from '../../../mock-data/brands.json'
+import productsDataOriginal from '../../../mock-data/products.json'
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
-// Transform the imported data
-const brands = brandsData.brands.map(transformBrandData)
-const products = (productsData as any[]).map(transformProductData)
+// Use original mock data and transform it
+const brands: Brand[] = brandsDataOriginal.brands.map(transformBrandData)
+const products: Product[] = (productsDataOriginal as any[]).map(transformProductData)
 
 export const productService = {
+  // Get all products (alias for getProducts)
+  getAll: async (): Promise<Product[]> => {
+    await delay(400)
+    return products.filter((p: Product) => p.active)
+  },
+  
   // Get all brands
   getBrands: async (): Promise<Brand[]> => {
     await delay(300)
@@ -47,6 +54,12 @@ export const productService = {
   
   // Get single product
   getProduct: async (productId: string): Promise<Product | null> => {
+    await delay(200)
+    return products.find((p: Product) => p.id === productId) || null
+  },
+  
+  // Alias for getProduct to match Firebase service
+  getById: async (productId: string): Promise<Product | null> => {
     await delay(200)
     return products.find((p: Product) => p.id === productId) || null
   },

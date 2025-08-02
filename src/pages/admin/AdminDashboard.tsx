@@ -127,7 +127,7 @@ export const AdminDashboard: React.FC = () => {
           {/* Quick Actions */}
           <div className="mb-10">
             <h2 className="text-xl font-light mb-4">Quick Actions</h2>
-            <Grid cols={4} gap="md">
+            <Grid cols={{ default: 2, md: 3, lg: 5 }} gap="md">
               <Card 
                 className="hover:shadow-lg transition-shadow cursor-pointer"
                 onClick={() => navigate('/admin/orders?status=pending')}
@@ -296,6 +296,13 @@ export const AdminDashboard: React.FC = () => {
                       onClick={() => navigate('/admin/settings')}
                     >
                       🔧 System Settings
+                    </Button>
+                    <Button 
+                      variant="secondary" 
+                      fullWidth
+                      onClick={() => navigate('/admin/affiliates')}
+                    >
+                      💰 Manage Affiliates
                     </Button>
                   </div>
                 </CardContent>
