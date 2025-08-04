@@ -1,7 +1,7 @@
 
 import { FunctionComponent, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getPreorderProduct } from "../services/mock/preorder.service";
+import { productService } from "../services";
 import { Product } from "../types";
 import { Container } from "../components/layout/Container";
 import { Grid } from "../components/layout/Grid";
@@ -18,12 +18,17 @@ export const PreorderDetail: FunctionComponent = () => {
 
   useEffect(() => {
     if (id) {
-      const preorderProduct = getPreorderProduct(id);
-      if (preorderProduct) {
-        setProduct(preorderProduct);
-      } else {
-        navigate("/preorder");
-      }
+      productService.getById(id)
+        .then(product => {
+          if (product && product.isPreorder) {
+            setProduct(product);
+          } else {
+            navigate("/preorder");
+          }
+        })
+        .catch(() => {
+          navigate("/preorder");
+        });
     }
   }, [id, navigate]);
 
@@ -34,19 +39,19 @@ export const PreorderDetail: FunctionComponent = () => {
   return (
     <div>
       <PageHeader
-        title={product.name.en}
-        subtitle={`Preorder ${product.name.en}`}
+        title={product.name}
+      subtitle={`Preorder ${product.name}`}
       />
       <Container>
         <Section>
           <Grid cols={2}>
             <div>
-              <img src={product.images[0]} alt={product.name.en} className="w-full h-auto rounded-lg shadow-lg" />
+              <img src={product.images?.primary || ''} alt={product.name} className="w-full h-auto rounded-lg shadow-lg" />
             </div>
             <div>
-              <h2 className="text-3xl font-bold mb-4">{product.name.en}</h2>
-              <p className="text-lg mb-4">{product.description.en}</p>
-              <p className="text-2xl font-bold text-blue-600 mb-4">Retail Price: ${(product.price.retail ?? product.retailPrice?.item ?? 0).toFixed(2)}</p>
+              <h2 className="text-3xl font-bold mb-4">{product.name}</h2>
+        <p className="text-lg mb-4">{product.description}</p>
+              <p className="text-2xl font-bold text-blue-600 mb-4">Retail Price: ${(product.price?.retail ?? product.retailPrice?.item ?? 0).toFixed(2)}</p>
               <div className="flex items-center mb-4">
                 <label htmlFor="quantity" className="mr-4">Quantity:</label>
                 <Input type="number" id="quantity" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value, 10))} className="w-20" />

@@ -140,8 +140,8 @@ class FirebaseAffiliateService {
       }
       
       const now = new Date()
-      const validFrom = affiliateCode.validFrom.toDate()
-      const validUntil = affiliateCode.validUntil?.toDate()
+      const validFrom = affiliateCode.validFrom instanceof Date ? affiliateCode.validFrom : (affiliateCode.validFrom as any).toDate()
+      const validUntil = affiliateCode.validUntil ? (affiliateCode.validUntil instanceof Date ? affiliateCode.validUntil : (affiliateCode.validUntil as any).toDate()) : null
       
       if (now < validFrom) {
         return { valid: false, error: 'Affiliate code is not yet valid' }
@@ -220,8 +220,7 @@ class FirebaseAffiliateService {
         const tracking = doc.data() as AffiliateTracking
         await this.updateAffiliateCodeStats(
           tracking.affiliateCodeId,
-          additionalData.orderValue,
-          additionalData.commission || 0
+          additionalData.orderValue
         )
       }
     } catch (error) {
@@ -233,8 +232,7 @@ class FirebaseAffiliateService {
   // Update affiliate code stats after purchase
   private async updateAffiliateCodeStats(
     affiliateCodeId: string, 
-    orderValue: number,
-    commission: number
+    orderValue: number
   ): Promise<void> {
     try {
       const docRef = doc(db, 'affiliateCodes', affiliateCodeId)

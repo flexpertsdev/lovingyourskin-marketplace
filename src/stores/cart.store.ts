@@ -2,7 +2,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { Cart, CartItem, Product, MOQStatus } from '../types'
-import { cartService } from '../services/mock/cart.service'
+import { cartService } from '../services'
 
 interface CartState {
   cart: Cart
@@ -13,8 +13,8 @@ interface CartState {
   loadCart: () => Promise<void>
   refreshCart: () => Promise<void>
   addToCart: (product: Product, quantity: number) => Promise<void>
-  updateQuantity: (itemId: string, quantity: number) => Promise<void>
-  removeFromCart: (itemId: string) => Promise<void>
+  updateQuantity: (productId: string, quantity: number) => Promise<void>
+  removeFromCart: (productId: string) => Promise<void>
   clearCart: () => Promise<void>
   clearBrandItems: (brandId: string) => Promise<void>
   
@@ -70,10 +70,10 @@ export const useCartStore = create<CartState>()(
         }
       },
       
-      updateQuantity: async (itemId, quantity) => {
+      updateQuantity: async (productId, quantity) => {
         set({ isLoading: true })
         try {
-          const cart = await cartService.updateQuantity(itemId, quantity)
+          const cart = await cartService.updateQuantity(productId, quantity)
           set({ cart, isLoading: false })
           // Re-validate all MOQ
           await get().validateAllMOQ()
@@ -82,11 +82,11 @@ export const useCartStore = create<CartState>()(
           console.error('Failed to update quantity:', error)
         }
       },
-      
-      removeFromCart: async (itemId) => {
+
+      removeFromCart: async (productId) => {
         set({ isLoading: true })
         try {
-          const cart = await cartService.removeFromCart(itemId)
+          const cart = await cartService.removeFromCart(productId)
           set({ cart, isLoading: false })
           // Re-validate all MOQ
           await get().validateAllMOQ()
@@ -164,9 +164,12 @@ export const useCartStore = create<CartState>()(
       
       getTotalPrice: () => {
         const { cart } = get()
-        return cart.items.reduce((sum, item) => 
-          sum + (item.product.price.item * item.quantity), 0
-        )
+        return cart.items.reduce((sum, item) => {
+          const price = item.product.variants?.[0]?.pricing?.b2b?.wholesalePrice || 
+                       item.product.variants?.[0]?.pricing?.b2c?.retailPrice || 
+                       item.product.retailPrice?.item || 0
+          return sum + (price * item.quantity)
+        }, 0)
       },
     }),
     {

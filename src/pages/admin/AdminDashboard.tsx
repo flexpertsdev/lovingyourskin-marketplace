@@ -5,7 +5,7 @@ import { Container, Section, Grid } from '../../components/layout'
 import { Card, CardContent, Button, Badge } from '../../components/ui'
 import { dashboardService } from '../../services'
 import { useAuthStore } from '../../stores/auth.store'
-import type { AdminMetrics } from '../../services/mock/dashboard.service'
+import type { AdminMetrics } from '../../services/firebase/dashboard.service'
 
 const activityIcons: Record<string, string> = {
   registration: '👥',
@@ -127,7 +127,7 @@ export const AdminDashboard: React.FC = () => {
           {/* Quick Actions */}
           <div className="mb-10">
             <h2 className="text-xl font-light mb-4">Quick Actions</h2>
-            <Grid cols={{ default: 2, md: 3, lg: 5 }} gap="md">
+            <Grid cols={5} gap="md">
               <Card 
                 className="hover:shadow-lg transition-shadow cursor-pointer"
                 onClick={() => navigate('/admin/orders?status=pending')}
@@ -220,15 +220,7 @@ export const AdminDashboard: React.FC = () => {
                           {formatActivityTime(activity.timestamp)}
                         </p>
                       </div>
-                      {activity.status && (
-                        <Badge className={
-                          activity.status === 'urgent' ? 'bg-error-red text-white' :
-                          activity.status === 'pending' ? 'bg-warning-amber text-white' :
-                          'bg-success-green text-white'
-                        }>
-                          {activity.status}
-                        </Badge>
-                      )}
+
                     </div>
                   ))}
                 </CardContent>

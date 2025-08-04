@@ -4,7 +4,7 @@ import { Layout } from '../components/layout'
 import { orderService } from '../services'
 import { cn } from '../lib/utils/cn'
 import { formatDistanceToNow } from 'date-fns'
-import { Message, MessageThread } from '../types'
+import { MessageThread } from '../types'
 import { useAuthStore } from '../stores/auth.store'
 import toast from 'react-hot-toast'
 
@@ -61,7 +61,7 @@ export const Messages: React.FC = () => {
       } else if (user?.role === 'retailer') {
         // Retailer sees only their order threads
         return validThreads.filter(thread => 
-          thread.participants.some(p => p.userId === user.id && p.role === 'retailer')
+          thread.participants.some(p => p.userId === user.id && p.role === 'buyer')
         )
       } else if (user?.role === 'brand') {
         // Brand sees only threads where they are a participant
@@ -90,11 +90,18 @@ export const Messages: React.FC = () => {
     mutationFn: async ({ threadId, content }: { threadId: string, content: string }) => {
       if (!user) throw new Error('User not authenticated')
       
+      // Map user role to message sender role
+      const mapUserRoleToSenderRole = (userRole: string) => {
+        if (userRole === 'admin') return 'lys_team'
+        if (userRole === 'retailer') return 'buyer'
+        return userRole as 'brand' | 'buyer' | 'lys_team'
+      }
+      
       return await orderService.sendMessage(threadId, {
         content,
         senderId: user.id,
         senderName: user.name,
-        senderRole: user.role,
+        senderRole: mapUserRoleToSenderRole(user.role),
         threadId
       })
     },

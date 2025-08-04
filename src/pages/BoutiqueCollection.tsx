@@ -3,10 +3,11 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { Container, Section, Grid } from '../components/layout'
 import { Button, Badge, Spinner, Card, CardContent } from '../components/ui'
 import { HeroCarousel } from '../components/features/HeroCarousel'
-import { productService } from '../services/mock/product.service'
+import { productService } from '../services'
 import { Brand, Product } from '../types'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
 import toast from 'react-hot-toast'
+
 
 // Icon component
 const ShoppingBagIcon = () => (
@@ -57,7 +58,7 @@ export const BoutiqueCollection: React.FC = () => {
 
   const handleAddToCart = (product: Product) => {
     addItem(product, 1)
-    toast.success(`${product.name.en} added to cart`)
+    toast.success(`${product.name || 'Product'} added to cart`)
   }
   
   if (isLoading) {
@@ -100,15 +101,15 @@ export const BoutiqueCollection: React.FC = () => {
             {brand.logo && (
               <img 
                 src={brand.logo} 
-                alt={brand.name.en}
+                alt={typeof brand.name === 'string' ? brand.name : brand.name?.en || 'Brand'}
                 className="h-24 mx-auto mb-6 object-contain"
               />
             )}
             <h1 className="text-4xl font-light text-deep-charcoal mb-4">
-              {brand.name.en}
+              {typeof brand.name === 'string' ? brand.name : brand.name?.en || ''}
             </h1>
             <p className="text-xl text-text-secondary mb-8">
-              {brand.description.en}
+              {typeof brand.description === 'string' ? brand.description : brand.description?.en || ''}
             </p>
             
             {/* Brand Features */}
@@ -140,7 +141,7 @@ export const BoutiqueCollection: React.FC = () => {
       {brand.heroImages && brand.heroImages.length > 0 && (
         <HeroCarousel
           images={brand.heroImages}
-          alt={brand.name.en}
+          alt={typeof brand.name === 'string' ? brand.name : brand.name?.en || 'Brand'}
         />
       )}
       
@@ -152,7 +153,7 @@ export const BoutiqueCollection: React.FC = () => {
               <CardContent className="p-8">
                 <h2 className="text-2xl font-light text-deep-charcoal mb-6 text-center">Our Story</h2>
                 <p className="text-text-secondary leading-relaxed text-lg">
-                  {brand.story.en}
+                  {typeof brand.story === 'string' ? brand.story : brand.story?.en || ''}
                 </p>
               </CardContent>
             </Card>
@@ -175,11 +176,11 @@ export const BoutiqueCollection: React.FC = () => {
                   <Link to={`/shop/products/${product.id}`}>
                     <div className="relative overflow-hidden">
                       <img 
-                        src={product.images[0]} 
-                        alt={product.name.en}
+                        src={product.images?.primary || '/placeholder.png'} 
+                        alt={product.name || 'Product'}
                         className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                       />
-                      {product.preOrderEnabled && (
+                      {product.isPreorder && (
                         <Badge 
                           variant="info" 
                           className="absolute top-4 right-4"
@@ -193,18 +194,18 @@ export const BoutiqueCollection: React.FC = () => {
                   <CardContent className="p-6">
                     <Link to={`/shop/products/${product.id}`}>
                       <h3 className="text-lg font-medium text-deep-charcoal mb-2 hover:text-rose-gold transition-colors">
-                        {product.name.en}
+                        {product.name || 'Product'}
                       </h3>
                     </Link>
                     
                     <p className="text-sm text-text-secondary mb-4 line-clamp-2">
-                      {product.description.en}
+                      {product.description || ''}
                     </p>
                     
                     <div className="flex items-center justify-between mb-4">
                       <div>
                         <span className="text-2xl font-light text-rose-gold">
-                          £{product.retailPrice?.item.toFixed(2)}
+                          £{(product.retailPrice?.item || 0).toFixed(2)}
                         </span>
                         {product.volume && (
                           <span className="text-sm text-text-secondary ml-2">
@@ -217,10 +218,10 @@ export const BoutiqueCollection: React.FC = () => {
                     <Button
                       onClick={() => handleAddToCart(product)}
                       className="w-full"
-                      disabled={product.retailQuantity === 0 && !product.preOrderEnabled}
+                      disabled={(product.variants?.[0]?.inventory?.b2c?.available || 0) === 0 && !product.isPreorder}
                     >
-                      {product.preOrderEnabled ? 'Pre-order' : 
-                       product.retailQuantity === 0 ? 'Out of Stock' : 'Add to Cart'}
+                      {product.isPreorder ? 'Pre-order' : 
+                       (product.variants?.[0]?.inventory?.b2c?.available || 0) === 0 ? 'Out of Stock' : 'Add to Cart'}
                     </Button>
                   </CardContent>
                 </Card>
@@ -245,7 +246,7 @@ export const BoutiqueCollection: React.FC = () => {
       <Section background="pink" className="text-center">
         <Container>
           <h3 className="text-2xl font-light text-deep-charcoal mb-4">
-            Love {brand.name.en}?
+            Love {typeof brand.name === 'string' ? brand.name : brand.name?.en || 'this brand'}?
           </h3>
           <p className="text-text-secondary mb-6">
             Explore more premium K-beauty brands in our boutique

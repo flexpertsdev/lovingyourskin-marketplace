@@ -131,8 +131,9 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
           }
           
           // Check stock availability
-          if (product.retailQuantity !== undefined && product.retailQuantity < quantity) {
-            toast.error(`Only ${product.retailQuantity} units available`)
+          const b2cStock = product.variants?.[0]?.inventory?.b2c?.available || 0
+        if (b2cStock > 0 && b2cStock < quantity) {
+          toast.error(`Only ${b2cStock} units available`)
             return
           }
           
@@ -143,9 +144,10 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
               // Update quantity if item already exists
               const newQuantity = existingItem.quantity + quantity
               
-              // Check stock limit
-              if (product.retailQuantity !== undefined && newQuantity > product.retailQuantity) {
-                toast.error(`Cannot add more. Only ${product.retailQuantity} units available`)
+              // Check stock limit - using B2C inventory from variants
+              const b2cStock = product.variants?.[0]?.inventory?.b2c?.available || 0
+              if (b2cStock > 0 && quantity > b2cStock) {
+                toast.error(`Cannot add more. Only ${b2cStock} units available`)
                 return state
               }
               
@@ -163,7 +165,7 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
                 id: `cart-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
                 product,
                 quantity,
-                preOrderDiscount: product.preOrderEnabled ? product.preOrderDiscount : undefined,
+                preOrderDiscount: product.isPreorder ? product.preorderDiscount : undefined,
                 addedAt: new Date()
               }
               
@@ -189,9 +191,10 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
           const item = state.items.find(i => i.id === itemId)
           if (!item) return state
           
-          // Check stock limit
-          if (item.product.retailQuantity !== undefined && quantity > item.product.retailQuantity) {
-            toast.error(`Only ${item.product.retailQuantity} units available`)
+          // Check stock limit - using B2C inventory from variants
+          const b2cStock = item.product.variants?.[0]?.inventory?.b2c?.available || 0
+          if (b2cStock > 0 && quantity > b2cStock) {
+            toast.error(`Only ${b2cStock} units available`)
             return state
           }
           
@@ -208,9 +211,7 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
         set((state) => {
           const item = state.items.find(i => i.id === itemId)
           if (item) {
-            const productName = typeof item.product.name === 'string' 
-              ? item.product.name 
-              : item.product.name?.en || 'Product'
+            const productName = item.product.name || 'Product'
             toast.success(`${productName} removed from cart`)
           }
           
@@ -308,7 +309,7 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
       
       isPreOrderCart: () => {
         const { items } = get()
-        return items.some(item => item.product.preOrderEnabled)
+        return items.some(item => item.product.isPreorder)
       },
       
       getCheckoutData: () => {

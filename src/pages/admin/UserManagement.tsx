@@ -279,11 +279,11 @@ const UserManagement: React.FC = () => {
                           <td className="py-3 px-4">
                             {invite.role === 'brand' && invite.companyId ? (
                               <span className="text-sm">
-                                {brands.find(b => b.id === invite.companyId)?.name ? 
-                                  (typeof brands.find(b => b.id === invite.companyId)?.name === 'string' ? 
-                                    brands.find(b => b.id === invite.companyId)?.name : 
-                                    brands.find(b => b.id === invite.companyId)?.name?.en) : 
-                                  invite.companyId}
+                                {(() => {
+                                  const brand = brands.find(b => b.id === invite.companyId);
+                                  if (!brand?.name) return invite.companyId;
+                                  return typeof brand.name === 'string' ? brand.name : brand.name.en;
+                                })()}
                               </span>
                             ) : invite.companyId ? (
                               <span className="text-sm text-text-secondary">{invite.companyId}</span>

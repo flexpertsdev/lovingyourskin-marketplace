@@ -62,20 +62,21 @@ export const ConsumerCheckout: React.FC = () => {
     }
   }, [user])
   
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field: string, value: string | React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
+    const targetValue = typeof value === 'string' ? value : value.target.value;
     if (field.includes('.')) {
       const [parent, child] = field.split('.')
       setFormData(prev => ({
         ...prev,
         [parent]: {
           ...(prev as any)[parent],
-          [child]: value
+          [child]: targetValue
         }
       }))
     } else {
       setFormData(prev => ({
         ...prev,
-        [field]: value
+        [field]: targetValue
       }))
     }
   }
@@ -114,7 +115,7 @@ export const ConsumerCheckout: React.FC = () => {
       // Create an order for each brand
       const orderPromises = Object.entries(itemsByBrand).map(async ([brandId, brandItems]) => {
         const brandName = brandItems[0].product.brand?.name
-        const brandNameStr = typeof brandName === 'string' ? brandName : brandName?.en || 'Unknown Brand'
+        const brandNameStr = brandName || 'Unknown Brand'
         
         const orderData = {
           userId: user?.id || 'consumer-' + Date.now(),
@@ -131,7 +132,7 @@ export const ConsumerCheckout: React.FC = () => {
             
             return {
               productId: item.product.id,
-              productName: typeof item.product.name === 'string' ? item.product.name : item.product.name.en,
+              productName: item.product.name,
               quantity: item.quantity,
               pricePerItem: price,
               pricePerCarton: price, // For B2C, price per item and carton are the same
@@ -192,7 +193,7 @@ export const ConsumerCheckout: React.FC = () => {
   const subtotal = getSubtotal()
   const taxRate = 0.2 // 20% VAT
   const tax = subtotal * taxRate
-  const shipping = 0 // Free shipping for now
+  const shipping: number = 0 // Free shipping for now
   const total = getTotalAmount() + shipping
   
   return (
@@ -264,7 +265,7 @@ export const ConsumerCheckout: React.FC = () => {
                         <Select
                           label="Country"
                           value={formData.address.country}
-                          onChange={(value) => handleInputChange('address.country', value)}
+                          onChange={(e) => handleInputChange('address.country', e.target.value)}
                           options={[
                             { value: 'United Kingdom', label: 'United Kingdom' },
                             { value: 'France', label: 'France' },
@@ -319,7 +320,7 @@ export const ConsumerCheckout: React.FC = () => {
                         return (
                           <div key={`${item.product.id}-${item.id}`} className="flex justify-between text-sm">
                             <div>
-                              <p>{typeof item.product.name === 'string' ? item.product.name : item.product.name.en}</p>
+                              <p>{item.product.name}</p>
                               <p className="text-text-secondary">Qty: {item.quantity}</p>
                               {item.product.isPreorder && item.product.preorderDiscount && (
                                 <p className="text-success-green text-xs">Pre-order: {item.product.preorderDiscount}% off</p>

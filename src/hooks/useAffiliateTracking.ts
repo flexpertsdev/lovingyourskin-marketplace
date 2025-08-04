@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from 'react'
-import { useSearchParams, useLocation } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { firebaseAffiliateService } from '../services/firebase/affiliate.service'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
 import { v4 as uuidv4 } from 'uuid'

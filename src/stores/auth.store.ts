@@ -2,7 +2,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { User } from '../types'
-import { authService } from '../services' // Will use Firebase or mock based on config
+import { authService } from '../services' // Uses Firebase service
 
 interface AuthState {
   user: User | null

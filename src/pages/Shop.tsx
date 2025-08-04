@@ -60,18 +60,17 @@ export const Shop: React.FC = () => {
     if (searchQuery) {
       const query = searchQuery.toLowerCase()
       const matchesSearch = 
-        product.name.en.toLowerCase().includes(query) ||
-        product.name.ko?.toLowerCase().includes(query) ||
-        product.name.zh?.toLowerCase().includes(query) ||
-        product.description.en.toLowerCase().includes(query)
+        product.name.toLowerCase().includes(query) ||
+        product.description.toLowerCase().includes(query)
       if (!matchesSearch) return false
     }
 
     // Stock/Pre-order filter
     if (filterBy === 'in-stock') {
-      return product.retailQuantity && product.retailQuantity > 0 && !product.preOrderEnabled
+      const b2cStock = product.variants?.[0]?.inventory?.b2c?.available || 0
+      return b2cStock > 0 && !product.isPreorder
     } else if (filterBy === 'pre-order') {
-      return product.preOrderEnabled
+      return product.isPreorder
     }
 
     return true
@@ -81,7 +80,7 @@ export const Shop: React.FC = () => {
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch (sortBy) {
       case 'name':
-        return a.name.en.localeCompare(b.name.en)
+        return a.name.localeCompare(b.name)
       case 'price-asc':
         return (a.retailPrice?.item || 0) - (b.retailPrice?.item || 0)
       case 'price-desc':
@@ -96,7 +95,7 @@ export const Shop: React.FC = () => {
 
   const handleAddToCart = (product: Product) => {
     addItem(product, 1)
-    toast.success(`${product.name.en} added to cart`)
+    toast.success(`${product.name} added to cart`)
   }
 
   if (loading) {
@@ -238,10 +237,10 @@ export const Shop: React.FC = () => {
                 <Button
                   onClick={() => handleAddToCart(product)}
                   className="w-full"
-                  disabled={product.retailQuantity === 0 && !product.preOrderEnabled}
+                  disabled={(product.variants?.[0]?.inventory?.b2c?.available || 0) === 0 && !product.isPreorder}
                 >
-                  {product.preOrderEnabled ? 'Pre-order' : 
-                   product.retailQuantity === 0 ? 'Out of Stock' : 'Add to Cart'}
+                  {product.isPreorder ? 'Pre-order' : 
+                        (product.variants?.[0]?.inventory?.b2c?.available || 0) === 0 ? 'Out of Stock' : 'Add to Cart'}
                 </Button>
               </div>
             </div>

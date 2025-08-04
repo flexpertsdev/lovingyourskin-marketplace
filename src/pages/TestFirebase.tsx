@@ -69,7 +69,7 @@ export const TestFirebase: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {products.map(product => (
               <div key={product.id} className="p-4 border rounded">
-                <h3 className="font-semibold">{product.name.en}</h3>
+                <h3 className="font-semibold">{product.name}</h3>
                 <p className="text-sm text-gray-600">Brand: {product.brandId}</p>
                 <p className="text-sm text-gray-600">Price: {product.price?.wholesale ?? product.price?.retail ?? product.retailPrice?.item ?? 'N/A'}</p>
                 <p className="text-sm text-gray-600">MOQ: {product.moq}</p>

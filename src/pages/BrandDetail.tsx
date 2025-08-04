@@ -73,15 +73,15 @@ export const BrandDetail: React.FC = () => {
         break
       case 'price-low':
         filtered.sort((a, b) => {
-          const aPrice = a.price.wholesale ?? a.price.retail ?? a.retailPrice?.item ?? 0
-          const bPrice = b.price.wholesale ?? b.price.retail ?? b.retailPrice?.item ?? 0
+          const aPrice = a.price?.wholesale ?? a.price?.retail ?? a.retailPrice?.item ?? 0
+          const bPrice = b.price?.wholesale ?? b.price?.retail ?? b.retailPrice?.item ?? 0
           return aPrice - bPrice
         })
         break
       case 'price-high':
         filtered.sort((a, b) => {
-          const aPrice = a.price.wholesale ?? a.price.retail ?? a.retailPrice?.item ?? 0
-          const bPrice = b.price.wholesale ?? b.price.retail ?? b.retailPrice?.item ?? 0
+          const aPrice = a.price?.wholesale ?? a.price?.retail ?? a.retailPrice?.item ?? 0
+          const bPrice = b.price?.wholesale ?? b.price?.retail ?? b.retailPrice?.item ?? 0
           return bPrice - aPrice
         })
         break
@@ -124,12 +124,12 @@ export const BrandDetail: React.FC = () => {
             {brand.logo && (
               <img 
                 src={brand.logo} 
-                alt={brand.name.en}
+                alt={(typeof brand.name === 'string' ? brand.name : brand.name?.en) || 'Brand'}
                 className="h-20 mx-auto mb-6 object-contain"
               />
             )}
             <p className="text-xl text-text-secondary mb-6">
-              {brand.description.en}
+              {(typeof brand.description === 'string' ? brand.description : brand.description?.en) || ''}
             </p>
             
             {/* Brand Stats */}
@@ -164,7 +164,7 @@ export const BrandDetail: React.FC = () => {
       {(brand.heroImages && brand.heroImages.length > 0) && (
         <HeroCarousel
           images={brand.heroImages}
-          alt={brand.name.en}
+          alt={typeof brand.name === 'string' ? brand.name : brand.name?.en || 'Brand'}
         />
       )}
       
@@ -175,9 +175,9 @@ export const BrandDetail: React.FC = () => {
             <Card>
               <CardContent>
                 <h2 className="text-2xl font-light text-deep-charcoal mb-4">Brand Story</h2>
-                <p className="text-text-secondary leading-relaxed">
-                  {brand.story.en}
-                </p>
+                <div className="text-text-secondary leading-relaxed">
+                  {(typeof brand.story === 'string' ? brand.story : brand.story?.en) || ''}
+                </div>
               </CardContent>
             </Card>
           </Container>

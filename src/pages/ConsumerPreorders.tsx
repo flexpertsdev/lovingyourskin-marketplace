@@ -87,7 +87,7 @@ export const ConsumerPreorders: React.FC = () => {
 
   const handlePreorder = (product: Product) => {
     addItem(product, 1)
-    const productName = typeof product.name === 'object' ? product.name.en : product.name
+    const productName = product.name
     toast.success(`${productName} added to cart for pre-order`)
   }
 
@@ -173,8 +173,8 @@ export const ConsumerPreorders: React.FC = () => {
                   <div className="relative">
                     <Link to={`/consumer/products/${product.id}`}>
                       <img 
-                        src={product.images?.[0] || '/placeholder-product.png'} 
-                        alt={typeof product.name === 'object' ? product.name.en : product.name}
+                        src={product.images?.primary || '/placeholder-product.png'} 
+                        alt={product.name}
                         className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     </Link>
@@ -202,11 +202,11 @@ export const ConsumerPreorders: React.FC = () => {
                     </p>
                     <Link to={`/consumer/products/${product.id}`}>
                       <h3 className="font-medium text-deep-charcoal mb-2 hover:text-rose-gold transition-colors">
-                        {typeof product.name === 'object' ? product.name.en : product.name}
+                        {product.name}
                       </h3>
                     </Link>
                     <p className="text-sm text-text-secondary mb-4 line-clamp-2">
-                      {typeof product.description === 'object' ? product.description.en : product.description}
+                      {product.description}
                     </p>
                     
                     {/* Pricing */}

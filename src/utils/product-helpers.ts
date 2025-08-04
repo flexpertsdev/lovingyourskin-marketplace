@@ -1,19 +1,13 @@
 import { Product } from '../types'
 
 // Helper to get product name as string
-export const getProductName = (product: Product, lang: 'en' | 'ko' | 'zh' = 'en'): string => {
-  if (typeof product.name === 'string') {
-    return product.name
-  }
-  return product.name[lang] || product.name.en
+export const getProductName = (product: Product): string => {
+  return product.name
 }
 
 // Helper to get product description as string
-export const getProductDescription = (product: Product, lang: 'en' | 'ko' | 'zh' = 'en'): string => {
-  if (typeof product.description === 'string') {
-    return product.description
-  }
-  return product.description[lang] || product.description.en
+export const getProductDescription = (product: Product): string => {
+  return product.description
 }
 
 // Helper to get primary image

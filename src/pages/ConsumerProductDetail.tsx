@@ -1,28 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, useNavigate, Link, useLocation } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../lib/firebase/config'
 import { Product } from '../types'
 import { Layout, Container } from '../components/layout'
 import { Button } from '../components/ui/Button'
-import { Card, CardContent } from '../components/ui/Card'
+
 import { Badge } from '../components/ui/Badge'
 import { Spinner } from '../components/ui/Spinner'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
-import { useAuthStore } from '../stores/auth.store'
-import { authService } from '../services'
 import toast from 'react-hot-toast'
+import { getProductPrimaryImage, getProductImageGallery } from '../utils/product-helpers'
 
 // Icon components
 const ChevronLeftIcon = () => (
   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-  </svg>
-)
-
-const HeartIcon = ({ filled = false }: { filled?: boolean }) => (
-  <svg className={`w-5 h-5 ${filled ? 'fill-current' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
   </svg>
 )
 
@@ -79,8 +72,6 @@ const formatCurrency = (amount: number): string => {
 export const ConsumerProductDetail: React.FC = () => {
   const { productId } = useParams<{ productId: string }>()
   const navigate = useNavigate()
-  const location = useLocation()
-  const { user } = useAuthStore()
   const { addItem } = useConsumerCartStore()
   
   const [product, setProduct] = useState<Product | null>(null)
@@ -90,19 +81,12 @@ export const ConsumerProductDetail: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState(0)
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0)
   const [activeTab, setActiveTab] = useState<'description' | 'ingredients' | 'usage'>('description')
-  // const [isWishlisted, setIsWishlisted] = useState(false) // Wishlist feature not implemented yet
   
   useEffect(() => {
     if (productId) {
       loadProduct(productId)
     }
   }, [productId])
-  
-  // useEffect(() => {
-  //   if (product && user?.wishlist) {
-  //     setIsWishlisted(user.wishlist.includes(product.id))
-  //   }
-  // }, [product, user])
   
   const loadProduct = async (id: string) => {
     try {
@@ -147,7 +131,7 @@ export const ConsumerProductDetail: React.FC = () => {
       return
     }
     
-    const productName = typeof product.name === 'string' ? product.name : product.name?.en || 'Product'
+    const productName = product.name || 'Product'
     
     // Use the same pattern as ConsumerShop and ConsumerBrandDetail
     addItem({
@@ -156,7 +140,7 @@ export const ConsumerProductDetail: React.FC = () => {
       variantId: selectedVariant.variantId,
       price: selectedVariant.pricing.b2c.retailPrice || 0,
       quantity: quantity,
-      image: product.images?.primary || '',
+      image: getProductPrimaryImage(product) || '',
       brandId: product.brandId
     })
     
@@ -182,8 +166,8 @@ export const ConsumerProductDetail: React.FC = () => {
   
   const handleShare = async () => {
     if (navigator.share && product) {
-      const productName = typeof product.name === 'string' ? product.name : product.name?.en || 'Product'
-      const productDescription = typeof product.description === 'string' ? product.description : product.description?.en || ''
+      const productName = product.name || 'Product'
+      const productDescription = product.description || ''
       
       try {
         await navigator.share({
@@ -233,16 +217,16 @@ export const ConsumerProductDetail: React.FC = () => {
   const selectedVariant = product.variants?.[selectedVariantIndex]
   const b2cPricing = selectedVariant?.pricing?.b2c
   const isInStock = (selectedVariant?.inventory?.b2c?.available || 0) > 0
-  const isPreOrder = product.preOrderEnabled
+  const isPreOrder = product.isPreorder
   const effectivePrice = b2cPricing?.retailPrice || 0
-  const discountedPrice = isPreOrder && product.preOrderDiscount 
-    ? effectivePrice * (1 - product.preOrderDiscount / 100)
+  const discountedPrice = isPreOrder && product.preorderDiscount 
+    ? effectivePrice * (1 - product.preorderDiscount / 100)
     : effectivePrice
   
   // Get product name and description safely
-  const productName = typeof product.name === 'string' ? product.name : product.name?.en || 'Product'
-  const productDescription = typeof product.description === 'string' ? product.description : product.description?.en || ''
-  const productNameKo = typeof product.name === 'object' ? product.name.ko : undefined
+  const productName = product.name || 'Product'
+  const productDescription = product.description || ''
+  const productNameKo = undefined // Remove Korean name support
   
   return (
     <Layout mode="consumer">
@@ -257,12 +241,12 @@ export const ConsumerProductDetail: React.FC = () => {
         {/* Product Images */}
         <div>
           <div className="bg-white rounded-lg overflow-hidden">
-            {product.images?.primary || product.images?.[0] ? (
+            {getProductPrimaryImage(product) ? (
               <img
                 src={
                   selectedImage === 0 
-                    ? (product.images.primary || product.images[0])
-                    : product.images[selectedImage] || product.images.primary
+                    ? getProductPrimaryImage(product)
+                    : getProductImageGallery(product)[selectedImage] || getProductPrimaryImage(product)
                 }
                 alt={productName}
                 className="w-full h-full object-contain"
@@ -273,9 +257,9 @@ export const ConsumerProductDetail: React.FC = () => {
               </div>
             )}
           </div>
-          {product.images && Array.isArray(product.images) && product.images.length > 1 && (
+          {getProductImageGallery(product) && getProductImageGallery(product).length > 1 && (
             <div className="grid grid-cols-4 gap-2 mt-4">
-              {product.images.map((image, index) => (
+              {getProductImageGallery(product).map((image, index) => (
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
@@ -299,8 +283,8 @@ export const ConsumerProductDetail: React.FC = () => {
           <div className="mb-4">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-sm text-gray-500">Brand: {product.brandId}</span>
-              {product.isNew && <Badge variant="info">New</Badge>}
-              {product.preOrderEnabled && <Badge variant="warning">Pre-order</Badge>}
+
+              {product.isPreorder && <Badge variant="warning">Pre-order</Badge>}
             </div>
             <h1 className="text-3xl font-light mb-2">{productName}</h1>
             {productNameKo && (
@@ -348,7 +332,7 @@ export const ConsumerProductDetail: React.FC = () => {
           
           {/* Price */}
           <div className="mb-6">
-            {isPreOrder && product.preOrderDiscount ? (
+            {isPreOrder && product.preorderDiscount ? (
               <div className="flex items-baseline gap-2">
                 <span className="text-3xl font-medium text-rose-gold">
                   {formatCurrency(discountedPrice)}
@@ -356,7 +340,7 @@ export const ConsumerProductDetail: React.FC = () => {
                 <span className="text-xl text-gray-400 line-through">
                   {formatCurrency(effectivePrice)}
                 </span>
-                <Badge variant="success">{product.preOrderDiscount}% OFF</Badge>
+                <Badge variant="success">{product.preorderDiscount}% OFF</Badge>
               </div>
             ) : (
               <span className="text-3xl font-medium text-rose-gold">
@@ -364,11 +348,7 @@ export const ConsumerProductDetail: React.FC = () => {
               </span>
             )}
             <p className="text-sm text-gray-500 mt-1">VAT included</p>
-            {isPreOrder && product.launchDate && (
-              <p className="text-sm text-blue-600 mt-2">
-                Expected delivery: {new Date(product.launchDate).toLocaleDateString()}
-              </p>
-            )}
+
           </div>
           
           {/* Short Description */}
@@ -439,22 +419,7 @@ export const ConsumerProductDetail: React.FC = () => {
             </Button>
           </div>
           
-          {/* Key Benefits */}
-          {product.keyBenefits && product.keyBenefits.length > 0 && (
-            <Card className="mb-6">
-              <CardContent className="p-4">
-                <h3 className="font-medium mb-3">Key Benefits</h3>
-                <ul className="space-y-2">
-                  {product.keyBenefits.map((benefit, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <span className="text-rose-gold mt-0.5">•</span>
-                      <span className="text-sm text-gray-700">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          )}
+
           
           {/* Certifications */}
           {product.certifications && product.certifications.length > 0 && (
@@ -508,12 +473,6 @@ export const ConsumerProductDetail: React.FC = () => {
           {activeTab === 'description' && (
             <div className="prose prose-sm max-w-none">
               <p className="text-text-secondary leading-relaxed">{productDescription}</p>
-              {product.howToUse && (
-                <div className="mt-6">
-                  <h4 className="font-medium text-deep-charcoal mb-2">How to Use:</h4>
-                  <p className="text-text-secondary">{product.howToUse}</p>
-                </div>
-              )}
             </div>
           )}
           
@@ -523,19 +482,7 @@ export const ConsumerProductDetail: React.FC = () => {
               <p className="text-sm text-text-secondary">
                 {product.ingredients || 'Ingredients information not available'}
               </p>
-              {product.highlights && product.highlights.length > 0 && (
-                <div className="mt-6">
-                  <h4 className="font-medium text-deep-charcoal mb-3">Key Ingredients & Benefits:</h4>
-                  <ul className="space-y-2">
-                    {product.highlights.map((highlight, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <span className="text-rose-gold mt-0.5">•</span>
-                        <span className="text-sm text-text-secondary">{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+
             </div>
           )}
           
@@ -543,15 +490,8 @@ export const ConsumerProductDetail: React.FC = () => {
             <div>
               <h3 className="font-medium text-deep-charcoal mb-4">How to Use</h3>
               <p className="text-text-secondary">
-                {product.howToUse || 
-                 'Apply an appropriate amount to clean skin. Gently massage until fully absorbed. Use morning and evening for best results.'}
+                Apply an appropriate amount to clean skin. Gently massage until fully absorbed. Use morning and evening for best results.
               </p>
-              {product.usageTips && (
-                <div className="mt-4">
-                  <h4 className="font-medium text-deep-charcoal mb-2">Pro Tips:</h4>
-                  <p className="text-sm text-text-secondary">{product.usageTips}</p>
-                </div>
-              )}
             </div>
           )}
         </div>

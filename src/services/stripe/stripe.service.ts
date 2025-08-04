@@ -45,9 +45,9 @@ export class StripeService {
         price_data: {
           currency: 'gbp',
           product_data: {
-            name: item.product.name.en,
-            description: item.product.description.en,
-            images: item.product.images.slice(0, 1), // Stripe accepts max 8 images
+            name: item.product.name,
+        description: item.product.description,
+            images: [item.product.images.primary], // Stripe accepts max 8 images
             metadata: {
               productId: item.product.id,
               brandId: item.product.brandId

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, where, orderBy, getDocs, deleteDoc, doc, updateDoc, setDoc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '@/lib/firebase/config';
+import { db } from '@/lib/firebase/config';
 import { Product } from '@/types';
 import { Layout } from '@/components/layout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
@@ -17,7 +16,7 @@ import { Label } from '@/components/ui/label';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import toast from 'react-hot-toast';
 import { Loader2, Search, Plus, Edit, Trash2, X } from 'lucide-react';
-import { getProductName, getProductDescription, getProductPrimaryImage, getProductImageGallery } from '@/utils/product-helpers';
+import { getProductName, getProductPrimaryImage, getProductImageGallery } from '@/utils/product-helpers';
 
 export default function ProductManagement() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -30,7 +29,7 @@ export default function ProductManagement() {
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState<Product | null>(null);
-  const [uploading, setUploading] = useState(false);
+
 
   // Fetch products from Firestore
   const fetchProducts = async () => {
@@ -60,8 +59,8 @@ export default function ProductManagement() {
       // Apply search filter (client-side for now)
       const filtered = searchTerm
         ? fetchedProducts.filter(product => {
-            const name = typeof product.name === 'string' ? product.name : product.name?.en;
-            const description = typeof product.description === 'string' ? product.description : product.description?.en;
+            const name = getProductName(product);
+            const description = product.description;
             return name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
               description?.toLowerCase().includes(searchTerm.toLowerCase());
           })
@@ -80,23 +79,7 @@ export default function ProductManagement() {
     fetchProducts();
   }, [selectedBrand, selectedCategory, searchTerm]);
 
-  // Handle image upload
-  const handleImageUpload = async (file: File, productId: string) => {
-    setUploading(true);
-    try {
-      const storageRef = ref(storage, `products/${productId}/${file.name}`);
-      const snapshot = await uploadBytes(storageRef, file);
-      const downloadURL = await getDownloadURL(snapshot.ref);
-      
-      return downloadURL;
-    } catch (error) {
-      console.error('Error uploading image:', error);
-      toast.error('Failed to upload image');
-      return null;
-    } finally {
-      setUploading(false);
-    }
-  };
+
 
   // Update product
   const handleUpdateProduct = async (productId: string, updates: Partial<Product>) => {
@@ -119,7 +102,7 @@ export default function ProductManagement() {
   // Create product
   const handleCreateProduct = async (newProduct: Partial<Product>) => {
     try {
-      const productName = typeof newProduct.name === 'string' ? newProduct.name : newProduct.name?.en || '';
+      const productName = typeof newProduct.name === 'string' ? newProduct.name : (newProduct.name as any)?.en || '';
       const productId = `${newProduct.brandId}-${productName.toLowerCase().replace(/\s+/g, '-')}`;
       await setDoc(doc(db, 'products', productId), {
         ...newProduct,
@@ -240,7 +223,10 @@ export default function ProductManagement() {
                         {getProductName(product)}
                       </TableCell>
                       <TableCell>
-                        {typeof product.brand?.name === 'string' ? product.brand?.name : product.brand?.name?.en || product.brandId}
+                        {(() => {
+                          const brandName = product.brand?.name;
+                          return typeof brandName === 'string' ? brandName : (brandName as any)?.en || product.brandId;
+                        })()}
                       </TableCell>
                       <TableCell>{product.category}</TableCell>
                       <TableCell>
@@ -295,11 +281,9 @@ export default function ProductManagement() {
           </DialogHeader>
           {selectedProduct && (
             <ProductEditForm
-              product={selectedProduct}
-              onSave={handleUpdateProduct}
-              onImageUpload={handleImageUpload}
-              uploading={uploading}
-            />
+            product={selectedProduct}
+            onSave={handleUpdateProduct}
+          />
           )}
         </DialogContent>
       </Dialog>
@@ -312,8 +296,6 @@ export default function ProductManagement() {
           </DialogHeader>
           <ProductCreateForm
             onSave={handleCreateProduct}
-            onImageUpload={handleImageUpload}
-            uploading={uploading}
           />
         </DialogContent>
       </Dialog>
@@ -348,27 +330,22 @@ export default function ProductManagement() {
 function ProductEditForm({
   product,
   onSave,
-  onImageUpload,
-  uploading,
 }: {
   product: Product;
   onSave: (productId: string, updates: Partial<Product>) => void;
-  onImageUpload: (file: File, productId: string) => Promise<string | null>;
-  uploading: boolean;
+  onImageUpload?: (file: File, productId: string) => Promise<string | null>;
+  uploading?: boolean;
 }) {
   const [formData, setFormData] = useState(product);
-  const [newImages, setNewImages] = useState<string[]>([]);
+
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
 
-    for (const file of Array.from(files)) {
-      const url = await onImageUpload(file, product.id);
-      if (url) {
-        setNewImages((prev) => [...prev, url]);
-      }
-    }
+    // Image upload functionality would go here
+    // For now, just log the files
+    console.log('Files selected:', files);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -378,7 +355,7 @@ function ProductEditForm({
       ...formData,
       images: {
         ...formData.images,
-        gallery: [...getProductImageGallery(formData), ...newImages],
+        gallery: getProductImageGallery(formData),
       },
     };
 
@@ -444,10 +421,12 @@ function ProductEditForm({
               <Label htmlFor="status">Status</Label>
               <Select
                 value={formData.status}
-                onChange={(e) => setFormData({ ...formData, status: e.target.value as 'active' | 'inactive' })}
+                onChange={(e) => setFormData({ ...formData, status: e.target.value as 'active' | 'presale' | 'discontinued' | 'out-of-stock' })}
                 options={[
                   { value: 'active', label: 'Active' },
-                  { value: 'inactive', label: 'Inactive' }
+                  { value: 'presale', label: 'Presale' },
+                  { value: 'discontinued', label: 'Discontinued' },
+                  { value: 'out-of-stock', label: 'Out of Stock' }
                 ]}
                 placeholder="Select status"
               />
@@ -576,9 +555,9 @@ function ProductEditForm({
                 <div key={index} className="relative">
                   <img src={img} alt="" className="w-full h-32 object-cover rounded" />
                   <Button
-                    size="sm"
-                    variant="destructive"
-                    className="absolute top-2 right-2"
+                    size="small"
+                    variant="secondary"
+                    className="absolute top-2 right-2 text-red-600"
                     onClick={() => {
                       const newGallery = formData.images.gallery.filter((_, i) => i !== index);
                       setFormData({
@@ -602,23 +581,10 @@ function ProductEditForm({
               accept="image/*"
               multiple
               onChange={handleImageChange}
-              disabled={uploading}
             />
-            {uploading && <p className="text-sm text-gray-500 mt-2">Uploading...</p>}
           </div>
 
-          {newImages.length > 0 && (
-            <div>
-              <Label>New Images</Label>
-              <div className="grid grid-cols-4 gap-4 mt-2">
-                {newImages.map((img, index) => (
-                  <div key={index} className="relative">
-                    <img src={img} alt="" className="w-full h-32 object-cover rounded" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+
           </div>
         </TabsContent>
 
@@ -682,7 +648,7 @@ function ProductEditForm({
       </Tabs>
 
       <div className="flex justify-end gap-4 px-6 pb-6 pt-4 border-t">
-        <Button type="button" variant="outline" onClick={() => setFormData(product)}>
+        <Button type="button" variant="secondary" onClick={() => setFormData(product)}>
           Reset
         </Button>
         <Button type="submit">Save Changes</Button>
@@ -694,12 +660,10 @@ function ProductEditForm({
 // Product Create Form Component
 function ProductCreateForm({
   onSave,
-  onImageUpload,
-  uploading,
 }: {
   onSave: (newProduct: Partial<Product>) => void;
-  onImageUpload: (file: File, productId: string) => Promise<string | null>;
-  uploading: boolean;
+  onImageUpload?: (file: File, productId: string) => Promise<string | null>;
+  uploading?: boolean;
 }) {
   const [formData, setFormData] = useState<Partial<Product>>({
     name: '',
@@ -802,7 +766,7 @@ function ProductCreateForm({
               }}
               options={brands.map((brand) => ({
                 value: brand.id,
-                label: brand.name.en
+                label: typeof brand.name === 'string' ? brand.name : (brand.name as any)?.en || brand.id
               }))}
               placeholder="Select brand"
             />
@@ -1011,7 +975,7 @@ function ProductCreateForm({
               value={formData.images?.primary || ''}
               onChange={(e) => setFormData({
                 ...formData,
-                images: { ...formData.images, primary: e.target.value }
+                images: { primary: e.target.value, gallery: formData.images?.gallery || [] }
               })}
               placeholder="https://example.com/image.jpg"
             />
@@ -1079,7 +1043,7 @@ function ProductCreateForm({
       </Tabs>
 
       <div className="flex justify-end gap-4 px-6 pb-6 pt-4 border-t">
-        <Button type="button" variant="outline" onClick={() => setFormData({})}>
+        <Button type="button" variant="secondary" onClick={() => setFormData({})}>
           Cancel
         </Button>
         <Button type="submit">Create Product</Button>

@@ -241,18 +241,7 @@ export function useFirebaseActions() {
     
     // Product actions
     createProduct: (productData: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>) =>
-      executeAction(() => productService.create({
-        ...productData,
-        active: true,
-        featured: false,
-        categoryId: productData.category || 'general',
-        inStock: true,
-        stockLevel: 'in' as const,
-        images: productData.images || [],
-        certifications: productData.certifications || [],
-        createdAt: new Date(),
-        updatedAt: new Date()
-      } as any)),
+      executeAction(() => productService.create(productData as any)),
     updateProduct: (productId: string, updates: Partial<Product>) =>
       executeAction(() => productService.update(productId, updates as any)),
     bulkUpdatePrices: (updates: { productId: string; wholesalePrice: number; retailPrice: number }[]) =>

@@ -67,131 +67,123 @@ export interface InviteCode {
   createdAt: Date
 }
 
-// Product types with multi-language support (lines 63-68)
+// Product types based on Firestore schema
 export interface Product {
   id: string
   brandId: string
-  categoryId: string
-  category: string // Category name
-  subcategory?: string // Additional categorization
-  sku?: string // Product SKU
-  barcode?: string // Product barcode
-  name: string | {
-    en: string
-    ko: string
-    zh: string
+  brand: {
+    id: string
+    name: string
   }
-  description: string | {
-    en: string
-    ko: string
-    zh: string
-  }
-  images: string[] | {
-    primary?: string
-    gallery?: string[]
+  category: string
+  subcategory?: string
+  name: string
+  description: string
+  shortDescription?: string
+  slug: string
+  
+  // Images structure from Firestore
+  images: {
+    primary: string
+    gallery: string[]
   }
   
-  // Unified pricing structure
-  price: {
-    wholesale?: number // B2B wholesale price
-    retail?: number // B2C retail price
+  // Product details
+  ingredients?: string
+  usage?: string
+  
+  // Status and flags
+  status: 'active' | 'presale' | 'discontinued' | 'out-of-stock'
+  featured: boolean
+  
+  // Pre-order fields
+  isPreorder: boolean
+  preorderDiscount?: number
+  preorderEndDate?: string
+  
+  // Tags and categorization
+  tags: string[]
+  
+  // Specifications object
+  specifications?: {
+    certifications?: string[]
+    expiryDate?: string
+    features?: string[]
+    keyIngredient?: string
+    origin?: string
+    pao?: string
+    setContents?: string
+    treatmentDuration?: string
+    paRating?: string
+    spf?: string
+    patent?: string
+    technology?: string
+  }
+  
+  // Variants array
+  variants: ProductVariant[]
+  
+  // Timestamps
+  createdAt: any // Firestore timestamp
+  updatedAt: any // Firestore timestamp or string
+  
+  // Legacy fields for backward compatibility
+  price?: {
+    wholesale?: number
+    retail?: number
     currency: 'GBP' | 'EUR' | 'CHF' | 'USD'
-    mrp?: number // Maximum retail price
-    item?: number // Legacy support for per-item price
+    item?: number
   }
-  
-  // Legacy retail price support (for backward compatibility)
   retailPrice?: {
     item: number
     currency: 'GBP' | 'EUR' | 'CHF' | 'USD'
   }
-  
-  // Sales channels
-  soldB2C?: boolean // Available for B2C
-  soldB2B?: boolean // Available for B2B
-  
-  // Stock information
-  stock?: number // Actual stock count
-  stockLevel: 'in' | 'low' | 'out'
-  inStock: boolean
-  
-  // B2C specific fields
-  retailQuantity?: number // Available stock for B2C
-  preOrderEnabled?: boolean // Legacy field
-  preOrderDiscount?: number // Legacy field
-  isPreorder?: boolean // New field for pre-order status
-  preorderDiscount?: number // Percentage discount for pre-orders
-  preorderEndDate?: string // ISO date string for when pre-order ends
-  launchDate?: Date
-  maxPreOrderQuantity?: number
-  
-  // B2B specific fields
-  moq: number // Minimum order quantity
-  moqUnit?: 'items' | 'cartons'
-  itemsPerCarton: number
-  packSize: string // e.g. "12", "24" - number per carton/pack
-  
-  // Product details
-  volume: string // e.g. "50ml", "100g"
-  weight?: string // e.g. "100g", "1kg"
-  ingredients?: string[]
-  certifications: CertificationType[]
-  badges?: string[]
-  
-  // Status flags
-  featured: boolean
-  active: boolean
-  leadTime: string // e.g. "3-5 days"
-  isNew?: boolean // For "New" badge display
-  
-  // Additional metadata
-  batchNumber?: string
-  expiryDate?: string
-  countryOfOrigin?: string
-  hazmat?: boolean
-  keyBenefits?: string[] // List of key benefits for B2C display
-  
-  // New fields from updated product structure
-  shortDescription?: string
-  tags?: string[]
-  status?: 'active' | 'presale' | 'discontinued' | 'out-of-stock'
-  brand?: Brand // Brand object reference
-  variants?: ProductVariant[]
+  soldB2C?: boolean
+  soldB2B?: boolean
+  stock?: number
+  stockLevel?: 'in' | 'low' | 'out'
+  inStock?: boolean
+  moq?: number
+  itemsPerCarton?: number
+  volume?: string
+  certifications?: CertificationType[]
+  active?: boolean
+  leadTime?: string
 }
 
 export type CertificationType = 'CPNP' | 'CPNP_UK' | 'CPNP_EU' | 'CPNP_CH' | 'VEGAN' | 'CRUELTY_FREE' | 'EWG' | 'DERMATOLOGIST_TESTED' | 'CARBON_NEUTRAL'
 
-// Product variant type for new product structure
+// Product variant type based on Firestore schema
 export interface ProductVariant {
   variantId: string
-  sku?: string
+  sku: string
   color?: string | null
   colorHex?: string | null
   size?: number | null
   sizeUnit?: string | null
-  isDefault?: boolean
-  status?: 'active' | 'inactive'
-  inventory?: {
-    b2b?: {
+  isDefault: boolean
+  status: 'active' | 'inactive'
+  inventory: {
+    b2b: {
       stock: number
       available: number
       reserved: number
     }
-    b2c?: {
+    b2c: {
       stock: number
       available: number
       reserved: number
     }
   }
-  pricing?: {
-    b2b?: {
+  pricing: {
+    b2b: {
       enabled: boolean
       wholesalePrice: number
       minOrderQuantity: number
       unitsPerCarton?: number | null
       currency: string
     }
-    b2c?: {
+    b2c: {
       enabled: boolean
       retailPrice: number
       salePrice?: number | null

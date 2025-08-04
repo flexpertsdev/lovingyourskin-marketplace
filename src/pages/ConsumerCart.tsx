@@ -112,7 +112,7 @@ export const ConsumerCart: React.FC = () => {
                         return (
                           <img
                             src={imageUrl}
-                            alt={typeof item.product.name === 'string' ? item.product.name : item.product.name.en}
+                            alt={item.product.name}
                             className="w-full h-full object-cover"
                           />
                         );
@@ -131,11 +131,11 @@ export const ConsumerCart: React.FC = () => {
                       <div>
                         <h3 className="font-medium">
                           <Link to={`/shop/products/${item.product.id}`} className="hover:text-rose-gold">
-                            {typeof item.product.name === 'string' ? item.product.name : item.product.name.en}
+                            {item.product.name}
                           </Link>
                         </h3>
                         <p className="text-sm text-gray-600">{item.product.brandId}</p>
-                        {item.product.preOrderEnabled && (
+                        {item.product.isPreorder && (
                           <p className="text-sm text-green-600 mt-1">
                             Pre-order: {item.preOrderDiscount}% off
                           </p>
@@ -167,8 +167,8 @@ export const ConsumerCart: React.FC = () => {
                           variant="secondary"
                           size="small"
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          disabled={item.product.retailQuantity !== undefined && 
-                                   item.quantity >= item.product.retailQuantity}
+                          disabled={(item.product.variants?.[0]?.inventory?.b2c?.available || 0) > 0 &&
+                      item.quantity >= (item.product.variants?.[0]?.inventory?.b2c?.available || 0)}
                         >
                           <PlusIcon />
                         </Button>

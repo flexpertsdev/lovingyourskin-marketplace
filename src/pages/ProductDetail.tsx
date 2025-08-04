@@ -53,7 +53,7 @@ export const ProductDetail: React.FC = () => {
     
     try {
       setIsAdding(true)
-      await cartService.addToCart(product, quantity * product.itemsPerCarton)
+      await cartService.addToCart(product, quantity * (product.itemsPerCarton || 1))
       await refreshCart()
       
       // Show success message or redirect to cart
@@ -66,7 +66,7 @@ export const ProductDetail: React.FC = () => {
   }
   
   const formatPrice = (price: number) => {
-    const currency = product?.price.currency || 'GBP'
+    const currency = product?.price?.currency || 'GBP'
     const locale = currency === 'USD' ? 'en-US' : currency === 'EUR' ? 'en-EU' : 'en-GB'
     return new Intl.NumberFormat(locale, {
       style: 'currency',
@@ -78,11 +78,11 @@ export const ProductDetail: React.FC = () => {
   const getItemPrice = () => {
     if (!product) return 0
     // Check for wholesale price
-    if (product.price.wholesale !== undefined) {
+    if (product.price?.wholesale !== undefined) {
       return product.price.wholesale
     }
-    // Check for retail price
-    if (product.price.retail !== undefined) {
+    // Fallback to retail price
+    if (product.price?.retail !== undefined) {
       return product.price.retail
     }
     // Legacy support
@@ -96,7 +96,7 @@ export const ProductDetail: React.FC = () => {
   const getCartonPrice = () => {
     if (!product) return 0
     const itemPrice = getItemPrice()
-    return itemPrice * product.itemsPerCarton
+    return itemPrice * (product.itemsPerCarton || 1)
   }
   
   if (isLoading) {
@@ -127,17 +127,17 @@ export const ProductDetail: React.FC = () => {
               <span>/</span>
             </>
           )}
-          <span className="text-text-primary">{product.name.en}</span>
+          <span className="text-text-primary">{product.name}</span>
         </div>
         
         <Grid cols={2} gap="lg">
           {/* Product Images */}
           <div className="space-y-4">
             <div className="aspect-square bg-soft-pink rounded-lg flex items-center justify-center">
-              {product.images?.[0] ? (
+              {product.images?.primary ? (
                 <img 
-                  src={product.images[0]} 
-                  alt={product.name.en}
+                  src={product.images.primary} 
+                  alt={product.name}
                   className="w-full h-full object-cover rounded-lg"
                 />
               ) : (
@@ -146,16 +146,16 @@ export const ProductDetail: React.FC = () => {
             </div>
             
             {/* Thumbnail Images */}
-            {product.images && product.images.length > 1 && (
+            {product.images?.gallery && product.images.gallery.length > 0 && (
               <div className="grid grid-cols-4 gap-2">
-                {product.images.slice(1, 5).map((image, index) => (
+                {product.images.gallery.slice(0, 4).map((image: string, index: number) => (
                   <div 
                     key={index}
                     className="aspect-square bg-soft-pink rounded cursor-pointer hover:opacity-80"
                   >
                     <img 
                       src={image} 
-                      alt={`${product.name.en} ${index + 2}`}
+                      alt={`${product.name} ${index + 2}`}
                       className="w-full h-full object-cover rounded"
                     />
                   </div>
@@ -177,7 +177,7 @@ export const ProductDetail: React.FC = () => {
                 </Link>
               )}
               <h1 className="text-3xl font-light text-deep-charcoal mb-2">
-                {product.name.en}
+                {product.name}
               </h1>
               <p className="text-lg text-text-secondary">{product.volume}</p>
             </div>
@@ -199,7 +199,7 @@ export const ProductDetail: React.FC = () => {
             <div>
               <h3 className="font-medium text-deep-charcoal mb-2">Description</h3>
               <p className="text-text-secondary leading-relaxed">
-                {product.description.en}
+                {product.description}
               </p>
             </div>
             
@@ -235,21 +235,21 @@ export const ProductDetail: React.FC = () => {
                 </div>
                 
                 {/* Retail Price - Only show if available */}
-                {(product.retailPrice || product.price.mrp) && (
+                {product.retailPrice && (
                   <div className="pt-4 border-t border-border-gray">
                     <p className="text-sm text-text-secondary mb-1">Recommended Retail Price</p>
                     <p className="text-lg font-medium text-medium-gray">
-                      {formatPrice(product.retailPrice?.item || product.price.mrp || 0)} per item
+                      {formatPrice(product.retailPrice?.item || 0)} per item
                     </p>
                   </div>
                 )}
                 
                 <div className="pt-4 border-t border-border-gray">
                   <p className="text-sm text-text-secondary mb-2">
-                    • {product.itemsPerCarton} items per carton
+                    • {product.itemsPerCarton || 1} items per carton
                   </p>
                   <p className="text-sm text-text-secondary mb-2">
-                    • Minimum order: {product.moq} items ({Math.ceil(product.moq / product.itemsPerCarton)} cartons)
+                    • Minimum order: {product.moq || 1} items ({Math.ceil((product.moq || 1) / (product.itemsPerCarton || 1))} cartons)
                   </p>
                   <p className="text-sm text-text-secondary">
                     • Lead time: {product.leadTime}
@@ -288,7 +288,7 @@ export const ProductDetail: React.FC = () => {
                       +
                     </button>
                     <span className="text-sm text-text-secondary">
-                      = {quantity * product.itemsPerCarton} items
+                      = {quantity * (product.itemsPerCarton || 1)} items
                     </span>
                   </div>
                 </div>

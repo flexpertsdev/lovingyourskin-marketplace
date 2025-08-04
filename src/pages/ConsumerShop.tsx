@@ -339,12 +339,8 @@ export const ConsumerShop: React.FC = () => {
       // Search filter
       if (searchQuery) {
         const query = searchQuery.toLowerCase()
-        const name = typeof product.name === 'string' 
-          ? product.name.toLowerCase() 
-          : (product.name?.en?.toLowerCase() || product.name?.ko?.toLowerCase() || product.name?.zh?.toLowerCase() || '')
-        const description = typeof product.description === 'string'
-          ? product.description.toLowerCase()
-          : (product.description?.en?.toLowerCase() || product.description?.ko?.toLowerCase() || product.description?.zh?.toLowerCase() || '')
+        const name = (product.name || '').toLowerCase()
+        const description = (product.description || '').toLowerCase()
         
         if (!name.includes(query) && !description.includes(query)) {
           return false
@@ -404,7 +400,7 @@ export const ConsumerShop: React.FC = () => {
 
     addItem({
       productId: product.id,
-      productName: typeof product.name === 'string' ? product.name : product.name?.en || 'Product',
+      productName: product.name || 'Product',
       variantId: b2cVariant.variantId,
       price: b2cVariant.pricing?.b2c?.retailPrice || 0,
       quantity: 1,
@@ -418,7 +414,7 @@ export const ConsumerShop: React.FC = () => {
     }
     
     // Show new toast and save its ID
-    toastIdRef.current = toast.success(`${typeof product.name === 'string' ? product.name : product.name?.en || 'Product'} added to cart`, {
+    toastIdRef.current = toast.success(`${product.name || 'Product'} added to cart`, {
       duration: 2000,
       id: 'add-to-cart'
     })
@@ -560,7 +556,7 @@ export const ConsumerShop: React.FC = () => {
                           <div className="aspect-square overflow-hidden bg-gray-50">
                             <img 
                               src={product.images?.primary || '/placeholder.png'} 
-                              alt={typeof product.name === 'string' ? product.name : product.name?.en || 'Product'}
+                              alt={product.name || 'Product'}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             />
                           </div>
@@ -606,11 +602,11 @@ export const ConsumerShop: React.FC = () => {
                         </p>
                         <Link to={`/consumer/products/${product.id}`}>
                           <h3 className="font-medium text-deep-charcoal mb-2 hover:text-rose-gold transition-colors line-clamp-1">
-                            {typeof product.name === 'string' ? product.name : product.name?.en || 'Product'}
+                            {product.name || 'Product'}
                           </h3>
                         </Link>
                         <p className="text-sm text-text-secondary mb-3 line-clamp-2">
-                          {product.shortDescription || (typeof product.description === 'string' ? product.description : product.description?.en) || ''}
+                          {product.shortDescription || product.description || ''}
                         </p>
                         
                         {/* Price and Size */}

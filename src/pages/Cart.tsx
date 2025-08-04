@@ -4,7 +4,7 @@ import { Layout } from '../components/layout'
 import { Container, Section } from '../components/layout'
 import { Button, Card, CardContent, Badge } from '../components/ui'
 import { useCartStore } from '../stores/cart.store'
-import { Progress } from '../components/ui/Progress'
+import { getProductName, getProductPrimaryImage } from '../utils/product-helpers'
 
 // Retailer cart with MOQ requirements
 
@@ -18,7 +18,6 @@ export const Cart: React.FC = () => {
     updateQuantity,
     loadCart,
     validateAllMOQ,
-    canCheckout,
     clearBrandItems
   } = useCartStore()
   
@@ -86,7 +85,6 @@ export const Cart: React.FC = () => {
                           <span>Progress to MOQ</span>
                           <span>£{status.current.toFixed(2)} / £{status.required.toFixed(2)}</span>
                         </div>
-                        <Progress value={status.percentage} max={100} />
                       </div>
                     )}
                     
@@ -101,14 +99,14 @@ export const Cart: React.FC = () => {
                         >
                           {/* Product Image */}
                           <img 
-                            src={item.product.images?.[0] || '/placeholder.png'}
-                            alt={typeof item.product.name === 'string' ? item.product.name : item.product.name?.en || 'Product'}
+                            src={getProductPrimaryImage(item.product) || '/placeholder.png'}
+                            alt={getProductName(item.product)}
                             className="w-20 h-20 object-cover rounded-lg"
                           />
                           
                           <div className="flex-1">
                             <h4 className="font-medium">
-                              {typeof item.product.name === 'string' ? item.product.name : item.product.name?.en}
+                              {getProductName(item.product)}
                             </h4>
                             <p className="text-sm text-text-secondary">
                               {item.product.volume} • {item.product.itemsPerCarton} items per carton

@@ -62,21 +62,21 @@ const ConsumerProductCard: React.FC<{ product: Product }> = ({ product }) => {
             Out of Stock
           </Badge>
         )}
-        {product.preOrderEnabled && (
+        {product.isPreorder && (
           <Badge variant="default" className="absolute top-4 left-4">
             Pre-order
           </Badge>
         )}
         {/* Show variant colors if multiple */}
-        {product.variants?.length > 1 && (
+        {product.variants && product.variants.length > 1 && (
           <div className="absolute bottom-4 left-4 flex gap-1">
-            {product.variants.slice(0, 4).map((variant, idx) => (
+            {product.variants.slice(0, 4).map((variant) => (
               variant.colorHex && (
                 <div 
                   key={variant.variantId}
                   className="w-5 h-5 rounded-full border border-gray-300"
                   style={{ backgroundColor: variant.colorHex }}
-                  title={variant.color}
+                  title={variant.color || ''}
                 />
               )
             ))}

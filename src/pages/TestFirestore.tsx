@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { productService } from '../services'
 import { Brand, Product } from '../types'
 import { Button } from '../components/ui'
@@ -58,7 +58,7 @@ export const TestFirestore: React.FC = () => {
             <h2 className="font-semibold">Brands ({brands.length}):</h2>
             <ul className="list-disc pl-6">
               {brands.map(brand => (
-                <li key={brand.id}>{brand.name.en || brand.name} - ID: {brand.id}</li>
+                <li key={brand.id}>{String(brand.name.en || brand.name)} - ID: {brand.id}</li>
               ))}
             </ul>
           </div>
@@ -73,7 +73,7 @@ export const TestFirestore: React.FC = () => {
             <ul className="list-disc pl-6">
               {products.slice(0, 10).map(product => (
                 <li key={product.id}>
-                  {product.name.en || product.name} - Brand: {product.brandId} - Variants: {product.variants?.length || 0}
+                  {product.name} - Brand: {product.brandId} - Variants: {product.variants?.length || 0}
                 </li>
               ))}
               {products.length > 10 && <li>... and {products.length - 10} more</li>}

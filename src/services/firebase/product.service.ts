@@ -207,7 +207,7 @@ class FirebaseProductService {
   }
   
   // Search products
-  async searchProducts(searchTerm: string, language: 'en' | 'ko' | 'zh' = 'en'): Promise<Product[]> {
+  async searchProducts(searchTerm: string): Promise<Product[]> {
     try {
       // Note: Firestore doesn't support full-text search natively
       // For production, consider using Algolia or Elasticsearch
@@ -216,8 +216,8 @@ class FirebaseProductService {
       
       const searchLower = searchTerm.toLowerCase()
       return allProducts.filter(product => {
-        const name = getProductName(product, language).toLowerCase()
-        const description = getProductDescription(product, language).toLowerCase()
+        const name = getProductName(product).toLowerCase()
+        const description = getProductDescription(product).toLowerCase()
         const brand = product.brandId.toLowerCase()
         
         return name.includes(searchLower) || 

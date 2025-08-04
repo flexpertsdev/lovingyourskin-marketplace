@@ -1,7 +1,4 @@
-// Central export for all services
-// Services use Firebase or Mock based on configuration
-
-import { shouldUseFirebase } from '../config/services.config'
+// Central export for all Firebase services
 
 // Firebase services
 import { firebaseAuthService } from './firebase/auth.service'
@@ -11,12 +8,9 @@ import { firebaseOrderService } from './firebase/order.service'
 import { firebaseDashboardService } from './firebase/dashboard.service'
 import { firebaseMessageService } from './firebase/message.service'
 
-// Mock services
-import { productService as mockProductService } from './mock/product.service'
-
-// Export services based on configuration
+// Export Firebase services
 export const authService = firebaseAuthService
-export const productService = shouldUseFirebase('products') ? firebaseProductService : mockProductService
+export const productService = firebaseProductService
 export const cartService = firebaseCartService
 export const orderService = firebaseOrderService
 export const dashboardService = firebaseDashboardService

@@ -14,11 +14,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
   // Get prices from the unified price structure
   const getItemPrice = (): number => {
     // For B2B, use wholesale price if available
-    if (product.price.wholesale !== undefined) {
+    if (product.price?.wholesale !== undefined) {
       return product.price.wholesale
     }
     // Fallback to retail price
-    if (product.price.retail !== undefined) {
+    if (product.price?.retail !== undefined) {
       return product.price.retail
     }
     // Legacy support for retailPrice field
@@ -30,11 +30,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
   
   const getCartonPrice = (): number => {
     const itemPrice = getItemPrice()
-    return itemPrice * product.itemsPerCarton
+    return itemPrice * (product.itemsPerCarton || 1)
   }
   
   const getCurrency = (): string => {
-    const currency = product.price.currency || product.retailPrice?.currency || 'GBP'
+    const currency = product.price?.currency || product.retailPrice?.currency || 'GBP'
     if (currency === 'USD') return '$'
     if (currency === 'EUR') return '€'
     if (currency === 'CHF') return 'CHF '
@@ -98,14 +98,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
               {getCurrency()}{getItemPrice().toFixed(2)}/item
             </div>
             <div className="text-xs text-text-secondary">
-              {getCurrency()}{getCartonPrice().toFixed(2)}/carton ({product.itemsPerCarton} items)
+              {getCurrency()}{getCartonPrice().toFixed(2)}/carton ({product.itemsPerCarton || 1} items)
             </div>
           </div>
           
           {/* MOQ Info */}
           <div className="mt-3 pt-3 border-t border-border-gray">
             <p className="text-xs text-text-secondary">
-              Min. order: {product.moq} items
+              Min. order: {product.moq || 1} items
             </p>
           </div>
         </CardContent>

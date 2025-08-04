@@ -296,20 +296,20 @@ class FirebaseCartService {
     for (const item of cart.items) {
       // Check if product is still active
       if (!item.product.active) {
-        errors.push(`${item.product.name.en} is no longer available`)
+        errors.push(`${item.product.name} is no longer available`)
         hasChanges = true
       }
       
       // Check stock level
       if (item.product.stockLevel === 'out') {
-        errors.push(`${item.product.name.en} is out of stock`)
+        errors.push(`${item.product.name} is out of stock`)
         hasChanges = true
       }
       
       // Check if quantity meets MOQ
-      if (item.quantity < item.product.moq) {
+      if (item.product.moq && item.quantity < item.product.moq) {
         errors.push(
-          `${item.product.name.en} requires minimum order of ${item.product.moq} ${item.product.moqUnit}`
+          `${item.product.name} requires minimum order of ${item.product.moq} items`
         )
       }
     }
@@ -332,6 +332,86 @@ class FirebaseCartService {
       errors,
       updatedCart: hasChanges ? cart : undefined
     }
+  }
+
+  // Clear items from a specific brand
+  async clearBrandItems(brandId: string, userId?: string): Promise<Cart> {
+    const cart = this.getLocalCart()
+    
+    // Filter out items from the specified brand
+    cart.items = cart.items.filter(item => item.product.brandId !== brandId)
+    cart.lastUpdated = new Date()
+    
+    // Save to local storage
+    this.saveLocalCart(cart)
+    
+    // Sync to Firebase if user is logged in
+    if (userId) {
+      await this.syncCartToFirebase(userId)
+    }
+    
+    return cart
+  }
+
+  // Validate MOQ for a specific brand
+  async validateMOQ(brandId: string, userId?: string): Promise<any> {
+    const cart = await this.getCart(userId)
+    const brandItems = cart.items.filter(item => item.product.brandId === brandId)
+    
+    if (brandItems.length === 0) {
+      return {
+        brandId,
+        valid: true,
+        totalQuantity: 0,
+        requiredMOQ: 0,
+        message: 'No items from this brand'
+      }
+    }
+    
+    const totalQuantity = brandItems.reduce((sum, item) => sum + item.quantity, 0)
+    const requiredMOQ = brandItems[0]?.product.moq || 1
+    const valid = totalQuantity >= requiredMOQ
+    
+    return {
+      brandId,
+      valid,
+      totalQuantity,
+      requiredMOQ,
+      message: valid ? 'MOQ met' : `Need ${requiredMOQ - totalQuantity} more items to meet MOQ`
+    }
+  }
+
+  // Validate MOQ for all brands in cart
+  async validateAllMOQ(userId?: string): Promise<any[]> {
+    const cart = await this.getCart(userId)
+    const brandIds = [...new Set(cart.items.map(item => item.product.brandId))]
+    
+    const validations = await Promise.all(
+      brandIds.map(brandId => this.validateMOQ(brandId, userId))
+    )
+    
+    return validations
+  }
+
+  // Check if cart can proceed to checkout
+  async canCheckout(userId?: string): Promise<boolean> {
+    const cart = await this.getCart(userId)
+    
+    if (cart.items.length === 0) {
+      return false
+    }
+    
+    // Validate cart items
+    const validation = await this.validateCart(userId)
+    if (!validation.valid) {
+      return false
+    }
+    
+    // Check MOQ for all brands
+    const moqValidations = await this.validateAllMOQ(userId)
+    const allMOQMet = moqValidations.every(validation => validation.valid)
+    
+    return allMOQMet
   }
 }
 
