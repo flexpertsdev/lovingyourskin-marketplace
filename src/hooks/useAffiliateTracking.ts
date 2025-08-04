@@ -18,7 +18,7 @@ interface AffiliateSession {
 
 export function useAffiliateTracking() {
   const [searchParams] = useSearchParams()
-  const location = useLocation()
+  // const location = useLocation() // Removed - unused
   const { setAffiliateCode } = useConsumerCartStore()
   
   // Get or create session

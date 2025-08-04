@@ -2,42 +2,58 @@ import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Layout } from '../components/layout'
 import { Container, Section } from '../components/layout'
-import { Button, Card, CardContent } from '../components/ui'
-import { useConsumerCartStore } from '../stores/consumer-cart.store'
-import { ConsumerCartItem } from '../types'
+import { Button, Card, CardContent, Badge } from '../components/ui'
+import { useCartStore } from '../stores/cart.store'
+import { Progress } from '../components/ui/Progress'
 
-// Consumer cart doesn't have MOQ requirements
+// Retailer cart with MOQ requirements
 
 export const Cart: React.FC = () => {
   const navigate = useNavigate()
-  const { items, getSubtotal, getTotal, removeItem, updateQuantity } = useConsumerCartStore()
+  const { 
+    cart, 
+    moqStatuses,
+    getTotalPrice, 
+    removeFromCart, 
+    updateQuantity,
+    loadCart,
+    validateAllMOQ,
+    canCheckout,
+    clearBrandItems
+  } = useCartStore()
   
   useEffect(() => {
-    // Consumer cart is already loaded from persisted state
-  }, [])
+    loadCart()
+  }, [loadCart])
   
-  // Calculate subtotal
-  const subtotal = getSubtotal()
+  useEffect(() => {
+    validateAllMOQ()
+  }, [cart.items, validateAllMOQ])
+  
+  const isCheckoutEnabled = moqStatuses.every(status => status.met)
+  
+  // Calculate totals
+  const subtotal = getTotalPrice()
   const taxRate = 0.2 // 20% VAT
   const tax = subtotal * taxRate
-  const total = getTotal()
+  const total = subtotal + tax
   
-  const handleQuantityChange = (productId: string, variantId: string | null, newQuantity: number) => {
-    if (newQuantity < 1) {
-      removeItem(productId, variantId)
+  const handleQuantityChange = async (itemId: string, newQuantity: number) => {
+    if (newQuantity <= 0) {
+      await removeFromCart(itemId)
     } else {
-      updateQuantity(productId, variantId, newQuantity)
+      await updateQuantity(itemId, newQuantity)
     }
   }
   
-  if (items.length === 0) {
+  if (cart.items.length === 0) {
     return (
       <Layout>
         <Section className="text-center py-20">
           <Container size="sm">
             <h2 className="text-3xl font-light mb-4">Your cart is empty</h2>
-            <p className="text-text-secondary mb-8">Discover amazing Korean beauty products</p>
-            <Button onClick={() => navigate('/shop')}>Browse Products</Button>
+            <p className="text-text-secondary mb-8">Discover amazing brands for your business</p>
+            <Button onClick={() => navigate('/brands')}>Browse Brands</Button>
           </Container>
         </Section>
       </Layout>
@@ -52,111 +68,141 @@ export const Cart: React.FC = () => {
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Cart Items */}
-            <div className="lg:col-span-2">
-              <Card>
-                <CardContent className="p-0">
-                  {items.map((item, index) => {
-                    const price = item.selectedVariant?.pricing?.b2c?.salePrice || 
-                                 item.selectedVariant?.pricing?.b2c?.retailPrice || 
-                                 item.product.price?.retail || 0
+            <div className="lg:col-span-2 space-y-6">
+              {/* MOQ Status */}
+              {moqStatuses.map(status => (
+                <Card key={status.brandId} className={status.met ? '' : 'border-warning-orange'}>
+                  <CardContent>
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-medium">{status.brandName}</h3>
+                      <Badge variant={status.met ? 'success' : 'warning'}>
+                        {status.met ? 'MOQ Met' : `£${status.remainingItems.toFixed(2)} to MOQ`}
+                      </Badge>
+                    </div>
                     
-                    return (
-                      <div 
-                        key={`${item.product.id}-${item.selectedVariant?.variantId || 'default'}`} 
-                        className={`flex gap-4 p-6 ${index < items.length - 1 ? 'border-b border-border-gray' : ''}`}
-                      >
-                        {/* Product Image */}
-                        <img 
-                          src={item.product.images?.primary || item.product.images?.[0] || '/placeholder.png'}
-                          alt={typeof item.product.name === 'string' ? item.product.name : item.product.name?.en || 'Product'}
-                          className="w-20 h-20 object-cover rounded-lg"
-                        />
-                        
-                        <div className="flex-1">
-                          <h4 className="font-medium">
-                            {typeof item.product.name === 'string' ? item.product.name : item.product.name?.en}
-                          </h4>
-                          {item.selectedVariant && (
+                    {!status.met && (
+                      <div className="mb-4">
+                        <div className="flex justify-between text-sm text-text-secondary mb-1">
+                          <span>Progress to MOQ</span>
+                          <span>£{status.current.toFixed(2)} / £{status.required.toFixed(2)}</span>
+                        </div>
+                        <Progress value={status.percentage} max={100} />
+                      </div>
+                    )}
+                    
+                    {/* Brand items */}
+                    {cart.items.filter(item => item.product.brandId === status.brandId).map((item, index) => {
+                      const price = item.product.price?.wholesale || 0
+                      
+                      return (
+                        <div 
+                          key={item.id} 
+                          className={`flex gap-4 py-4 ${index > 0 ? 'border-t border-border-gray' : ''}`}
+                        >
+                          {/* Product Image */}
+                          <img 
+                            src={item.product.images?.[0] || '/placeholder.png'}
+                            alt={typeof item.product.name === 'string' ? item.product.name : item.product.name?.en || 'Product'}
+                            className="w-20 h-20 object-cover rounded-lg"
+                          />
+                          
+                          <div className="flex-1">
+                            <h4 className="font-medium">
+                              {typeof item.product.name === 'string' ? item.product.name : item.product.name?.en}
+                            </h4>
                             <p className="text-sm text-text-secondary">
-                              {item.selectedVariant.size && `Size: ${item.selectedVariant.size}${item.selectedVariant.sizeUnit || ''}`}
-                              {item.selectedVariant.color && ` • Color: ${item.selectedVariant.color}`}
+                              {item.product.volume} • {item.product.itemsPerCarton} items per carton
                             </p>
-                          )}
-                          <p className="text-sm text-text-secondary mb-2">
-                            {typeof item.product.brand?.name === 'string' ? item.product.brand.name : item.product.brand?.name?.en || 'Unknown Brand'}
-                          </p>
+                            <p className="text-sm text-text-secondary">
+                              £{price.toFixed(2)} per carton
+                            </p>
+                          </div>
+                          
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                              className="w-8 h-8 rounded-full border border-border-gray hover:bg-soft-pink-hover transition-colors"
+                            >
+                              -
+                            </button>
+                            <span className="w-12 text-center">{item.quantity}</span>
+                            <button
+                              onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                              className="w-8 h-8 rounded-full border border-border-gray hover:bg-soft-pink-hover transition-colors"
+                            >
+                              +
+                            </button>
+                          </div>
+                          
                           <p className="text-rose-gold font-medium">
                             £{(price * item.quantity).toFixed(2)}
                           </p>
                         </div>
-                        
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => handleQuantityChange(item.product.id, item.selectedVariant?.variantId || null, item.quantity - 1)}
-                            className="w-8 h-8 rounded-full border border-border-gray hover:bg-soft-pink-hover transition-colors"
-                          >
-                            -
-                          </button>
-                          <span className="w-12 text-center">{item.quantity}</span>
-                          <button
-                            onClick={() => handleQuantityChange(item.product.id, item.selectedVariant?.variantId || null, item.quantity + 1)}
-                            className="w-8 h-8 rounded-full border border-border-gray hover:bg-soft-pink-hover transition-colors"
-                          >
-                            +
-                          </button>
-                        </div>
+                      )
+                    })}
+                    
+                    {!status.met && (
+                      <div className="mt-4 pt-4 border-t border-border-gray">
+                        <Button
+                          variant="secondary"
+                          size="small"
+                          onClick={() => clearBrandItems(status.brandId)}
+                        >
+                          Remove Brand Items
+                        </Button>
                       </div>
-                    )
-                  })}
-                </CardContent>
-              </Card>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
             </div>
             
-            {/* Summary */}
-            <div>
-              <Card>
+            {/* Order Summary */}
+            <div className="lg:col-span-1">
+              <Card className="sticky top-4">
                 <CardContent>
-                  <h3 className="text-xl font-medium mb-4">Order Summary</h3>
+                  <h2 className="text-xl font-medium mb-4">Order Summary</h2>
                   
-                  <div className="space-y-3 mb-6">
-                    <div className="flex justify-between text-sm">
+                  <div className="space-y-2 mb-4">
+                    <div className="flex justify-between">
                       <span>Subtotal</span>
                       <span>£{subtotal.toFixed(2)}</span>
                     </div>
-                    <div className="flex justify-between text-sm">
+                    <div className="flex justify-between">
                       <span>Tax (VAT 20%)</span>
                       <span>£{tax.toFixed(2)}</span>
                     </div>
-                    <div className="flex justify-between text-sm">
+                    <div className="flex justify-between">
                       <span>Shipping</span>
                       <span>Calculated at checkout</span>
                     </div>
                   </div>
                   
-                  <div className="border-t border-border-gray pt-4">
-                    <div className="flex justify-between items-center mb-6">
+                  <div className="border-t pt-4 mb-6">
+                    <div className="flex justify-between items-center">
                       <span className="text-lg font-medium">Total</span>
-                      <span className="text-2xl font-medium text-rose-gold">
+                      <span className="text-xl font-medium text-rose-gold">
                         £{total.toFixed(2)}
                       </span>
                     </div>
-                    
-                    <Button 
-                      fullWidth 
-                      onClick={() => navigate('/shop/checkout')}
-                    >
-                      Proceed to Checkout
-                    </Button>
-                    
-                    <Button 
-                      variant="secondary" 
-                      fullWidth 
-                      className="mt-3"
-                      onClick={() => navigate('/shop')}
-                    >
-                      Continue Shopping
-                    </Button>
                   </div>
+                  
+                  {!isCheckoutEnabled && (
+                    <div className="mb-4 p-4 bg-warning-light rounded-lg text-sm">
+                      <p className="font-medium mb-1">Minimum order requirements not met</p>
+                      <p className="text-text-secondary">
+                        Please meet the minimum order quantity for all brands before checkout.
+                      </p>
+                    </div>
+                  )}
+                  
+                  <Button 
+                    fullWidth 
+                    onClick={() => navigate('/checkout')}
+                    disabled={!isCheckoutEnabled}
+                  >
+                    Proceed to Checkout
+                  </Button>
                 </CardContent>
               </Card>
             </div>

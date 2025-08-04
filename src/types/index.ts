@@ -76,17 +76,20 @@ export interface Product {
   subcategory?: string // Additional categorization
   sku?: string // Product SKU
   barcode?: string // Product barcode
-  name: {
+  name: string | {
     en: string
     ko: string
     zh: string
   }
-  description: {
+  description: string | {
     en: string
     ko: string
     zh: string
   }
-  images: string[]
+  images: string[] | {
+    primary?: string
+    gallery?: string[]
+  }
   
   // Unified pricing structure
   price: {
@@ -94,6 +97,7 @@ export interface Product {
     retail?: number // B2C retail price
     currency: 'GBP' | 'EUR' | 'CHF' | 'USD'
     mrp?: number // Maximum retail price
+    item?: number // Legacy support for per-item price
   }
   
   // Legacy retail price support (for backward compatibility)
@@ -146,9 +150,55 @@ export interface Product {
   countryOfOrigin?: string
   hazmat?: boolean
   keyBenefits?: string[] // List of key benefits for B2C display
+  
+  // New fields from updated product structure
+  shortDescription?: string
+  tags?: string[]
+  status?: 'active' | 'presale' | 'discontinued' | 'out-of-stock'
+  brand?: Brand // Brand object reference
+  variants?: ProductVariant[]
 }
 
 export type CertificationType = 'CPNP' | 'CPNP_UK' | 'CPNP_EU' | 'CPNP_CH' | 'VEGAN' | 'CRUELTY_FREE' | 'EWG' | 'DERMATOLOGIST_TESTED' | 'CARBON_NEUTRAL'
+
+// Product variant type for new product structure
+export interface ProductVariant {
+  variantId: string
+  sku?: string
+  color?: string | null
+  colorHex?: string | null
+  size?: number | null
+  sizeUnit?: string | null
+  isDefault?: boolean
+  status?: 'active' | 'inactive'
+  inventory?: {
+    b2b?: {
+      stock: number
+      available: number
+      reserved: number
+    }
+    b2c?: {
+      stock: number
+      available: number
+      reserved: number
+    }
+  }
+  pricing?: {
+    b2b?: {
+      enabled: boolean
+      wholesalePrice: number
+      minOrderQuantity: number
+      unitsPerCarton?: number | null
+      currency: string
+    }
+    b2c?: {
+      enabled: boolean
+      retailPrice: number
+      salePrice?: number | null
+      currency: string
+    }
+  }
+}
 
 // Brand types based on mock data
 export interface Brand {

@@ -11,7 +11,7 @@ import toast from 'react-hot-toast'
 export const ConsumerCheckout: React.FC = () => {
   const navigate = useNavigate()
   const { user } = useAuthStore()
-  const { items, getSubtotal, getTotal, clearCart } = useConsumerCartStore()
+  const { items, getSubtotal, getTotalAmount, clearCart } = useConsumerCartStore()
   
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
@@ -148,7 +148,8 @@ export const ConsumerCheckout: React.FC = () => {
             }, 0),
             shipping: 0, // Calculate based on location
             tax: 0, // Will be calculated
-            total: 0 // Will be calculated
+            total: 0, // Will be calculated
+            currency: 'GBP' as const
           },
           shippingAddress: {
             name: formData.name,
@@ -192,7 +193,7 @@ export const ConsumerCheckout: React.FC = () => {
   const taxRate = 0.2 // 20% VAT
   const tax = subtotal * taxRate
   const shipping = 0 // Free shipping for now
-  const total = getTotal() + shipping
+  const total = getTotalAmount() + shipping
   
   return (
     <Layout>

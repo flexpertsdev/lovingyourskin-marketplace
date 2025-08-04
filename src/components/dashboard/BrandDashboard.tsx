@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, Section, Grid } from '../layout'
 import { Card, CardContent, Button } from '../ui'
 import { useAuthStore } from '../../stores/auth.store'
-import { productService } from '../../services'
+import { productService, dashboardService } from '../../services'
 import { useQuery } from '@tanstack/react-query'
 
 export const BrandDashboard: React.FC = () => {
   const navigate = useNavigate()
   const { user } = useAuthStore()
+  const [loading, setLoading] = useState(true)
+  const [metrics, setMetrics] = useState<any>(null)
   
   // Get brand details
   const { data: brands } = useQuery({
@@ -16,14 +18,36 @@ export const BrandDashboard: React.FC = () => {
     queryFn: () => productService.getBrands()
   })
   
-  const brand = brands?.find(b => b.id === user?.companyId)
+  const brand = brands?.find(b => b.id === user?.brandId || b.id === user?.companyId)
   
-  // Clean metrics for brands (no fake data)
-  const metrics = {
-    totalRetailers: 0,
-    activeOrders: 0,
-    totalProducts: brand?.productCount || 0,
-    pendingInquiries: 0
+  // Load brand metrics from Firestore
+  useEffect(() => {
+    if (user?.brandId || user?.companyId) {
+      loadBrandMetrics()
+    }
+  }, [user])
+  
+  const loadBrandMetrics = async () => {
+    setLoading(true)
+    try {
+      const brandId = user?.brandId || user?.companyId || ''
+      const data = await dashboardService.getBrandMetrics(brandId)
+      setMetrics(data)
+    } catch (error) {
+      console.error('Failed to load brand metrics:', error)
+      // Fallback to basic metrics
+      setMetrics({
+        totalRetailers: 0,
+        activeOrders: 0,
+        totalRevenue: 0,
+        pendingInquiries: 0,
+        recentOrders: [],
+        topProducts: [],
+        monthlyRevenue: 0
+      })
+    } finally {
+      setLoading(false)
+    }
   }
   
   return (
@@ -44,7 +68,9 @@ export const BrandDashboard: React.FC = () => {
             <Card className="text-center">
               <CardContent className="py-8">
                 <p className="text-sm text-text-secondary mb-2">Total Retailers</p>
-                <p className="text-4xl font-light text-deep-charcoal">{metrics.totalRetailers}</p>
+                <p className="text-4xl font-light text-deep-charcoal">
+                  {loading ? '...' : metrics?.totalRetailers || 0}
+                </p>
                 <p className="text-xs text-text-secondary mt-2">Partner stores</p>
               </CardContent>
             </Card>
@@ -52,20 +78,33 @@ export const BrandDashboard: React.FC = () => {
             <Card className="text-center">
               <CardContent className="py-8">
                 <p className="text-sm text-text-secondary mb-2">Active Orders</p>
-                <p className="text-4xl font-light text-deep-charcoal">{metrics.activeOrders}</p>
-                <p className="text-xs text-text-secondary mt-2">In progress</p>
+                <p className="text-4xl font-light text-deep-charcoal">
+                  {loading ? '...' : metrics?.activeOrders || 0}
+                </p>
+                {metrics?.activeOrders > 0 && (
+                  <Button 
+                    variant="ghost" 
+                    size="small" 
+                    className="mt-3"
+                    onClick={() => navigate('/orders?status=active')}
+                  >
+                    View Orders →
+                  </Button>
+                )}
               </CardContent>
             </Card>
             
             <Card className="text-center">
               <CardContent className="py-8">
                 <p className="text-sm text-text-secondary mb-2">Products Listed</p>
-                <p className="text-4xl font-light text-deep-charcoal">{metrics.totalProducts}</p>
+                <p className="text-4xl font-light text-deep-charcoal">
+                  {brand?.productCount || 0}
+                </p>
                 <Button 
                   variant="ghost" 
                   size="small" 
                   className="mt-3"
-                  onClick={() => navigate(`/brands/${user?.companyId}`)}
+                  onClick={() => navigate(`/brands/${user?.brandId || user?.companyId}`)}
                 >
                   View Catalog →
                 </Button>
@@ -74,9 +113,11 @@ export const BrandDashboard: React.FC = () => {
             
             <Card className="text-center">
               <CardContent className="py-8">
-                <p className="text-sm text-text-secondary mb-2">New Inquiries</p>
-                <p className="text-4xl font-light text-deep-charcoal">{metrics.pendingInquiries}</p>
-                <p className="text-xs text-text-secondary mt-2">Awaiting response</p>
+                <p className="text-sm text-text-secondary mb-2">Monthly Revenue</p>
+                <p className="text-4xl font-light text-deep-charcoal">
+                  {loading ? '...' : `£${(metrics?.monthlyRevenue || 0).toFixed(2)}`}
+                </p>
+                <p className="text-xs text-text-secondary mt-2">This month</p>
               </CardContent>
             </Card>
           </Grid>
@@ -165,6 +206,81 @@ export const BrandDashboard: React.FC = () => {
                   </div>
                 </CardContent>
               </Card>
+            </div>
+          )}
+          
+          {/* Recent Orders */}
+          {metrics?.recentOrders && metrics.recentOrders.length > 0 && (
+            <div className="mb-10">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-light text-deep-charcoal">Recent Orders</h2>
+                <Button variant="ghost" size="small" onClick={() => navigate('/orders')}>
+                  View All →
+                </Button>
+              </div>
+              <Card>
+                <CardContent className="p-0">
+                  <table className="w-full">
+                    <thead className="border-b border-border-gray">
+                      <tr>
+                        <th className="text-left p-4 font-medium">Order</th>
+                        <th className="text-left p-4 font-medium">Retailer</th>
+                        <th className="text-left p-4 font-medium">Status</th>
+                        <th className="text-right p-4 font-medium">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {metrics.recentOrders.slice(0, 5).map((order: any) => (
+                        <tr 
+                          key={order.id} 
+                          className="border-b border-border-gray hover:bg-soft-pink-hover cursor-pointer"
+                          onClick={() => navigate(`/orders/${order.id}`)}
+                        >
+                          <td className="p-4">{order.orderNumber}</td>
+                          <td className="p-4">{order.retailerName || 'Retailer'}</td>
+                          <td className="p-4">
+                            <span className={`inline-block px-3 py-1 rounded-full text-xs ${
+                              order.status === 'delivered' ? 'bg-success-green text-white' :
+                              order.status === 'shipped' ? 'bg-blue-500 text-white' :
+                              order.status === 'processing' ? 'bg-yellow-500 text-white' :
+                              'bg-gray-200 text-gray-700'
+                            }`}>
+                              {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                            </span>
+                          </td>
+                          <td className="p-4 text-right font-medium">
+                            £{order.totalAmount.total.toFixed(2)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+          
+          {/* Top Products */}
+          {metrics?.topProducts && metrics.topProducts.length > 0 && (
+            <div className="mb-10">
+              <h2 className="text-xl font-light mb-4 text-deep-charcoal">Top Products</h2>
+              <Grid cols={3} gap="md">
+                {metrics.topProducts.slice(0, 3).map((product: any) => (
+                  <Card key={product.productId}>
+                    <CardContent>
+                      <h4 className="font-medium text-deep-charcoal mb-2">{product.productName}</h4>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-text-secondary">Units sold:</span>
+                        <span className="font-medium">{product.quantity}</span>
+                      </div>
+                      <div className="flex justify-between text-sm mt-1">
+                        <span className="text-text-secondary">Revenue:</span>
+                        <span className="font-medium text-rose-gold">£{product.revenue.toFixed(2)}</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </Grid>
             </div>
           )}
           

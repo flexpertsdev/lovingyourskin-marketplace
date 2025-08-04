@@ -14,6 +14,7 @@ import {
 import { db } from '../../lib/firebase/config'
 import { Product, Brand } from '../../types'
 import { transformBrandData, transformProductData } from '../../utils/transformMockData'
+import { getProductName, getProductDescription } from '../../utils/product-helpers'
 
 class FirebaseProductService {
   // ============================================
@@ -215,8 +216,8 @@ class FirebaseProductService {
       
       const searchLower = searchTerm.toLowerCase()
       return allProducts.filter(product => {
-        const name = product.name[language].toLowerCase()
-        const description = product.description[language].toLowerCase()
+        const name = getProductName(product, language).toLowerCase()
+        const description = getProductDescription(product, language).toLowerCase()
         const brand = product.brandId.toLowerCase()
         
         return name.includes(searchLower) || 

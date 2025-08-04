@@ -75,7 +75,7 @@ export const AlertDialogContent = React.forwardRef<HTMLDivElement, AlertDialogCo
     const context = React.useContext(AlertDialogContext);
     if (!context) throw new Error('AlertDialogContent must be used within AlertDialog');
 
-    const { open, onOpenChange } = context;
+    const { open } = context;
 
     React.useEffect(() => {
       const handleEscape = (e: KeyboardEvent) => {

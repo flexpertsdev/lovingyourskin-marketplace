@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Product } from '../../types'
 import { Card, CardContent, Badge } from '../ui'
 import { cn } from '../../lib/utils/cn'
+import { getProductName, getProductPrimaryImage } from '../../utils/product-helpers'
 
 interface ProductCardProps {
   product: Product
@@ -49,10 +50,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
       >
         {/* Product Image */}
         <div className="relative aspect-square bg-soft-pink flex items-center justify-center text-medium-gray">
-          {product.images?.[0] ? (
+          {getProductPrimaryImage(product) ? (
             <img 
-              src={product.images[0]} 
-              alt={product.name.en}
+              src={getProductPrimaryImage(product)} 
+              alt={getProductName(product)}
               className="w-full h-full object-cover"
             />
           ) : (
@@ -83,7 +84,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
         <CardContent className="p-4">
           {/* Product Name */}
           <h3 className="font-medium text-deep-charcoal mb-1 line-clamp-2">
-            {product.name.en}
+            {getProductName(product)}
           </h3>
           
           {/* Product Details */}

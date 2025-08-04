@@ -8,9 +8,14 @@ import http from 'http';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Initialize Firebase Admin
+// Load service account credentials
+const serviceAccountPath = resolve(__dirname, '../serviceAccountKey.json');
+const serviceAccount = JSON.parse(readFileSync(serviceAccountPath, 'utf-8'));
+
+// Initialize Firebase Admin with service account
 if (!admin.apps.length) {
   admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
     projectId: 'lovingyourskinshop',
     storageBucket: 'lovingyourskinshop.firebasestorage.app'
   });
@@ -41,18 +46,55 @@ function saveProgress(progress) {
   writeFileSync(PROGRESS_FILE, JSON.stringify(progress, null, 2));
 }
 
-// Download image from URL
-function downloadImage(url, filepath) {
+// Download image from URL with retry
+async function downloadImage(url, filepath, retries = 3) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      return await attemptDownload(url, filepath);
+    } catch (error) {
+      if (attempt === retries) {
+        throw error;
+      }
+      console.log(`    Retry ${attempt}/${retries} after error: ${error.message}`);
+      await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+    }
+  }
+}
+
+function attemptDownload(url, filepath) {
   return new Promise((resolve, reject) => {
     const file = createWriteStream(filepath);
+    let fileWritten = false;
+    
+    const cleanup = () => {
+      file.close();
+      if (fileWritten && existsSync(filepath)) {
+        try {
+          unlinkSync(filepath);
+        } catch (e) {
+          // Ignore cleanup errors
+        }
+      }
+    };
+    
     const protocol = url.startsWith('https') ? https : http;
     
-    protocol.get(url, (response) => {
+    const request = protocol.get(url, (response) => {
+      // Handle redirects
+      if (response.statusCode >= 300 && response.statusCode < 400 && response.headers.location) {
+        cleanup();
+        return attemptDownload(response.headers.location, filepath)
+          .then(resolve)
+          .catch(reject);
+      }
+      
       if (response.statusCode !== 200) {
+        cleanup();
         reject(new Error(`Failed to download: ${response.statusCode}`));
         return;
       }
       
+      fileWritten = true;
       response.pipe(file);
       
       file.on('finish', () => {
@@ -61,12 +103,37 @@ function downloadImage(url, filepath) {
       });
       
       file.on('error', (err) => {
+        cleanup();
         reject(err);
       });
-    }).on('error', (err) => {
+    });
+    
+    request.on('error', (err) => {
+      cleanup();
       reject(err);
     });
+    
+    request.setTimeout(30000, () => {
+      request.destroy();
+      cleanup();
+      reject(new Error('Download timeout'));
+    });
   });
+}
+
+// Get content type from file extension
+function getContentType(filename) {
+  const ext = extname(filename).toLowerCase();
+  const contentTypes = {
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.png': 'image/png',
+    '.gif': 'image/gif',
+    '.webp': 'image/webp',
+    '.bmp': 'image/bmp',
+    '.svg': 'image/svg+xml'
+  };
+  return contentTypes[ext] || 'image/jpeg';
 }
 
 // Upload image to Firebase Storage using Admin SDK
@@ -76,7 +143,7 @@ async function uploadToStorage(localPath, storagePath) {
     const [file] = await bucket.upload(localPath, {
       destination: storagePath,
       metadata: {
-        contentType: 'image/jpeg'
+        contentType: getContentType(storagePath)
       }
     });
     

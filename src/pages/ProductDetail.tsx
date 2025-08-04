@@ -204,7 +204,7 @@ export const ProductDetail: React.FC = () => {
             </div>
             
             {/* Ingredients */}
-            {product.ingredients && (
+            {product.ingredients && Array.isArray(product.ingredients) && product.ingredients.length > 0 && (
               <div>
                 <h3 className="font-medium text-deep-charcoal mb-2">Key Ingredients</h3>
                 <p className="text-text-secondary">

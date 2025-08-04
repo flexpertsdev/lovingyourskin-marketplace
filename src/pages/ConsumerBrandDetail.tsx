@@ -8,19 +8,20 @@ import { productService } from '../services'
 import { Brand, Product } from '../types'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
 import toast from 'react-hot-toast'
+import { getProductName, getProductDescription, getProductPrimaryImage, getB2CVariant, getProductPrice } from '../utils/product-helpers'
 
 // Consumer Product Card Component
 const ConsumerProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const { addItem } = useConsumerCartStore()
   const navigate = useNavigate()
   
-  const productName = typeof product.name === 'string' ? product.name : product.name?.en || product.name
-  const productDescription = typeof product.description === 'string' ? product.description : product.description?.en || product.description || product.shortDescription || ''
+  const productName = getProductName(product)
+  const productDescription = getProductDescription(product)
   
   // Get the first B2C-enabled variant
-  const b2cVariant = product.variants?.find(v => v.pricing?.b2c?.enabled) || product.variants?.[0]
-  const productPrice = b2cVariant?.pricing?.b2c?.retailPrice || 0
-  const isInStock = b2cVariant?.inventory?.b2c?.available > 0
+  const b2cVariant = getB2CVariant(product)
+  const productPrice = getProductPrice(product)
+  const isInStock = b2cVariant ? (b2cVariant.inventory?.b2c?.available || 0) > 0 : false
   
   const handleAddToCart = () => {
     if (!b2cVariant) {
@@ -40,7 +41,7 @@ const ConsumerProductCard: React.FC<{ product: Product }> = ({ product }) => {
       variantId: b2cVariant.variantId,
       price: productPrice,
       quantity: 1,
-      image: product.images?.primary || '',
+      image: getProductPrimaryImage(product),
       brandId: product.brandId
     })
     
@@ -51,7 +52,7 @@ const ConsumerProductCard: React.FC<{ product: Product }> = ({ product }) => {
     <Card className="group overflow-hidden h-full flex flex-col">
       <div className="relative aspect-square overflow-hidden">
         <img 
-          src={product.images?.primary || product.images?.[0] || '/placeholder.png'} 
+          src={getProductPrimaryImage(product) || '/placeholder.png'} 
           alt={productName}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer"
           onClick={() => navigate(`/consumer/products/${product.id}`)}

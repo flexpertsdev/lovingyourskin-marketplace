@@ -10,7 +10,17 @@ import {
 import { db } from '../../lib/firebase/config'
 import { Order, Brand, User, Product } from '../../types'
 
-// Define admin metrics interface
+// Define metrics interfaces
+export interface DashboardMetrics {
+  activeOrders: number
+  inTransitOrders: number
+  cartItems: number
+  totalSpent: number
+  pendingInvoices: number
+  recentOrders: Order[]
+  featuredBrands: Brand[]
+}
+
 export interface AdminMetrics {
   totalOrders: number
   totalRetailers: number
@@ -618,6 +628,118 @@ class FirebaseDashboardService {
     } catch (error) {
       console.error('Error fetching conversion funnel:', error)
       throw new Error('Failed to fetch conversion data')
+    }
+  }
+
+  // ============================================
+  // BRAND METRICS
+  // ============================================
+  
+  // Get brand dashboard metrics
+  async getBrandMetrics(brandId: string): Promise<{
+    totalRetailers: number
+    activeOrders: number
+    totalRevenue: number
+    pendingInquiries: number
+    recentOrders: Order[]
+    topProducts: { productId: string; productName: string; quantity: number; revenue: number }[]
+    monthlyRevenue: number
+  }> {
+    try {
+      // Get brand's orders
+      const ordersQuery = query(
+        collection(db, 'orders'),
+        where('brandId', '==', brandId),
+        orderBy('createdAt', 'desc')
+      )
+      
+      const ordersSnapshot = await getDocs(ordersQuery)
+      const orders = ordersSnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+        createdAt: doc.data().createdAt?.toDate() || new Date(),
+        updatedAt: doc.data().updatedAt?.toDate() || new Date()
+      })) as Order[]
+      
+      // Calculate metrics
+      const activeOrders = orders.filter(o => 
+        ['pending', 'confirmed', 'processing', 'invoiced', 'paid', 'preparing', 'shipped'].includes(o.status)
+      ).length
+      
+      // Get unique retailers
+      const uniqueRetailers = new Set(orders.map(o => o.retailerId).filter(Boolean))
+      const totalRetailers = uniqueRetailers.size
+      
+      // Calculate total revenue (only paid/delivered orders)
+      const totalRevenue = orders
+        .filter(o => ['paid', 'shipped', 'delivered', 'completed'].includes(o.status))
+        .reduce((sum, order) => sum + order.totalAmount.total, 0)
+      
+      // Calculate this month's revenue
+      const startOfMonth = new Date()
+      startOfMonth.setDate(1)
+      startOfMonth.setHours(0, 0, 0, 0)
+      
+      const monthlyRevenue = orders
+        .filter(o => 
+          o.createdAt >= startOfMonth && 
+          ['paid', 'shipped', 'delivered', 'completed'].includes(o.status)
+        )
+        .reduce((sum, order) => sum + order.totalAmount.total, 0)
+      
+      // Get recent orders (top 5)
+      const recentOrders = orders.slice(0, 5)
+      
+      // Get top products
+      const productSales = new Map<string, {
+        productName: string
+        quantity: number
+        revenue: number
+      }>()
+      
+      orders.forEach(order => {
+        order.items.forEach(item => {
+          const existing = productSales.get(item.productId) || {
+            productName: item.productName,
+            quantity: 0,
+            revenue: 0
+          }
+          
+          productSales.set(item.productId, {
+            productName: item.productName,
+            quantity: existing.quantity + item.quantity,
+            revenue: existing.revenue + item.totalPrice
+          })
+        })
+      })
+      
+      const topProducts = Array.from(productSales.entries())
+        .map(([productId, data]) => ({ productId, ...data }))
+        .sort((a, b) => b.revenue - a.revenue)
+        .slice(0, 5)
+      
+      // Count pending inquiries (messages with no response)
+      const messagesQuery = query(
+        collection(db, 'messages'),
+        where('recipientRole', '==', 'brand'),
+        where('recipientId', '==', brandId),
+        where('status', '==', 'unread')
+      )
+      const messagesSnapshot = await getDocs(messagesQuery)
+      const pendingInquiries = messagesSnapshot.size
+      
+      return {
+        totalRetailers,
+        activeOrders,
+        totalRevenue,
+        pendingInquiries,
+        recentOrders,
+        topProducts,
+        monthlyRevenue
+      }
+    } catch (error) {
+      console.error('Error fetching brand metrics:', error)
+      throw new Error('Failed to fetch brand metrics')
     }
   }
 

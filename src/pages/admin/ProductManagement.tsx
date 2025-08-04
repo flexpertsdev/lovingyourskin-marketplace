@@ -10,13 +10,14 @@ import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/Badge';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/Textarea';
 import { Label } from '@/components/ui/label';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import toast from 'react-hot-toast';
-import { Loader2, Search, Plus, Edit, Trash2, Upload, X } from 'lucide-react';
+import { Loader2, Search, Plus, Edit, Trash2, X } from 'lucide-react';
+import { getProductName, getProductDescription, getProductPrimaryImage, getProductImageGallery } from '@/utils/product-helpers';
 
 export default function ProductManagement() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -118,7 +119,8 @@ export default function ProductManagement() {
   // Create product
   const handleCreateProduct = async (newProduct: Partial<Product>) => {
     try {
-      const productId = `${newProduct.brandId}-${newProduct.name?.toLowerCase().replace(/\s+/g, '-')}`;
+      const productName = typeof newProduct.name === 'string' ? newProduct.name : newProduct.name?.en || '';
+      const productId = `${newProduct.brandId}-${productName.toLowerCase().replace(/\s+/g, '-')}`;
       await setDoc(doc(db, 'products', productId), {
         ...newProduct,
         id: productId,
@@ -229,13 +231,13 @@ export default function ProductManagement() {
                     <TableRow key={product.id}>
                       <TableCell>
                         <img
-                          src={product.images?.primary || '/placeholder.png'}
-                          alt={typeof product.name === 'string' ? product.name : product.name?.en || 'Product'}
+                          src={getProductPrimaryImage(product) || '/placeholder.png'}
+                          alt={getProductName(product)}
                           className="w-16 h-16 object-cover rounded"
                         />
                       </TableCell>
                       <TableCell className="font-medium">
-                        {typeof product.name === 'string' ? product.name : product.name?.en}
+                        {getProductName(product)}
                       </TableCell>
                       <TableCell>
                         {typeof product.brand?.name === 'string' ? product.brand?.name : product.brand?.name?.en || product.brandId}
@@ -247,15 +249,15 @@ export default function ProductManagement() {
                           : 'N/A'}
                       </TableCell>
                       <TableCell>
-                        <Badge variant={product.status === 'active' ? 'default' : 'secondary'}>
+                        <Badge variant={product.status === 'active' ? 'success' : 'default'}>
                           {product.status}
                         </Badge>
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
                           <Button
-                            size="sm"
-                            variant="outline"
+                            size="small"
+                            variant="secondary"
                             onClick={() => {
                               setSelectedProduct(product);
                               setEditDialogOpen(true);
@@ -264,8 +266,8 @@ export default function ProductManagement() {
                             <Edit className="h-4 w-4" />
                           </Button>
                           <Button
-                            size="sm"
-                            variant="outline"
+                            size="small"
+                            variant="secondary"
                             className="text-red-600"
                             onClick={() => {
                               setProductToDelete(product);
@@ -323,7 +325,7 @@ export default function ProductManagement() {
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone. This will permanently delete the product
-              "{productToDelete?.name}" from the database.
+              "{productToDelete ? getProductName(productToDelete) : ''}" from the database.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -376,7 +378,7 @@ function ProductEditForm({
       ...formData,
       images: {
         ...formData.images,
-        gallery: [...(formData.images?.gallery || []), ...newImages],
+        gallery: [...getProductImageGallery(formData), ...newImages],
       },
     };
 
@@ -399,7 +401,7 @@ function ProductEditForm({
               <Label htmlFor="name">Product Name</Label>
             <Input
               id="name"
-              value={formData.name}
+              value={getProductName(formData)}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               required
             />
