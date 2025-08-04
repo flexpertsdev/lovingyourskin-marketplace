@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
-import { Container } from '../components/layout'
+import { Layout, Container } from '../components/layout'
 import { Button } from '../components/ui/Button'
 import { Card, CardContent } from '../components/ui/Card'
 // Icon components
@@ -63,18 +63,20 @@ export const ConsumerCart: React.FC = () => {
 
   if (items.length === 0) {
     return (
-      <Container className="py-12">
-        <div className="text-center">
-          <div className="h-16 w-16 text-gray-300 mx-auto mb-4">
-            <ShoppingBagIcon />
+      <Layout mode="consumer">
+        <Container className="py-12">
+          <div className="text-center">
+            <div className="h-16 w-16 text-gray-300 mx-auto mb-4">
+              <ShoppingBagIcon />
+            </div>
+            <h2 className="text-2xl font-light mb-4">Your cart is empty</h2>
+            <p className="text-gray-600 mb-8">Discover our premium K-beauty products</p>
+            <Link to="/shop">
+              <Button>Continue Shopping</Button>
+            </Link>
           </div>
-          <h2 className="text-2xl font-light mb-4">Your cart is empty</h2>
-          <p className="text-gray-600 mb-8">Discover our premium K-beauty products</p>
-          <Link to="/shop">
-            <Button>Continue Shopping</Button>
-          </Link>
-        </div>
-      </Container>
+        </Container>
+      </Layout>
     )
   }
 
@@ -86,10 +88,11 @@ export const ConsumerCart: React.FC = () => {
   const hasPreOrder = isPreOrderCart()
 
   return (
-    <Container className="py-8">
-      <h1 className="text-3xl font-light mb-8">Shopping Cart</h1>
+    <Layout mode="consumer">
+      <Container className="py-8">
+        <h1 className="text-3xl font-light mb-8">Shopping Cart</h1>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Cart Items */}
         <div className="lg:col-span-2 space-y-4">
           {items.map((item) => (
@@ -98,17 +101,28 @@ export const ConsumerCart: React.FC = () => {
                 <div className="flex gap-4">
                   {/* Product Image */}
                   <div className="w-24 h-24 bg-gray-100 rounded-md overflow-hidden flex-shrink-0">
-                    {item.product.images?.[0] ? (
-                      <img
-                        src={item.product.images[0]}
-                        alt={item.product.name.en}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400">
-                        <ShoppingBagIcon />
-                      </div>
-                    )}
+                    {(() => {
+                      const imageUrl = Array.isArray(item.product.images) 
+                        ? item.product.images[0] 
+                        : (typeof item.product.images === 'string' 
+                          ? item.product.images 
+                          : item.product.images?.primary || item.product.images?.gallery?.[0]);
+                      
+                      if (imageUrl) {
+                        return (
+                          <img
+                            src={imageUrl}
+                            alt={typeof item.product.name === 'string' ? item.product.name : item.product.name.en}
+                            className="w-full h-full object-cover"
+                          />
+                        );
+                      }
+                      return (
+                        <div className="w-full h-full flex items-center justify-center text-gray-400">
+                          <ShoppingBagIcon />
+                        </div>
+                      );
+                    })()}
                   </div>
 
                   {/* Product Details */}
@@ -117,7 +131,7 @@ export const ConsumerCart: React.FC = () => {
                       <div>
                         <h3 className="font-medium">
                           <Link to={`/shop/products/${item.product.id}`} className="hover:text-rose-gold">
-                            {item.product.name.en}
+                            {typeof item.product.name === 'string' ? item.product.name : item.product.name.en}
                           </Link>
                         </h3>
                         <p className="text-sm text-gray-600">{item.product.brandId}</p>
@@ -244,5 +258,6 @@ export const ConsumerCart: React.FC = () => {
         </div>
       </div>
     </Container>
+    </Layout>
   )
 }

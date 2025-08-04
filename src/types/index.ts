@@ -113,8 +113,11 @@ export interface Product {
   
   // B2C specific fields
   retailQuantity?: number // Available stock for B2C
-  preOrderEnabled?: boolean
-  preOrderDiscount?: number // Percentage discount for pre-orders
+  preOrderEnabled?: boolean // Legacy field
+  preOrderDiscount?: number // Legacy field
+  isPreorder?: boolean // New field for pre-order status
+  preorderDiscount?: number // Percentage discount for pre-orders
+  preorderEndDate?: string // ISO date string for when pre-order ends
   launchDate?: Date
   maxPreOrderQuantity?: number
   

@@ -38,6 +38,7 @@ export const OrderDetail: React.FC = () => {
   const { orderId } = useParams<{ orderId: string }>()
   const navigate = useNavigate()
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const { user } = useAuthStore()
   
   const [order, setOrder] = useState<Order | null>(null)
   const [thread, setThread] = useState<MessageThread | null>(null)
@@ -46,6 +47,7 @@ export const OrderDetail: React.FC = () => {
   const [loading, setLoading] = useState(true)
   const [sendingMessage, setSendingMessage] = useState(false)
   const [activeTab, setActiveTab] = useState<'details' | 'messages'>('messages')
+  const [messageThreadType, setMessageThreadType] = useState<'admin-retailer' | 'admin-brand'>('admin-retailer')
   
   useEffect(() => {
     if (orderId) {
@@ -58,30 +60,79 @@ export const OrderDetail: React.FC = () => {
   }, [messages])
   
   const loadOrderData = async () => {
-    if (!orderId) return
+    if (!orderId || !user) return
     
     setLoading(true)
     try {
-      const [orderData, threadData] = await Promise.all([
-        orderService.getOrder(orderId),
-        orderService.getOrder(orderId).then(o => o ? orderService.getMessageThread(o.id) : null)
-      ])
+      const orderData = await orderService.getOrder(orderId)
       
-      if (orderData && threadData) {
+      if (orderData) {
+        // Check access permissions
+        if (user.role === 'retailer' && orderData.retailerId !== user.id) {
+          toast.error('Access denied')
+          navigate('/orders')
+          return
+        }
+        
+        if (user.role === 'brand' && orderData.items.every(item => item.product?.brandId !== user.brandId)) {
+          toast.error('Access denied')
+          navigate('/orders')
+          return
+        }
+        
         setOrder(orderData)
-        setThread(threadData)
         
-        const messagesData = await orderService.getMessages(threadData.id)
-        setMessages(messagesData)
-        
-        // Mark messages as read
-        await orderService.markMessagesAsRead(threadData.id, 'user-1')
+        // Get message thread
+        const threadData = await orderService.getMessageThread(orderData.id)
+        if (threadData) {
+          setThread(threadData)
+          
+          // Get messages and filter based on user role
+          const allMessages = await orderService.getMessages(threadData.id)
+          const filteredMessages = filterMessagesByRole(allMessages)
+          setMessages(filteredMessages)
+          
+          // Mark messages as read
+          await orderService.markMessagesAsRead(threadData.id, user.id)
+        }
       }
     } catch (error) {
       console.error('Failed to load order:', error)
+      toast.error('Failed to load order details')
     } finally {
       setLoading(false)
     }
+  }
+  
+  const filterMessagesByRole = (messages: Message[]): Message[] => {
+    if (!user) return []
+    
+    if (user.role === 'admin') {
+      // Admin sees all messages but can filter by thread type
+      if (messageThreadType === 'admin-retailer') {
+        return messages.filter(msg => 
+          msg.senderRole !== 'brand' || msg.senderId === 'system'
+        )
+      } else {
+        return messages.filter(msg => 
+          msg.senderRole !== 'buyer' || msg.senderId === 'system'
+        )
+      }
+    } else if (user.role === 'retailer') {
+      // Retailer sees only messages between them and admin
+      return messages.filter(msg => 
+        (msg.senderRole === 'buyer' && msg.senderId === user.id) ||
+        (msg.senderRole === 'lys_team' && !msg.content.includes('[Brand Communication]'))
+      )
+    } else if (user.role === 'brand') {
+      // Brand sees only messages between them and admin
+      return messages.filter(msg => 
+        (msg.senderRole === 'brand' && msg.senderId === user.id) ||
+        (msg.senderRole === 'lys_team' && msg.content.includes('[Brand Communication]'))
+      )
+    }
+    
+    return messages
   }
   
   const scrollToBottom = () => {
@@ -92,15 +143,35 @@ export const OrderDetail: React.FC = () => {
     e.preventDefault()
     e.stopPropagation()
     
-    if (!newMessage.trim() || !thread || sendingMessage) return
+    if (!newMessage.trim() || !thread || sendingMessage || !user) return
     
     setSendingMessage(true)
     try {
-      const message = await orderService.sendMessage(thread.id, newMessage.trim())
-      setMessages([...messages, message])
+      // Format message based on user role
+      let messageContent = newMessage.trim()
+      if (user.role === 'admin' && messageThreadType === 'admin-brand') {
+        messageContent = `[Brand Communication] ${messageContent}`
+      }
+      
+      const messageData = {
+        threadId: thread.id,
+        content: messageContent,
+        senderId: user.id,
+        senderName: user.name || user.email,
+        senderRole: user.role === 'retailer' ? 'buyer' as const : user.role === 'brand' ? 'brand' as const : 'lys_team' as const
+      }
+      
+      const message = await orderService.sendMessage(thread.id, messageData)
+      
+      // Only add to messages if it passes the filter
+      const filteredMessages = filterMessagesByRole([...messages, message])
+      setMessages(filteredMessages)
       setNewMessage('')
+      
+      toast.success('Message sent')
     } catch (error) {
       console.error('Failed to send message:', error)
+      toast.error('Failed to send message')
     } finally {
       setSendingMessage(false)
     }
@@ -180,6 +251,30 @@ export const OrderDetail: React.FC = () => {
               >
                 Messages
               </Button>
+              {user?.role === 'admin' && activeTab === 'messages' && (
+                <div className="flex gap-2 ml-4">
+                  <Button
+                    size="small"
+                    variant={messageThreadType === 'admin-retailer' ? 'primary' : 'secondary'}
+                    onClick={() => {
+                      setMessageThreadType('admin-retailer')
+                      loadOrderData() // Reload to filter messages
+                    }}
+                  >
+                    Retailer Chat
+                  </Button>
+                  <Button
+                    size="small"
+                    variant={messageThreadType === 'admin-brand' ? 'primary' : 'secondary'}
+                    onClick={() => {
+                      setMessageThreadType('admin-brand')
+                      loadOrderData() // Reload to filter messages
+                    }}
+                  >
+                    Brand Chat
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
           
@@ -294,49 +389,56 @@ export const OrderDetail: React.FC = () => {
                 {/* Messages */}
                 <div className="flex-1 overflow-y-auto p-6 bg-gray-50">
                   <div className="space-y-4">
-                    {messages.map((message) => (
-                      <div
-                        key={message.id}
-                        className={`max-w-[70%] ${
-                          message.senderRole === 'buyer' ? 'ml-auto' : ''
-                        }`}
-                      >
+                    {messages.map((message) => {
+                      const isCurrentUser = 
+                        (message.senderRole === 'buyer' && user?.role === 'retailer' && message.senderId === user.id) ||
+                        (message.senderRole === 'brand' && user?.role === 'brand' && message.senderId === user.id) ||
+                        (message.senderRole === 'lys_team' && user?.role === 'admin' && message.senderId === user.id)
+                      
+                      return (
                         <div
-                          className={`rounded-xl p-4 ${
-                            message.senderRole === 'buyer'
-                              ? 'bg-rose-gold text-white'
-                              : message.senderRole === 'lys_team' && message.senderId === 'system'
-                              ? 'bg-success-green text-white w-full max-w-full text-center'
-                              : 'bg-white border border-border-gray'
+                          key={message.id}
+                          className={`max-w-[70%] ${
+                            isCurrentUser ? 'ml-auto' : ''
                           }`}
                         >
-                          <p className="font-medium text-sm mb-1">{message.senderName}</p>
-                          <p className="whitespace-pre-wrap">{message.content}</p>
-                          {message.attachments && message.attachments.length > 0 && (
-                            <div className="mt-2 space-y-1">
-                              {message.attachments.map((attachment) => (
-                                <a
-                                  key={attachment.id}
-                                  href={attachment.url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1 text-sm underline"
-                                >
-                                  📎 {attachment.name}
-                                </a>
-                              ))}
-                            </div>
-                          )}
-                          <p className={`text-xs mt-2 ${
-                            message.senderRole === 'buyer' 
-                              ? 'text-white/70' 
-                              : 'text-text-secondary'
-                          }`}>
-                            {formatMessageTime(message.createdAt)}
-                          </p>
+                          <div
+                            className={`rounded-xl p-4 ${
+                              isCurrentUser
+                                ? 'bg-rose-gold text-white'
+                                : message.senderRole === 'lys_team' && message.senderId === 'system'
+                                ? 'bg-success-green text-white w-full max-w-full text-center'
+                                : 'bg-white border border-border-gray'
+                            }`}
+                          >
+                            <p className="font-medium text-sm mb-1">{message.senderName}</p>
+                            <p className="whitespace-pre-wrap">{message.content}</p>
+                            {message.attachments && message.attachments.length > 0 && (
+                              <div className="mt-2 space-y-1">
+                                {message.attachments.map((attachment) => (
+                                  <a
+                                    key={attachment.id}
+                                    href={attachment.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1 text-sm underline"
+                                  >
+                                    📎 {attachment.name}
+                                  </a>
+                                ))}
+                              </div>
+                            )}
+                            <p className={`text-xs mt-2 ${
+                              isCurrentUser
+                                ? 'text-white/70' 
+                                : 'text-text-secondary'
+                            }`}>
+                              {formatMessageTime(message.createdAt)}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      )
+                    })}
                     <div ref={messagesEndRef} />
                   </div>
                 </div>
@@ -347,7 +449,11 @@ export const OrderDetail: React.FC = () => {
                     <Input
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
-                      placeholder="Type your message..."
+                      placeholder={
+                        user?.role === 'admin' && messageThreadType === 'admin-brand'
+                          ? "Type your message to brand..."
+                          : "Type your message..."
+                      }
                       disabled={sendingMessage}
                       className="flex-1"
                     />

@@ -47,6 +47,7 @@ import { TestFirestore } from '../pages/TestFirestore'
 import { Shop } from '../pages/Shop'
 import { ConsumerShop } from '../pages/ConsumerShop'
 import { ConsumerCart } from '../pages/ConsumerCart'
+import { ConsumerCheckout } from '../pages/ConsumerCheckout'
 import { ConsumerLogin } from '../pages/ConsumerLogin'
 import { ConsumerProductDetail } from '../pages/ConsumerProductDetail'
 import { ConsumerBrands } from '../pages/ConsumerBrands'
@@ -290,6 +291,11 @@ export const AppRoutes: React.FC = () => {
       <Route path="/shop/login" element={<ConsumerLogin />} />
       <Route path="/shop/cart" element={<ConsumerCart />} />
       <Route path="/shop/products/:productId" element={<ConsumerProductDetail />} />
+      <Route path="/shop/checkout" element={
+        <ConsumerRoute>
+          <ConsumerCheckout />
+        </ConsumerRoute>
+      } />
       
       {/* Consumer Protected Routes */}
       <Route path="/shop/account" element={

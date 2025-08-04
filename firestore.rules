@@ -64,15 +64,14 @@ service cloud.firestore {
       // Users can read their own profile
       allow read: if isOwner(userId) || isAdmin();
       
-      // Users can create their own profile during registration (consumer role only)
-      allow create: if isOwner(userId) && request.resource.data.role == 'consumer';
+      // Users can create their own profile during registration
+      allow create: if isOwner(userId) || isAdmin();
       
       // Users can update their own profile (except role)
       allow update: if isOwner(userId) && 
-        (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['role']));
+        (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['role'])) || isAdmin();
       
-      // Admins can create any user or change roles
-      allow create: if isAdmin();
+      // Only admins can delete users
       allow delete: if isAdmin();
     }
     

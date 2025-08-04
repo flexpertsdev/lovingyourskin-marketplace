@@ -37,7 +37,7 @@ export const Cart: React.FC = () => {
           <Container size="sm">
             <h2 className="text-3xl font-light mb-4">Your cart is empty</h2>
             <p className="text-text-secondary mb-8">Discover amazing Korean beauty products</p>
-            <Button onClick={() => navigate('/consumer/shop')}>Browse Products</Button>
+            <Button onClick={() => navigate('/shop')}>Browse Products</Button>
           </Container>
         </Section>
       </Layout>
@@ -143,7 +143,7 @@ export const Cart: React.FC = () => {
                     
                     <Button 
                       fullWidth 
-                      onClick={() => navigate('/consumer/checkout')}
+                      onClick={() => navigate('/shop/checkout')}
                     >
                       Proceed to Checkout
                     </Button>
@@ -152,7 +152,7 @@ export const Cart: React.FC = () => {
                       variant="secondary" 
                       fullWidth 
                       className="mt-3"
-                      onClick={() => navigate('/consumer/shop')}
+                      onClick={() => navigate('/shop')}
                     >
                       Continue Shopping
                     </Button>

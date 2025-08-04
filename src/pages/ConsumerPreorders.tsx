@@ -71,9 +71,9 @@ export const ConsumerPreorders: React.FC = () => {
     try {
       setLoading(true)
       const allProducts = await productService.getAll()
-      // Filter only pre-order enabled products with retail pricing
+      // Filter only pre-order products with retail pricing
       const preorderProducts = allProducts.filter(p => 
-        p.preOrderEnabled && 
+        p.isPreorder && 
         p.retailPrice && 
         p.retailPrice.item > 0
       )
@@ -120,10 +120,12 @@ export const ConsumerPreorders: React.FC = () => {
             </p>
             
             {/* Featured Countdown */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 max-w-2xl mx-auto">
-              <p className="text-sm uppercase tracking-wider mb-4">Pre-order ends in</p>
-              <CountdownTimer endDate="2024-02-15T00:00:00" />
-            </div>
+            {products.length > 0 && products[0].preorderEndDate && (
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 max-w-2xl mx-auto">
+                <p className="text-sm uppercase tracking-wider mb-4">Pre-order ends in</p>
+                <CountdownTimer endDate={products[0].preorderEndDate} />
+              </div>
+            )}
           </div>
         </Container>
       </section>
@@ -185,10 +187,10 @@ export const ConsumerPreorders: React.FC = () => {
                     </div>
                     
                     {/* Discount Badge */}
-                    {product.preOrderDiscount && product.retailPrice && (
+                    {product.preorderDiscount && product.retailPrice && (
                       <div className="absolute top-4 right-4">
                         <Badge variant="info" className="bg-green-600 text-white">
-                          {product.preOrderDiscount}% OFF
+                          {product.preorderDiscount}% OFF
                         </Badge>
                       </div>
                     )}
@@ -209,10 +211,10 @@ export const ConsumerPreorders: React.FC = () => {
                     
                     {/* Pricing */}
                     <div className="mb-4">
-                      {product.preOrderDiscount && product.retailPrice ? (
+                      {product.preorderDiscount && product.retailPrice ? (
                         <div className="flex items-center gap-2">
                           <span className="text-xl font-light text-rose-gold">
-                            £{(product.retailPrice.item * (1 - product.preOrderDiscount / 100)).toFixed(2)}
+                            £{(product.retailPrice.item * (1 - product.preorderDiscount / 100)).toFixed(2)}
                           </span>
                           <span className="text-sm text-text-secondary line-through">
                             £{product.retailPrice?.item.toFixed(2)}
@@ -226,9 +228,11 @@ export const ConsumerPreorders: React.FC = () => {
                     </div>
                     
                     {/* Expected Date */}
-                    <p className="text-sm text-text-secondary mb-4">
-                      Expected: March 2024
-                    </p>
+                    {product.preorderEndDate && (
+                      <p className="text-sm text-text-secondary mb-4">
+                        Expected: {new Date(product.preorderEndDate).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}
+                      </p>
+                    )}
                     
                     <Button
                       onClick={() => handlePreorder(product)}
