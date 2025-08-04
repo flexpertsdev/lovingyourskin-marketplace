@@ -159,6 +159,18 @@ class FirebaseAuthService {
       }
     } catch (error: any) {
       console.error('Registration error:', error)
+      
+      // Handle specific Firebase auth errors
+      if (error.code === 'auth/email-already-in-use') {
+        throw new Error('An account with this email already exists. Please login instead.')
+      }
+      if (error.code === 'auth/weak-password') {
+        throw new Error('Password should be at least 6 characters')
+      }
+      if (error.code === 'auth/invalid-email') {
+        throw new Error('Invalid email address')
+      }
+      
       throw new Error(error.message || 'Failed to register')
     }
   }

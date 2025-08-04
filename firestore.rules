@@ -6,22 +6,24 @@ service cloud.firestore {
       return request.auth != null;
     }
     
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+    
     function isAdmin() {
-      return isAuthenticated() && 
-        (request.auth.token.role == 'admin' || 
-         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
+      return isAuthenticated() && getUserData().role == 'admin';
     }
     
     function isBrandOwner(brandId) {
-      return isAuthenticated() && request.auth.token.brandId == brandId;
+      return isAuthenticated() && getUserData().brandId == brandId;
     }
     
     function isRetailer() {
-      return isAuthenticated() && request.auth.token.role == 'retailer';
+      return isAuthenticated() && getUserData().role == 'retailer';
     }
     
     function isConsumer() {
-      return isAuthenticated() && request.auth.token.role == 'consumer';
+      return isAuthenticated() && getUserData().role == 'consumer';
     }
     
     function isOwner(userId) {

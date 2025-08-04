@@ -40,6 +40,7 @@ import { AdminMessages } from '../pages/admin/AdminMessages'
 import { AdminAffiliates } from '../pages/admin/AdminAffiliates'
 import { TestInviteCode } from '../pages/TestInviteCode'
 import ProductManagement from '../pages/admin/ProductManagement'
+import DebugAuth from '../pages/DebugAuth'
 
 // Consumer Pages
 import { Shop } from '../pages/Shop'
@@ -118,23 +119,6 @@ const ConsumerRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   )
 }
 
-// Debug Component
-const DebugAuth = () => {
-  const { user } = useAuthStore()
-  return (
-    <div className="p-8 bg-gray-100">
-      <h2 className="text-xl font-bold mb-4">Auth Debug Info</h2>
-      <pre className="bg-white p-4 rounded">
-        {JSON.stringify({ user }, null, 2)}
-      </pre>
-      <div className="mt-4 space-x-4">
-        <a href="/admin" className="text-blue-600 underline">Go to Admin</a>
-        <a href="/dashboard" className="text-blue-600 underline">Go to Dashboard</a>
-      </div>
-    </div>
-  )
-}
-
 export const AppRoutes: React.FC = () => {
   const { user } = useAuthStore()
   console.log('AppRoutes rendering with user:', user?.email, 'role:', user?.role)
@@ -156,6 +140,7 @@ export const AppRoutes: React.FC = () => {
       <Route path="/" element={<Landing />} />
       <Route path="/test" element={<Test />} />
       <Route path="/test-auth" element={<TestAuth />} />
+      <Route path="/debug-auth" element={<DebugAuth />} />
       <Route path="/components" element={<ComponentDemo />} />
       
       {/* Auth Routes */}
@@ -349,6 +334,7 @@ export const AppRoutesOld: React.FC = () => {
       <Route path="/" element={<Landing />} />
       <Route path="/test" element={<Test />} />
       <Route path="/test-auth" element={<TestAuth />} />
+      <Route path="/debug-auth" element={<DebugAuth />} />
       <Route path="/components" element={<ComponentDemo />} />
       
       <Route path="/login" element={<Login />} />
