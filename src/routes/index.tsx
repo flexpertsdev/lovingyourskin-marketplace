@@ -5,7 +5,7 @@ import { useAuthStore } from '../stores/auth.store'
 // Pages
 import { Landing } from '../pages/Landing'
 import { ComponentDemo } from '../pages/ComponentDemo'
-import { Login, Register } from '../pages/auth'
+import { Login, Register, ConsumerRegister } from '../pages/auth'
 import { Brands } from '../pages/Brands'
 import { BrandDetail } from '../pages/BrandDetail'
 import { ProductDetail } from '../pages/ProductDetail'
@@ -41,6 +41,7 @@ import { AdminAffiliates } from '../pages/admin/AdminAffiliates'
 import { TestInviteCode } from '../pages/TestInviteCode'
 import ProductManagement from '../pages/admin/ProductManagement'
 import DebugAuth from '../pages/DebugAuth'
+import { TestFirestore } from '../pages/TestFirestore'
 
 // Consumer Pages
 import { Shop } from '../pages/Shop'
@@ -129,12 +130,8 @@ export const AppRoutes: React.FC = () => {
       <Route path="/debug" element={<DebugAuth />} />
       <Route path="/test-auth-flow" element={<TestAuthFlow />} />
       <Route path="/test-invite-code" element={<TestInviteCode />} />
-      <Route path="/test-firebase" element={
-        <div className="p-8">
-          <h1 className="text-2xl font-bold mb-4">Firebase Connection Test</h1>
-          <p>Check console for Firebase data loading...</p>
-        </div>
-      } />
+      <Route path="/test-firebase" element={<TestFirestore />} />
+      <Route path="/test-firestore" element={<TestFirestore />} />
       
       {/* Public Routes */}
       <Route path="/" element={<Landing />} />
@@ -277,6 +274,7 @@ export const AppRoutes: React.FC = () => {
       <Route path="/consumer/products/:productId" element={<ConsumerProductDetail />} />
       <Route path="/consumer/cart" element={<ConsumerCart />} />
       <Route path="/consumer/login" element={<ConsumerLogin />} />
+      <Route path="/consumer/register" element={<ConsumerRegister />} />
       <Route path="/consumer/orders" element={
         <ConsumerRoute>
           <Orders />

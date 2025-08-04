@@ -4,7 +4,7 @@ import { Layout, Container, Section, Grid } from '../components/layout'
 import { Button, Select, Badge, Spinner, Card, CardContent } from '../components/ui'
 import { ProductCard } from '../components/features/ProductCard'
 import { HeroCarousel } from '../components/features/HeroCarousel'
-import { productService } from '../services/mock/product.service'
+import { productService } from '../services'
 import { Brand, Product } from '../types'
 
 export const BrandDetail: React.FC = () => {

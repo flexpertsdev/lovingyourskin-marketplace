@@ -1,5 +1,5 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, doc, setDoc, writeBatch } from 'firebase/firestore';
+import { initializeApp, cert } from 'firebase-admin/app';
+import { getFirestore, Timestamp } from 'firebase-admin/firestore';
 import { readFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -7,24 +7,51 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDa6w0J5JkI5D_X9pTY1vMf7h5MYRmPscI",
-  authDomain: "lovingyourskinshop.firebaseapp.com",
-  projectId: "lovingyourskinshop",
-  storageBucket: "lovingyourskinshop.firebasestorage.app",
-  messagingSenderId: "815024796468",
-  appId: "1:815024796468:web:5eb4b973dd7dc5b1b98139",
-  measurementId: "G-9CQTFGSG8H"
-};
+// Initialize Firebase Admin with service account
+// You'll need to download the service account key from Firebase Console
+// Project Settings > Service Accounts > Generate New Private Key
+const serviceAccount = JSON.parse(
+  readFileSync(resolve(__dirname, '../serviceAccountKey.json'), 'utf-8')
+);
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+initializeApp({
+  credential: cert(serviceAccount),
+  projectId: 'lovingyourskinshop'
+});
+
+const db = getFirestore();
+
+// Helper function to convert date strings to Firestore Timestamps
+function convertDates(obj) {
+  if (!obj || typeof obj !== 'object') return obj;
+  
+  const converted = Array.isArray(obj) ? [] : {};
+  
+  for (const [key, value] of Object.entries(obj)) {
+    if (typeof value === 'string' && isISODateString(value)) {
+      // Convert ISO date strings to Firestore Timestamps
+      converted[key] = Timestamp.fromDate(new Date(value));
+    } else if (typeof value === 'object' && value !== null) {
+      // Recursively convert nested objects
+      converted[key] = convertDates(value);
+    } else {
+      converted[key] = value;
+    }
+  }
+  
+  return converted;
+}
+
+// Check if a string is an ISO date string
+function isISODateString(str) {
+  const isoDateRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z?$/;
+  return isoDateRegex.test(str);
+}
 
 // Function to flatten the nested product structure
 function flattenProducts(data, brandId) {
   const products = [];
+  
   // Handle different naming conventions
   const possibleKeys = [
     `${brandId}_products`,
@@ -35,16 +62,23 @@ function flattenProducts(data, brandId) {
   for (const key of possibleKeys) {
     if (data[key]) {
       brandProducts = data[key];
+      console.log(`Found products under key: ${key}`);
       break;
     }
   }
   
   if (brandProducts) {
     for (const [productId, product] of Object.entries(brandProducts)) {
+      // Convert date strings to Timestamps
+      const convertedProduct = convertDates(product);
+      
       products.push({
-        ...product,
+        ...convertedProduct,
         brandId,
-        id: productId
+        id: productId,
+        // Ensure these are Timestamps
+        createdAt: Timestamp.now(),
+        updatedAt: Timestamp.now()
       });
     }
   }
@@ -65,29 +99,34 @@ async function importProductsFromFile(filePath, brandId) {
     const products = flattenProducts(data, brandId);
     console.log(`Found ${products.length} products for ${brandId}`);
     
+    if (products.length === 0) {
+      console.log(`No products found for ${brandId}, checking JSON structure...`);
+      console.log('Available keys in JSON:', Object.keys(data));
+      return 0;
+    }
+    
     // Use batched writes for better performance
-    let batch = writeBatch(db);
+    let batch = db.batch();
     let count = 0;
+    let batchCount = 0;
     
     for (const product of products) {
-      const docRef = doc(db, 'products', product.id);
-      batch.set(docRef, {
-        ...product,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      });
+      const docRef = db.collection('products').doc(product.id);
+      batch.set(docRef, product, { merge: true });
       count++;
+      batchCount++;
       
       // Firestore has a limit of 500 operations per batch
-      if (count % 500 === 0) {
+      if (batchCount === 500) {
         await batch.commit();
         console.log(`Committed batch of 500 products...`);
-        batch = writeBatch(db);
+        batch = db.batch();
+        batchCount = 0;
       }
     }
     
     // Commit any remaining products
-    if (count % 500 !== 0) {
+    if (batchCount > 0) {
       await batch.commit();
     }
     
@@ -102,7 +141,7 @@ async function importProductsFromFile(filePath, brandId) {
 
 // Main import function
 async function importAllProducts() {
-  console.log('🚀 Starting product import to Firestore...\n');
+  console.log('🚀 Starting product import to Firestore with Admin SDK...\n');
   
   const brands = [
     { id: 'baohlab', file: 'baohlab-products-json.json' },

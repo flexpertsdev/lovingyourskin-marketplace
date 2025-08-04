@@ -5,6 +5,7 @@ import { Container, Section } from '../components/layout'
 import { Button, Card, CardContent, Badge } from '../components/ui'
 import { orderService } from '../services'
 import { Order, OrderStatus } from '../types'
+import { useAuthStore } from '../stores/auth.store'
 
 const statusColors: Record<OrderStatus, string> = {
   pending: 'bg-gray-500',
@@ -32,6 +33,7 @@ const statusLabels: Record<OrderStatus, string> = {
 
 export const Orders: React.FC = () => {
   const navigate = useNavigate()
+  const { user } = useAuthStore()
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [statusFilter, setStatusFilter] = useState<OrderStatus | 'all'>('all')
@@ -44,7 +46,20 @@ export const Orders: React.FC = () => {
     setLoading(true)
     try {
       const filters = statusFilter === 'all' ? undefined : { status: statusFilter }
-      const data = await orderService.getOrders(filters)
+      let data = await orderService.getOrders(filters)
+      
+      // Filter orders based on user role
+      if (user?.role === 'retailer') {
+        // Retailers only see their own orders
+        data = data.filter(order => order.retailerId === user.id)
+      } else if (user?.role === 'brand') {
+        // Brands only see orders containing their products
+        data = data.filter(order => 
+          order.items.some(item => item.product?.brandId === user.brandId)
+        )
+      }
+      // Admins see all orders (no filtering needed)
+      
       setOrders(data)
     } catch (error) {
       console.error('Failed to load orders:', error)
@@ -83,7 +98,11 @@ export const Orders: React.FC = () => {
       <Section>
         <Container>
           <div className="flex justify-between items-center mb-8">
-            <h1 className="text-3xl font-light">My Orders</h1>
+            <h1 className="text-3xl font-light">
+              {user?.role === 'admin' ? 'All Orders' : 
+               user?.role === 'brand' ? 'Brand Orders' : 
+               'My Orders'}
+            </h1>
             
             <div className="flex items-center gap-4">
               <select
@@ -109,13 +128,19 @@ export const Orders: React.FC = () => {
                 <h3 className="text-xl font-light mb-4">No orders found</h3>
                 <p className="text-text-secondary mb-6">
                   {statusFilter === 'all' 
-                    ? 'Start by browsing our verified Korean beauty brands'
+                    ? user?.role === 'brand' 
+                      ? 'No orders containing your products yet'
+                      : user?.role === 'retailer'
+                      ? 'Start by browsing our verified Korean beauty brands'
+                      : 'No orders in the system yet'
                     : `No ${statusLabels[statusFilter as OrderStatus]?.toLowerCase()} orders`
                   }
                 </p>
-                <Button onClick={() => navigate('/brands')}>
-                  Browse Brands
-                </Button>
+                {user?.role === 'retailer' && (
+                  <Button onClick={() => navigate('/brands')}>
+                    Browse Brands
+                  </Button>
+                )}
               </CardContent>
             </Card>
           ) : (

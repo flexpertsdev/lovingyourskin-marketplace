@@ -6,7 +6,7 @@ import { Card, CardContent, Button } from '../components/ui'
 import { dashboardService } from '../services'
 import { useAuthStore } from '../stores/auth.store'
 import { BrandDashboard } from '../components/dashboard'
-import type { DashboardMetrics } from '../services/mock/dashboard.service'
+import type { DashboardMetrics } from '../services/firebase/dashboard.service'
 
 export const Dashboard: React.FC = () => {
   const navigate = useNavigate()

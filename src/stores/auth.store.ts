@@ -34,8 +34,6 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       isLoading: false,
       error: null,
-      
-      // Computed - make this a regular property that updates with user
       isAuthenticated: false,
       
       login: async (email, password) => {
@@ -46,8 +44,7 @@ export const useAuthStore = create<AuthState>()(
         } catch (error) {
           set({ 
             error: error instanceof Error ? error.message : 'Login failed',
-            isLoading: false,
-            isAuthenticated: false
+            isLoading: false
           })
           throw error
         }
@@ -72,8 +69,7 @@ export const useAuthStore = create<AuthState>()(
         } catch (error) {
           set({ 
             error: error instanceof Error ? error.message : 'Registration failed',
-            isLoading: false,
-            isAuthenticated: false
+            isLoading: false
           })
           throw error
         }
@@ -116,6 +112,14 @@ export const useAuthStore = create<AuthState>()(
     {
       name: 'auth-storage',
       partialize: (state) => ({ user: state.user }), // Only persist user
+      onRehydrateStorage: () => (state) => {
+        // This runs after the persisted state is loaded
+        if (state && state.user) {
+          console.log('[Auth Store] Rehydrated with user:', state.user.email)
+          // Set isAuthenticated based on persisted user
+          state.isAuthenticated = true
+        }
+      }
     }
   )
 )

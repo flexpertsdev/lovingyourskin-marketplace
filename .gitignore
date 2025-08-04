@@ -39,4 +39,6 @@ lerna-debug.log*
 firebase-debug.log
 firestore-debug.log
 ui-debug.log
+serviceAccountKey.json
+*-firebase-adminsdk-*.json
 EOF < /dev/null

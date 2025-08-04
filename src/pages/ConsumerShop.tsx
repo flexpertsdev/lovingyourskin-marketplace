@@ -35,23 +35,44 @@ const SparkleIcon = () => (
   </svg>
 )
 
-// Brand showcase component with auto-play
+// Brand showcase component with infinite smooth scrolling
 const BrandShowcase: React.FC<{ brands: Brand[] }> = ({ brands }) => {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const intervalRef = useRef<NodeJS.Timeout>()
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [isPaused, setIsPaused] = useState(false)
+  
+  // Duplicate brands for infinite scroll effect
+  const duplicatedBrands = [...brands, ...brands, ...brands]
 
   useEffect(() => {
-    // Auto-play carousel
-    intervalRef.current = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % Math.ceil(brands.length / 4))
-    }, 5000)
+    const scrollElement = scrollRef.current
+    if (!scrollElement || isPaused) return
+
+    let animationId: number
+    let scrollPosition = 0
+    const scrollSpeed = 0.5 // pixels per frame
+
+    const animate = () => {
+      if (!isPaused && scrollElement) {
+        scrollPosition += scrollSpeed
+        
+        // Reset position when we've scrolled through one full set
+        const oneSetWidth = scrollElement.scrollWidth / 3
+        if (scrollPosition >= oneSetWidth) {
+          scrollPosition = 0
+          scrollElement.scrollLeft = 0
+        }
+        
+        scrollElement.scrollLeft = scrollPosition
+      }
+      animationId = requestAnimationFrame(animate)
+    }
+
+    animationId = requestAnimationFrame(animate)
 
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current)
+      cancelAnimationFrame(animationId)
     }
-  }, [brands.length])
-
-  const visibleBrands = brands.slice(currentIndex * 4, (currentIndex + 1) * 4)
+  }, [isPaused, brands.length])
 
   return (
     <div className="mb-12">
@@ -60,40 +81,43 @@ const BrandShowcase: React.FC<{ brands: Brand[] }> = ({ brands }) => {
         Our Exclusive Partners
       </h2>
       
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {visibleBrands.map((brand) => (
-          <Link
-            key={brand.id}
-            to={`/consumer/brands/${brand.id}`}
-            className="bg-white rounded-lg p-4 hover:shadow-md transition-shadow group"
-          >
-            {brand.heroImage ? (
-              <img 
-                src={brand.heroImage} 
-                alt={brand.name}
-                className="w-full h-24 object-cover rounded mb-3 group-hover:scale-105 transition-transform"
-              />
-            ) : (
-              <div className="w-full h-24 bg-gradient-to-br from-rose-gold/20 to-rose-gold/10 rounded mb-3 flex items-center justify-center">
-                <span className="text-2xl font-light text-rose-gold">{brand.name.charAt(0)}</span>
-              </div>
-            )}
-            <h3 className="text-sm font-medium text-deep-charcoal text-center">{brand.name}</h3>
-          </Link>
-        ))}
-      </div>
-
-      {/* Carousel indicators */}
-      <div className="flex justify-center gap-2 mt-4">
-        {Array.from({ length: Math.ceil(brands.length / 4) }).map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`w-2 h-2 rounded-full transition-colors ${
-              index === currentIndex ? 'bg-rose-gold' : 'bg-gray-300'
-            }`}
-          />
-        ))}
+      <div className="relative overflow-hidden">
+        <div 
+          ref={scrollRef}
+          className="flex gap-4 overflow-x-hidden"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          style={{ scrollBehavior: 'auto' }}
+        >
+          {duplicatedBrands.map((brand, index) => (
+            <Link
+              key={`${brand.id}-${index}`}
+              to={`/consumer/brands/${brand.id}`}
+              className="flex-shrink-0 w-48 bg-white rounded-lg p-4 hover:shadow-md transition-shadow group"
+            >
+              {brand.heroImage ? (
+                <img 
+                  src={brand.heroImage} 
+                  alt={typeof brand.name === 'string' ? brand.name : brand.name?.en || 'Brand'}
+                  className="w-full h-24 object-cover rounded mb-3 group-hover:scale-105 transition-transform"
+                />
+              ) : (
+                <div className="w-full h-24 bg-gradient-to-br from-rose-gold/20 to-rose-gold/10 rounded mb-3 flex items-center justify-center">
+                  <span className="text-2xl font-light text-rose-gold">
+                    {(typeof brand.name === 'string' ? brand.name : brand.name?.en || 'B').charAt(0)}
+                  </span>
+                </div>
+              )}
+              <h3 className="text-sm font-medium text-deep-charcoal text-center">
+                {typeof brand.name === 'string' ? brand.name : brand.name?.en || 'Brand'}
+              </h3>
+            </Link>
+          ))}
+        </div>
+        
+        {/* Gradient overlays for smooth edges */}
+        <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-white to-transparent pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-white to-transparent pointer-events-none" />
       </div>
     </div>
   )
@@ -315,8 +339,12 @@ export const ConsumerShop: React.FC = () => {
       // Search filter
       if (searchQuery) {
         const query = searchQuery.toLowerCase()
-        const name = product.name?.toLowerCase() || ''
-        const description = product.description?.toLowerCase() || ''
+        const name = typeof product.name === 'string' 
+          ? product.name.toLowerCase() 
+          : (product.name?.en?.toLowerCase() || product.name?.ko?.toLowerCase() || product.name?.zh?.toLowerCase() || '')
+        const description = typeof product.description === 'string'
+          ? product.description.toLowerCase()
+          : (product.description?.en?.toLowerCase() || product.description?.ko?.toLowerCase() || product.description?.zh?.toLowerCase() || '')
         
         if (!name.includes(query) && !description.includes(query)) {
           return false
@@ -376,7 +404,7 @@ export const ConsumerShop: React.FC = () => {
 
     addItem({
       productId: product.id,
-      productName: product.name,
+      productName: typeof product.name === 'string' ? product.name : product.name?.en || 'Product',
       variantId: b2cVariant.variantId,
       price: b2cVariant.pricing?.b2c?.retailPrice || 0,
       quantity: 1,
@@ -390,7 +418,7 @@ export const ConsumerShop: React.FC = () => {
     }
     
     // Show new toast and save its ID
-    toastIdRef.current = toast.success(`${product.name} added to cart`, {
+    toastIdRef.current = toast.success(`${typeof product.name === 'string' ? product.name : product.name?.en || 'Product'} added to cart`, {
       duration: 2000,
       id: 'add-to-cart'
     })
@@ -532,7 +560,7 @@ export const ConsumerShop: React.FC = () => {
                           <div className="aspect-square overflow-hidden bg-gray-50">
                             <img 
                               src={product.images?.primary || '/placeholder.png'} 
-                              alt={product.name}
+                              alt={typeof product.name === 'string' ? product.name : product.name?.en || 'Product'}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             />
                           </div>
@@ -578,11 +606,11 @@ export const ConsumerShop: React.FC = () => {
                         </p>
                         <Link to={`/consumer/products/${product.id}`}>
                           <h3 className="font-medium text-deep-charcoal mb-2 hover:text-rose-gold transition-colors line-clamp-1">
-                            {product.name}
+                            {typeof product.name === 'string' ? product.name : product.name?.en || 'Product'}
                           </h3>
                         </Link>
                         <p className="text-sm text-text-secondary mb-3 line-clamp-2">
-                          {product.shortDescription || product.description}
+                          {product.shortDescription || (typeof product.description === 'string' ? product.description : product.description?.en) || ''}
                         </p>
                         
                         {/* Price and Size */}

@@ -5,13 +5,16 @@ import { Button, Card, CardContent, Input, Select, Badge } from '../../component
 import { useAuthStore } from '../../stores/auth.store'
 import { authService } from '../../services'
 import toast from 'react-hot-toast'
-import { InviteCode } from '../../types'
+import { InviteCode, Brand } from '../../types'
+import { collection, getDocs } from 'firebase/firestore'
+import { db } from '../../lib/firebase/config'
 
 const UserManagement: React.FC = () => {
   const { user: currentUser } = useAuthStore()
   const [showCreateInvite, setShowCreateInvite] = useState(false)
   const [inviteCodes, setInviteCodes] = useState<InviteCode[]>([])
   const [users, setUsers] = useState<any[]>([])
+  const [brands, setBrands] = useState<Brand[]>([])
   const [loading, setLoading] = useState(false)
   const [copiedCode, setCopiedCode] = useState<string | null>(null)
   
@@ -40,6 +43,14 @@ const UserManagement: React.FC = () => {
         const allUsers = await authService.getAllUsers()
         setUsers(allUsers || [])
       }
+      
+      // Load brands
+      const brandsSnapshot = await getDocs(collection(db, 'brands'))
+      const brandsData: Brand[] = []
+      brandsSnapshot.forEach((doc) => {
+        brandsData.push({ id: doc.id, ...doc.data() } as Brand)
+      })
+      setBrands(brandsData)
     } catch (error) {
       console.error('Failed to load data:', error)
     }
@@ -184,12 +195,28 @@ const UserManagement: React.FC = () => {
                     </div>
                     
                     <div className="grid md:grid-cols-2 gap-4">
-                      <Input
-                        label="Company ID (Optional)"
-                        value={formData.companyId}
-                        onChange={(e) => setFormData({ ...formData, companyId: e.target.value })}
-                        placeholder="company-id"
-                      />
+                      {formData.role === 'brand' ? (
+                        <Select
+                          label="Brand"
+                          value={formData.companyId}
+                          onChange={(e) => setFormData({ ...formData, companyId: e.target.value })}
+                          required
+                          options={[
+                            { value: '', label: 'Select a brand' },
+                            ...brands.map(brand => ({
+                              value: brand.id,
+                              label: typeof brand.name === 'string' ? brand.name : brand.name?.en || 'Brand'
+                            }))
+                          ]}
+                        />
+                      ) : (
+                        <Input
+                          label="Company ID (Optional)"
+                          value={formData.companyId}
+                          onChange={(e) => setFormData({ ...formData, companyId: e.target.value })}
+                          placeholder="company-id"
+                        />
+                      )}
                       
                       <Input
                         label="Sales Rep ID (Optional)"
@@ -234,6 +261,7 @@ const UserManagement: React.FC = () => {
                         <th className="text-left py-3 px-4">Code</th>
                         <th className="text-left py-3 px-4">Email</th>
                         <th className="text-left py-3 px-4">Role</th>
+                        <th className="text-left py-3 px-4">Brand/Company</th>
                         <th className="text-left py-3 px-4">Status</th>
                         <th className="text-left py-3 px-4">Created</th>
                         <th className="text-left py-3 px-4">Expires</th>
@@ -248,6 +276,21 @@ const UserManagement: React.FC = () => {
                           </td>
                           <td className="py-3 px-4">{invite.email}</td>
                           <td className="py-3 px-4 capitalize">{invite.role}</td>
+                          <td className="py-3 px-4">
+                            {invite.role === 'brand' && invite.companyId ? (
+                              <span className="text-sm">
+                                {brands.find(b => b.id === invite.companyId)?.name ? 
+                                  (typeof brands.find(b => b.id === invite.companyId)?.name === 'string' ? 
+                                    brands.find(b => b.id === invite.companyId)?.name : 
+                                    brands.find(b => b.id === invite.companyId)?.name?.en) : 
+                                  invite.companyId}
+                              </span>
+                            ) : invite.companyId ? (
+                              <span className="text-sm text-text-secondary">{invite.companyId}</span>
+                            ) : (
+                              <span className="text-sm text-text-secondary">-</span>
+                            )}
+                          </td>
                           <td className="py-3 px-4">
                             {invite.used ? (
                               <Badge variant="success">Used</Badge>

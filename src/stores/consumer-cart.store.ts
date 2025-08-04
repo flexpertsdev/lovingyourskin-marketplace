@@ -13,7 +13,15 @@ interface ConsumerCartStore {
   }
   
   // Actions
-  addItem: (product: Product, quantity?: number) => void
+  addItem: (productOrData: Product | {
+    productId: string
+    productName: string
+    variantId: string
+    price: number
+    quantity: number
+    image: string
+    brandId: string
+  }, quantity?: number) => void
   updateQuantity: (itemId: string, quantity: number) => void
   removeItem: (itemId: string) => void
   clearCart: () => void
@@ -61,57 +69,114 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
       items: [],
       lastUpdated: new Date(),
       
-      addItem: (product: Product, quantity = 1) => {
-        if (!product.retailPrice) {
-          toast.error('This product is not available for retail purchase')
-          return
-        }
-        
-        // Check stock availability
-        if (product.retailQuantity !== undefined && product.retailQuantity < quantity) {
-          toast.error(`Only ${product.retailQuantity} units available`)
-          return
-        }
-        
-        set((state) => {
-          const existingItem = state.items.find(item => item.product.id === product.id)
+      addItem: (productOrData, quantity = 1) => {
+        // Handle both Product object and individual fields
+        if ('variantId' in productOrData) {
+          // New format with individual fields
+          const data = productOrData
           
-          if (existingItem) {
-            // Update quantity if item already exists
-            const newQuantity = existingItem.quantity + quantity
+          set((state) => {
+            const existingItem = state.items.find(item => 
+              item.product.id === data.productId && 
+              (item as any).variantId === data.variantId
+            )
             
-            // Check stock limit
-            if (product.retailQuantity !== undefined && newQuantity > product.retailQuantity) {
-              toast.error(`Cannot add more. Only ${product.retailQuantity} units available`)
-              return state
+            if (existingItem) {
+              // Update quantity if item already exists
+              const newQuantity = existingItem.quantity + data.quantity
+              
+              return {
+                items: state.items.map(item =>
+                  item.id === existingItem.id
+                    ? { ...item, quantity: newQuantity }
+                    : item
+                ),
+                lastUpdated: new Date()
+              }
+            } else {
+              // Create a minimal product object for the cart item
+              const product: any = {
+                id: data.productId,
+                name: data.productName,
+                brandId: data.brandId,
+                images: { primary: data.image },
+                retailPrice: { item: data.price }
+              }
+              
+              // Add new item
+              const newItem: ConsumerCartItem = {
+                id: `cart-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
+                product,
+                quantity: data.quantity,
+                addedAt: new Date()
+              }
+              
+              // Store variant info on the item
+              ;(newItem as any).variantId = data.variantId
+              ;(newItem as any).price = data.price
+              
+              return {
+                items: [...state.items, newItem],
+                lastUpdated: new Date()
+              }
             }
-            
-            return {
-              items: state.items.map(item =>
-                item.id === existingItem.id
-                  ? { ...item, quantity: newQuantity }
-                  : item
-              ),
-              lastUpdated: new Date()
-            }
-          } else {
-            // Add new item
-            const newItem: ConsumerCartItem = {
-              id: `cart-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
-              product,
-              quantity,
-              preOrderDiscount: product.preOrderEnabled ? product.preOrderDiscount : undefined,
-              addedAt: new Date()
-            }
-            
-            toast.success(`${product.name.en} added to cart`)
-            
-            return {
-              items: [...state.items, newItem],
-              lastUpdated: new Date()
-            }
+          })
+        } else {
+          // Old format with Product object
+          const product = productOrData as Product
+          
+          if (!product.retailPrice) {
+            toast.error('This product is not available for retail purchase')
+            return
           }
-        })
+          
+          // Check stock availability
+          if (product.retailQuantity !== undefined && product.retailQuantity < quantity) {
+            toast.error(`Only ${product.retailQuantity} units available`)
+            return
+          }
+          
+          set((state) => {
+            const existingItem = state.items.find(item => item.product.id === product.id)
+            
+            if (existingItem) {
+              // Update quantity if item already exists
+              const newQuantity = existingItem.quantity + quantity
+              
+              // Check stock limit
+              if (product.retailQuantity !== undefined && newQuantity > product.retailQuantity) {
+                toast.error(`Cannot add more. Only ${product.retailQuantity} units available`)
+                return state
+              }
+              
+              return {
+                items: state.items.map(item =>
+                  item.id === existingItem.id
+                    ? { ...item, quantity: newQuantity }
+                    : item
+                ),
+                lastUpdated: new Date()
+              }
+            } else {
+              // Add new item
+              const newItem: ConsumerCartItem = {
+                id: `cart-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
+                product,
+                quantity,
+                preOrderDiscount: product.preOrderEnabled ? product.preOrderDiscount : undefined,
+                addedAt: new Date()
+              }
+              
+              // Note: Toast is shown by the calling component, not here
+              // to avoid duplicate toasts
+              
+              return {
+                items: [...state.items, newItem],
+                lastUpdated: new Date()
+              }
+            }
+          })
+        }
       },
       
       updateQuantity: (itemId: string, quantity: number) => {
@@ -143,7 +208,10 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
         set((state) => {
           const item = state.items.find(i => i.id === itemId)
           if (item) {
-            toast.success(`${item.product.name.en} removed from cart`)
+            const productName = typeof item.product.name === 'string' 
+              ? item.product.name 
+              : item.product.name?.en || 'Product'
+            toast.success(`${productName} removed from cart`)
           }
           
           return {

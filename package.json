@@ -17,7 +17,12 @@
     "migrate:firebase": "node scripts/migrate-to-firebase.js",
     "migrate:fix-brands": "node scripts/fix-brands-migration.js",
     "migrate:test": "firebase emulators:exec --only firestore 'npm run migrate:firebase'",
-    "import:products": "node scripts/import-products-to-firestore.js"
+    "import:products": "node scripts/import-products-to-firestore.js",
+    "import:products:admin": "node scripts/import-products-admin.js",
+    "migrate:images": "node scripts/migrate-product-images.js",
+    "migrate:images:admin": "GOOGLE_APPLICATION_CREDENTIALS=./firebase-admin-key.json node scripts/migrate-product-images-admin.js",
+    "add:preorder-field": "node scripts/add-preorder-field.js",
+    "add:preorder-field:admin": "node scripts/add-preorder-field-admin.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
@@ -27,6 +32,7 @@
     "csv-parse": "^6.1.0",
     "date-fns": "^4.1.0",
     "firebase": "^11.10.0",
+    "firebase-admin": "^13.4.0",
     "i18next": "^25.2.1",
     "lucide-react": "^0.536.0",
     "react": "^19.1.0",

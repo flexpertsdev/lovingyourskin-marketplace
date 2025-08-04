@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link, useLocation } from 'react-router-dom'
-import { productService } from '../services'
+import { doc, getDoc } from 'firebase/firestore'
+import { db } from '../lib/firebase/config'
 import { Product } from '../types'
 import { Layout, Container } from '../components/layout'
 import { Button } from '../components/ui/Button'
@@ -87,8 +88,9 @@ export const ConsumerProductDetail: React.FC = () => {
   const [error, setError] = useState<string | null>(null)
   const [quantity, setQuantity] = useState(1)
   const [selectedImage, setSelectedImage] = useState(0)
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0)
   const [activeTab, setActiveTab] = useState<'description' | 'ingredients' | 'usage'>('description')
-  const [isWishlisted, setIsWishlisted] = useState(false)
+  // const [isWishlisted, setIsWishlisted] = useState(false) // Wishlist feature not implemented yet
   
   useEffect(() => {
     if (productId) {
@@ -96,21 +98,38 @@ export const ConsumerProductDetail: React.FC = () => {
     }
   }, [productId])
   
-  useEffect(() => {
-    if (product && user?.wishlist) {
-      setIsWishlisted(user.wishlist.includes(product.id))
-    }
-  }, [product, user])
+  // useEffect(() => {
+  //   if (product && user?.wishlist) {
+  //     setIsWishlisted(user.wishlist.includes(product.id))
+  //   }
+  // }, [product, user])
   
   const loadProduct = async (id: string) => {
     try {
       setLoading(true)
-      const data = await productService.getById(id)
-      if (data && data.retailPrice && data.retailPrice.item > 0) {
-        setProduct(data)
-      } else {
-        setError('Product not available for retail')
+      const productDoc = await getDoc(doc(db, 'products', id))
+      
+      if (!productDoc.exists()) {
+        setError('Product not found')
+        return
       }
+      
+      const data = productDoc.data()
+      const product = { id: productDoc.id, ...data } as Product
+      
+      // Check if product has B2C-enabled variants
+      const b2cVariants = product.variants?.filter(v => v.pricing?.b2c?.enabled) || []
+      
+      if (b2cVariants.length === 0) {
+        setError('Product not available for retail purchase')
+        return
+      }
+      
+      setProduct(product)
+      
+      // Set the default selected variant to the first B2C-enabled one
+      const defaultVariantIndex = product.variants?.findIndex(v => v.pricing?.b2c?.enabled) || 0
+      setSelectedVariantIndex(defaultVariantIndex)
     } catch (err) {
       console.error('Failed to load product:', err)
       setError('Failed to load product')
@@ -120,51 +139,56 @@ export const ConsumerProductDetail: React.FC = () => {
   }
   
   const handleAddToCart = () => {
-    if (!product) return
+    if (!product || !product.variants) return
     
-    addItem(product, quantity)
-    toast.success(`${typeof product.name === 'object' ? product.name.en : product.name} added to cart`)
+    const selectedVariant = product.variants[selectedVariantIndex]
+    if (!selectedVariant || !selectedVariant.pricing?.b2c?.enabled) {
+      toast.error('This variant is not available for retail purchase')
+      return
+    }
+    
+    const productName = typeof product.name === 'string' ? product.name : product.name?.en || 'Product'
+    
+    // Use the same pattern as ConsumerShop and ConsumerBrandDetail
+    addItem({
+      productId: product.id,
+      productName: productName,
+      variantId: selectedVariant.variantId,
+      price: selectedVariant.pricing.b2c.retailPrice || 0,
+      quantity: quantity,
+      image: product.images?.primary || '',
+      brandId: product.brandId
+    })
+    
+    toast.success(`${productName} added to cart`)
   }
   
   const handleQuantityChange = (delta: number) => {
+    if (!product || !product.variants) return
+    
+    const selectedVariant = product.variants[selectedVariantIndex]
+    const maxQuantity = selectedVariant?.inventory?.b2c?.available || 99
+    
     const newQuantity = quantity + delta
-    if (newQuantity >= 1 && newQuantity <= (product?.retailQuantity || 99)) {
+    if (newQuantity >= 1 && newQuantity <= maxQuantity) {
       setQuantity(newQuantity)
     }
   }
   
-  const handleWishlistToggle = async () => {
-    if (!user || !product) {
-      navigate('/consumer/login', { state: { from: location } })
-      return
-    }
-    
-    if (user.role !== 'consumer') {
-      toast.error('Only consumers can use wishlist')
-      return
-    }
-    
-    try {
-      if (isWishlisted) {
-        await authService.removeFromWishlist(user.id, product.id)
-        setIsWishlisted(false)
-        toast.success('Removed from wishlist')
-      } else {
-        await authService.addToWishlist(user.id, product.id)
-        setIsWishlisted(true)
-        toast.success('Added to wishlist')
-      }
-    } catch (error) {
-      toast.error('Failed to update wishlist')
-    }
-  }
+  // const handleWishlistToggle = async () => {
+  //   // Wishlist feature not implemented yet
+  //   toast.info('Wishlist feature coming soon!')
+  // }
   
   const handleShare = async () => {
     if (navigator.share && product) {
+      const productName = typeof product.name === 'string' ? product.name : product.name?.en || 'Product'
+      const productDescription = typeof product.description === 'string' ? product.description : product.description?.en || ''
+      
       try {
         await navigator.share({
-          title: product.name.en,
-          text: product.description.en,
+          title: productName,
+          text: productDescription,
           url: window.location.href
         })
       } catch (error) {
@@ -205,12 +229,20 @@ export const ConsumerProductDetail: React.FC = () => {
     )
   }
   
-  const isInStock = product.retailQuantity && product.retailQuantity > 0
+  // Get selected variant info
+  const selectedVariant = product.variants?.[selectedVariantIndex]
+  const b2cPricing = selectedVariant?.pricing?.b2c
+  const isInStock = (selectedVariant?.inventory?.b2c?.available || 0) > 0
   const isPreOrder = product.preOrderEnabled
-  const effectivePrice = product.retailPrice?.item || 0
+  const effectivePrice = b2cPricing?.retailPrice || 0
   const discountedPrice = isPreOrder && product.preOrderDiscount 
     ? effectivePrice * (1 - product.preOrderDiscount / 100)
     : effectivePrice
+  
+  // Get product name and description safely
+  const productName = typeof product.name === 'string' ? product.name : product.name?.en || 'Product'
+  const productDescription = typeof product.description === 'string' ? product.description : product.description?.en || ''
+  const productNameKo = typeof product.name === 'object' ? product.name.ko : undefined
   
   return (
     <Layout mode="consumer">
@@ -225,10 +257,14 @@ export const ConsumerProductDetail: React.FC = () => {
         {/* Product Images */}
         <div>
           <div className="bg-white rounded-lg overflow-hidden">
-            {product.images && product.images.length > 0 ? (
+            {product.images?.primary || product.images?.[0] ? (
               <img
-                src={product.images[selectedImage]}
-                alt={product.name.en}
+                src={
+                  selectedImage === 0 
+                    ? (product.images.primary || product.images[0])
+                    : product.images[selectedImage] || product.images.primary
+                }
+                alt={productName}
                 className="w-full h-full object-contain"
               />
             ) : (
@@ -237,7 +273,7 @@ export const ConsumerProductDetail: React.FC = () => {
               </div>
             )}
           </div>
-          {product.images && product.images.length > 1 && (
+          {product.images && Array.isArray(product.images) && product.images.length > 1 && (
             <div className="grid grid-cols-4 gap-2 mt-4">
               {product.images.map((image, index) => (
                 <button
@@ -249,7 +285,7 @@ export const ConsumerProductDetail: React.FC = () => {
                 >
                   <img
                     src={image}
-                    alt={`${product.name.en} ${index + 1}`}
+                    alt={`${productName} ${index + 1}`}
                     className="w-full h-full object-contain"
                   />
                 </button>
@@ -266,11 +302,49 @@ export const ConsumerProductDetail: React.FC = () => {
               {product.isNew && <Badge variant="info">New</Badge>}
               {product.preOrderEnabled && <Badge variant="warning">Pre-order</Badge>}
             </div>
-            <h1 className="text-3xl font-light mb-2">{product.name.en}</h1>
-            {product.name.ko && (
-              <p className="text-lg text-gray-600 mb-4">{product.name.ko}</p>
+            <h1 className="text-3xl font-light mb-2">{productName}</h1>
+            {productNameKo && (
+              <p className="text-lg text-gray-600 mb-4">{productNameKo}</p>
             )}
           </div>
+          
+          {/* Variant Selection */}
+          {product.variants && product.variants.length > 1 && (
+            <div className="mb-6">
+              <h3 className="text-sm font-medium mb-2">Select Variant:</h3>
+              <div className="flex flex-wrap gap-2">
+                {product.variants.map((variant, index) => {
+                  const isB2CEnabled = variant.pricing?.b2c?.enabled
+                  const isAvailable = (variant.inventory?.b2c?.available || 0) > 0
+                  
+                  return (
+                    <button
+                      key={variant.variantId}
+                      onClick={() => setSelectedVariantIndex(index)}
+                      disabled={!isB2CEnabled || !isAvailable}
+                      className={`px-4 py-2 rounded-md border transition-colors ${
+                        selectedVariantIndex === index
+                          ? 'border-rose-gold bg-rose-gold text-white'
+                          : 'border-gray-300 hover:border-rose-gold'
+                      } ${(!isB2CEnabled || !isAvailable) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    >
+                      <div className="flex items-center gap-2">
+                        {variant.colorHex && (
+                          <div 
+                            className="w-4 h-4 rounded-full border border-gray-300"
+                            style={{ backgroundColor: variant.colorHex }}
+                          />
+                        )}
+                        <span>{variant.color || variant.variantId}</span>
+                        {variant.size && <span>• {variant.size}{variant.sizeUnit || ''}</span>}
+                      </div>
+                      {!isAvailable && <span className="text-xs text-gray-500 block">Out of stock</span>}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          )}
           
           {/* Price */}
           <div className="mb-6">
@@ -298,7 +372,20 @@ export const ConsumerProductDetail: React.FC = () => {
           </div>
           
           {/* Short Description */}
-          <p className="text-gray-700 mb-6">{product.description.en}</p>
+          <p className="text-gray-700 mb-6">{productDescription}</p>
+          
+          {/* Selected Variant Info - only show if multiple variants */}
+          {selectedVariant && product.variants && product.variants.length > 1 && (
+            <div className="mb-6 p-4 bg-soft-pink rounded-lg">
+              <h3 className="text-sm font-medium mb-2">Selected Variant:</h3>
+              <div className="text-sm text-text-secondary space-y-1">
+                {selectedVariant.color && <p>Color: {selectedVariant.color}</p>}
+                {selectedVariant.size && <p>Size: {selectedVariant.size}{selectedVariant.sizeUnit || ''}</p>}
+                <p>SKU: {selectedVariant.sku}</p>
+                <p className="font-medium text-text-primary">Stock: {selectedVariant.inventory?.b2c?.available || 0} available</p>
+              </div>
+            </div>
+          )}
           
           {/* Actions */}
           <div className="space-y-4 mb-6">
@@ -316,15 +403,15 @@ export const ConsumerProductDetail: React.FC = () => {
                 <span className="px-4 py-2 min-w-[50px] text-center">{quantity}</span>
                 <button
                   onClick={() => handleQuantityChange(1)}
-                  disabled={quantity >= (product.retailQuantity || 99)}
+                  disabled={quantity >= (selectedVariant?.inventory?.b2c?.available || 99)}
                   className="p-2 hover:bg-gray-50 disabled:opacity-50"
                 >
                   <PlusIcon />
                 </button>
               </div>
-              {isInStock && (
+              {isInStock && selectedVariant && (
                 <span className="text-sm text-gray-500">
-                  {product.retailQuantity} in stock
+                  {selectedVariant.inventory?.b2c?.available} in stock
                 </span>
               )}
             </div>
@@ -340,25 +427,16 @@ export const ConsumerProductDetail: React.FC = () => {
                !isInStock ? 'Out of Stock' : 'Add to Cart'}
             </Button>
             
-            {/* Wishlist & Share */}
-            <div className="flex gap-2">
-              <Button
-                variant="secondary"
-                onClick={handleWishlistToggle}
-                className="flex-1 flex items-center justify-center gap-2"
-              >
-                <HeartIcon filled={isWishlisted} />
-                {isWishlisted ? 'In Wishlist' : 'Add to Wishlist'}
-              </Button>
-              <Button
-                variant="secondary"
-                onClick={handleShare}
-                className="flex items-center justify-center gap-2 px-4"
-              >
-                <ShareIcon />
-                Share
-              </Button>
-            </div>
+            {/* Share Button */}
+            <Button
+              variant="secondary"
+              onClick={handleShare}
+              className="flex items-center justify-center gap-2"
+              fullWidth
+            >
+              <ShareIcon />
+              Share
+            </Button>
           </div>
           
           {/* Key Benefits */}
@@ -390,35 +468,35 @@ export const ConsumerProductDetail: React.FC = () => {
       </div>
       
       {/* Detailed Information Tabs */}
-      <div className="mt-12">
-        <div className="border-b">
-          <div className="flex gap-8">
+      <div className="mt-12 bg-white rounded-lg shadow-sm">
+        <div className="border-b border-border-gray">
+          <div className="flex gap-6 px-6">
             <button
               onClick={() => setActiveTab('description')}
-              className={`pb-4 px-1 text-sm font-medium transition-colors ${
+              className={`py-4 px-2 text-sm font-medium transition-colors border-b-2 ${
                 activeTab === 'description'
-                  ? 'text-rose-gold border-b-2 border-rose-gold'
-                  : 'text-gray-500 hover:text-gray-700'
+                  ? 'text-rose-gold border-rose-gold'
+                  : 'text-text-secondary border-transparent hover:text-text-primary'
               }`}
             >
               Description
             </button>
             <button
               onClick={() => setActiveTab('ingredients')}
-              className={`pb-4 px-1 text-sm font-medium transition-colors ${
+              className={`py-4 px-2 text-sm font-medium transition-colors border-b-2 ${
                 activeTab === 'ingredients'
-                  ? 'text-rose-gold border-b-2 border-rose-gold'
-                  : 'text-gray-500 hover:text-gray-700'
+                  ? 'text-rose-gold border-rose-gold'
+                  : 'text-text-secondary border-transparent hover:text-text-primary'
               }`}
             >
               Ingredients
             </button>
             <button
               onClick={() => setActiveTab('usage')}
-              className={`pb-4 px-1 text-sm font-medium transition-colors ${
+              className={`py-4 px-2 text-sm font-medium transition-colors border-b-2 ${
                 activeTab === 'usage'
-                  ? 'text-rose-gold border-b-2 border-rose-gold'
-                  : 'text-gray-500 hover:text-gray-700'
+                  ? 'text-rose-gold border-rose-gold'
+                  : 'text-text-secondary border-transparent hover:text-text-primary'
               }`}
             >
               How to Use
@@ -426,27 +504,54 @@ export const ConsumerProductDetail: React.FC = () => {
           </div>
         </div>
         
-        <div className="py-8">
+        <div className="p-6">
           {activeTab === 'description' && (
-            <div className="prose max-w-none">
-              <p className="text-gray-700">{product.description.en}</p>
+            <div className="prose prose-sm max-w-none">
+              <p className="text-text-secondary leading-relaxed">{productDescription}</p>
+              {product.howToUse && (
+                <div className="mt-6">
+                  <h4 className="font-medium text-deep-charcoal mb-2">How to Use:</h4>
+                  <p className="text-text-secondary">{product.howToUse}</p>
+                </div>
+              )}
             </div>
           )}
           
           {activeTab === 'ingredients' && (
             <div>
-              <h3 className="font-medium mb-4">Full Ingredients</h3>
-              <p className="text-sm text-gray-700">{product.ingredients}</p>
+              <h3 className="font-medium text-deep-charcoal mb-4">Full Ingredients</h3>
+              <p className="text-sm text-text-secondary">
+                {product.ingredients || 'Ingredients information not available'}
+              </p>
+              {product.highlights && product.highlights.length > 0 && (
+                <div className="mt-6">
+                  <h4 className="font-medium text-deep-charcoal mb-3">Key Ingredients & Benefits:</h4>
+                  <ul className="space-y-2">
+                    {product.highlights.map((highlight, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <span className="text-rose-gold mt-0.5">•</span>
+                        <span className="text-sm text-text-secondary">{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           )}
           
           {activeTab === 'usage' && (
             <div>
-              <h3 className="font-medium mb-4">How to Use</h3>
-              <p className="text-gray-700">
-                Apply an appropriate amount to clean skin. Gently massage until fully absorbed.
-                Use morning and evening for best results.
+              <h3 className="font-medium text-deep-charcoal mb-4">How to Use</h3>
+              <p className="text-text-secondary">
+                {product.howToUse || 
+                 'Apply an appropriate amount to clean skin. Gently massage until fully absorbed. Use morning and evening for best results.'}
               </p>
+              {product.usageTips && (
+                <div className="mt-4">
+                  <h4 className="font-medium text-deep-charcoal mb-2">Pro Tips:</h4>
+                  <p className="text-sm text-text-secondary">{product.usageTips}</p>
+                </div>
+              )}
             </div>
           )}
         </div>

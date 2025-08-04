@@ -60,6 +60,16 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
   ]
 
   const publicNavItems = mode === 'consumer' ? consumerNavItems : b2bNavItems
+  
+  // Get cart items count
+  const cartItemsCount = mode === 'consumer' ? getConsumerCartItems() : getB2BCartItems()
+  
+  // Add cart icon for non-logged in consumer users
+  const CartIcon = () => (
+    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+    </svg>
+  )
 
   const authNavItems: NavItem[] = mode === 'consumer' ? [
     // B2C Consumer items
@@ -181,6 +191,21 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
               <option value="ZH">中文</option>
             </select>
             
+            {/* Cart Icon for non-logged in consumer users */}
+            {!isAuthenticated && mode === 'consumer' && (
+              <Link
+                to="/consumer/cart"
+                className="relative p-2"
+              >
+                <CartIcon />
+                {cartItemsCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-rose-gold text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {cartItemsCount}
+                  </span>
+                )}
+              </Link>
+            )}
+            
             {/* Auth Buttons */}
             {isAuthenticated ? (
               <div className="relative">
@@ -224,7 +249,7 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
                     Login
                   </Button>
                 </Link>
-                <Link to="/register">
+                <Link to={mode === 'consumer' ? '/consumer/register' : '/register'}>
                   <Button variant="primary" size="small">
                     Register
                   </Button>
@@ -288,6 +313,20 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
                 
                 {/* Navigation Links */}
                 <div className="space-y-4">
+                  {/* Cart Link for non-authenticated consumer users */}
+                  {!isAuthenticated && mode === 'consumer' && (
+                    <Link
+                      to="/consumer/cart"
+                      className="block px-4 py-3 rounded-lg text-lg transition-colors text-text-primary hover:bg-soft-pink-hover"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Cart
+                      {cartItemsCount > 0 && (
+                        <span className="ml-2 text-rose-gold">({cartItemsCount})</span>
+                      )}
+                    </Link>
+                  )}
+                  
                   {allNavItems.map((item) => (
                     <Link
                       key={item.href}
@@ -303,6 +342,9 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
                       {item.label}
                       {item.href === '/cart' && getB2BCartItems() > 0 && (
                         <span className="ml-2 text-rose-gold">({getB2BCartItems()})</span>
+                      )}
+                      {item.href === '/consumer/cart' && getConsumerCartItems() > 0 && (
+                        <span className="ml-2 text-rose-gold">({getConsumerCartItems()})</span>
                       )}
                     </Link>
                   ))}
@@ -366,7 +408,7 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
                       Login
                     </Button>
                   </Link>
-                  <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Link to={mode === 'consumer' ? '/consumer/register' : '/register'} onClick={() => setIsMobileMenuOpen(false)}>
                     <Button variant="primary" size="medium" className="w-full">
                       Register
                     </Button>

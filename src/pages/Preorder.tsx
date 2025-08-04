@@ -7,24 +7,43 @@ import { Container } from "../components/layout/Container";
 import { Grid } from "../components/layout/Grid";
 import { Section } from "../components/layout/Section";
 import { PageHeader } from "../components/layout/PageHeader";
-import { getPreorderProducts } from "../services/mock/preorder.service";
+import { productService } from "../services";
 import { Accordion } from "../components/ui/Accordion";
-import { productService } from "../services/mock/product.service";
-import { Brand } from "../types";
+import { Brand, Product } from "../types";
+import { Spinner } from "../components/ui";
 
 export const Preorder: FunctionComponent = () => {
-  const products = getPreorderProducts();
+  const [products, setProducts] = useState<Product[]>([]);
   const [brand, setBrand] = useState<Brand | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchBrand = async () => {
-      if (products.length > 0) {
-        const brandData = await productService.getBrand(products[0].brandId);
-        setBrand(brandData);
+    const fetchProducts = async () => {
+      try {
+        // For now, fetch all featured products as preorders
+        const allProducts = await productService.getFeaturedProducts();
+        setProducts(allProducts);
+        
+        if (allProducts.length > 0) {
+          const brandData = await productService.getBrand(allProducts[0].brandId);
+          setBrand(brandData);
+        }
+      } catch (error) {
+        console.error('Failed to fetch preorder products:', error);
+      } finally {
+        setLoading(false);
       }
     };
-    fetchBrand();
-  }, [products]);
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <Spinner size="large" />
+      </div>
+    );
+  }
 
   return (
     <div>

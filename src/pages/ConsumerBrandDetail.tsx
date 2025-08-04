@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Layout, Container, Section, Grid } from '../components/layout'
 import { Button, Select, Badge, Spinner, Card, CardContent } from '../components/ui'
-// Removed unused import
+import { collection, query, where, getDocs } from 'firebase/firestore'
+import { db } from '../lib/firebase/config'
 import { productService } from '../services'
 import { Brand, Product } from '../types'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
@@ -13,12 +14,36 @@ const ConsumerProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const { addItem } = useConsumerCartStore()
   const navigate = useNavigate()
   
-  const productName = typeof product.name === 'object' ? product.name.en : product.name
-  const productDescription = typeof product.description === 'object' ? product.description.en : product.description
-  const productPrice = product.retailPrice?.item || product.price?.retail || 0
+  const productName = typeof product.name === 'string' ? product.name : product.name?.en || product.name
+  const productDescription = typeof product.description === 'string' ? product.description : product.description?.en || product.description || product.shortDescription || ''
+  
+  // Get the first B2C-enabled variant
+  const b2cVariant = product.variants?.find(v => v.pricing?.b2c?.enabled) || product.variants?.[0]
+  const productPrice = b2cVariant?.pricing?.b2c?.retailPrice || 0
+  const isInStock = b2cVariant?.inventory?.b2c?.available > 0
   
   const handleAddToCart = () => {
-    addItem(product, 1)
+    if (!b2cVariant) {
+      toast.error('This product is not available for retail purchase')
+      return
+    }
+    
+    if (!isInStock) {
+      toast.error('This product is out of stock')
+      return
+    }
+    
+    // Use the same pattern as ConsumerShop
+    addItem({
+      productId: product.id,
+      productName: productName,
+      variantId: b2cVariant.variantId,
+      price: productPrice,
+      quantity: 1,
+      image: product.images?.primary || '',
+      brandId: product.brandId
+    })
+    
     toast.success(`${productName} added to cart`)
   }
   
@@ -26,15 +51,35 @@ const ConsumerProductCard: React.FC<{ product: Product }> = ({ product }) => {
     <Card className="group overflow-hidden h-full flex flex-col">
       <div className="relative aspect-square overflow-hidden">
         <img 
-          src={product.images[0]} 
+          src={product.images?.primary || product.images?.[0] || '/placeholder.png'} 
           alt={productName}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer"
           onClick={() => navigate(`/consumer/products/${product.id}`)}
         />
+        {!isInStock && (
+          <Badge variant="default" className="absolute top-4 left-4 bg-gray-500">
+            Out of Stock
+          </Badge>
+        )}
         {product.preOrderEnabled && (
           <Badge variant="default" className="absolute top-4 left-4">
             Pre-order
           </Badge>
+        )}
+        {/* Show variant colors if multiple */}
+        {product.variants?.length > 1 && (
+          <div className="absolute bottom-4 left-4 flex gap-1">
+            {product.variants.slice(0, 4).map((variant, idx) => (
+              variant.colorHex && (
+                <div 
+                  key={variant.variantId}
+                  className="w-5 h-5 rounded-full border border-gray-300"
+                  style={{ backgroundColor: variant.colorHex }}
+                  title={variant.color}
+                />
+              )
+            ))}
+          </div>
         )}
       </div>
       
@@ -54,9 +99,9 @@ const ConsumerProductCard: React.FC<{ product: Product }> = ({ product }) => {
             <span className="text-xl font-light text-rose-gold">
               £{productPrice.toFixed(2)}
             </span>
-            {product.volume && (
+            {(b2cVariant?.size || product.volume) && (
               <span className="text-sm text-text-secondary">
-                {product.volume}
+                {b2cVariant?.size ? `${b2cVariant.size}${b2cVariant.sizeUnit || ''}` : product.volume}
               </span>
             )}
           </div>
@@ -65,8 +110,9 @@ const ConsumerProductCard: React.FC<{ product: Product }> = ({ product }) => {
             onClick={handleAddToCart}
             size="small" 
             fullWidth
+            disabled={!isInStock}
           >
-            Add to Cart
+            {isInStock ? 'Add to Cart' : 'Out of Stock'}
           </Button>
         </div>
       </CardContent>
@@ -114,18 +160,24 @@ export const ConsumerBrandDetail: React.FC = () => {
       
       setBrand(brandData)
       
-      // Load products for this brand
-      const allProducts = await productService.getAll()
-      const brandProducts = allProducts.filter(p => p.brandId === brandId)
+      // Load products for this brand from Firestore
+      const productsQuery = query(
+        collection(db, 'products'),
+        where('brandId', '==', brandId),
+        where('status', '==', 'active')
+      )
+      const productsSnapshot = await getDocs(productsQuery)
       
-      // Filter only retail products
-      const retailProducts = brandProducts.filter(p => {
-        const hasRetailPrice = p.retailPrice && p.retailPrice.item > 0
-        const hasPrice = p.price && (p.price.retail > 0 || p.price.wholesale > 0)
-        return hasRetailPrice || hasPrice
+      const brandProducts: Product[] = []
+      productsSnapshot.forEach((doc) => {
+        const data = doc.data()
+        // Only include products with B2C pricing enabled
+        if (data.variants?.some((v: any) => v.pricing?.b2c?.enabled)) {
+          brandProducts.push({ id: doc.id, ...data } as Product)
+        }
       })
       
-      setProducts(retailProducts)
+      setProducts(brandProducts)
     } catch (error) {
       console.error('Failed to load brand data:', error)
       toast.error('Failed to load brand information')
@@ -149,15 +201,19 @@ export const ConsumerBrandDetail: React.FC = () => {
         break
       case 'price-low':
         filtered.sort((a, b) => {
-          const priceA = a.retailPrice?.item || a.price?.retail || 0
-          const priceB = b.retailPrice?.item || b.price?.retail || 0
+          const variantA = a.variants?.find(v => v.pricing?.b2c?.enabled) || a.variants?.[0]
+          const variantB = b.variants?.find(v => v.pricing?.b2c?.enabled) || b.variants?.[0]
+          const priceA = variantA?.pricing?.b2c?.retailPrice || 0
+          const priceB = variantB?.pricing?.b2c?.retailPrice || 0
           return priceA - priceB
         })
         break
       case 'price-high':
         filtered.sort((a, b) => {
-          const priceA = a.retailPrice?.item || a.price?.retail || 0
-          const priceB = b.retailPrice?.item || b.price?.retail || 0
+          const variantA = a.variants?.find(v => v.pricing?.b2c?.enabled) || a.variants?.[0]
+          const variantB = b.variants?.find(v => v.pricing?.b2c?.enabled) || b.variants?.[0]
+          const priceA = variantA?.pricing?.b2c?.retailPrice || 0
+          const priceB = variantB?.pricing?.b2c?.retailPrice || 0
           return priceB - priceA
         })
         break

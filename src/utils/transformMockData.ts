@@ -33,6 +33,51 @@ export const transformBrandData = (rawBrand: any): Brand => {
 }
 
 export const transformProductData = (rawProduct: any): Product => {
-  // Since we've updated products.json with all B2C fields, just return as-is
-  return rawProduct as Product
+  // Handle both string and object formats for name and description
+  const name = typeof rawProduct.name === 'string' 
+    ? {
+        en: rawProduct.name,
+        ko: rawProduct.name, // In real app, would have Korean translation
+        zh: rawProduct.name  // In real app, would have Chinese translation
+      }
+    : rawProduct.name
+
+  const description = typeof rawProduct.description === 'string'
+    ? {
+        en: rawProduct.description,
+        ko: rawProduct.description,
+        zh: rawProduct.description
+      }
+    : rawProduct.description
+
+  // Transform pricing structure if needed
+  let price = rawProduct.price
+  if (!price && rawProduct.variants && rawProduct.variants.length > 0) {
+    // Extract price from first variant if no top-level price
+    const defaultVariant = rawProduct.variants.find((v: any) => v.isDefault) || rawProduct.variants[0]
+    price = {
+      wholesale: defaultVariant.pricing?.b2b?.wholesalePrice,
+      retail: defaultVariant.pricing?.b2c?.retailPrice,
+      currency: defaultVariant.pricing?.b2c?.currency || 'USD'
+    }
+  }
+
+  return {
+    ...rawProduct,
+    name,
+    description,
+    price: price || { currency: 'USD' },
+    // Ensure images is in the correct format
+    images: Array.isArray(rawProduct.images) 
+      ? rawProduct.images 
+      : rawProduct.images?.gallery || [rawProduct.images?.primary].filter(Boolean) || [],
+    // Set default values for required fields
+    categoryId: rawProduct.categoryId || rawProduct.category || 'uncategorized',
+    minOrderQuantity: rawProduct.minOrderQuantity || 1,
+    stockLevel: rawProduct.stockLevel || 'in',
+    featured: rawProduct.featured || false,
+    active: rawProduct.status === 'active',
+    inStock: true, // Default to true, can be calculated from variants
+    brand: rawProduct.brand || { id: rawProduct.brandId, name: rawProduct.brandId }
+  } as Product
 }

@@ -1,0 +1,147 @@
+{
+  "processed": [
+    "sunnicorn-bereum-microbiome-collagen-mask"
+  ],
+  "failed": [
+    {
+      "productId": "baohlab-hair-loss-care-ampoule",
+      "error": "Firebase Storage: User does not have permission to access 'products/baohlab-hair-loss-care-ampoule/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "lalucell-biome-vegan-balance-essence",
+      "error": "Firebase Storage: User does not have permission to access 'products/lalucell-biome-vegan-balance-essence/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "lalucell-biome-vegan-pure-cleansing-bar",
+      "error": "Firebase Storage: User does not have permission to access 'products/lalucell-biome-vegan-pure-cleansing-bar/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "lalucell-biome-vegan-repair-cream",
+      "error": "Firebase Storage: User does not have permission to access 'products/lalucell-biome-vegan-repair-cream/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "lalucell-mystic-light-cica-refreshing-hydrogel-mask",
+      "error": "Firebase Storage: User does not have permission to access 'products/lalucell-mystic-light-cica-refreshing-hydrogel-mask/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "lalucell-mystic-light-mark-control-body-patch",
+      "error": "Firebase Storage: User does not have permission to access 'products/lalucell-mystic-light-mark-control-body-patch/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "lalucell-mystic-light-mark-control-breast-patch",
+      "error": "Firebase Storage: User does not have permission to access 'products/lalucell-mystic-light-mark-control-breast-patch/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "sunnicorn-bamboo-soothing-uv-essence-sunscreen",
+      "error": "Firebase Storage: User does not have permission to access 'products/sunnicorn-bamboo-soothing-uv-essence-sunscreen/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "sunnicorn-bereum-microbiome-modeling-pack-calming-pore",
+      "error": "Firebase Storage: User does not have permission to access 'products/sunnicorn-bereum-microbiome-modeling-pack-calming-pore/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "sunnicorn-deep-hydrating-lip-mask",
+      "error": "Firebase Storage: User does not have permission to access 'products/sunnicorn-deep-hydrating-lip-mask/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "sunnicorn-im-proud-of-you-calming-toner",
+      "error": "Firebase Storage: User does not have permission to access 'products/sunnicorn-im-proud-of-you-calming-toner/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "sunnicorn-modeling-pack-kit",
+      "error": "Firebase Storage: User does not have permission to access 'products/sunnicorn-modeling-pack-kit/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "sunnicorn-mushroom-collagen-deep-hydrating-cream",
+      "error": "Firebase Storage: User does not have permission to access 'products/sunnicorn-mushroom-collagen-deep-hydrating-cream/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "sunnicorn-only-for-you-butter-lip-balm",
+      "error": "Firebase Storage: User does not have permission to access 'products/sunnicorn-only-for-you-butter-lip-balm/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "the-cell-lab-celltone-7c-soothing-sheet-mask",
+      "error": "Failed to download: 404"
+    },
+    {
+      "productId": "the-cell-lab-celltone-ampoule",
+      "error": "Firebase Storage: User does not have permission to access 'products/the-cell-lab-celltone-ampoule/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "the-cell-lab-celltone-body-lotion",
+      "error": "Failed to download: 404"
+    },
+    {
+      "productId": "the-cell-lab-celltone-cleansing-oil",
+      "error": "Firebase Storage: User does not have permission to access 'products/the-cell-lab-celltone-cleansing-oil/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "the-cell-lab-celltone-cream",
+      "error": "Firebase Storage: User does not have permission to access 'products/the-cell-lab-celltone-cream/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "the-cell-lab-celltone-foam-cleanser",
+      "error": "Failed to download: 404"
+    },
+    {
+      "productId": "the-cell-lab-celltone-mild-foam-cleanser",
+      "error": "Firebase Storage: User does not have permission to access 'products/the-cell-lab-celltone-mild-foam-cleanser/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "the-cell-lab-celltone-sun-cream",
+      "error": "Firebase Storage: User does not have permission to access 'products/the-cell-lab-celltone-sun-cream/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "the-cell-lab-celltone-toner",
+      "error": "Firebase Storage: User does not have permission to access 'products/the-cell-lab-celltone-toner/primary.jpg'. (storage/unauthorized)"
+    },
+    {
+      "productId": "wismin-all-day-young-real-deep-collagen-mask",
+      "error": "Failed to download: 404"
+    },
+    {
+      "productId": "wismin-all-day-young-real-deep-hydro-mask",
+      "error": "Failed to download: 404"
+    },
+    {
+      "productId": "wismin-bakuchiol-all-day-young-ampoule",
+      "error": "Failed to download: 404"
+    },
+    {
+      "productId": "wismin-bakuchiol-all-day-young-ampoule-set",
+      "error": "Failed to download: 404"
+    },
+    {
+      "productId": "wismin-bakuchiol-all-day-young-eye-cream",
+      "error": "Failed to download: 404"
+    },
+    {
+      "productId": "wismin-cotton-fruit-water-hawaiian-sun-cream",
+      "error": "Failed to download: 404"
+    },
+    {
+      "productId": "wismin-cotton-seed-barrier-cleansing-ball",
+      "error": "Failed to download: 404"
+    },
+    {
+      "productId": "wismin-cotton-seed-cicafence-cream-50ml",
+      "error": "Failed to download: 404"
+    },
+    {
+      "productId": "wismin-cotton-seed-cicafence-toner-150ml",
+      "error": "Failed to download: 404"
+    },
+    {
+      "productId": "wismin-pore-tight-all-day-young-cream",
+      "error": "Failed to download: 404"
+    },
+    {
+      "productId": "wismin-sample-kit-3-types",
+      "error": "Failed to download: 404"
+    },
+    {
+      "productId": "wismin-sample-kit-4-types",
+      "error": "Failed to download: 404"
+    }
+  ]
+}

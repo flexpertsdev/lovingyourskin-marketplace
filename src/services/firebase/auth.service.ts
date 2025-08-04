@@ -245,17 +245,21 @@ class FirebaseAuthService {
       )
       
       // Create user document in Firestore
-      const userDoc = {
+      const userDoc: any = {
         email: userData.email,
         name: userData.name,
         role: 'consumer' as const,
         language: userData.language,
-        phoneNumber: userData.phoneNumber,
         newsletter: userData.newsletter || false,
         wishlist: [],
         addresses: [],
         createdAt: new Date(),
         lastLoginAt: new Date()
+      }
+      
+      // Only add phoneNumber if it's provided
+      if (userData.phoneNumber) {
+        userDoc.phoneNumber = userData.phoneNumber
       }
       
       await setDoc(doc(db, 'users', userCredential.user.uid), userDoc)

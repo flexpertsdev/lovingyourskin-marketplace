@@ -8,6 +8,7 @@ export interface User {
   email: string
   role: UserRole
   companyId?: string // Optional for admin users and consumers
+  brandId?: string // For brand users
   salesRepId?: string // Auto-linked from invite
   language: 'en' | 'ko' | 'zh'
   name: string
@@ -242,6 +243,7 @@ export interface Order {
   userId: string
   userType: 'retailer' | 'consumer'
   retailerId?: string // Only for B2B orders
+  retailerName?: string // Retailer company name
   retailerCompanyId?: string // Only for B2B orders
   consumerId?: string // Only for B2C orders
   brandId: string // Orders separated by brand
@@ -288,6 +290,7 @@ export interface Order {
 export interface OrderItem {
   productId: string
   productName: string
+  product?: Product // Full product object for filtering
   quantity: number
   pricePerItem: number
   pricePerCarton: number

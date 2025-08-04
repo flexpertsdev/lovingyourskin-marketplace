@@ -114,7 +114,7 @@ class FirebaseProductService {
   async getProducts(): Promise<Product[]> {
     try {
       const productsSnapshot = await getDocs(
-        query(collection(db, 'products'), where('active', '==', true))
+        query(collection(db, 'products'), where('status', '==', 'active'))
       )
       
       return productsSnapshot.docs.map(doc => {
@@ -136,7 +136,7 @@ class FirebaseProductService {
       const productsQuery = query(
         collection(db, 'products'),
         where('brandId', '==', brandId),
-        where('active', '==', true)
+        where('status', '==', 'active')
       )
       
       const productsSnapshot = await getDocs(productsQuery)
@@ -159,9 +159,9 @@ class FirebaseProductService {
       const productsQuery = query(
         collection(db, 'products'),
         where('brandId', '==', brandId),
-        where('categoryId', '==', categoryId),
-        where('inStock', '==', true),
-        orderBy('name.en')
+        where('category', '==', categoryId),
+        where('status', '==', 'active'),
+        orderBy('name')
       )
       
       const productsSnapshot = await getDocs(productsQuery)
@@ -235,8 +235,8 @@ class FirebaseProductService {
       const featuredQuery = query(
         collection(db, 'products'),
         where('featured', '==', true),
-        where('active', '==', true),
-        orderBy('name.en')
+        where('status', '==', 'active'),
+        orderBy('name')
       )
       
       const productsSnapshot = await getDocs(featuredQuery)
@@ -292,11 +292,37 @@ class FirebaseProductService {
   }
   
   // Update product stock
-  async updateProductStock(productId: string, stock: number): Promise<void> {
+  async updateProductStock(productId: string, variantId: string, stock: number): Promise<void> {
     try {
+      // Get the product first
+      const productDoc = await getDoc(doc(db, 'products', productId))
+      if (!productDoc.exists()) {
+        throw new Error('Product not found')
+      }
+      
+      const product = productDoc.data()
+      const variants = product.variants || []
+      
+      // Update the specific variant's stock
+      const updatedVariants = variants.map((v: any) => {
+        if (v.variantId === variantId) {
+          return {
+            ...v,
+            inventory: {
+              ...v.inventory,
+              b2b: {
+                ...v.inventory.b2b,
+                stock,
+                available: stock
+              }
+            }
+          }
+        }
+        return v
+      })
+      
       await updateDoc(doc(db, 'products', productId), {
-        stockLevel: stock > 10 ? 'in' : stock > 0 ? 'low' : 'out',
-        inStock: stock > 0,
+        variants: updatedVariants,
         updatedAt: Timestamp.now()
       })
     } catch (error) {
@@ -313,12 +339,12 @@ class FirebaseProductService {
         productsQuery = query(
           collection(db, 'products'),
           where('brandId', '==', brandId),
-          where('active', '==', true)
+          where('status', '==', 'active')
         )
       } else {
         productsQuery = query(
           collection(db, 'products'),
-          where('active', '==', true)
+          where('status', '==', 'active')
         )
       }
       

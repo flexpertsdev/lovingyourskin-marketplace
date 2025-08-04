@@ -3,6 +3,7 @@ import { collection, query, where, orderBy, getDocs, deleteDoc, doc, updateDoc, 
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '@/lib/firebase/config';
 import { Product } from '@/types';
+import { Layout } from '@/components/layout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -155,12 +156,13 @@ export default function ProductManagement() {
   const categories = ['all', 'cleansers', 'toners', 'serums', 'moisturizers', 'masks', 'sun-care', 'hair-care', 'body-care', 'eye-care', 'lip-care', 'sets'];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl">Product Management</CardTitle>
-        </CardHeader>
-        <CardContent>
+    <Layout>
+      <div className="container mx-auto px-4 py-8">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-2xl">Product Management</CardTitle>
+          </CardHeader>
+          <CardContent>
           {/* Filters and Search */}
           <div className="flex flex-col md:flex-row gap-4 mb-6">
             <div className="flex-1">
@@ -335,7 +337,8 @@ export default function ProductManagement() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </div>
+      </div>
+    </Layout>
   );
 }
 
@@ -390,9 +393,10 @@ function ProductEditForm({
           <TabsTrigger value="details">Details</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="basic" className="space-y-4">
-          <div>
-            <Label htmlFor="name">Product Name</Label>
+        <TabsContent value="basic" className="mt-6">
+          <div className="px-6 py-6 space-y-4">
+            <div>
+              <Label htmlFor="name">Product Name</Label>
             <Input
               id="name"
               value={formData.name}
@@ -447,9 +451,11 @@ function ProductEditForm({
               />
             </div>
           </div>
+          </div>
         </TabsContent>
 
-        <TabsContent value="pricing" className="space-y-4">
+        <TabsContent value="pricing" className="mt-6">
+          <div className="px-6 py-6 space-y-4">
           {formData.variants?.map((variant, index) => (
             <Card key={variant.variantId}>
               <CardHeader>
@@ -556,11 +562,13 @@ function ProductEditForm({
               </CardContent>
             </Card>
           ))}
+          </div>
         </TabsContent>
 
-        <TabsContent value="images" className="space-y-4">
-          <div>
-            <Label>Current Images</Label>
+        <TabsContent value="images" className="mt-6">
+          <div className="px-6 py-6 space-y-4">
+            <div>
+              <Label>Current Images</Label>
             <div className="grid grid-cols-4 gap-4 mt-2">
               {formData.images?.gallery?.map((img, index) => (
                 <div key={index} className="relative">
@@ -609,11 +617,13 @@ function ProductEditForm({
               </div>
             </div>
           )}
+          </div>
         </TabsContent>
 
-        <TabsContent value="details" className="space-y-4">
-          <div>
-            <Label htmlFor="ingredients">Ingredients</Label>
+        <TabsContent value="details" className="mt-6">
+          <div className="px-6 py-6 space-y-4">
+            <div>
+              <Label htmlFor="ingredients">Ingredients</Label>
             <Textarea
               id="ingredients"
               value={formData.ingredients}
@@ -665,10 +675,11 @@ function ProductEditForm({
               />
             </div>
           </div>
+          </div>
         </TabsContent>
       </Tabs>
 
-      <div className="flex justify-end gap-4">
+      <div className="flex justify-end gap-4 px-6 pb-6 pt-4 border-t">
         <Button type="button" variant="outline" onClick={() => setFormData(product)}>
           Reset
         </Button>
@@ -772,9 +783,10 @@ function ProductCreateForm({
           <TabsTrigger value="details">Details</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="basic" className="space-y-4">
-          <div>
-            <Label htmlFor="brand">Brand</Label>
+        <TabsContent value="basic" className="mt-6">
+          <div className="px-6 py-6 space-y-4">
+            <div>
+              <Label htmlFor="brand">Brand</Label>
             <Select
               value={formData.brandId}
               onChange={(e) => {
@@ -835,9 +847,11 @@ function ProductCreateForm({
               placeholder="Select category"
             />
           </div>
+          </div>
         </TabsContent>
 
-        <TabsContent value="pricing" className="space-y-4">
+        <TabsContent value="pricing" className="mt-6">
+          <div className="px-6 py-6 space-y-4">
           {formData.variants?.map((variant, index) => (
             <Card key={index}>
               <CardHeader>
@@ -983,11 +997,13 @@ function ProductCreateForm({
               </CardContent>
             </Card>
           ))}
+          </div>
         </TabsContent>
 
-        <TabsContent value="images" className="space-y-4">
-          <div>
-            <Label htmlFor="primaryImage">Primary Image URL</Label>
+        <TabsContent value="images" className="mt-6">
+          <div className="px-6 py-6 space-y-4">
+            <div>
+              <Label htmlFor="primaryImage">Primary Image URL</Label>
             <Input
               id="primaryImage"
               value={formData.images?.primary || ''}
@@ -998,11 +1014,13 @@ function ProductCreateForm({
               placeholder="https://example.com/image.jpg"
             />
           </div>
+          </div>
         </TabsContent>
 
-        <TabsContent value="details" className="space-y-4">
-          <div>
-            <Label htmlFor="ingredients">Ingredients</Label>
+        <TabsContent value="details" className="mt-6">
+          <div className="px-6 py-6 space-y-4">
+            <div>
+              <Label htmlFor="ingredients">Ingredients</Label>
             <Textarea
               id="ingredients"
               value={formData.ingredients}
@@ -1054,10 +1072,11 @@ function ProductCreateForm({
               />
             </div>
           </div>
+          </div>
         </TabsContent>
       </Tabs>
 
-      <div className="flex justify-end gap-4">
+      <div className="flex justify-end gap-4 px-6 pb-6 pt-4 border-t">
         <Button type="button" variant="outline" onClick={() => setFormData({})}>
           Cancel
         </Button>
