@@ -1,0 +1,720 @@
+{
+  "sunnicorn_products": {
+    "sunnicorn-only-for-you-butter-lip-balm": {
+      "id": "sunnicorn-only-for-you-butter-lip-balm",
+      "brand": {
+        "id": "sunnicorn",
+        "name": "Sunnicorn"
+      },
+      "name": "Only For You Butter Lip Balm",
+      "slug": "only-for-you-butter-lip-balm",
+      "description": "Non-greasy, natural lip balm infused with hydrating herb butter melts softly onto lips and offers ultra-comfortable, weightless wear. Lip moisturizing repair: provides instant relief to extremely dry, cracked lips. HYPOALLERGENIC TESTED. Shea butter and avocado oil moisturizing and improving skin texture super-delicate and rough lips while providing natural and healthy gloss. Apple Mint's deliver cooling and plump for your lips, It make your lips voluminous and smooth.",
+      "shortDescription": "Natural butter lip balm with herb infusion",
+      "category": "lip-care",
+      "subcategory": "lip-balms",
+      "tags": ["lip-balm", "moisturizing", "natural", "shea-butter", "hypoallergenic"],
+      "images": {
+        "primary": "https://en.sunnicorn.com/web/product/medium/202409/8035d4fa50415851d874e394d93d696b.jpg",
+        "gallery": [
+          "https://en.sunnicorn.com/web/product/medium/202409/8035d4fa50415851d874e394d93d696b.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-clear",
+          "sku": "SUNNICORN-OFYLB-01",
+          "size": null,
+          "sizeUnit": null,
+          "color": "#01 Clear",
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": true,
+              "retailPrice": 13.00,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 7.00,
+              "minOrderQuantity": 126,
+              "unitsPerCarton": 63,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 63,
+              "reserved": 0,
+              "available": 63
+            },
+            "b2b": {
+              "stock": 10,
+              "reserved": 0,
+              "available": 10
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        },
+        {
+          "variantId": "variant-coral",
+          "sku": "SUNNICORN-OFYLB-02",
+          "size": null,
+          "sizeUnit": null,
+          "color": "#02 Kinda Coral",
+          "colorHex": "#FF7F50",
+          "pricing": {
+            "b2c": {
+              "enabled": true,
+              "retailPrice": 13.00,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 7.00,
+              "minOrderQuantity": 126,
+              "unitsPerCarton": 63,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 63,
+              "reserved": 0,
+              "available": 63
+            },
+            "b2b": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            }
+          },
+          "status": "active",
+          "isDefault": false
+        },
+        {
+          "variantId": "variant-berry",
+          "sku": "SUNNICORN-OFYLB-03",
+          "size": null,
+          "sizeUnit": null,
+          "color": "#03 Berry Rosy",
+          "colorHex": "#C71585",
+          "pricing": {
+            "b2c": {
+              "enabled": true,
+              "retailPrice": 13.00,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 7.00,
+              "minOrderQuantity": 126,
+              "unitsPerCarton": 63,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 63,
+              "reserved": 0,
+              "available": 63
+            },
+            "b2b": {
+              "stock": 10,
+              "reserved": 0,
+              "available": 10
+            }
+          },
+          "status": "active",
+          "isDefault": false
+        },
+        {
+          "variantId": "variant-beige",
+          "sku": "SUNNICORN-OFYLB-04",
+          "size": null,
+          "sizeUnit": null,
+          "color": "#04 Ginger Beige",
+          "colorHex": "#D2B48C",
+          "pricing": {
+            "b2c": {
+              "enabled": true,
+              "retailPrice": 13.00,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 7.00,
+              "minOrderQuantity": 126,
+              "unitsPerCarton": 63,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 63,
+              "reserved": 0,
+              "available": 63
+            },
+            "b2b": {
+              "stock": 9,
+              "reserved": 0,
+              "available": 9
+            }
+          },
+          "status": "active",
+          "isDefault": false
+        }
+      ],
+      "specifications": {
+        "expiryDate": "",
+        "pao": "6M",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "features": ["HYPOALLERGENIC TESTED"]
+      },
+      "ingredients": "Shea Butter, Avocado Oil, Apple Mint Extract",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "sunnicorn-im-proud-of-you-calming-toner": {
+      "id": "sunnicorn-im-proud-of-you-calming-toner",
+      "brand": {
+        "id": "sunnicorn",
+        "name": "Sunnicorn"
+      },
+      "name": "I'm Proud of You Calming Toner",
+      "slug": "im-proud-of-you-calming-toner",
+      "description": "Patented Soothing Effect, PureMedi™. The patented PureMedr formula, enriched with Glasswort and Reed Extracts, delivers instant calming effects to the skin. It helps reduce redness and heat sensitivity, providing relief for irritated skin. Comfort & Restore Stressed Skin. Infused with Herb Calming Complex, this formula revitalizes and purifies the skin while strengthening its natural resilience. It soothes irritation caused by external aggressors, leaving the skin calm and balanced. Skin-Loving pH-Balanced Hydration. Formulated with a mildly acidic pH, similar to the skin's natural state, this toner helps strengthen the skin barrier while delivering deep hydration. Its carefully balanced ingredients ensure long-lasting moisture, penetrating deep into the skin for optimal hydration.",
+      "shortDescription": "Patented calming toner with PureMedi™",
+      "category": "toners",
+      "subcategory": "calming-toners",
+      "tags": ["calming", "pH-balanced", "sensitive-skin", "patented-formula"],
+      "images": {
+        "primary": "https://en.sunnicorn.com/web/product/medium/202411/d2f72f2361c8d254a0bdccdda33003b3.jpg",
+        "gallery": [
+          "https://en.sunnicorn.com/web/product/medium/202411/d2f72f2361c8d254a0bdccdda33003b3.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-300ml",
+          "sku": "SUNNICORN-IPOYCT-300ML",
+          "size": 300,
+          "sizeUnit": "ml",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": true,
+              "retailPrice": 25.00,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 11.50,
+              "minOrderQuantity": 120,
+              "unitsPerCarton": 30,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 30,
+              "reserved": 0,
+              "available": 30
+            },
+            "b2b": {
+              "stock": 10,
+              "reserved": 0,
+              "available": 10
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "",
+        "pao": "6M",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "technology": "PureMedi™ patented formula",
+        "features": [
+          "pH-balanced",
+          "Instant calming effect",
+          "Deep hydration"
+        ]
+      },
+      "ingredients": "Glasswort Extract, Reed Extract, Herb Calming Complex",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "sunnicorn-mushroom-collagen-deep-hydrating-cream": {
+      "id": "sunnicorn-mushroom-collagen-deep-hydrating-cream",
+      "brand": {
+        "id": "sunnicorn",
+        "name": "Sunnicorn"
+      },
+      "name": "Mushroom Collagen Deep Hydrating Cream",
+      "slug": "mushroom-collagen-deep-hydrating-cream",
+      "description": "51.67% Vegan Collagen Instead of Purified Water. Infused with Tremella Mushroom Extract, which contains four times the natural moisturizing factors of purified water, this formula delivers deep, long-lasting hydration that keeps skin moisturized today, tomorrow, and beyond. The vegan collagen content also helps enhance skin elasticity for a firmer, more youthful complexion. Sunnicorn's Patented Soothing Effect. Formulated with patented pesticide-free sprout extract, which provides significantly higher soothing benefits than licorice and houttuynia. This powerful ingredient gently calms and relieves irritated skin for a balanced, healthy complexion. A Natural Moisture Barrier from Olive. Infused with olive-derived squalane, a natural moisturizing ingredient, this formula creates a moisture barrier on the skin's surface to prevent hydration loss, keeping your skin soft and hydrated all day long.",
+      "shortDescription": "51.67% vegan collagen hydrating cream",
+      "category": "moisturizers",
+      "subcategory": "hydrating-creams",
+      "tags": ["vegan-collagen", "mushroom", "deep-hydration", "elasticity"],
+      "images": {
+        "primary": "https://en.sunnicorn.com/web/product/medium/202411/53934edede3411700fb67bceaa704a4f.jpg",
+        "gallery": [
+          "https://en.sunnicorn.com/web/product/medium/202411/53934edede3411700fb67bceaa704a4f.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-50ml",
+          "sku": "SUNNICORN-MCDHC-50ML",
+          "size": 50,
+          "sizeUnit": "ml",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": true,
+              "retailPrice": 30.00,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 12.50,
+              "minOrderQuantity": 120,
+              "unitsPerCarton": 60,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 60,
+              "reserved": 0,
+              "available": 60
+            },
+            "b2b": {
+              "stock": 10,
+              "reserved": 0,
+              "available": 10
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "",
+        "pao": "6M",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "keyIngredients": [
+          "51.67% Vegan Collagen",
+          "Tremella Mushroom Extract",
+          "Olive-derived Squalane"
+        ]
+      },
+      "ingredients": "Vegan Collagen (51.67%), Tremella Mushroom Extract, Patented Pesticide-free Sprout Extract, Olive-derived Squalane",
+      "status": "active",
+      "featured": true,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "sunnicorn-bamboo-soothing-uv-essence-sunscreen": {
+      "id": "sunnicorn-bamboo-soothing-uv-essence-sunscreen",
+      "brand": {
+        "id": "sunnicorn",
+        "name": "Sunnicorn"
+      },
+      "name": "Bamboo Soothing UV Essence Sunscreen",
+      "slug": "bamboo-soothing-uv-essence-sunscreen",
+      "description": "PURE INGREDIENTS FROM DAMYANG BAMBOO SOOTHE SENSITIVE SKIN AND PROVIDE ENOUGH MOISTURE. SUN ESSENCE PROTECTS YOU FROM UV RAYS. Lowering Oil UV Filter and providing moisture safely by Water UV Filter surrounding skin softly. Water-drop-gel type formula, and being applied clearly without becoming white. Being applied smoothly and lightly without being sticky. Soothing skin by lowering sensitive skin temperature. Hypoallergenic tested for sensitive skin, skin stimulation grade 0.00. Whitening, wrinkle improvement, UV protection triple functional cosmetics EWG green grade Raw material Synthetic fragrances-Free.",
+      "shortDescription": "Bamboo-based soothing UV essence",
+      "category": "sun-care",
+      "subcategory": "sun-essences",
+      "tags": ["bamboo", "sensitive-skin", "hypoallergenic", "water-gel", "EWG-green"],
+      "images": {
+        "primary": "https://en.sunnicorn.com/web/product/medium/202411/dfcbfe66184fb90ff8903ac24ed71a01.jpg",
+        "gallery": [
+          "https://en.sunnicorn.com/web/product/medium/202411/dfcbfe66184fb90ff8903ac24ed71a01.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-50ml",
+          "sku": "SUNNICORN-BSUES-50ML",
+          "size": 50,
+          "sizeUnit": "ml",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": true,
+              "retailPrice": 23.00,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 11.50,
+              "minOrderQuantity": 120,
+              "unitsPerCarton": 120,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 120,
+              "reserved": 0,
+              "available": 120
+            },
+            "b2b": {
+              "stock": 9,
+              "reserved": 0,
+              "available": 9
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "",
+        "pao": "6M",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "spf": "SPF50+",
+        "paRating": "PA++++",
+        "features": [
+          "Hypoallergenic tested (0.00 grade)",
+          "Triple functional (Whitening, Anti-wrinkle, UV protection)",
+          "EWG green grade ingredients",
+          "Synthetic fragrance-free"
+        ]
+      },
+      "ingredients": "Damyang Bamboo Extract",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "sunnicorn-deep-hydrating-lip-mask": {
+      "id": "sunnicorn-deep-hydrating-lip-mask",
+      "brand": {
+        "id": "sunnicorn",
+        "name": "Sunnicorn"
+      },
+      "name": "Sunnicorn Deep hydrating Lip Mask",
+      "slug": "deep-hydrating-lip-mask",
+      "description": "Sunnicorn only for you lip mask providing ultra hydration and deep nourishment to dry and cracked lips. Maintain moisturizing 100 hour. Immediately improve dead skin for lips 83.3%. Hypoallegenic tested grade 0.00.",
+      "shortDescription": "100-hour moisturizing lip mask",
+      "category": "lip-care",
+      "subcategory": "lip-masks",
+      "tags": ["lip-mask", "hydrating", "100-hour", "hypoallergenic"],
+      "images": {
+        "primary": "https://en.sunnicorn.com/web/product/medium/202409/227a6c638e8fd59d2fa61a17f86e03a4.jpg",
+        "gallery": [
+          "https://en.sunnicorn.com/web/product/medium/202409/227a6c638e8fd59d2fa61a17f86e03a4.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "SUNNICORN-DHLM",
+          "size": null,
+          "sizeUnit": null,
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": true,
+              "retailPrice": 18.00,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 11.50,
+              "minOrderQuantity": 250,
+              "unitsPerCarton": 250,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 250,
+              "reserved": 0,
+              "available": 250
+            },
+            "b2b": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "",
+        "pao": "6M",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "clinicalResults": [
+          "100 hour moisturizing maintenance",
+          "83.3% immediate dead skin improvement",
+          "Hypoallergenic tested grade 0.00"
+        ]
+      },
+      "ingredients": "",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "sunnicorn-bereum-microbiome-modeling-pack-calming-pore": {
+      "id": "sunnicorn-bereum-microbiome-modeling-pack-calming-pore",
+      "brand": {
+        "id": "sunnicorn",
+        "name": "Sunnicorn"
+      },
+      "name": "Sunnicorn bereum Microbiome Modeling pack _calming pore",
+      "slug": "bereum-microbiome-modeling-pack-calming-pore",
+      "description": "Korea's First Skincare with 50 Billion Probiotic Cells. The modeling formula infused with 50 billion probiotic cells seamlessly penetrates deep into the pores, strengthening the skin barrier and clearing out impurities. It helps refine pores and promotes clean, healthy skin. Instant Cooling & Soothing. Diatomaceous earth and algin rapidly cool and calm overheated skin while tightening and refining pores for a smoother, more refreshed complexion. Effortless & Easy Home Aesthetic Care. Minimizing powder dispersion to prevent coughing, this formula remains pliable for smooth application without drying too quickly. Its elastic, skin-hugging texture ensures a clean, mess-free peel-off, allowing you to enjoy professional skincare from the comfort of your home.",
+      "shortDescription": "50 billion probiotic modeling pack",
+      "category": "masks",
+      "subcategory": "modeling-packs",
+      "tags": ["probiotic", "microbiome", "pore-care", "cooling", "professional"],
+      "images": {
+        "primary": "https://en.sunnicorn.com/web/product/medium/202411/bf9ceca3bda4670a50e1a5cf840c72e2.jpg",
+        "gallery": [
+          "https://en.sunnicorn.com/web/product/medium/202411/bf9ceca3bda4670a50e1a5cf840c72e2.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "SUNNICORN-BMMCP",
+          "size": null,
+          "sizeUnit": null,
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": true,
+              "retailPrice": 25.00,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 12.00,
+              "minOrderQuantity": 100,
+              "unitsPerCarton": 20,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 20,
+              "reserved": 0,
+              "available": 20
+            },
+            "b2b": {
+              "stock": 9,
+              "reserved": 0,
+              "available": 9
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "",
+        "pao": "6M",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "keyIngredient": "50 Billion Probiotic Cells",
+        "features": [
+          "Korea's first probiotic skincare",
+          "Instant cooling effect",
+          "Professional home aesthetic care",
+          "Low powder dispersion"
+        ]
+      },
+      "ingredients": "50 Billion Probiotic Cells, Diatomaceous Earth, Algin",
+      "status": "active",
+      "featured": true,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "sunnicorn-modeling-pack-kit": {
+      "id": "sunnicorn-modeling-pack-kit",
+      "brand": {
+        "id": "sunnicorn",
+        "name": "Sunnicorn"
+      },
+      "name": "Modeling pack kit",
+      "slug": "modeling-pack-kit",
+      "description": "Complete modeling pack kit for professional home skincare",
+      "shortDescription": "Professional modeling pack kit",
+      "category": "masks",
+      "subcategory": "modeling-packs",
+      "tags": ["modeling-pack", "kit", "professional"],
+      "images": {
+        "primary": "https://en.sunnicorn.com/web/product/medium/202409/c75a07497e80db65888aca23ad1b7151.jpg",
+        "gallery": [
+          "https://en.sunnicorn.com/web/product/medium/202409/c75a07497e80db65888aca23ad1b7151.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "SUNNICORN-MPK",
+          "size": null,
+          "sizeUnit": null,
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": true,
+              "retailPrice": 6.00,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 5.00,
+              "minOrderQuantity": 100,
+              "unitsPerCarton": 100,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 100,
+              "reserved": 0,
+              "available": 100
+            },
+            "b2b": {
+              "stock": 9,
+              "reserved": 0,
+              "available": 9
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "",
+        "pao": "6M",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"]
+      },
+      "ingredients": "",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "sunnicorn-bereum-microbiome-collagen-mask": {
+      "id": "sunnicorn-bereum-microbiome-collagen-mask",
+      "brand": {
+        "id": "sunnicorn",
+        "name": "Sunnicorn"
+      },
+      "name": "Sunnicorn bereum Microbiome Collagen Mask",
+      "slug": "bereum-microbiome-collagen-mask",
+      "description": "Highly Concentrated Collagen Hydrogel Sheet. The ergonomically designed hydrogel sheet adheres seamlessly to your skin, helping replenish sagging collagen for a firmer, more resilient complexion. All-Night Hydration That Never Dries Out. Instead of conventional sheet masks that lose moisture over time, our concentrated collagen gel sheet delivers continuous hydration throughout the night—resulting in silky-smooth, dewy skin by morning. Noticeable Improvement in Pore Elasticity. The snug-fitting gel sheet adheres closely to the skin, permeating enlarged pores and filling them for a firming, pore-tightening effect.",
+      "shortDescription": "All-night collagen hydrogel mask",
+      "category": "masks",
+      "subcategory": "hydrogel-masks",
+      "tags": ["collagen", "hydrogel", "overnight", "pore-elasticity", "microbiome"],
+      "images": {
+        "primary": "/images/products/sunnicorn-bereum-microbiome-collagen-mask-1.jpg",
+        "gallery": [
+          "/images/products/sunnicorn-bereum-microbiome-collagen-mask-1.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "SUNNICORN-BMCM",
+          "size": null,
+          "sizeUnit": null,
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": true,
+              "retailPrice": 25.00,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 12.50,
+              "minOrderQuantity": 114,
+              "unitsPerCarton": 57,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 57,
+              "reserved": 0,
+              "available": 57
+            },
+            "b2b": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "",
+        "pao": "6M",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "features": [
+          "All-night hydration",
+          "Never dries out",
+          "Pore elasticity improvement",
+          "Ergonomic design"
+        ]
+      },
+      "ingredients": "Concentrated Collagen, Hydrogel Complex",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    }
+  }
+}

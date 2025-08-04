@@ -78,13 +78,17 @@ export const ProductDetail: React.FC = () => {
   // Helper to get item price from different structures
   const getItemPrice = () => {
     if (!product) return 0
-    // Check for direct item price (Wismin structure)
-    if (product.price.item !== undefined) {
-      return product.price.item
+    // Check for wholesale price
+    if (product.price.wholesale !== undefined) {
+      return product.price.wholesale
     }
-    // Check for wholesale offer price (Cell Lab structure)
-    if (product.price.wholesale?.offer?.price !== undefined) {
-      return product.price.wholesale.offer.price
+    // Check for retail price
+    if (product.price.retail !== undefined) {
+      return product.price.retail
+    }
+    // Legacy support
+    if (product.retailPrice?.item !== undefined) {
+      return product.retailPrice.item
     }
     return 0
   }
@@ -92,15 +96,8 @@ export const ProductDetail: React.FC = () => {
   // Helper to get carton price from different structures
   const getCartonPrice = () => {
     if (!product) return 0
-    // Check for direct carton price (Wismin structure)
-    if (product.price.carton !== undefined) {
-      return product.price.carton
-    }
-    // Calculate from wholesale price and items per carton (Cell Lab structure)
-    if (product.price.wholesale?.offer?.price !== undefined) {
-      return product.price.wholesale.offer.price * product.itemsPerCarton
-    }
-    return 0
+    const itemPrice = getItemPrice()
+    return itemPrice * product.itemsPerCarton
   }
   
   if (isLoading) {
@@ -239,11 +236,11 @@ export const ProductDetail: React.FC = () => {
                 </div>
                 
                 {/* Retail Price - Only show if available */}
-                {(product.retailPrice || product.price.msrp) && (
+                {(product.retailPrice || product.price.mrp) && (
                   <div className="pt-4 border-t border-border-gray">
                     <p className="text-sm text-text-secondary mb-1">Recommended Retail Price</p>
                     <p className="text-lg font-medium text-medium-gray">
-                      {formatPrice(product.retailPrice?.item || product.price.msrp)} per item
+                      {formatPrice(product.retailPrice?.item || product.price.mrp || 0)} per item
                     </p>
                   </div>
                 )}

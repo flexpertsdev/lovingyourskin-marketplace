@@ -39,6 +39,7 @@ import { TestAuthFlow } from '../pages/TestAuthFlow'
 import { AdminMessages } from '../pages/admin/AdminMessages'
 import { AdminAffiliates } from '../pages/admin/AdminAffiliates'
 import { TestInviteCode } from '../pages/TestInviteCode'
+import ProductManagement from '../pages/admin/ProductManagement'
 
 // Consumer Pages
 import { Shop } from '../pages/Shop'
@@ -268,6 +269,11 @@ export const AppRoutes: React.FC = () => {
       <Route path="/admin/affiliates" element={
         <AdminRoute>
           <AdminAffiliates />
+        </AdminRoute>
+      } />
+      <Route path="/admin/products" element={
+        <AdminRoute>
+          <ProductManagement />
         </AdminRoute>
       } />
       

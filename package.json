@@ -16,7 +16,8 @@
     "firebase:deploy:hosting": "firebase deploy --only hosting",
     "migrate:firebase": "node scripts/migrate-to-firebase.js",
     "migrate:fix-brands": "node scripts/fix-brands-migration.js",
-    "migrate:test": "firebase emulators:exec --only firestore 'npm run migrate:firebase'"
+    "migrate:test": "firebase emulators:exec --only firestore 'npm run migrate:firebase'",
+    "import:products": "node scripts/import-products-to-firestore.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
@@ -27,6 +28,7 @@
     "date-fns": "^4.1.0",
     "firebase": "^11.10.0",
     "i18next": "^25.2.1",
+    "lucide-react": "^0.536.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.58.1",

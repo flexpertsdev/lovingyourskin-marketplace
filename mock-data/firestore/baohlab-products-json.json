@@ -1,0 +1,89 @@
+{
+  "baohlab_products": {
+    "baohlab-hair-loss-care-ampoule": {
+      "id": "baohlab-hair-loss-care-ampoule",
+      "brand": {
+        "id": "baohlab",
+        "name": "Baohlab"
+      },
+      "name": "Hair Loss Care Ampoule",
+      "slug": "hair-loss-care-ampoule",
+      "description": "CLINICALLY PROVEN HAIR LOSS TREATMENT FOR MEN & WOMEN – Formulated with BEFF, a patented post-biotic extract derived from Bacillus/Esculetin fermentation, this ampoule targets scalp fatigue by activating dermal papilla cells and promoting their growth, enhancing follicle organoid development, and improving overall scalp density. Clinically shown to support the foundational structures of healthy hair, it's ideal for postpartum, stress-induced, or age-related thinning. BLOCKS DHT AND CALMS SCALP INFLAMMATION FOR LASTING GROWTH – Effectively reduces scalp DHT sensitivity, one of the main causes of pattern hair loss, while alleviating irritation and redness. Creates a healthier environment for new hair to grow stronger and denser without interruption. ONE-MONTH INTENSIVE PROGRAM WITH 2 FULL-SIZE AMPOULES – Includes two 12.5ml high-potency ampoules, carefully designed for a full 30-day treatment cycle. Daily use helps reinforce the scalp barrier, prevent excessive shedding, and promote consistent, visible improvement in volume and texture. NON-GREASY, LIGHTWEIGHT FORMULA THAT ABSORBS INSTANTLY – Unlike heavy oils or sticky serums, this fast-absorbing ampoule disappears into the scalp without residue. Suitable for daily AM or PM routines, even under styling products, and perfect for oily, dry, or sensitive scalps alike. KOREAN CLEAN BEAUTY INNOVATION, FREE FROM HARSH CHEMICALS – Dermatologist-tested and free from parabens, sulfates, silicones, synthetic fragrances, or mineral oils. Safe for color-treated hair and suitable for long-term use without causing buildup or irritation.",
+      "shortDescription": "Clinical-grade hair loss treatment with patented BEFF technology",
+      "category": "hair-care",
+      "subcategory": "scalp-treatments",
+      "tags": ["hair-loss", "scalp-care", "clinical", "unisex", "DHT-blocker", "post-biotic", "clean-beauty"],
+      "images": {
+        "primary": "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/product/medium/20240906/781ec1e2a3799adb13e7296290350838.jpg",
+        "gallery": [
+          "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/product/medium/20240906/781ec1e2a3799adb13e7296290350838.jpg",
+          "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/product/small/20240906/848ca5bc288cbd3187b0ce4fed758a7e.jpg",
+          "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/product/extra/small/20240728/e8a727c8ce4f0f70e66477685216b0ff.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-set-2x12ml",
+          "sku": "BAOHLAB-HLC-2X12ML",
+          "size": 25,
+          "sizeUnit": "ml",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": true,
+              "retailPrice": 110.00,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 40.00,
+              "minOrderQuantity": 2,
+              "unitsPerCarton": 2,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 54,
+              "reserved": 0,
+              "available": 54
+            },
+            "b2b": {
+              "stock": 7,
+              "reserved": 0,
+              "available": 7
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "",
+        "pao": "",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "setContents": "2 x 12.5ml ampoules",
+        "treatmentDuration": "30 days",
+        "features": [
+          "Clinically proven results",
+          "DHT blocking technology",
+          "Non-greasy, fast-absorbing formula",
+          "Color-safe and suitable for all hair types",
+          "Dermatologist tested",
+          "Free from parabens, sulfates, silicones",
+          "No synthetic fragrances or mineral oils"
+        ],
+        "keyIngredient": "BEFF (Bacillus/Esculetin Ferment Filtrate)"
+      },
+      "ingredients": "Bacillus/Esculetin Ferment Filtrate, Purified Water, Denatured Alcohol, C12-14 Pareth-12, 1,2-Hexanediol, Panthenol, Niacinamide, Betaine, Arginine, Carbomer, Allantoin, Adenosine, Sodium Hyaluronate, Hydrolyzed Collagen, Biotin, Caffeine, Menthol, Salicylic Acid, Zinc Pyrithione",
+      "usage": "Apply directly to clean, dry scalp once or twice daily. Gently massage into areas of concern. Do not rinse. For best results, use consistently for at least 30 days.",
+      "status": "active",
+      "featured": true,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    }
+  }
+}

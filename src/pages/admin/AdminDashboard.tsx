@@ -183,6 +183,19 @@ export const AdminDashboard: React.FC = () => {
                   </Badge>
                 </CardContent>
               </Card>
+              
+              <Card 
+                className="hover:shadow-lg transition-shadow cursor-pointer"
+                onClick={() => navigate('/admin/products')}
+              >
+                <CardContent className="text-center py-6">
+                  <div className="text-3xl mb-2">📦</div>
+                  <p className="font-medium">Product Management</p>
+                  <Badge className="bg-rose-gold text-white mt-2">
+                    Manage Products
+                  </Badge>
+                </CardContent>
+              </Card>
             </Grid>
           </div>
           

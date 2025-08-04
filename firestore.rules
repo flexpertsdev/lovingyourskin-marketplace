@@ -1,10 +1,185 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // TEMPORARY: Allow all access for migration
-    // WARNING: RESTORE ORIGINAL RULES AFTER MIGRATION
-    match /{document=**} {
-      allow read, write: if true;
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+        (request.auth.token.role == 'admin' || 
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
+    }
+    
+    function isBrandOwner(brandId) {
+      return isAuthenticated() && request.auth.token.brandId == brandId;
+    }
+    
+    function isRetailer() {
+      return isAuthenticated() && request.auth.token.role == 'retailer';
+    }
+    
+    function isConsumer() {
+      return isAuthenticated() && request.auth.token.role == 'consumer';
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // Products collection
+    match /products/{productId} {
+      // Anyone can read active products (needed for public shop)
+      allow read: if true;
+      
+      // Only admins and brand owners can create/update/delete products
+      allow create: if isAdmin() || (isAuthenticated() && isBrandOwner(request.resource.data.brandId));
+      allow update: if isAdmin() || (isAuthenticated() && isBrandOwner(resource.data.brandId));
+      allow delete: if isAdmin();
+    }
+    
+    // Products2 collection (temporary during migration)
+    match /products2/{productId} {
+      // Anyone can read active products (needed for public shop)
+      allow read: if true;
+      
+      // Only admins can manage during migration
+      allow create, update, delete: if isAdmin();
+    }
+    
+    // Brands collection
+    match /brands/{brandId} {
+      // Anyone can read brands (needed for public shop)
+      allow read: if true;
+      
+      // Only admins can manage brands
+      allow create, update, delete: if isAdmin();
+    }
+    
+    // Users collection
+    match /users/{userId} {
+      // Users can read their own profile
+      allow read: if isOwner(userId) || isAdmin();
+      
+      // Users can update their own profile (except role)
+      allow update: if isOwner(userId) && 
+        (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['role']));
+      
+      // Only admins can create/delete users or change roles
+      allow create: if isAdmin();
+      allow delete: if isAdmin();
+    }
+    
+    // Orders collection (B2B)
+    match /orders/{orderId} {
+      // Users can read their own orders
+      allow read: if isAdmin() || 
+        (isRetailer() && resource.data.retailerId == request.auth.uid) ||
+        (isBrandOwner(resource.data.brandId));
+      
+      // Retailers can create orders
+      allow create: if isRetailer() && request.resource.data.retailerId == request.auth.uid;
+      
+      // Order updates based on role and status
+      allow update: if isAdmin() || 
+        (isRetailer() && resource.data.retailerId == request.auth.uid && 
+          resource.data.status in ['pending', 'draft']) ||
+        (isBrandOwner(resource.data.brandId) && 
+          resource.data.status in ['pending', 'processing']);
+      
+      // Only admins can delete orders
+      allow delete: if isAdmin();
+    }
+    
+    // Consumer orders collection (B2C)
+    match /consumer-orders/{orderId} {
+      // Users can read their own orders
+      allow read: if isAdmin() || 
+        (isConsumer() && resource.data.userId == request.auth.uid);
+      
+      // Consumers can create orders
+      allow create: if isConsumer() && request.resource.data.userId == request.auth.uid;
+      
+      // Limited update capabilities for consumers
+      allow update: if isAdmin() || 
+        (isConsumer() && resource.data.userId == request.auth.uid && 
+          resource.data.status == 'pending');
+      
+      // Only admins can delete
+      allow delete: if isAdmin();
+    }
+    
+    // Invite codes collection
+    match /inviteCodes/{codeId} {
+      // Anyone can read to validate codes during registration
+      allow read: if true;
+      
+      // Only admins can manage invite codes
+      allow create, update, delete: if isAdmin();
+    }
+    
+    // Affiliate codes collection
+    match /affiliateCodes/{codeId} {
+      // Anyone can read to validate codes
+      allow read: if true;
+      
+      // Only admins can manage affiliate codes
+      allow create, update, delete: if isAdmin();
+    }
+    
+    // Shopping carts (B2C)
+    match /carts/{userId} {
+      // Users can only access their own cart
+      allow read, write: if isOwner(userId);
+    }
+    
+    // Wishlists (B2C)
+    match /wishlists/{userId} {
+      // Users can only access their own wishlist
+      allow read, write: if isOwner(userId);
+    }
+    
+    // Reviews and ratings
+    match /reviews/{reviewId} {
+      // Anyone can read reviews
+      allow read: if true;
+      
+      // Authenticated users can create reviews
+      allow create: if isAuthenticated() && 
+        request.resource.data.userId == request.auth.uid;
+      
+      // Users can update their own reviews
+      allow update: if isOwner(resource.data.userId);
+      
+      // Users can delete their own reviews, admins can delete any
+      allow delete: if isOwner(resource.data.userId) || isAdmin();
+    }
+    
+    // Analytics data (read-only for most users)
+    match /analytics/{document=**} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Only backend can write
+    }
+    
+    // System configurations
+    match /config/{configId} {
+      allow read: if true; // Public config like shipping rates, etc.
+      allow write: if isAdmin();
+    }
+    
+    // Messages collection
+    match /messages/{messageId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update: if isAdmin() || isOwner(resource.data.senderId);
+      allow delete: if isAdmin();
+    }
+    
+    // Invites collection
+    match /invites/{inviteId} {
+      allow read: if isAuthenticated();
+      allow create, update, delete: if isAdmin();
     }
   }
 }

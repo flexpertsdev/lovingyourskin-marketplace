@@ -47,7 +47,8 @@ export const Cart: React.FC = () => {
       }
       
       groups[item.product.brandId].items.push(item)
-      groups[item.product.brandId].subtotal += item.product.price.item * item.quantity
+      const itemPrice = item.product.price.wholesale ?? item.product.price.retail ?? item.product.retailPrice?.item ?? 0
+      groups[item.product.brandId].subtotal += itemPrice * item.quantity
       groups[item.product.brandId].totalItems += item.quantity
     })
     
@@ -114,7 +115,7 @@ export const Cart: React.FC = () => {
                             {item.quantity} × {item.product.packSize} items/pack = {item.quantity * parseInt(item.product.packSize)} items
                           </p>
                           <p className="text-rose-gold font-medium">
-                            £{(item.product.price.item * item.quantity).toFixed(2)}
+                            £{((item.product.price.wholesale ?? item.product.price.retail ?? item.product.retailPrice?.item ?? 0) * item.quantity).toFixed(2)}
                           </p>
                         </div>
                         

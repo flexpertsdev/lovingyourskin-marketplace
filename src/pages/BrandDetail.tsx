@@ -72,10 +72,18 @@ export const BrandDetail: React.FC = () => {
         // In a real app, this would be sorted by sales/popularity
         break
       case 'price-low':
-        filtered.sort((a, b) => a.price.item - b.price.item)
+        filtered.sort((a, b) => {
+          const aPrice = a.price.wholesale ?? a.price.retail ?? a.retailPrice?.item ?? 0
+          const bPrice = b.price.wholesale ?? b.price.retail ?? b.retailPrice?.item ?? 0
+          return aPrice - bPrice
+        })
         break
       case 'price-high':
-        filtered.sort((a, b) => b.price.item - a.price.item)
+        filtered.sort((a, b) => {
+          const aPrice = a.price.wholesale ?? a.price.retail ?? a.retailPrice?.item ?? 0
+          const bPrice = b.price.wholesale ?? b.price.retail ?? b.retailPrice?.item ?? 0
+          return bPrice - aPrice
+        })
         break
       case 'newest':
         // In a real app, this would use creation date

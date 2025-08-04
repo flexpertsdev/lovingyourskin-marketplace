@@ -1,0 +1,1012 @@
+{
+    "wismin_products": 
+{
+    "wismin-cotton-seed-barrier-cleansing-ball": {
+      "id": "wismin-cotton-seed-barrier-cleansing-ball",
+      "brand": {
+        "id": "wismin",
+        "name": "Wismin"
+      },
+      "name": "Cotton Seed Barrier Cleansing Ball",
+      "slug": "cotton-seed-barrier-cleansing-ball",
+      "description": "A revolutionary, water-activated cleanser in a compact, freeze-dried format. Ultra-hygienic, travel-friendly, and ideal for sensitive skin. Perfect for on-the-go beauty routines.",
+      "shortDescription": "Water-activated freeze-dried cleanser",
+      "category": "cleansers",
+      "subcategory": "facial-cleansers",
+      "tags": ["sensitive-skin", "travel-friendly", "freeze-dried", "cleanser"],
+      "images": {
+        "primary": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712823421570_1000.jpg",
+        "gallery": [
+          "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712823421570_1000.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "WISMIN-CSCB-031G",
+          "size": 0.31,
+          "sizeUnit": "g",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": false,
+              "retailPrice": 14.99,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 5.80,
+              "minOrderQuantity": 100,
+              "unitsPerCarton": 72,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            },
+            "b2b": {
+              "stock": 4971,
+              "reserved": 0,
+              "available": 4971
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "2026-09-13",
+        "pao": "immediately",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"]
+      },
+      "ingredients": "Sodium Cocoyl Glutamate, Sodium Lauroyl Glutamate, Silica, Hydroxypropyl Methylcellulose, Lauryl Hydroxysultaine, Trehalose, Zea Mays (Corn) Starch, Sodium Chloride, PVP, Maltodextrin, Sodium Acrylates Crosspolymer-2, Ammonium Acryloyldimethyltaurate/VP Copolymer, Sodium Hyaluronate, Gossypium Herbaceum (Cotton) Extract, 3-O-Ethyl Ascorbic Acid, Lactobacillus/Rice Ferment, Hydrolyzed Adansonia Digitata Seed Extract, Hydrolyzed Soy Protein, Rice Amino Acids, Proline, 1,2-Hexanediol, Glycerin, Sodium Benzoate",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "wismin-cotton-seed-cicafence-toner-150ml": {
+      "id": "wismin-cotton-seed-cicafence-toner-150ml",
+      "brand": {
+        "id": "wismin",
+        "name": "Wismin"
+      },
+      "name": "Cotton Seed Cicafence Toner",
+      "slug": "cotton-seed-cicafence-toner",
+      "description": "A multifunctional toner that soothes, hydrates, and supports skin regeneration while reinforcing the skin barrier—ideal for post-treatment care or everyday use.",
+      "shortDescription": "Soothing barrier-repair toner",
+      "category": "toners",
+      "subcategory": "hydrating-toners",
+      "tags": ["soothing", "hydrating", "barrier-repair", "post-treatment"],
+      "images": {
+        "primary": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712823539700_1000.jpg",
+        "gallery": [
+          "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712823539700_1000.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-150ml",
+          "sku": "WISMIN-CSCT-150ML",
+          "size": 150,
+          "sizeUnit": "ml",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": false,
+              "retailPrice": 29.99,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 6.30,
+              "minOrderQuantity": 100,
+              "unitsPerCarton": 48,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            },
+            "b2b": {
+              "stock": 3069,
+              "reserved": 0,
+              "available": 3069
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        },
+        {
+          "variantId": "variant-1ml-sachet",
+          "sku": "WISMIN-CSCT-1ML",
+          "size": 1,
+          "sizeUnit": "ml",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": false,
+              "retailPrice": null,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": false,
+              "wholesalePrice": null,
+              "minOrderQuantity": 100,
+              "unitsPerCarton": 1000,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            },
+            "b2b": {
+              "stock": 67997,
+              "reserved": 0,
+              "available": 67997
+            }
+          },
+          "status": "active",
+          "isDefault": false
+        }
+      ],
+      "specifications": {
+        "expiryDate": "2027-10-30",
+        "pao": "12month",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"]
+      },
+      "ingredients": "Aqua, Butylene Glycol, 1,2-Hexanediol, Glycerin, Gossypium Herbaceum (Cotton) Fruit Water, C12-14 Alketh-12, Panthenol, Hydrolyzed Jojoba Esters, Betaine, Diphenyl Dimethicone, Xanthan Gum, Sodium Citrate, Allantoin, Xylitylglucoside, Citric Acid, Anhydroxylitol, Disodium EDTA, Hydrogenated Lecithin, Polyglyceryl-10 Oleate, Pyrus Communis (Pear) Fruit Extract, Xylitol, Corallina Officinalis Extract, Sucrose Palmitate, Rosa Damascena Flower Water, Iris Florentina Root Extract, Glucose, Cucumis Melo (Melon) Seed Extract, Lactobacillus Ferment Lysate, Cynara Scolymus (Artichoke) Leaf Extract, Bifida Ferment Lysate, Hedera Helix (Ivy) Leaf/Stem Extract, Polyglutamic Acid, Melissa Officinalis Leaf Extract, Melaleuca Alternifolia (Tea Tree) Leaf Extract, Chamaecyparis Obtusa Leaf Extract, Centella Asiatica Root Extract, Centella Asiatica Leaf Extract, Centella Asiatica Extract, Cetearyl Alcohol, Stearic Acid, Glycine, Asiaticoside, Asiatic Acid, Alanine, Ceramide NP, Palmitoyl Pentapeptide-4, Copper Tripeptide-1, Acetyl Hexapeptide-8, Ceramide NS, Phytosphingosine, Madecassoside, Madecassic Acid, Glutamic Acid, Cholesterol, Ceramide AS, Ceramide AP, Ceramide EOP",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "wismin-cotton-seed-cicafence-cream-50ml": {
+      "id": "wismin-cotton-seed-cicafence-cream-50ml",
+      "brand": {
+        "id": "wismin",
+        "name": "Wismin"
+      },
+      "name": "Cotton Seed Cicafence Cream",
+      "slug": "cotton-seed-cicafence-cream",
+      "description": "Rich and repairing, this intensive cream targets damaged or weakened skin barriers. Its dense, nourishing texture is perfect for nighttime recovery and dry skin conditions.",
+      "shortDescription": "Intensive barrier repair cream",
+      "category": "moisturizers",
+      "subcategory": "night-creams",
+      "tags": ["barrier-repair", "dry-skin", "night-cream", "intensive-care"],
+      "images": {
+        "primary": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712823473915_1000.jpg",
+        "gallery": [
+          "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712823473915_1000.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-50ml",
+          "sku": "WISMIN-CSCC-50ML",
+          "size": 50,
+          "sizeUnit": "ml",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": false,
+              "retailPrice": 34.99,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 7.50,
+              "minOrderQuantity": 100,
+              "unitsPerCarton": 60,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            },
+            "b2b": {
+              "stock": 3325,
+              "reserved": 0,
+              "available": 3325
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        },
+        {
+          "variantId": "variant-1ml-sachet",
+          "sku": "WISMIN-CSCC-1ML",
+          "size": 1,
+          "sizeUnit": "ml",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": false,
+              "retailPrice": null,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": false,
+              "wholesalePrice": null,
+              "minOrderQuantity": 100,
+              "unitsPerCarton": 1000,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            },
+            "b2b": {
+              "stock": 80497,
+              "reserved": 0,
+              "available": 80497
+            }
+          },
+          "status": "active",
+          "isDefault": false
+        }
+      ],
+      "specifications": {
+        "expiryDate": "2027-10-15",
+        "pao": "12month",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"]
+      },
+      "ingredients": "Gossypium Herbaceum (Cotton) Fruit Water, Butylene Glycol, Glycerin, Aqua, Vinyl Dimethicone, 1,2-Hexanediol, Sodium Acrylate/Sodium Acryloyldimethyl Taurate Copolymer, Silica, Hydroxyacetophenone, Polyisobutene, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Hydrolyzed Jojoba Esters, Arginine, Caprylyl/Capryl Glucoside, Sorbitan Oleate, C12-14 Alketh-12, Disodium EDTA, Coptis Japonica Extract, Corallina Officinalis Extract, Panthenol, Melia Azadirachta Leaf Extract, Betaine, Pyrus Communis (Pear) Fruit Extract, Melia Azadirachta Flower Extract, Rosa Damascena Flower Water, Coccinia Indica Fruit Extract, Lactobacillus Ferment Lysate, Iris Florentina Root Extract, Cynara Scolymus (Artichoke) Leaf Extract, Bifida Ferment Lysate, Cynanchum Atratum Extract, Cucumis Melo (Melon) Seed Extract, Hedera Helix (Ivy) Leaf/Stem Extract, Solanum Melongena (Eggplant) Fruit Extract, Aloe Barbadensis Flower Extract, Centella Asiatica Root Extract, Centella Asiatica Leaf Extract, Centella Asiatica Extract, Ocimum Sanctum Leaf Extract, Curcuma Longa (Turmeric) Root Extract, Polyglutamic Acid, Hydrogenated Lecithin, Cetearyl Alcohol, Stearic Acid, Asiaticoside, Asiatic Acid, Glycine, Alanine, Palmitoyl Pentapeptide-4, Copper Tripeptide-1, Acetyl Hexapeptide-8, Madecassoside, Madecassic Acid, Ceramide NP, Glutamic Acid, Ceramide NS, Phytosphingosine, Cholesterol, Ceramide AS, Ceramide AP, Ceramide EOP",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "wismin-bakuchiol-all-day-young-ampoule": {
+      "id": "wismin-bakuchiol-all-day-young-ampoule",
+      "brand": {
+        "id": "wismin",
+        "name": "Wismin"
+      },
+      "name": "Bakuchiol All Day Young Ampoule",
+      "slug": "bakuchiol-all-day-young-ampoule",
+      "description": "Formulated with bakuchiol and a vitamin complex, this gentle yet effective serum targets blemishes, boosts glow, and enhances skin texture—without irritation.",
+      "shortDescription": "Natural retinol alternative serum",
+      "category": "serums",
+      "subcategory": "anti-aging-serums",
+      "tags": ["bakuchiol", "anti-aging", "blemish-control", "vitamin-complex"],
+      "images": {
+        "primary": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712823355646_1000.jpg",
+        "gallery": [
+          "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712823355646_1000.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-15ml",
+          "sku": "WISMIN-BADYA-15ML",
+          "size": 15,
+          "sizeUnit": "ml",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": false,
+              "retailPrice": 24.99,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 6.00,
+              "minOrderQuantity": 100,
+              "unitsPerCarton": 80,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            },
+            "b2b": {
+              "stock": 5085,
+              "reserved": 0,
+              "available": 5085
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        },
+        {
+          "variantId": "variant-30ml",
+          "sku": "WISMIN-BADYA-30ML",
+          "size": 30,
+          "sizeUnit": "ml",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": false,
+              "retailPrice": 39.99,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 9.50,
+              "minOrderQuantity": 100,
+              "unitsPerCarton": 40,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            },
+            "b2b": {
+              "stock": 4642,
+              "reserved": 0,
+              "available": 4642
+            }
+          },
+          "status": "active",
+          "isDefault": false
+        },
+        {
+          "variantId": "variant-1ml-sachet",
+          "sku": "WISMIN-BADYA-1ML",
+          "size": 1,
+          "sizeUnit": "ml",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": false,
+              "retailPrice": null,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": false,
+              "wholesalePrice": null,
+              "minOrderQuantity": 100,
+              "unitsPerCarton": 1000,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            },
+            "b2b": {
+              "stock": 83497,
+              "reserved": 0,
+              "available": 83497
+            }
+          },
+          "status": "active",
+          "isDefault": false
+        }
+      ],
+      "specifications": {
+        "expiryDate": "2028-06-29",
+        "pao": "12month",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"]
+      },
+      "ingredients": "Gossypium Herbaceum (Cotton) Fruit Water, Aqua, Butylene Glycol, Glycerin, 1,2-Hexanediol, Niacinamide, Caprylic/Capric Triglyceride, Hydrogenated Lecithin, Hydroxyacetophenone, Bakuchiol, Alcohol, Ammonium Acryloyldimethyltaurate/VP Copolymer, Arachidyl Alcohol, Behenyl Alcohol, Arginine, Vinyl Dimethicone, Panthenol, Disodium EDTA, Carbomer, Arachidyl Glucoside, Corallina Officinalis Extract, Palmitic Acid, Sodium Citrate, Dipotassium Glycyrrhizate, Allantoin, Stearic Acid, Xylitylglucoside, Adenosine, Xanthan Gum, Anhydroxylitol, Taraxacum Officinale (Dandelion) Leaf Extract, Lactococcus Ferment, Lactobacillus Ferment Lysate, Cynara Scolymus (Artichoke) Leaf Extract, Citric Acid, Bifida Ferment Lysate, Aureobasidium Pullulans Ferment, Asparagus Officinalis Extract, Xylitol, Soluble Collagen, Melissa Officinalis Leaf Extract, Melaleuca Alternifolia (Tea Tree) Leaf Extract, Cynanchum Atratum Extract, Chamaecyparis Obtusa Leaf Extract, Saccharomyces Ferment Filtrate, Mannose, Panax Ginseng Extract, Thamnolia Vermicularis Leaf Extract, Glucose, Hippophae Rhamnoides Fruit Extract, Helianthus Annuus (Sunflower) Extract, Camellia Sinensis Leaf Extract, Tocopherol, Polyglutamic Acid, Ectoin, Centella Asiatica Root Extract, Centella Asiatica Leaf Extract, Centella Asiatica Extract, Ascorbic Acid, Panax Ginseng Root Protoplasts, Acacia Catechu Wood Extract, Scutellaria Baicalensis Root Extract, Sodium Hyaluronate, Magnolol, Honokiol, Myristic Acid, Beta-Glucan, Arachidic Acid, Bambusa Vulgaris Extract, Cetearyl Alcohol, Scutellaria Baicalensis Root Extract, Hydrolyzed Hyaluronic Acid, Dimethylsilanol Hyaluronate, Hydrolyzed Sodium Hyaluronate, Hydroxypropyltrimonium Hyaluronate, Polyglyceryl-10 Laurate, Phytosterols, Menadione, Asiaticoside, Asiatic Acid, Ceramide NP, Ceramide NS, Phytosphingosine, Madecassoside, Madecassic Acid, Cholesterol, Ceramide AS, Ceramide AP, Ceramide EOP",
+      "status": "active",
+      "featured": true,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "wismin-bakuchiol-all-day-young-ampoule-set": {
+      "id": "wismin-bakuchiol-all-day-young-ampoule-set",
+      "brand": {
+        "id": "wismin",
+        "name": "Wismin"
+      },
+      "name": "Bakuchiol All Day Young Ampoule Set (15ml * 4pcs)",
+      "slug": "bakuchiol-all-day-young-ampoule-set",
+      "description": "A curated set featuring a full-spectrum bakuchiol and vitamin complex, designed to visibly reduce blemishes and even skin tone—offering a natural retinol alternative safe for all skin types.",
+      "shortDescription": "Complete bakuchiol treatment set",
+      "category": "sets",
+      "subcategory": "serum-sets",
+      "tags": ["bakuchiol", "anti-aging", "gift-set", "value-pack"],
+      "images": {
+        "primary": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712825087329_1000.jpg",
+        "gallery": [
+          "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712825087329_1000.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "WISMIN-BADYA-SET4",
+          "size": 60,
+          "sizeUnit": "ml",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": false,
+              "retailPrice": 89.99,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 21.00,
+              "minOrderQuantity": 100,
+              "unitsPerCarton": 20,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            },
+            "b2b": {
+              "stock": 2052,
+              "reserved": 0,
+              "available": 2052
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "2028-06-29",
+        "pao": "12month",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "setContents": "4 x 15ml ampoules"
+      },
+      "ingredients": "Gossypium Herbaceum (Cotton) Fruit Water, Aqua, Butylene Glycol, Glycerin, 1,2-Hexanediol, Niacinamide, Caprylic/Capric Triglyceride, Hydrogenated Lecithin, Hydroxyacetophenone, Bakuchiol, Alcohol, Ammonium Acryloyldimethyltaurate/VP Copolymer, Arachidyl Alcohol, Behenyl Alcohol, Arginine, Vinyl Dimethicone, Panthenol, Disodium EDTA, Carbomer, Arachidyl Glucoside, Corallina Officinalis Extract, Palmitic Acid, Sodium Citrate, Dipotassium Glycyrrhizate, Allantoin, Stearic Acid, Xylitylglucoside, Adenosine, Xanthan Gum, Anhydroxylitol, Taraxacum Officinale (Dandelion) Leaf Extract, Lactococcus Ferment, Lactobacillus Ferment Lysate, Cynara Scolymus (Artichoke) Leaf Extract, Citric Acid, Bifida Ferment Lysate, Aureobasidium Pullulans Ferment, Asparagus Officinalis Extract, Xylitol, Soluble Collagen, Melissa Officinalis Leaf Extract, Melaleuca Alternifolia (Tea Tree) Leaf Extract, Cynanchum Atratum Extract, Chamaecyparis Obtusa Leaf Extract, Saccharomyces Ferment Filtrate, Mannose, Panax Ginseng Extract, Thamnolia Vermicularis Leaf Extract, Glucose, Hippophae Rhamnoides Fruit Extract, Helianthus Annuus (Sunflower) Extract, Camellia Sinensis Leaf Extract, Tocopherol, Polyglutamic Acid, Ectoin, Centella Asiatica Root Extract, Centella Asiatica Leaf Extract, Centella Asiatica Extract, Ascorbic Acid, Panax Ginseng Root Protoplasts, Acacia Catechu Wood Extract, Scutellaria Baicalensis Root Extract, Sodium Hyaluronate, Magnolol, Honokiol, Myristic Acid, Beta-Glucan, Arachidic Acid, Bambusa Vulgaris Extract, Cetearyl Alcohol, Scutellaria Baicalensis Root Extract, Hydrolyzed Hyaluronic Acid, Dimethylsilanol Hyaluronate, Hydrolyzed Sodium Hyaluronate, Hydroxypropyltrimonium Hyaluronate, Polyglyceryl-10 Laurate, Phytosterols, Menadione, Asiaticoside, Asiatic Acid, Ceramide NP, Ceramide NS, Phytosphingosine, Madecassoside, Madecassic Acid, Cholesterol, Ceramide AS, Ceramide AP, Ceramide EOP",
+      "status": "active",
+      "featured": true,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "wismin-sample-kit-3-types": {
+      "id": "wismin-sample-kit-3-types",
+      "brand": {
+        "id": "wismin",
+        "name": "Wismin"
+      },
+      "name": "Sample Kit 3 types of lines (1ml * 5) * 3",
+      "slug": "sample-kit-3-types",
+      "description": "Complete skincare trial kit featuring toner, cream, and ampoule samples",
+      "shortDescription": "3-product sample collection",
+      "category": "sets",
+      "subcategory": "sample-kits",
+      "tags": ["samples", "trial-kit", "travel-size"],
+      "images": {
+        "primary": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712826252892_1000.jpg",
+        "gallery": [
+          "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712826252892_1000.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "WISMIN-SAMPLE-3TYPE",
+          "size": 15,
+          "sizeUnit": "ml",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": false,
+              "retailPrice": null,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 2.50,
+              "minOrderQuantity": 100,
+              "unitsPerCarton": 90,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            },
+            "b2b": {
+              "stock": 1450,
+              "reserved": 0,
+              "available": 1450
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "Various",
+        "pao": "12month",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "setContents": "Toner (5x1ml), Cream (5x1ml), Ampoule (5x1ml)",
+        "expiryNotes": "Toner: 2027.03.26, Cream: 2027.03.24, Ampoule: 2027.03.21"
+      },
+      "ingredients": "See individual products",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "wismin-sample-kit-4-types": {
+      "id": "wismin-sample-kit-4-types",
+      "brand": {
+        "id": "wismin",
+        "name": "Wismin"
+      },
+      "name": "Sample Kit 4 types of lines (1ml * 5) * 3 + 0.31g * 2",
+      "slug": "sample-kit-4-types",
+      "description": "Complete skincare trial kit featuring toner, cream, ampoule samples plus cleansing balls",
+      "shortDescription": "4-product sample collection with cleansing balls",
+      "category": "sets",
+      "subcategory": "sample-kits",
+      "tags": ["samples", "trial-kit", "travel-size"],
+      "images": {
+        "primary": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712826301432_1000.jpg",
+        "gallery": [
+          "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712826301432_1000.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "WISMIN-SAMPLE-4TYPE",
+          "size": null,
+          "sizeUnit": null,
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": false,
+              "retailPrice": null,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 3.50,
+              "minOrderQuantity": 100,
+              "unitsPerCarton": 60,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            },
+            "b2b": {
+              "stock": 1450,
+              "reserved": 0,
+              "available": 1450
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "Various",
+        "pao": "12month",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "setContents": "Toner (5x1ml), Cream (5x1ml), Ampoule (5x1ml), Cleansing Ball (2x0.31g)",
+        "expiryNotes": "Toner: 2027.03.26, Cream: 2027.03.24, Ampoule: 2027.03.21, Cleansing ball: 2026.09.13"
+      },
+      "ingredients": "See individual products",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "wismin-cotton-fruit-water-hawaiian-sun-cream": {
+      "id": "wismin-cotton-fruit-water-hawaiian-sun-cream",
+      "brand": {
+        "id": "wismin",
+        "name": "Wismin"
+      },
+      "name": "Cotton Fruit Water Hawaiian Sun Cream 50ml",
+      "slug": "cotton-fruit-water-hawaiian-sun-cream",
+      "description": "Combines sun protection, brightening, and skincare in one. Lightweight texture with tone-up effect for radiant skin and a smooth base under makeup.",
+      "shortDescription": "Multi-functional sun cream with tone-up effect",
+      "category": "sun-care",
+      "subcategory": "sun-creams",
+      "tags": ["sun-protection", "brightening", "tone-up", "lightweight"],
+      "images": {
+        "primary": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712823577920_1000.jpg",
+        "gallery": [
+          "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712823577920_1000.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "WISMIN-CFWHSC-50ML",
+          "size": 50,
+          "sizeUnit": "ml",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": false,
+              "retailPrice": 19.99,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 6.00,
+              "minOrderQuantity": 100,
+              "unitsPerCarton": 45,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            },
+            "b2b": {
+              "stock": 2810,
+              "reserved": 0,
+              "available": 2810
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "2027-10-16",
+        "pao": "12month",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "spf": "SPF50+",
+        "paRating": "PA++++"
+      },
+      "ingredients": "Aqua, Dibutyl Adipate, Butyloctyl Salicylate, Ethylhexyl Triazone, Propanediol, Titanium Dioxide, Niacinamide, Drometrizole Trisiloxane, Caprylic/Capric Triglyceride, Ethylhexyl Palmitate, Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine, C12-15 Alkyl Benzoate, Polyglyceryl-3 Methylglucose Distearate, Terephthalylidene Dicamphor Sulfonic Acid, 1,2-Hexanediol, Glycerin, Dipropylene Glycol, Cetearyl Alcohol, Gossypium Herbaceum (Cotton) Fruit Water, Xanthan Gum, Tromethamine, Poly C10-30 Alkyl Acrylate, Polymethyl Methacrylate, Stearic Acid, Aluminum Hydroxide, Sodium Polyacryloyldimethyl Taurate, Polyhydroxystearic Acid, Polymethylsilsesquioxane, Hydroxypropyl Methylcellulose Stearoxy Ether, Ammonium Polyacryloyldimethyl Taurate, Ethylhexylglycerin, Sodium Stearoyl Glutamate, Adenosine, Parfum, Iron Oxides (CI 77491), Copernicia Cerifera (Carnauba) Wax, Sodium Acrylate/Sodium Acryloyldimethyl Taurate Copolymer, Hydrogenated Poly(C6-14 Olefin), t-Butyl Alcohol, Psidium Guajava Leaf Extract, Oryza Sativa (Rice) Bran Wax, Sasa Quelpaertensis Extract, Triethoxycaprylylsilane, Lauryl Glucoside, Opuntia Ficus-Indica Stem Extract, Glutathione, Panthenol, Melia Azadirachta Leaf Extract, Melia Azadirachta Flower Extract, Lactobacillus Ferment Lysate, Coccinia Indica Fruit Extract, Olea Europaea (Olive) Fruit Oil, Butylene Glycol, Bifida Ferment Lysate, Streptococcus Thermophilus Ferment, Hydrogenated Lecithin, Solanum Melongena (Eggplant) Fruit Extract, Ocimum Sanctum Leaf Extract, Ceramide NP, Ceramide NS, Curcuma Longa (Turmeric) Root Extract, Corallina Officinalis Extract, Chamaecyparis Obtusa Leaf Extract, Sodium Hyaluronate, Ceramide AP, Ceramide EOP, Polyglutamic Acid, Sodium Hyaluronate Crosspolymer, Potassium Hyaluronate, Hydroxypropyltrimonium Hyaluronate, Hydrolyzed Sodium Hyaluronate, Hydrolyzed Hyaluronic Acid, Hyaluronic Acid, Sodium Acetylated Hyaluronate, Pentylene Glycol",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "wismin-pore-tight-all-day-young-cream": {
+      "id": "wismin-pore-tight-all-day-young-cream",
+      "brand": {
+        "id": "wismin",
+        "name": "Wismin"
+      },
+      "name": "Pore Tight All Day Young Cream 50ml",
+      "slug": "pore-tight-all-day-young-cream",
+      "description": "An upgraded version of our cult-favorite barrier cream, now enhanced with pore-minimizing actives for a smoother, refined texture—ideal for combination to oily skin.",
+      "shortDescription": "Pore-minimizing barrier cream",
+      "category": "moisturizers",
+      "subcategory": "pore-care",
+      "tags": ["pore-care", "combination-skin", "oily-skin", "barrier-cream"],
+      "images": {
+        "primary": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712823507565_1000.jpg",
+        "gallery": [
+          "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712823507565_1000.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "WISMIN-PTADYC-50ML",
+          "size": 50,
+          "sizeUnit": "ml",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": false,
+              "retailPrice": 34.99,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 7.50,
+              "minOrderQuantity": 100,
+              "unitsPerCarton": 48,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            },
+            "b2b": {
+              "stock": 3219,
+              "reserved": 0,
+              "available": 3219
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "2027-11-04",
+        "pao": "12month",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"]
+      },
+      "ingredients": "Gossypium Herbaceum (Cotton) Fruit Aqua, Aqua, Butylene Glycol, Propanediol, Cetyl Ethylhexanoate, Cetearyl Olivate, Sorbitan Olivate, 1,2-Hexanediol, Hydroxyacetophenone, Vinyl Dimethicone, Ammonium Acryloyldimethyltaurate/VP Copolymer, Tromethamine, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Glycerin, Niacinamide, Panthenol, Citric Acid, Gluconolactone, Allantoin, Eclipta Prostrata Extract, Disodium EDTA, Corallina Officinalis Extract, Pyrus Communis (Pear) Fruit Extract, Aloe Barbadensis Leaf Extract, Laminaria Japonica Extract, Dioscorea Japonica Root Extract, Ulmus Davidiana Root Extract, Viola Mandshurica Flower Extract, Eucalyptus Globulus Leaf Extract, Laurus Nobilis Leaf Extract, Hydrogenated Lecithin, Melia Azadirachta Leaf Extract, Rosa Damascena Flower Aqua, Biosaccharide Gum-1, Cetearyl Alcohol, Lactobacillus Ferment Lysate, Bifida Ferment Lysate, Cynara Scolymus (Artichoke) Leaf Extract, Iris Florentina Root Extract, Cucumis Melo (Melon) Seed Extract, Stearic Acid, Hedera Helix (Ivy) Leaf/Stem Extract, Ascorbic Acid, Hamamelis Virginiana (Witch Hazel) Extract, Polyglutamic Acid, Centella Asiatica Leaf Extract, Centella Asiatica Root Extract, Centella Asiatica Extract, Moringa Oleifera Seed Oil, Ethylhexylglycerin, Ceramide NP, Ceramide NS, Phytosphingosine, Cholesterol, Asiatic Acid, Asiaticoside, Ceramide AS, Ceramide AP, Acetyl Hexapeptide-8, Palmitoyl Pentapeptide-4, Copper Tripeptide-1, Madecassic Acid, Madecassoside, Ceramide EOP",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "wismin-bakuchiol-all-day-young-eye-cream": {
+      "id": "wismin-bakuchiol-all-day-young-eye-cream",
+      "brand": {
+        "id": "wismin",
+        "name": "Wismin"
+      },
+      "name": "Bakuchiol All Day Young Eye Cream 40g",
+      "slug": "bakuchiol-all-day-young-eye-cream",
+      "description": "A delicate yet powerful formula infused with plant-based retinol and hydrating botanicals to smooth fine lines, depuff, and revitalize the eye area.",
+      "shortDescription": "Plant-based retinol eye cream",
+      "category": "eye-care",
+      "subcategory": "eye-creams",
+      "tags": ["bakuchiol", "anti-aging", "eye-care", "fine-lines"],
+      "images": {
+        "primary": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712825280879_1000.jpg",
+        "gallery": [
+          "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712825280879_1000.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "WISMIN-BADYEC-40G",
+          "size": 40,
+          "sizeUnit": "g",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": false,
+              "retailPrice": 25.99,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 7.00,
+              "minOrderQuantity": 100,
+              "unitsPerCarton": 80,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            },
+            "b2b": {
+              "stock": 1657,
+              "reserved": 0,
+              "available": 1657
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "2027-12-04",
+        "pao": "12month",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"]
+      },
+      "ingredients": "Cocoa seed extract, Purified water, Butylene glycol, Glyceryl stearate (C13-16), Niacinamide, Pentylene glycol, Betaine, Ethylhexyl stearate, Caprylic/capric triglyceride, Propanediol, Diisostearyl malate, 1,2-Hexanediol, Hydrogenated lecithin, Stearyl alcohol, Hydroxyacetophenone, Cetearyl glucoside, Sucrose distearate, Sodium hyaluronate, Sodium hyaluronate crosspolymer, Hydrolyzed hyaluronic acid, Hyaluronic acid, Beta-glucan, Glycerin, Rice extract, Green tea extract, Centella asiatica extract, Chamomile flower extract, Licorice root extract, Rosemary extract, Lavender extract, Camellia sinensis leaf extract, Olive fruit oil, Avocado oil, Argan kernel oil, Coffee seed extract, Tea tree oil, Calendula flower extract, Turmeric root extract, Ginger root extract, Goldenseal extract, Aloe vera leaf extract, Basil extract, Oregano extract, Pepper fruit extract, Skullcap extract, Peony root extract, Scutellaria baicalensis root extract, Honeysuckle flower extract, Dioscorea japonica root extract, Lonicera japonica extract, Amaranth seed extract, Licorice leaf extract, Bergamot fruit oil, Orange peel oil, Lemon peel oil, Mandarin orange peel oil, Bitter orange flower extract, Ceramide NP, Ceramide AP, Ceramide EOP, Cholesterol, Phytosphingosine, Caprooyl sphingolipid",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "wismin-all-day-young-real-deep-collagen-mask": {
+      "id": "wismin-all-day-young-real-deep-collagen-mask",
+      "brand": {
+        "id": "wismin",
+        "name": "Wismin"
+      },
+      "name": "All Day Young Real Deep Collagen Mask (4ea)",
+      "slug": "all-day-young-real-deep-collagen-mask",
+      "description": "This innovative mask transforms texture upon application to deeply deliver collagen-boosting actives—designed to firm, lift, and rejuvenate the skin.",
+      "shortDescription": "Transforming collagen-boost mask",
+      "category": "masks",
+      "subcategory": "sheet-masks",
+      "tags": ["collagen", "firming", "lifting", "hydrogel"],
+      "images": {
+        "primary": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712825169625_1000.jpg",
+        "gallery": [
+          "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712825169625_1000.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "WISMIN-ADYRDCM-4EA",
+          "size": 120,
+          "sizeUnit": "g",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": false,
+              "retailPrice": 21.99,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 8.00,
+              "minOrderQuantity": 100,
+              "unitsPerCarton": 40,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            },
+            "b2b": {
+              "stock": 365,
+              "reserved": 0,
+              "available": 365
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "2027-10-16",
+        "pao": "immediately",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "setContents": "4 masks x 30g each"
+      },
+      "ingredients": "Aqua, Glycerin, Dipropylene Glycol, Acrylates Copolymer, Niacinamide, Butylene Glycol, 1,2-Hexanediol, Ceratonia Siliqua (Carob) Gum, Xanthan Gum, Hydroxyacetophenone, Carrageenan, Allantoin, Sucrose, Polyglyceryl-10 Laurate, Propanediol, Potassium Chloride, Gossypium Herbaceum (Cotton) Fruit Water, Caprylyl Glycol, Cellulose Gum, Sodium Polyacrylate, Gellan Gum, Adenosine, Dipotassium Glycyrrhizate, Panthenol, Ethylhexylglycerin, Parfum, Sodium Phytate, Lactobacillus Ferment Lysate, Bifida Ferment Lysate, Streptococcus Thermophilus Ferment, Curcuma Longa (Turmeric) Root Extract, Sodium Hyaluronate, Centella Asiatica Leaf Extract, Houttuynia Cordata Extract, Melia Azadirachta Flower Extract, Hydrogenated Lecithin, Prunella Vulgaris Extract, Fucus Vesiculosus Extract, Melia Azadirachta Leaf Extract, Melia Azadirachta Bark Extract, Corallina Officinalis Extract, Moringa Oleifera Seed Oil, Ocimum Sanctum Leaf Extract, Soluble Collagen, Hydroxypropyltrimonium Hyaluronate, Ceramide NP, Sodium Acetylated Hyaluronate, Hydrolyzed Hyaluronic Acid, Hyaluronic Acid, Madecassic Acid, Sodium Hyaluronate Crosspolymer, Hydrolyzed Sodium Hyaluronate, Asiatic Acid, Potassium Hyaluronate, Asiaticoside",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "wismin-all-day-young-real-deep-hydro-mask": {
+      "id": "wismin-all-day-young-real-deep-hydro-mask",
+      "brand": {
+        "id": "wismin",
+        "name": "Wismin"
+      },
+      "name": "All Day Young Real Deep Hydro Mask (4ea)",
+      "slug": "all-day-young-real-deep-hydro-mask",
+      "description": "An ultra-moisturizing treatment mask that changes form as it melts into the skin, delivering intense hydration and soothing relief for dry, stressed skin.",
+      "shortDescription": "Form-changing hydration mask",
+      "category": "masks",
+      "subcategory": "sheet-masks",
+      "tags": ["hydrating", "soothing", "dry-skin", "hydrogel"],
+      "images": {
+        "primary": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712825237570_1000.jpg",
+        "gallery": [
+          "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1712825237570_1000.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "WISMIN-ADYRDHM-4EA",
+          "size": 120,
+          "sizeUnit": "g",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": false,
+              "retailPrice": 21.99,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 8.00,
+              "minOrderQuantity": 100,
+              "unitsPerCarton": 40,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 0,
+              "reserved": 0,
+              "available": 0
+            },
+            "b2b": {
+              "stock": 1608,
+              "reserved": 0,
+              "available": 1608
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "2027-10-16",
+        "pao": "immediately",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "setContents": "4 masks x 30g each"
+      },
+      "ingredients": "Aqua, Glycerin, Niacinamide, Methyl Gluceth-20, Acrylates Copolymer, 1,2-Hexanediol, Ceratonia Siliqua (Carob) Gum, Dipotassium Glycyrrhizate, Carrageenan, Potassium Chloride, Cellulose Gum, Xanthan Gum, Sodium Polyacrylate, Caprylyl Glycol, Sucrose, Propanediol, Polyglyceryl-10 Laurate, Hydroxyacetophenone, Gellan Gum, Gossypium Herbaceum (Cotton) Fruit Water, Allantoin, Adenosine, Ethylhexylglycerin, Panthenol, Parfum, Butylene Glycol, Streptococcus Thermophilus Ferment, Bifida Ferment Lysate, Lactobacillus Ferment Lysate, Xylitol, Melia Azadirachta Leaf Extract, Melia Azadirachta Flower Extract, Hydrogenated Lecithin, Coccinia Indica Fruit Extract, Caprylic/Capric Triglyceride, Sodium Hyaluronate, Solanum Melongena (Eggplant) Fruit Extract, Beta-Glucan, Polyglyceryl-10 Oleate, Ocimum Sanctum Leaf Extract, Hydroxypropyltrimonium Hyaluronate, Curcuma Longa (Turmeric) Root Extract, Corallina Officinalis Extract, Houttuynia Cordata Extract, Azulene, Ceramide NP, Sodium Acetylated Hyaluronate, Hydrolyzed Hyaluronic Acid, Hyaluronic Acid, Sodium Hyaluronate Crosspolymer, Hydrolyzed Sodium Hyaluronate, Madecassic Acid, Asiatic Acid, Potassium Hyaluronate, Asiaticoside",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    }
+  }}

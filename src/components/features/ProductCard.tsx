@@ -10,25 +10,30 @@ interface ProductCardProps {
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) => {
-  // Handle both standard and wholesale pricing structures
-  const hasWholesalePrice = product.price.wholesale !== undefined
-  
+  // Get prices from the unified price structure
   const getItemPrice = (): number => {
-    if (hasWholesalePrice) {
-      return product.price.wholesale.offer.price
+    // For B2B, use wholesale price if available
+    if (product.price.wholesale !== undefined) {
+      return product.price.wholesale
     }
-    return product.price.item || 0
+    // Fallback to retail price
+    if (product.price.retail !== undefined) {
+      return product.price.retail
+    }
+    // Legacy support for retailPrice field
+    if (product.retailPrice?.item) {
+      return product.retailPrice.item
+    }
+    return 0
   }
   
   const getCartonPrice = (): number => {
-    if (hasWholesalePrice) {
-      return product.price.wholesale.offer.price * product.itemsPerCarton
-    }
-    return product.price.carton || 0
+    const itemPrice = getItemPrice()
+    return itemPrice * product.itemsPerCarton
   }
   
   const getCurrency = (): string => {
-    const currency = product.price.currency || 'GBP'
+    const currency = product.price.currency || product.retailPrice?.currency || 'GBP'
     if (currency === 'USD') return '$'
     if (currency === 'EUR') return '€'
     if (currency === 'CHF') return 'CHF '

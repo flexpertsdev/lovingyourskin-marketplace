@@ -46,7 +46,7 @@ export const PreorderDetail: FunctionComponent = () => {
             <div>
               <h2 className="text-3xl font-bold mb-4">{product.name.en}</h2>
               <p className="text-lg mb-4">{product.description.en}</p>
-              <p className="text-2xl font-bold text-blue-600 mb-4">Retail Price: ${product.price.item.toFixed(2)}</p>
+              <p className="text-2xl font-bold text-blue-600 mb-4">Retail Price: ${(product.price.retail ?? product.retailPrice?.item ?? 0).toFixed(2)}</p>
               <div className="flex items-center mb-4">
                 <label htmlFor="quantity" className="mr-4">Quantity:</label>
                 <Input type="number" id="quantity" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value, 10))} className="w-20" />

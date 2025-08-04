@@ -1,0 +1,71 @@
+[
+  {
+    "brandId": "baohlab",
+    "brandName": {
+      "en": "Hair Loss Care Ampoule Scalp Serum (2 pcs)",
+      "ko": "탈모완화 모발성장 탈모 앰플 두피 세럼 2개입",
+      "zh": "防脱发生发安瓿头皮精华 (2支装)"
+    },
+    "images": [
+      "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/product/medium/20240906/781ec1e2a3799adb13e7296290350838.jpg",
+      "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/product/small/20240906/848ca5bc288cbd3187b0ce4fed758a7e.jpg",
+      "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/product/extra/small/20240728/e8a727c8ce4f0f70e66477685216b0ff.jpg"
+    ]
+  },
+  {
+    "brandId": "lalucell",
+    "brandName": {
+      "en": "Biome Vegan Repair Cream",
+      "ko": "바이옴 비건 리페어 크림",
+      "zh": "微生物群素食修复霜"
+    },
+    "images": [
+      "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575811839_1000.jpg"
+    ]
+  },
+  {
+    "brandId": "sunnicorn",
+    "brandName": {
+      "en": "Only For You Butter Lip Balm #01 Clear",
+      "ko": "온리 포 유 버터 립밤 #01 클리어",
+      "zh": "只为你黄油润唇膏 #01 透明"
+    },
+    "images": [
+      "https://en.sunnicorn.com/web/product/medium/202409/8035d4fa50415851d874e394d93d696b.jpg"
+    ]
+  },
+  {
+    "brandId": "thecelllab",
+    "brandName": {
+      "en": "Pine Cica Celltone Cream 50ml",
+      "ko": "파인 시카 셀톤 크림 50ml"
+    },
+    "images": [
+      "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250627/8131a5ff4ef88c104d26a2725c5e257d.jpg",
+      "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/product/big/20250627/1143d05187360fa38278685d7f59ab3d.jpg"
+    ]
+  },
+  {
+    "brandId": "vanhalla",
+    "brandName": {
+      "en": "Ceramide Moisturizing Serum-In Cream 80ml",
+      "ko": "세라마이드 모이스처라이징 세럼 인 크림 80ml"
+    },
+    "images": [
+      "https://cdn.imweb.me/thumbnail/20250320/801f7de8bd96a.jpg",
+      "https://cdn.imweb.me/thumbnail/20250320/801f7de8bd96a.jpg"
+    ]
+  },
+  {
+    "brandId": "wismin",
+    "brandName": {
+      "en": "Cotton Seed Barrier Cleansing Ball 6pcs",
+      "ko": "코튼시드 배리어 클렌징볼 6개입",
+      "zh": "棉籽屏障洁面球 6个装"
+    },
+    "images": [
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/medium/202502/7c928ed9150360e13ea694c6f623a6f2.jpg",
+      "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/product/tiny/202502/37ce3843b79e01d47704b1f1cbf41ec5.jpg"
+    ]
+  }
+]

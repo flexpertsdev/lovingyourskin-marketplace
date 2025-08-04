@@ -1,0 +1,458 @@
+{
+  "lalucell_products": {
+    "lalucell-biome-vegan-repair-cream": {
+      "id": "lalucell-biome-vegan-repair-cream",
+      "brand": {
+        "id": "lalucell",
+        "name": "Lalucell"
+      },
+      "name": "Biome Vegan Repair Cream",
+      "slug": "biome-vegan-repair-cream",
+      "description": "High-nutrition biome vegan cream designed for the face and body, delivers soft hydration with complete nourishments from Galactomyces ferment filtrate. Multi-purpose cream for face and body. Galatomyces for skin nutrition and skin texture improvement. Moist and translucent moisturizing cream texture.",
+      "shortDescription": "Multi-purpose vegan biome cream with Galactomyces",
+      "category": "moisturizers",
+      "subcategory": "multi-purpose-creams",
+      "tags": ["vegan", "biome", "galactomyces", "face-and-body", "repair-cream"],
+      "images": {
+        "primary": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575811839_1000.jpg",
+        "gallery": [
+          "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575811839_1000.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "LALUCELL-BVRC",
+          "size": null,
+          "sizeUnit": null,
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": true,
+              "retailPrice": 37.00,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 13.50,
+              "minOrderQuantity": 108,
+              "unitsPerCarton": null,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 54,
+              "reserved": 0,
+              "available": 54
+            },
+            "b2b": {
+              "stock": 7,
+              "reserved": 0,
+              "available": 7
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "",
+        "pao": "6M",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "keyIngredient": "Galactomyces + TARAXII® (Patent)"
+      },
+      "ingredients": "Galactomyces Ferment Filtrate, TARAXII® (Patent)",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "lalucell-biome-vegan-balance-essence": {
+      "id": "lalucell-biome-vegan-balance-essence",
+      "brand": {
+        "id": "lalucell",
+        "name": "Lalucell"
+      },
+      "name": "Biome Vegan Balance Essence",
+      "slug": "biome-vegan-balance-essence",
+      "description": "Skin Adhesion Vegan Biome Essence with full moisture and rich nutrition of Galactomyces Fermented Filters. Highly moisturizing vegan biome essence that complements every skin with rich hydration and nourishments from Galactomyces ferment filtrate. Microbiome care that balances skin. Healthy skin barrier with Galatomyces and Taraxll. Combination Serum and Toner.",
+      "shortDescription": "Vegan biome essence for skin balance",
+      "category": "essences",
+      "subcategory": "hydrating-essences",
+      "tags": ["vegan", "biome", "galactomyces", "microbiome", "essence-toner"],
+      "images": {
+        "primary": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575748566_1000.jpg",
+        "gallery": [
+          "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575748566_1000.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "LALUCELL-BVBE",
+          "size": null,
+          "sizeUnit": null,
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": true,
+              "retailPrice": 27.00,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 14.50,
+              "minOrderQuantity": 162,
+              "unitsPerCarton": null,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 54,
+              "reserved": 0,
+              "available": 54
+            },
+            "b2b": {
+              "stock": 8,
+              "reserved": 0,
+              "available": 8
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "",
+        "pao": "6M",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "keyIngredient": "Galactomyces + TARAXII® (Patent)"
+      },
+      "ingredients": "Galactomyces Ferment Filtrate, TARAXII® (Patent)",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "lalucell-biome-vegan-pure-cleansing-bar": {
+      "id": "lalucell-biome-vegan-pure-cleansing-bar",
+      "brand": {
+        "id": "lalucell",
+        "name": "Lalucell"
+      },
+      "name": "Biome Vegan Pure Cleansing Bar",
+      "slug": "biome-vegan-pure-cleansing-bar",
+      "description": "Cleansing mask pack bar boosted with highly nourishing galactomyces ferment filtrate base which helps to flawlessly cleanses your pores with gooey like lather. Dissolves sebum and dead skin cells, Provides moisture and nutrition in 60 sec., Pore and moisturizing management.",
+      "shortDescription": "2-in-1 cleansing bar and mask pack",
+      "category": "cleansers",
+      "subcategory": "cleansing-bars",
+      "tags": ["vegan", "biome", "galactomyces", "cleansing-bar", "mask-pack"],
+      "images": {
+        "primary": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575951871_1000.jpg",
+        "gallery": [
+          "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682575951871_1000.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "LALUCELL-BVPCB",
+          "size": null,
+          "sizeUnit": null,
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": true,
+              "retailPrice": 26.00,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 11.50,
+              "minOrderQuantity": 120,
+              "unitsPerCarton": 40,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 40,
+              "reserved": 0,
+              "available": 40
+            },
+            "b2b": {
+              "stock": 7,
+              "reserved": 0,
+              "available": 7
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "",
+        "pao": "6M",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "keyIngredient": "Galactomyces + TARAXII®",
+        "features": [
+          "60-second treatment",
+          "Dual cleansing and mask function",
+          "Pore care"
+        ]
+      },
+      "ingredients": "Galactomyces Ferment Filtrate, TARAXII® (Patent)",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "lalucell-mystic-light-cica-refreshing-hydrogel-mask": {
+      "id": "lalucell-mystic-light-cica-refreshing-hydrogel-mask",
+      "brand": {
+        "id": "lalucell",
+        "name": "Lalucell"
+      },
+      "name": "Mystic Light Cica Refreshing Hydrogel Mask (1 EA)",
+      "slug": "mystic-light-cica-refreshing-hydrogel-mask",
+      "description": "Mesh pocket hydrogel mask to quickly soothe sensitive skin with Cica moisture formula without harmful crosslinking agents. Hydrogel manufacturing method using cross-linked structure control with electron beam irradiation. Smart resourceful miracle light E.Beam is even used to sterilize medical devices. Pure hydrogel structured like entangled weaves. Filled with active ingredients inside the essence pouch Mesh Pocket (Patent : 10-2466953). Refreshing and hydrating finish without stickiness.",
+      "shortDescription": "E.Beam technology hydrogel mask with Cica",
+      "category": "masks",
+      "subcategory": "hydrogel-masks",
+      "tags": ["cica", "sensitive-skin", "hydrogel", "mesh-pocket", "e-beam-technology"],
+      "images": {
+        "primary": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682576019518_1000.jpg",
+        "gallery": [
+          "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1682576019518_1000.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "LALUCELL-MLCRHM-1EA",
+          "size": 1,
+          "sizeUnit": "ea",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": true,
+              "retailPrice": 9.00,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 5.50,
+              "minOrderQuantity": 180,
+              "unitsPerCarton": 180,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 180,
+              "reserved": 0,
+              "available": 180
+            },
+            "b2b": {
+              "stock": 10,
+              "reserved": 0,
+              "available": 10
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "",
+        "pao": "6M",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "patent": "10-2466953",
+        "technology": "E.Beam cross-linked structure",
+        "features": [
+          "No harmful crosslinking agents",
+          "Mesh Pocket® technology",
+          "Medical-grade sterilization"
+        ]
+      },
+      "ingredients": "",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "lalucell-mystic-light-mark-control-body-patch": {
+      "id": "lalucell-mystic-light-mark-control-body-patch",
+      "brand": {
+        "id": "lalucell",
+        "name": "Lalucell"
+      },
+      "name": "Mystic Light Mark Control Body Patch (1 EA)",
+      "slug": "mystic-light-mark-control-body-patch",
+      "description": "Body patch with patented soothing formula that moisturizes and enhances skin elasticity. Body patch that manages stretch marks and elasticity, Custom design for curved body, No adhesive, No preservatives, No cross-linking agent.",
+      "shortDescription": "Stretch mark control body patch",
+      "category": "body-care",
+      "subcategory": "body-patches",
+      "tags": ["stretch-marks", "elasticity", "body-patch", "no-adhesive"],
+      "images": {
+        "primary": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1684141224714_1000.jpg",
+        "gallery": [
+          "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1684141224714_1000.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "LALUCELL-MLMCBP-1EA",
+          "size": 1,
+          "sizeUnit": "ea",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": true,
+              "retailPrice": 13.00,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 6.50,
+              "minOrderQuantity": 240,
+              "unitsPerCarton": 120,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 120,
+              "reserved": 0,
+              "available": 120
+            },
+            "b2b": {
+              "stock": 9,
+              "reserved": 0,
+              "available": 9
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "",
+        "pao": "6M",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "keyIngredient": "Molokhia extract + Tarax III",
+        "features": [
+          "No adhesive",
+          "No preservatives",
+          "No cross-linking agent",
+          "Custom curved design"
+        ]
+      },
+      "ingredients": "Molokhia extract, Tarax III",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    
+    "lalucell-mystic-light-mark-control-breast-patch": {
+      "id": "lalucell-mystic-light-mark-control-breast-patch",
+      "brand": {
+        "id": "lalucell",
+        "name": "Lalucell"
+      },
+      "name": "Mystic Light Mark Control Breast Patch",
+      "slug": "mystic-light-mark-control-breast-patch",
+      "description": "Breast patch with patented soothing formula that provides elasticity and cooling sensation. Hydrogel patch that lowers skin temperature, Chest patch to help breast elasticity, A new concept adhesive patch made with E.BEAM without harmful ingredients.",
+      "shortDescription": "Cooling breast elasticity patch",
+      "category": "body-care",
+      "subcategory": "body-patches",
+      "tags": ["breast-care", "elasticity", "cooling", "hydrogel", "e-beam-technology"],
+      "images": {
+        "primary": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1684141246748_1000.jpg",
+        "gallery": [
+          "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/product/image_1684141246748_1000.jpg"
+        ]
+      },
+      "variants": [
+        {
+          "variantId": "variant-1",
+          "sku": "LALUCELL-MLMCBRP",
+          "size": 1,
+          "sizeUnit": "ea",
+          "color": null,
+          "colorHex": null,
+          "pricing": {
+            "b2c": {
+              "enabled": true,
+              "retailPrice": 13.00,
+              "salePrice": null,
+              "currency": "USD"
+            },
+            "b2b": {
+              "enabled": true,
+              "wholesalePrice": 6.50,
+              "minOrderQuantity": 240,
+              "unitsPerCarton": 120,
+              "currency": "USD"
+            }
+          },
+          "inventory": {
+            "b2c": {
+              "stock": 120,
+              "reserved": 0,
+              "available": 120
+            },
+            "b2b": {
+              "stock": 10,
+              "reserved": 0,
+              "available": 10
+            }
+          },
+          "status": "active",
+          "isDefault": true
+        }
+      ],
+      "specifications": {
+        "expiryDate": "",
+        "pao": "6M",
+        "origin": "Korea",
+        "certifications": ["CPNP", "SCPN"],
+        "keyIngredient": "Molokhia extract + Tarax III",
+        "technology": "E.BEAM technology",
+        "features": [
+          "Temperature-lowering effect",
+          "No harmful ingredients",
+          "Elasticity support"
+        ]
+      },
+      "ingredients": "Molokhia extract, Tarax III",
+      "status": "active",
+      "featured": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    }
+  }
+}
