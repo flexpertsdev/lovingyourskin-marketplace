@@ -14,7 +14,6 @@ export const Checkout: React.FC = () => {
   
   const [currentStep, setCurrentStep] = useState(1)
   const [isProcessing, setIsProcessing] = useState(false)
-  const [shippingAddress, setShippingAddress] = useState('')
   const [additionalNotes, setAdditionalNotes] = useState('')
   const [processSteps, setProcessSteps] = useState({
     step1: false,
@@ -25,6 +24,24 @@ export const Checkout: React.FC = () => {
     step6: false
   })
   const [orderIds, setOrderIds] = useState<string[]>([])
+  
+  // Company information
+  const [companyInfo, setCompanyInfo] = useState({
+    companyName: '',
+    companyRegistrationNumber: '',
+    vatNumber: ''
+  })
+  
+  // Shipping address as separate fields
+  const [shippingAddress, setShippingAddress] = useState({
+    name: user?.name || '',
+    company: '',
+    street: '',
+    city: '',
+    postalCode: '',
+    country: 'UK',
+    phone: ''
+  })
   
   // Group cart items by brand
   const brandGroups = cart.items.reduce((acc, item) => {
@@ -47,7 +64,12 @@ export const Checkout: React.FC = () => {
   
   const canProceed = () => {
     if (currentStep === 1) {
-      return shippingAddress.trim().length > 0
+      // Validate company info and shipping address
+      return companyInfo.companyName.trim().length > 0 &&
+             companyInfo.companyRegistrationNumber.trim().length > 0 &&
+             shippingAddress.street.trim().length > 0 &&
+             shippingAddress.city.trim().length > 0 &&
+             shippingAddress.postalCode.trim().length > 0
     }
     if (currentStep === 2) {
       return Object.values(processSteps).every(step => step)
@@ -94,7 +116,10 @@ export const Checkout: React.FC = () => {
         
         const orderData = {
           userId: user?.id || '',
-          userType: user?.role === 'retailer' ? 'retailer' as const : 'consumer' as const,
+          userType: 'retailer' as const,
+          retailerId: user?.id || '',
+          retailerName: companyInfo.companyName,
+          retailerCompanyId: companyInfo.companyRegistrationNumber,
           brandId: brandGroup.brandId,
           brandName: brandGroup.brandName,
           items: brandItems.map(item => {
@@ -123,13 +148,15 @@ export const Checkout: React.FC = () => {
             currency: 'GBP' as const
           },
           shippingAddress: {
-            name: user?.name || '',
-            street: shippingAddress,
-            city: '',
-            postalCode: '',
-            country: 'UK'
+            name: shippingAddress.name,
+            company: shippingAddress.company || companyInfo.companyName,
+            street: shippingAddress.street,
+            city: shippingAddress.city,
+            postalCode: shippingAddress.postalCode,
+            country: shippingAddress.country,
+            phone: shippingAddress.phone
           },
-          paymentMethod: 'stripe_card' as const,
+          paymentMethod: 'bank_transfer' as const,
           paymentStatus: 'pending' as const,
           timeline: [{
             status: 'pending' as const,
@@ -209,25 +236,146 @@ export const Checkout: React.FC = () => {
               </CardHeader>
               <CardContent className="space-y-6">
                 {/* Company Information */}
-                <div className="bg-soft-pink p-4 rounded-lg">
-                  <p className="font-medium mb-2">Company Information</p>
-                  <p>{user?.name || 'Your Company'}</p>
-                  <p>{user?.email}</p>
+                <div className="space-y-4">
+                  <h3 className="font-medium">Company Information</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        Company Name <span className="text-error-red">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={companyInfo.companyName}
+                        onChange={(e) => setCompanyInfo({...companyInfo, companyName: e.target.value})}
+                        className="w-full p-3 border border-border-gray rounded-lg"
+                        placeholder="Your company name"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        Company Registration Number <span className="text-error-red">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={companyInfo.companyRegistrationNumber}
+                        onChange={(e) => setCompanyInfo({...companyInfo, companyRegistrationNumber: e.target.value})}
+                        className="w-full p-3 border border-border-gray rounded-lg"
+                        placeholder="Company registration number"
+                        required
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-medium mb-2">
+                        VAT Number (Optional)
+                      </label>
+                      <input
+                        type="text"
+                        value={companyInfo.vatNumber}
+                        onChange={(e) => setCompanyInfo({...companyInfo, vatNumber: e.target.value})}
+                        className="w-full p-3 border border-border-gray rounded-lg"
+                        placeholder="VAT number (if applicable)"
+                      />
+                    </div>
+                  </div>
                 </div>
                 
                 {/* Shipping Address */}
-                <div>
-                  <label className="block text-sm font-medium mb-2">
-                    Shipping Address <span className="text-error-red">*</span>
-                  </label>
-                  <textarea
-                    value={shippingAddress}
-                    onChange={(e) => setShippingAddress(e.target.value)}
-                    className="w-full p-3 border border-border-gray rounded-lg"
-                    rows={3}
-                    placeholder="Enter your complete shipping address..."
-                    required
-                  />
+                <div className="space-y-4">
+                  <h3 className="font-medium">Shipping Address</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        Contact Name
+                      </label>
+                      <input
+                        type="text"
+                        value={shippingAddress.name}
+                        onChange={(e) => setShippingAddress({...shippingAddress, name: e.target.value})}
+                        className="w-full p-3 border border-border-gray rounded-lg"
+                        placeholder="Contact person name"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        Company Name (if different)
+                      </label>
+                      <input
+                        type="text"
+                        value={shippingAddress.company}
+                        onChange={(e) => setShippingAddress({...shippingAddress, company: e.target.value})}
+                        className="w-full p-3 border border-border-gray rounded-lg"
+                        placeholder="Shipping company name"
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-medium mb-2">
+                        Street Address <span className="text-error-red">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={shippingAddress.street}
+                        onChange={(e) => setShippingAddress({...shippingAddress, street: e.target.value})}
+                        className="w-full p-3 border border-border-gray rounded-lg"
+                        placeholder="Street address"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        City <span className="text-error-red">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={shippingAddress.city}
+                        onChange={(e) => setShippingAddress({...shippingAddress, city: e.target.value})}
+                        className="w-full p-3 border border-border-gray rounded-lg"
+                        placeholder="City"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        Postal Code <span className="text-error-red">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={shippingAddress.postalCode}
+                        onChange={(e) => setShippingAddress({...shippingAddress, postalCode: e.target.value})}
+                        className="w-full p-3 border border-border-gray rounded-lg"
+                        placeholder="Postal code"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        Country
+                      </label>
+                      <select
+                        value={shippingAddress.country}
+                        onChange={(e) => setShippingAddress({...shippingAddress, country: e.target.value})}
+                        className="w-full p-3 border border-border-gray rounded-lg"
+                      >
+                        <option value="UK">United Kingdom</option>
+                        <option value="FR">France</option>
+                        <option value="DE">Germany</option>
+                        <option value="IT">Italy</option>
+                        <option value="ES">Spain</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        Phone Number
+                      </label>
+                      <input
+                        type="tel"
+                        value={shippingAddress.phone}
+                        onChange={(e) => setShippingAddress({...shippingAddress, phone: e.target.value})}
+                        className="w-full p-3 border border-border-gray rounded-lg"
+                        placeholder="Contact phone number"
+                      />
+                    </div>
+                  </div>
                 </div>
                 
                 {/* Additional Notes */}
