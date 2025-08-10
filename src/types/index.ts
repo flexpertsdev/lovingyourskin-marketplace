@@ -104,20 +104,26 @@ export interface Product {
   // Tags and categorization
   tags: string[]
   
-  // Specifications object
+  // Specifications object (complete from Firestore)
   specifications?: {
     certifications?: string[]
     expiryDate?: string
-    features?: string[]
+    features?: string[]  // Array of feature strings
     keyIngredient?: string
     origin?: string
-    pao?: string
-    setContents?: string
-    treatmentDuration?: string
-    paRating?: string
-    spf?: string
+    pao?: string  // Period After Opening
+    setContents?: string  // Contents for product sets
+    treatmentDuration?: string  // e.g., "4 weeks"
+    paRating?: string  // PA rating for sunscreens
+    spf?: string  // SPF value
     patent?: string
     technology?: string
+    // Additional fields that may be present
+    volume?: string
+    weight?: string
+    texture?: string
+    skinType?: string[]  // Target skin types
+    concerns?: string[]  // Skin concerns addressed
   }
   
   // Variants array

@@ -9,6 +9,7 @@ import { Brand, Product } from '../types'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
 import toast from 'react-hot-toast'
 import { getProductName, getProductDescription, getProductPrimaryImage, getB2CVariant, getProductPrice } from '../utils/product-helpers'
+import { getLocalizedString } from '../lib/utils/cn'
 
 // Consumer Product Card Component
 const ConsumerProductCard: React.FC<{ product: Product }> = ({ product }) => {
@@ -55,7 +56,7 @@ const ConsumerProductCard: React.FC<{ product: Product }> = ({ product }) => {
           src={getProductPrimaryImage(product) || '/placeholder.png'} 
           alt={productName}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer"
-          onClick={() => navigate(`/consumer/products/${product.id}`)}
+          onClick={() => navigate(`/shop/products/${product.id}`)}
         />
         {!isInStock && (
           <Badge variant="default" className="absolute top-4 left-4 bg-gray-500">
@@ -87,7 +88,7 @@ const ConsumerProductCard: React.FC<{ product: Product }> = ({ product }) => {
       <CardContent className="flex-1 flex flex-col">
         <h3 
           className="font-medium text-deep-charcoal mb-2 hover:text-rose-gold transition-colors cursor-pointer"
-          onClick={() => navigate(`/consumer/products/${product.id}`)}
+          onClick={() => navigate(`/shop/products/${product.id}`)}
         >
           {productName}
         </h3>
@@ -155,7 +156,7 @@ export const ConsumerBrandDetail: React.FC = () => {
       const brandData = await brandService.getBrand(brandId!)
       
       if (!brandData) {
-        navigate('/consumer/brands')
+        navigate('/shop/brands')
         return
       }
       
@@ -241,8 +242,8 @@ export const ConsumerBrandDetail: React.FC = () => {
     return null
   }
   
-  const brandName = brand.name
-  const brandDescription = brand.description
+  const brandName = getLocalizedString(brand.name)
+  const brandDescription = getLocalizedString(brand.description)
   const brandStory = brand.story
   
   return (
@@ -253,7 +254,7 @@ export const ConsumerBrandDetail: React.FC = () => {
           <Button 
             variant="ghost" 
             size="small"
-            onClick={() => navigate('/consumer/brands')}
+            onClick={() => navigate('/shop/brands')}
             className="mb-6"
           >
             ← Back to Brands

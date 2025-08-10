@@ -171,7 +171,7 @@ export const ConsumerPreorders: React.FC = () => {
               {products.map(product => (
                 <Card key={product.id} className="overflow-hidden group">
                   <div className="relative">
-                    <Link to={`/consumer/products/${product.id}`}>
+                    <Link to={`/shop/products/${product.id}`}>
                       <img 
                         src={product.images?.primary || '/placeholder-product.png'} 
                         alt={product.name}
@@ -200,7 +200,7 @@ export const ConsumerPreorders: React.FC = () => {
                     <p className="text-xs text-text-secondary uppercase tracking-wider mb-1">
                       {product.brandId}
                     </p>
-                    <Link to={`/consumer/products/${product.id}`}>
+                    <Link to={`/shop/products/${product.id}`}>
                       <h3 className="font-medium text-deep-charcoal mb-2 hover:text-rose-gold transition-colors">
                         {product.name}
                       </h3>
@@ -249,7 +249,7 @@ export const ConsumerPreorders: React.FC = () => {
               <p className="text-text-secondary text-lg mb-4">
                 No pre-order products available at the moment.
               </p>
-              <Link to="/consumer/shop">
+              <Link to="/shop">
                 <Button variant="primary">
                   Shop Available Products
                 </Button>

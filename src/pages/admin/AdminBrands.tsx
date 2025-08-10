@@ -17,16 +17,8 @@ import { useAuthStore } from '../../stores/auth.store'
 import { brandService, storageService } from '../../services'
 import type { Brand } from '../../types'
 
-// Extended Brand type for admin management
-interface AdminBrand extends Brand {
-  status?: 'active' | 'pending' | 'inactive'
-  contactEmail?: string
-  contactPerson?: string
-  website?: string
-  productCategories?: string[]
-  applicationDate?: string
-  approvedDate?: string
-}
+// Extended Brand type for admin management - no longer needed as fields are now in main Brand type
+type AdminBrand = Brand
 
 export default function AdminBrands() {
   const navigate = useNavigate()
@@ -94,9 +86,8 @@ export default function AdminBrands() {
 
   const handleUpdateBrand = async (brandId: string, updates: Partial<AdminBrand>) => {
     try {
-      // Filter out admin-specific properties before sending to brandService
-      const { status, contactEmail, contactPerson, website, productCategories, applicationDate, approvedDate, ...brandData } = updates
-      await brandService.update(brandId, brandData as Partial<Brand>)
+      // All fields are now part of Brand type, so we can send everything
+      await brandService.update(brandId, updates)
       toast.success('Brand updated successfully')
       fetchBrands()
       setEditDialogOpen(false)
@@ -108,32 +99,40 @@ export default function AdminBrands() {
 
   const handleCreateBrand = async (newBrand: Partial<AdminBrand>) => {
     try {
-      // Filter out admin-specific properties before sending to brandService
-      const { status, contactEmail, contactPerson, website, productCategories, applicationDate, approvedDate, ...brandData } = newBrand
-      
       // Provide required Brand fields with defaults
       const brandToCreate: Omit<Brand, 'id'> = {
-        name: brandData.name || '',
-        slug: brandData.slug || brandData.name?.toLowerCase().replace(/\s+/g, '-') || '',
-        tagline: brandData.tagline || '',
-        description: brandData.description || '',
-        logo: brandData.logo || '',
-        heroImage: brandData.heroImage || '',
-        establishedYear: brandData.establishedYear || new Date().getFullYear(),
-        productCount: brandData.productCount || 0,
-        minimumOrder: brandData.minimumOrder || 100,
-        country: brandData.country || 'KR',
-        certifications: brandData.certifications || [],
-        featureTags: brandData.featureTags || [],
-        categories: brandData.categories || [],
-        stats: brandData.stats || {
+        name: newBrand.name || '',
+        slug: newBrand.slug || newBrand.name?.toLowerCase().replace(/\s+/g, '-') || '',
+        tagline: newBrand.tagline || '',
+        description: newBrand.description || '',
+        story: newBrand.story || '',
+        logo: newBrand.logo || '',
+        heroImage: newBrand.heroImage || '',
+        establishedYear: newBrand.establishedYear || new Date().getFullYear(),
+        productCount: newBrand.productCount || 0,
+        minimumOrder: newBrand.minimumOrder || 100,
+        country: newBrand.country || 'KR',
+        certifications: newBrand.certifications || [],
+        featureTags: newBrand.featureTags || [],
+        technologies: newBrand.technologies || [],
+        categories: newBrand.categories || [],
+        stats: newBrand.stats || {
           yearsInBusiness: 0,
           productsSold: '0',
           customerSatisfaction: 0
         },
-        active: brandData.active !== undefined ? brandData.active : false,
-        featured: brandData.featured || false,
-        isExclusivePartner: brandData.isExclusivePartner || false
+        active: newBrand.active !== undefined ? newBrand.active : false,
+        featured: newBrand.featured || false,
+        isExclusivePartner: newBrand.isExclusivePartner || false,
+        clinicalResults: newBrand.clinicalResults,
+        logoStyle: newBrand.logoStyle,
+        contactEmail: newBrand.contactEmail,
+        contactPerson: newBrand.contactPerson,
+        website: newBrand.website,
+        productCategories: newBrand.productCategories,
+        status: newBrand.status,
+        applicationDate: newBrand.applicationDate,
+        approvedDate: newBrand.approvedDate
       }
       
       await brandService.create(brandToCreate)
@@ -406,8 +405,10 @@ function BrandEditForm({
   return (
     <form onSubmit={handleSubmit}>
       <Tabs defaultValue="basic" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="basic">Basic Info</TabsTrigger>
+          <TabsTrigger value="branding">Branding</TabsTrigger>
+          <TabsTrigger value="technical">Technical</TabsTrigger>
           <TabsTrigger value="contact">Contact</TabsTrigger>
           <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
@@ -532,6 +533,304 @@ function BrandEditForm({
               </p>
             </div>
           </div>
+
+          <div>
+            <Label htmlFor="tagline">Tagline</Label>
+            <Input
+              id="tagline"
+              value={formData.tagline || ''}
+              onChange={(e) => setFormData({ ...formData, tagline: e.target.value })}
+              placeholder="Innovative K-Beauty Solutions"
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="story">Brand Story</Label>
+            <Textarea
+              id="story"
+              value={formData.story || ''}
+              onChange={(e) => setFormData({ ...formData, story: e.target.value })}
+              rows={6}
+              placeholder="Tell the story of your brand..."
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="establishedYear">Established Year</Label>
+              <Input
+                id="establishedYear"
+                type="number"
+                value={formData.establishedYear || ''}
+                onChange={(e) => setFormData({ ...formData, establishedYear: parseInt(e.target.value) })}
+                placeholder="2020"
+              />
+            </div>
+            <div>
+              <Label htmlFor="country">Country</Label>
+              <Input
+                id="country"
+                value={formData.country || ''}
+                onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                placeholder="KR"
+              />
+            </div>
+          </div>
+
+          <div>
+            <Label htmlFor="minimumOrder">Minimum Order Amount (£)</Label>
+            <Input
+              id="minimumOrder"
+              type="number"
+              value={formData.minimumOrder || ''}
+              onChange={(e) => setFormData({ ...formData, minimumOrder: parseInt(e.target.value) })}
+              placeholder="100"
+            />
+          </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="branding" className="mt-6">
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="heroImage">Hero Image URL</Label>
+              <Input
+                id="heroImage"
+                value={formData.heroImage || ''}
+                onChange={(e) => setFormData({ ...formData, heroImage: e.target.value })}
+                placeholder="https://example.com/hero.jpg"
+              />
+            </div>
+
+            <div>
+              <Label>Logo Style</Label>
+              <div className="grid grid-cols-2 gap-4 mt-2">
+                <div>
+                  <Label htmlFor="logoHeight">Height</Label>
+                  <Input
+                    id="logoHeight"
+                    value={formData.logoStyle?.height || ''}
+                    onChange={(e) => setFormData({ 
+                      ...formData, 
+                      logoStyle: { ...formData.logoStyle, height: e.target.value }
+                    })}
+                    placeholder="60px"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="logoObjectFit">Object Fit</Label>
+                  <select
+                    id="logoObjectFit"
+                    value={formData.logoStyle?.objectFit || 'contain'}
+                    onChange={(e) => setFormData({ 
+                      ...formData, 
+                      logoStyle: { ...formData.logoStyle, objectFit: e.target.value }
+                    })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-gold"
+                  >
+                    <option value="contain">Contain</option>
+                    <option value="cover">Cover</option>
+                    <option value="fill">Fill</option>
+                    <option value="none">None</option>
+                    <option value="scale-down">Scale Down</option>
+                  </select>
+                </div>
+              </div>
+              <div className="mt-2">
+                <Label htmlFor="logoBackground">Background Color</Label>
+                <Input
+                  id="logoBackground"
+                  value={formData.logoStyle?.backgroundColor || ''}
+                  onChange={(e) => setFormData({ 
+                    ...formData, 
+                    logoStyle: { ...formData.logoStyle, backgroundColor: e.target.value }
+                  })}
+                  placeholder="#ffffff or transparent"
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label>Feature Tags</Label>
+              <Input
+                value={formData.featureTags?.join(', ') || ''}
+                onChange={(e) => setFormData({ 
+                  ...formData, 
+                  featureTags: e.target.value.split(',').map(tag => tag.trim()).filter(Boolean)
+                })}
+                placeholder="Clean Beauty, Vegan, K-Beauty Innovation"
+              />
+              <p className="text-xs text-gray-500 mt-1">Comma-separated list of tags</p>
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="technical" className="mt-6">
+          <div className="space-y-4">
+            <div>
+              <Label>Technologies</Label>
+              {(formData.technologies || []).map((tech, index) => (
+                <div key={index} className="border p-3 rounded mb-2">
+                  <div className="grid grid-cols-2 gap-2">
+                    <Input
+                      placeholder="Technology Name"
+                      value={tech.name}
+                      onChange={(e) => {
+                        const newTech = [...(formData.technologies || [])]
+                        newTech[index] = { ...tech, name: e.target.value }
+                        setFormData({ ...formData, technologies: newTech })
+                      }}
+                    />
+                    <Input
+                      placeholder="Patent Number (optional)"
+                      value={tech.patent || ''}
+                      onChange={(e) => {
+                        const newTech = [...(formData.technologies || [])]
+                        newTech[index] = { ...tech, patent: e.target.value }
+                        setFormData({ ...formData, technologies: newTech })
+                      }}
+                    />
+                  </div>
+                  <Textarea
+                    placeholder="Technology Description"
+                    className="mt-2"
+                    value={tech.description}
+                    onChange={(e) => {
+                      const newTech = [...(formData.technologies || [])]
+                      newTech[index] = { ...tech, description: e.target.value }
+                      setFormData({ ...formData, technologies: newTech })
+                    }}
+                  />
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    size="small"
+                    className="mt-2"
+                    onClick={() => {
+                      const newTech = formData.technologies?.filter((_, i) => i !== index) || []
+                      setFormData({ ...formData, technologies: newTech })
+                    }}
+                  >
+                    Remove Technology
+                  </Button>
+                </div>
+              ))}
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => {
+                  const newTech = [...(formData.technologies || []), { name: '', description: '' }]
+                  setFormData({ ...formData, technologies: newTech })
+                }}
+              >
+                Add Technology
+              </Button>
+            </div>
+
+            <div>
+              <Label>Clinical Results</Label>
+              <div className="space-y-3 border p-3 rounded">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="hairLossValue">Hair Loss Reduction (%)</Label>
+                    <Input
+                      id="hairLossValue"
+                      type="number"
+                      value={formData.clinicalResults?.hairLossReduction?.value || ''}
+                      onChange={(e) => setFormData({ 
+                        ...formData, 
+                        clinicalResults: {
+                          ...formData.clinicalResults,
+                          hairLossReduction: {
+                            value: parseFloat(e.target.value),
+                            duration: formData.clinicalResults?.hairLossReduction?.duration || ''
+                          }
+                        }
+                      })}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="hairLossDuration">Duration</Label>
+                    <Input
+                      id="hairLossDuration"
+                      value={formData.clinicalResults?.hairLossReduction?.duration || ''}
+                      onChange={(e) => setFormData({ 
+                        ...formData, 
+                        clinicalResults: {
+                          ...formData.clinicalResults,
+                          hairLossReduction: {
+                            value: formData.clinicalResults?.hairLossReduction?.value || 0,
+                            duration: e.target.value
+                          }
+                        }
+                      })}
+                      placeholder="4 weeks"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="satisfactionValue">Customer Satisfaction (%)</Label>
+                    <Input
+                      id="satisfactionValue"
+                      type="number"
+                      value={formData.clinicalResults?.customerSatisfaction?.value || ''}
+                      onChange={(e) => setFormData({ 
+                        ...formData, 
+                        clinicalResults: {
+                          ...formData.clinicalResults,
+                          customerSatisfaction: {
+                            value: parseFloat(e.target.value),
+                            unit: '%'
+                          }
+                        }
+                      })}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="scalpHealthValue">Scalp Health Improvement (%)</Label>
+                    <Input
+                      id="scalpHealthValue"
+                      type="number"
+                      value={formData.clinicalResults?.scalpHealth?.value || ''}
+                      onChange={(e) => setFormData({ 
+                        ...formData, 
+                        clinicalResults: {
+                          ...formData.clinicalResults,
+                          scalpHealth: {
+                            value: parseFloat(e.target.value),
+                            duration: formData.clinicalResults?.scalpHealth?.duration || ''
+                          }
+                        }
+                      })}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <Label>Certifications</Label>
+              <div className="grid grid-cols-2 gap-2">
+                {['CPNP', 'CPNP_UK', 'CPNP_EU', 'CPNP_CH', 'VEGAN', 'CRUELTY_FREE', 'EWG', 'DERMATOLOGIST_TESTED', 'CARBON_NEUTRAL'].map((cert) => (
+                  <label key={cert} className="flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={formData.certifications?.includes(cert as any) || false}
+                      onChange={(e) => {
+                        const newCerts = e.target.checked
+                          ? [...(formData.certifications || []), cert as any]
+                          : formData.certifications?.filter(c => c !== cert) || []
+                        setFormData({ ...formData, certifications: newCerts })
+                      }}
+                      className="mr-2"
+                    />
+                    {cert.replace(/_/g, ' ')}
+                  </label>
+                ))}
+              </div>
+            </div>
           </div>
         </TabsContent>
 

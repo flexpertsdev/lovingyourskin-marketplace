@@ -24,7 +24,7 @@ export const ConsumerLogin: React.FC = () => {
   const [error, setError] = useState<string | null>(null)
   
   // Redirect URL after login
-  const redirect = searchParams.get('redirect') || '/consumer/shop'
+  const redirect = searchParams.get('redirect') || '/shop'
   
   // Login form state
   const [loginData, setLoginData] = useState({

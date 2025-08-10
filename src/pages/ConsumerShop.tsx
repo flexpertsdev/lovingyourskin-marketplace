@@ -93,7 +93,7 @@ const BrandShowcase: React.FC<{ brands: Brand[] }> = ({ brands }) => {
           {duplicatedBrands.map((brand, index) => (
             <Link
               key={`${brand.id}-${index}`}
-              to={`/consumer/brands/${brand.id}`}
+              to={`/shop/brands/${brand.id}`}
               className="flex-shrink-0 w-48 bg-white rounded-lg p-4 hover:shadow-md transition-shadow group"
             >
               {brand.heroImage ? (
@@ -553,7 +553,7 @@ export const ConsumerShop: React.FC = () => {
                   return (
                     <Card key={product.id} className="group overflow-hidden hover:shadow-lg transition-shadow">
                       <div className="relative">
-                        <Link to={`/consumer/products/${product.id}`}>
+                        <Link to={`/shop/products/${product.id}`}>
                           <div className="aspect-square overflow-hidden bg-gray-50">
                             <img 
                               src={product.images?.primary || '/placeholder.png'} 
@@ -601,7 +601,7 @@ export const ConsumerShop: React.FC = () => {
                         <p className="text-xs text-rose-gold uppercase tracking-wider mb-1">
                           {product.brandId}
                         </p>
-                        <Link to={`/consumer/products/${product.id}`}>
+                        <Link to={`/shop/products/${product.id}`}>
                           <h3 className="font-medium text-deep-charcoal mb-2 hover:text-rose-gold transition-colors line-clamp-1">
                             {product.name || 'Product'}
                           </h3>

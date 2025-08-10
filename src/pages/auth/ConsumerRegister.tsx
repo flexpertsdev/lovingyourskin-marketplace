@@ -57,7 +57,7 @@ export const ConsumerRegister: React.FC = () => {
       setUser(user)
       
       toast.success('Welcome to Loving Your Skin!')
-      navigate('/consumer/shop')
+      navigate('/shop')
     } catch (error: any) {
       setValidationError(error.message || 'Registration failed')
       toast.error(error.message || 'Registration failed')
@@ -181,7 +181,7 @@ export const ConsumerRegister: React.FC = () => {
             <div className="mt-8 pt-6 border-t border-gray-200">
               <p className="text-center text-sm text-text-secondary">
                 Already have an account?{' '}
-                <Link to="/consumer/login" className="text-rose-gold hover:text-rose-gold-dark font-medium">
+                <Link to="/shop/login" className="text-rose-gold hover:text-rose-gold-dark font-medium">
                   Sign in
                 </Link>
               </p>

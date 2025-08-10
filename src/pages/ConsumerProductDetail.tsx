@@ -206,7 +206,7 @@ export const ConsumerProductDetail: React.FC = () => {
         <Container className="py-12">
           <div className="text-center">
             <p className="text-red-600 mb-4">{error || 'Product not found'}</p>
-            <Button onClick={() => navigate('/consumer/shop')}>Back to Shop</Button>
+            <Button onClick={() => navigate('/shop')}>Back to Shop</Button>
           </div>
         </Container>
       </Layout>
@@ -232,7 +232,7 @@ export const ConsumerProductDetail: React.FC = () => {
     <Layout mode="consumer">
       <Container className="py-8">
         {/* Back Button */}
-        <Link to="/consumer/shop" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6">
+        <Link to="/shop" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6">
         <ChevronLeftIcon />
         <span>Back to Shop</span>
       </Link>

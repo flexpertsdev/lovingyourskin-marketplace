@@ -85,7 +85,7 @@ export const ConsumerBrands: React.FC = () => {
               {filteredBrands.map(brand => (
                 <Link 
                   key={brand.id} 
-                  to={`/consumer/brands/${brand.id}`}
+                  to={`/shop/brands/${brand.id}`}
                   className="group"
                 >
                   <Card className="h-full hover:shadow-xl transition-all duration-300 overflow-hidden">
@@ -169,7 +169,7 @@ export const ConsumerBrands: React.FC = () => {
             <p className="text-text-secondary mb-6">
               Browse our complete collection of K-beauty products
             </p>
-            <Link to="/consumer/shop">
+            <Link to="/shop">
               <button className="px-8 py-3 bg-rose-gold text-white rounded-full hover:bg-rose-gold-dark transition-colors">
                 Shop All Products
               </button>

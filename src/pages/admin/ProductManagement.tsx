@@ -81,7 +81,7 @@ export default function ProductManagement() {
 
 
 
-  // Update product
+  // Update product - removed direct Firestore update from here
   const handleUpdateProduct = async (productId: string, updates: Partial<Product>) => {
     try {
       await updateDoc(doc(db, 'products', productId), {
@@ -337,20 +337,31 @@ function ProductEditForm({
   uploading?: boolean;
 }) {
   const [formData, setFormData] = useState(product);
+  const [isDirty, setIsDirty] = useState(false);
 
+  // Track changes for save-on-submit pattern
+  const updateFormData = (updates: Partial<Product>) => {
+    setFormData(prev => ({ ...prev, ...updates }));
+    setIsDirty(true);
+  };
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
 
-    // Image upload functionality would go here
-    // For now, just log the files
+    // TODO: Implement image upload to Firebase Storage
     console.log('Files selected:', files);
+    toast.info('Image upload feature coming soon');
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (!isDirty) {
+      toast.info('No changes to save');
+      return;
+    }
+
     const updates = {
       ...formData,
       images: {
@@ -360,16 +371,18 @@ function ProductEditForm({
     };
 
     onSave(product.id, updates);
+    setIsDirty(false);
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <Tabs defaultValue="basic" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="basic">Basic Info</TabsTrigger>
           <TabsTrigger value="pricing">Pricing & Inventory</TabsTrigger>
           <TabsTrigger value="images">Images</TabsTrigger>
           <TabsTrigger value="details">Details</TabsTrigger>
+          <TabsTrigger value="specifications">Specifications</TabsTrigger>
         </TabsList>
 
         <TabsContent value="basic" className="mt-6">
@@ -379,7 +392,7 @@ function ProductEditForm({
             <Input
               id="name"
               value={getProductName(formData)}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={(e) => updateFormData({ name: e.target.value })}
               required
             />
           </div>
@@ -389,7 +402,7 @@ function ProductEditForm({
             <Textarea
               id="description"
               value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              onChange={(e) => updateFormData({ description: e.target.value })}
               rows={4}
             />
           </div>
@@ -399,7 +412,7 @@ function ProductEditForm({
             <Input
               id="shortDescription"
               value={formData.shortDescription}
-              onChange={(e) => setFormData({ ...formData, shortDescription: e.target.value })}
+              onChange={(e) => updateFormData({ shortDescription: e.target.value })}
             />
           </div>
 
@@ -408,7 +421,7 @@ function ProductEditForm({
               <Label htmlFor="category">Category</Label>
               <Select
                 value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                onChange={(e) => updateFormData({ category: e.target.value })}
                 options={['cleansers', 'toners', 'serums', 'moisturizers', 'masks', 'sun-care', 'hair-care', 'body-care', 'eye-care', 'lip-care', 'sets'].map((cat) => ({
                   value: cat,
                   label: cat
@@ -421,7 +434,7 @@ function ProductEditForm({
               <Label htmlFor="status">Status</Label>
               <Select
                 value={formData.status}
-                onChange={(e) => setFormData({ ...formData, status: e.target.value as 'active' | 'presale' | 'discontinued' | 'out-of-stock' })}
+                onChange={(e) => updateFormData({ status: e.target.value as 'active' | 'presale' | 'discontinued' | 'out-of-stock' })}
                 options={[
                   { value: 'active', label: 'Active' },
                   { value: 'presale', label: 'Presale' },
@@ -432,6 +445,55 @@ function ProductEditForm({
               />
             </div>
           </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="featured"
+                checked={formData.featured}
+                onChange={(e) => updateFormData({ featured: e.target.checked })}
+                className="h-4 w-4 text-rose-gold"
+              />
+              <Label htmlFor="featured">Featured Product</Label>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="isPreorder"
+                checked={formData.isPreorder}
+                onChange={(e) => updateFormData({ isPreorder: e.target.checked })}
+                className="h-4 w-4 text-rose-gold"
+              />
+              <Label htmlFor="isPreorder">Pre-order Product</Label>
+            </div>
+          </div>
+
+          {formData.isPreorder && (
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="preorderDiscount">Pre-order Discount (%)</Label>
+                <Input
+                  id="preorderDiscount"
+                  type="number"
+                  min="0"
+                  max="100"
+                  value={formData.preorderDiscount || ''}
+                  onChange={(e) => updateFormData({ preorderDiscount: parseInt(e.target.value) || 0 })}
+                />
+              </div>
+              <div>
+                <Label htmlFor="preorderEndDate">Pre-order End Date</Label>
+                <Input
+                  id="preorderEndDate"
+                  type="date"
+                  value={formData.preorderEndDate || ''}
+                  onChange={(e) => updateFormData({ preorderEndDate: e.target.value })}
+                />
+              </div>
+            </div>
+          )}
           </div>
         </TabsContent>
 
