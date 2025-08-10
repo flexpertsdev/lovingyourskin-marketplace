@@ -11,17 +11,6 @@ const stats = [
     description: 'In skincare retail & distribution'
   },
   {
-    value: (
-      <img 
-        src="/assets/kotra-logo.png"
-        alt="KOTRA Logo"
-        className="h-16 w-auto object-contain"
-      />
-    ),
-    label: 'Official KOTRA Partner',
-    description: 'Certified K-beauty network'
-  },
-  {
     value: '5',
     label: 'New Brands Yearly',
     description: 'Exclusive partnerships'
@@ -70,6 +59,17 @@ export const About: React.FC = () => {
       <Section className="bg-gradient-to-br from-soft-pink to-white py-20">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
+            {/* KOTRA Partnership Badge - Uncomment when logo is added to /public/assets/ */}
+            {/* <div className="flex items-center justify-center gap-3 mb-8">
+              <span className="text-sm font-medium text-text-secondary uppercase tracking-wider">
+                Official Partner
+              </span>
+              <img 
+                src="/assets/kotra-logo.png"
+                alt="KOTRA Logo"
+                className="h-12 w-auto object-contain"
+              />
+            </div> */}
             <h1 className="text-5xl md:text-6xl font-light text-deep-charcoal tracking-wide mb-6">
               Bringing the Best of Korean Beauty to Global Retailers
             </h1>
@@ -119,21 +119,11 @@ export const About: React.FC = () => {
       {/* Stats Section */}
       <Section background="gray" className="py-16">
         <Container>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 max-w-4xl mx-auto">
             {stats.map((stat, index) => (
               <div key={index} className="text-center group">
                 <div className="h-20 flex justify-center items-center mb-4 transition-transform duration-300 group-hover:scale-110">
-                  {typeof stat.value === 'string' ? (
-                    <span className="text-5xl md:text-6xl font-light text-rose-gold">{stat.value}</span>
-                  ) : (
-                    <div className="relative">
-                      {stat.value}
-                      {/* Add subtle animation for KOTRA logo */}
-                      {index === 1 && (
-                        <div className="absolute inset-0 bg-rose-gold/10 rounded-full blur-2xl animate-pulse" />
-                      )}
-                    </div>
-                  )}
+                  <span className="text-5xl md:text-6xl font-light text-rose-gold">{stat.value}</span>
                 </div>
                 <h3 className="text-sm font-bold text-deep-charcoal mb-1 uppercase tracking-wider">
                   {stat.label}

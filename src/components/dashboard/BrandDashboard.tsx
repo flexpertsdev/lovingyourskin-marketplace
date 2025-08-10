@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Container, Section, Grid } from '../layout'
 import { Card, CardContent, Button } from '../ui'
 import { useAuthStore } from '../../stores/auth.store'
-import { productService, dashboardService } from '../../services'
+import { brandService, dashboardService } from '../../services'
 import { useQuery } from '@tanstack/react-query'
 
 export const BrandDashboard: React.FC = () => {
@@ -15,7 +15,7 @@ export const BrandDashboard: React.FC = () => {
   // Get brand details
   const { data: brands } = useQuery({
     queryKey: ['brands'],
-    queryFn: () => productService.getBrands()
+    queryFn: () => brandService.getBrands()
   })
   
   const brand = brands?.find(b => b.id === user?.brandId || b.id === user?.companyId)
@@ -59,7 +59,7 @@ export const BrandDashboard: React.FC = () => {
               Welcome back, {user?.name}!
             </h1>
             <p className="text-text-secondary">
-              {brand?.name.en || brand?.name.ko || 'Brand Dashboard'}
+              {brand?.name || 'Brand Dashboard'}
             </p>
           </div>
           
@@ -164,7 +164,7 @@ export const BrandDashboard: React.FC = () => {
                       <dl className="space-y-2">
                         <div className="flex justify-between">
                           <dt className="text-text-secondary">Brand Name:</dt>
-                          <dd className="font-medium">{brand.name.en}</dd>
+                          <dd className="font-medium">{brand.name}</dd>
                         </div>
                         <div className="flex justify-between">
                           <dt className="text-text-secondary">Categories:</dt>
@@ -196,7 +196,7 @@ export const BrandDashboard: React.FC = () => {
                   </div>
                   
                   <div className="mt-6 pt-6 border-t border-border-gray">
-                    <p className="text-sm text-text-secondary mb-4">{brand.description.en}</p>
+                    <p className="text-sm text-text-secondary mb-4">{brand.description}</p>
                     <Button 
                       variant="primary"
                       onClick={() => navigate(`/brands/${user?.companyId}`)}

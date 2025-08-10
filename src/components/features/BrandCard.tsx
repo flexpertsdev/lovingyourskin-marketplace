@@ -22,12 +22,12 @@ export const BrandCard: React.FC<BrandCardProps> = ({ brand, className }) => {
           {brand.logo ? (
             <img 
               src={brand.logo} 
-              alt={brand.name.en}
+              alt={brand.name}
               className="max-h-24 max-w-[200px] object-contain"
             />
           ) : (
             <h3 className="text-2xl font-light text-deep-charcoal tracking-wider">
-              {brand.name.en}
+              {brand.name}
             </h3>
           )}
           
@@ -46,12 +46,12 @@ export const BrandCard: React.FC<BrandCardProps> = ({ brand, className }) => {
         <CardContent className="p-6">
           {/* Brand Name */}
           <h3 className="text-xl font-medium text-deep-charcoal mb-2">
-            {brand.name.en}
+            {brand.name}
           </h3>
           
           {/* Tagline */}
           <p className="text-rose-gold italic mb-4">
-            {brand.description.en.split('.')[0]}
+            {brand.description.split('.')[0]}
           </p>
           
           {/* Brand Info */}

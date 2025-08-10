@@ -4,7 +4,7 @@ import { Layout, Container, Section, Grid } from '../components/layout'
 import { Button, Select, Badge, Spinner, Card, CardContent } from '../components/ui'
 import { collection, query, where, getDocs } from 'firebase/firestore'
 import { db } from '../lib/firebase/config'
-import { productService } from '../services'
+import { brandService } from '../services'
 import { Brand, Product } from '../types'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
 import toast from 'react-hot-toast'
@@ -152,7 +152,7 @@ export const ConsumerBrandDetail: React.FC = () => {
       setIsLoading(true)
       
       // Load brand details
-      const brandData = await productService.getBrand(brandId!)
+      const brandData = await brandService.getBrand(brandId!)
       
       if (!brandData) {
         navigate('/consumer/brands')
@@ -241,9 +241,9 @@ export const ConsumerBrandDetail: React.FC = () => {
     return null
   }
   
-  const brandName = typeof brand.name === 'object' ? brand.name.en : brand.name
-  const brandDescription = typeof brand.description === 'object' ? brand.description.en : brand.description
-  const brandStory = brand.story && (typeof brand.story === 'object' ? brand.story.en : brand.story)
+  const brandName = brand.name
+  const brandDescription = brand.description
+  const brandStory = brand.story
   
   return (
     <Layout mode="consumer">

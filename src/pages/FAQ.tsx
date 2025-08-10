@@ -54,7 +54,7 @@ const faqs: FAQItem[] = [
   // Shipping
   {
     question: 'How long does shipping take?',
-    answer: 'Typical delivery times are 7-14 business days for EU destinations and 10-21 business days for other international destinations. These times may vary based on customs clearance and your specific location.',
+    answer: 'Our free shipping offer includes standard shipping which takes from 15 to 21 business days. Faster shipping can be arranged to meet 7-14 business days. These times may vary based on customs clearance and your specific location.',
     category: 'shipping'
   },
   {
@@ -71,7 +71,7 @@ const faqs: FAQItem[] = [
   // Products
   {
     question: 'What certifications do products have?',
-    answer: 'All products come with necessary certifications for sale in your market. This typically includes CPNP (EU), CPNP-UK, and other regional requirements. Specific certifications are listed on each product page.',
+    answer: 'All products come with necessary certifications for sale in your market. This typically includes Patented ELASOME® e TARAX III formulas (EU), CPNP-UK, and other regional requirements. Specific certifications are listed on each product page.',
     category: 'products'
   },
   {
@@ -202,6 +202,9 @@ export const FAQ: React.FC = () => {
                   <p className="text-text-secondary mb-6">
                     Our team is here to help you succeed with K-beauty wholesale
                   </p>
+                  <p className="text-text-secondary mb-6">
+                    In case of particular limitations, please contact us and we will do our best to meet your requirements.
+                  </p>
                   <a
                     href="/contact"
                     className="inline-flex items-center text-rose-gold font-medium hover:underline"
@@ -211,6 +214,9 @@ export const FAQ: React.FC = () => {
                       <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                     </svg>
                   </a>
+                  <p className="text-text-secondary mt-4 text-sm">
+                    Please contact us for any additional information
+                  </p>
                 </CardContent>
               </Card>
             </div>

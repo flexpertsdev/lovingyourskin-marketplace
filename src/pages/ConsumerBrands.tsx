@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Layout, Container } from '../components/layout'
 import { Card, CardContent, Badge } from '../components/ui'
 import { Spinner } from '../components/ui/Spinner'
-import { productService } from '../services'
+import { brandService } from '../services'
 import { Brand } from '../types'
 
 export const ConsumerBrands: React.FC = () => {
@@ -18,7 +18,7 @@ export const ConsumerBrands: React.FC = () => {
   const loadBrands = async () => {
     try {
       setLoading(true)
-      const allBrands = await productService.getBrands()
+      const allBrands = await brandService.getBrands()
       setBrands(allBrands)
     } catch (error) {
       console.error('Failed to load brands:', error)
@@ -30,8 +30,8 @@ export const ConsumerBrands: React.FC = () => {
   const filteredBrands = brands.filter(brand => {
     if (!searchQuery) return true
     const query = searchQuery.toLowerCase()
-    return brand.name.en.toLowerCase().includes(query) ||
-           brand.description.en.toLowerCase().includes(query)
+    return brand.name.toLowerCase().includes(query) ||
+           brand.description.toLowerCase().includes(query)
   })
 
   if (loading) {
@@ -94,21 +94,21 @@ export const ConsumerBrands: React.FC = () => {
                       {brand.heroImage ? (
                         <img 
                           src={brand.heroImage} 
-                          alt={brand.name.en}
+                          alt={brand.name}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       ) : brand.logo ? (
                         <div className="flex items-center justify-center h-full">
                           <img 
                             src={brand.logo} 
-                            alt={brand.name.en}
+                            alt={brand.name}
                             className="h-24 md:h-32 object-contain"
                           />
                         </div>
                       ) : (
                         <div className="flex items-center justify-center h-full">
                           <span className="text-4xl font-light text-rose-gold">
-                            {brand.name.en.charAt(0)}
+                            {brand.name.charAt(0)}
                           </span>
                         </div>
                       )}
@@ -119,11 +119,11 @@ export const ConsumerBrands: React.FC = () => {
                     
                     <CardContent className="p-6">
                       <h3 className="text-xl md:text-2xl font-light text-deep-charcoal mb-3 group-hover:text-rose-gold transition-colors">
-                        {brand.name.en}
+                        {brand.name}
                       </h3>
                       
                       <p className="text-text-secondary mb-4 line-clamp-3">
-                        {brand.description.en}
+                        {brand.description}
                       </p>
                       
                       {/* Brand Features */}

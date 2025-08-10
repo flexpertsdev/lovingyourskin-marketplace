@@ -137,30 +137,38 @@ export const ForRetailers: React.FC = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-6 bg-background-gray">
+      <section className="py-20 px-6" style={{ backgroundColor: '#FFF5F7' }}>
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-light text-center mb-16 text-deep-charcoal">
             Everything You Need to Succeed
           </h2>
           
-          <div className="space-y-20">
+          <div className="grid md:grid-cols-2 gap-12">
             {features.map((feature, index) => (
-              <div key={index} className={`grid md:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
-                <div className={index % 2 === 1 ? 'md:order-2' : ''}>
-                  <div className="bg-soft-pink h-64 rounded-lg flex items-center justify-center">
+              <div key={index} className="text-center">
+                {/* Icon */}
+                <div className="flex justify-center mb-6">
+                  <div className="w-32 h-32 bg-white border border-rose-gold/20 rounded-full flex items-center justify-center shadow-inner">
                     {feature.icon}
                   </div>
                 </div>
-                <div className={index % 2 === 1 ? 'md:order-1' : ''}>
-                  <h3 className="text-2xl font-medium mb-4">{feature.title}</h3>
-                  <p className="text-text-secondary mb-6">{feature.description}</p>
-                  <ul className="space-y-3">
+                
+                {/* Content Card */}
+                <div className="bg-white border border-rose-gold/20 rounded-lg p-6 shadow-inner">
+                  {/* Title */}
+                  <h3 className="text-2xl font-medium mb-4 text-deep-charcoal">{feature.title}</h3>
+                  
+                  {/* Description */}
+                  <p className="text-text-secondary mb-6 max-w-sm mx-auto">{feature.description}</p>
+                  
+                  {/* Features List */}
+                  <ul className="space-y-3 max-w-sm mx-auto text-left">
                     {feature.features.map((item, i) => (
                       <li key={i} className="flex items-center gap-3">
                         <svg className="w-5 h-5 text-rose-gold flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
-                        <span>{item}</span>
+                        <span className="text-text-primary">{item}</span>
                       </li>
                     ))}
                   </ul>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AdminLayout } from '../../components/admin/AdminLayout'
+import { Layout } from '../../components/layout'
 import { Card, CardContent, Button, Badge } from '../../components/ui'
 import { messageService } from '../../services'
 import { useAuthStore } from '../../stores/auth.store'
@@ -77,20 +77,23 @@ export const AdminMessages: React.FC = () => {
 
   if (loading) {
     return (
-      <AdminLayout>
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-rose-gold mx-auto mb-4"></div>
-            <p className="text-text-secondary">Loading messages...</p>
+      <Layout>
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex items-center justify-center min-h-[400px]">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-rose-gold mx-auto mb-4"></div>
+              <p className="text-text-secondary">Loading messages...</p>
+            </div>
           </div>
         </div>
-      </AdminLayout>
+      </Layout>
     )
   }
 
   return (
-    <AdminLayout>
-      <div className="space-y-6">
+    <Layout>
+      <div className="container mx-auto px-4 py-8">
+        <div className="space-y-6">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-medium text-deep-charcoal">Contact Messages</h1>
           <div className="flex gap-2">
@@ -258,7 +261,8 @@ export const AdminMessages: React.FC = () => {
             )}
           </div>
         </div>
+        </div>
       </div>
-    </AdminLayout>
+    </Layout>
   )
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Layout, Container, Section, PageHeader } from '../components/layout'
 import { Spinner } from '../components/ui'
 import { BrandCardHero } from '../components/features/BrandCardHero'
-import { productService } from '../services'
+import { brandService } from '../services'
 import { Brand } from '../types'
 
 export const Brands: React.FC = () => {
@@ -16,7 +16,7 @@ export const Brands: React.FC = () => {
   const loadBrands = async () => {
     try {
       setIsLoading(true)
-      const data = await productService.getBrands()
+      const data = await brandService.getBrands()
       setBrands(data)
     } catch (error) {
       console.error('Failed to load brands:', error)

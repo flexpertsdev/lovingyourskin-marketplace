@@ -54,9 +54,9 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
   ]
 
   const consumerNavItems: NavItem[] = [
-    { label: 'Shop', href: '/consumer/shop' },
-    { label: 'Brands', href: '/consumer/brands' },
-    { label: 'Pre-orders', href: '/consumer/preorders' },
+    { label: 'Shop', href: '/shop' },
+    { label: 'Brands', href: '/shop/brands' },
+    { label: 'Pre-orders', href: '/shop/preorders' },
   ]
 
   const publicNavItems = mode === 'consumer' ? consumerNavItems : b2bNavItems
@@ -73,15 +73,15 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
 
   const authNavItems: NavItem[] = mode === 'consumer' ? [
     // B2C Consumer items
-    { label: 'Shop', href: '/consumer/shop', requiresAuth: true, roles: ['consumer'] },
-    { label: 'Cart', href: '/consumer/cart', requiresAuth: true, roles: ['consumer'] },
-    { label: 'My Orders', href: '/consumer/orders', requiresAuth: true, roles: ['consumer'] },
-    { label: 'Wishlist', href: '/consumer/wishlist', requiresAuth: true, roles: ['consumer'] },
+    { label: 'Shop', href: '/shop', requiresAuth: true, roles: ['consumer'] },
+    { label: 'Cart', href: '/shop/cart', requiresAuth: true, roles: ['consumer'] },
+    { label: 'My Orders', href: '/shop/orders', requiresAuth: true, roles: ['consumer'] },
+    { label: 'Wishlist', href: '/shop/wishlist', requiresAuth: true, roles: ['consumer'] },
   ] : [
     // B2B Retailer/Brand items
     { label: 'Brands', href: '/brands', requiresAuth: true, roles: ['retailer', 'admin'] },
     { label: 'Cart', href: '/cart', requiresAuth: true, roles: ['retailer'] },
-    { label: 'Dashboard', href: '/dashboard', requiresAuth: true, roles: ['retailer', 'brand', 'admin'] },
+    { label: 'Dashboard', href: '/dashboard', requiresAuth: true, roles: ['retailer', 'brand'] }, // Remove admin from Dashboard
     { label: 'Orders', href: '/orders', requiresAuth: true, roles: ['retailer', 'admin'] },
     { label: 'Messages', href: '/messages', requiresAuth: true, roles: ['retailer', 'brand', 'admin'] },
   ]
@@ -124,7 +124,7 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
       <nav className="flex items-center justify-between px-6 py-4">
         {/* Logo */}
         <Link 
-          to={mode === 'consumer' ? '/consumer/shop' : '/'} 
+          to={mode === 'consumer' ? '/shop' : '/'} 
           className="text-2xl font-light tracking-widest text-deep-charcoal hover:text-rose-gold transition-colors"
         >
           LOVING YOUR SKIN
@@ -153,7 +153,7 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
                   </span>
                 )}
                 {/* B2C Cart Badge */}
-                {item.href === '/consumer/cart' && mode === 'consumer' && getConsumerCartItems() > 0 && (
+                {item.href === '/shop/cart' && mode === 'consumer' && getConsumerCartItems() > 0 && (
                   <span className="absolute -top-1 -right-1 bg-rose-gold text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                     {getConsumerCartItems()}
                   </span>
@@ -194,7 +194,7 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
             {/* Cart Icon for non-logged in consumer users */}
             {!isAuthenticated && mode === 'consumer' && (
               <Link
-                to="/consumer/cart"
+                to="/shop/cart"
                 className="relative p-2"
               >
                 <CartIcon />
@@ -249,7 +249,7 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
                     Login
                   </Button>
                 </Link>
-                <Link to={mode === 'consumer' ? '/consumer/register' : '/register'}>
+                <Link to={mode === 'consumer' ? '/shop/register' : '/register'}>
                   <Button variant="primary" size="small">
                     Register
                   </Button>
@@ -316,7 +316,7 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
                   {/* Cart Link for non-authenticated consumer users */}
                   {!isAuthenticated && mode === 'consumer' && (
                     <Link
-                      to="/consumer/cart"
+                      to="/shop/cart"
                       className="block px-4 py-3 rounded-lg text-lg transition-colors text-text-primary hover:bg-soft-pink-hover"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
@@ -343,7 +343,7 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
                       {item.href === '/cart' && getB2BCartItems() > 0 && (
                         <span className="ml-2 text-rose-gold">({getB2BCartItems()})</span>
                       )}
-                      {item.href === '/consumer/cart' && getConsumerCartItems() > 0 && (
+                      {item.href === '/shop/cart' && getConsumerCartItems() > 0 && (
                         <span className="ml-2 text-rose-gold">({getConsumerCartItems()})</span>
                       )}
                     </Link>
@@ -408,7 +408,7 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
                       Login
                     </Button>
                   </Link>
-                  <Link to={mode === 'consumer' ? '/consumer/register' : '/register'} onClick={() => setIsMobileMenuOpen(false)}>
+                  <Link to={mode === 'consumer' ? '/shop/register' : '/register'} onClick={() => setIsMobileMenuOpen(false)}>
                     <Button variant="primary" size="medium" className="w-full">
                       Register
                     </Button>

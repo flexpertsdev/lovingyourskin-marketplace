@@ -215,7 +215,7 @@ export const Landing: React.FC = () => {
       <div className="bg-gradient-to-r from-rose-gold via-pink-500 to-rose-gold text-white py-6 shadow-lg relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
         <Container className="relative z-10">
-          <Link to="/consumer/shop" className="flex items-center justify-center gap-4 hover:scale-105 transition-transform duration-300">
+          <Link to="/shop" className="flex items-center justify-center gap-4 hover:scale-105 transition-transform duration-300">
             <div className="flex items-center gap-4">
               <span className="text-2xl font-bold uppercase tracking-wider animate-pulse">Not a business? - GO TO SHOP  </span>
               <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">

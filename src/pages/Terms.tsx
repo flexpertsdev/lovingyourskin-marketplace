@@ -78,8 +78,9 @@ export const Terms: React.FC = () => {
                 <ul className="list-disc pl-6 space-y-2">
                   <li>New accounts: Prepayment required</li>
                   <li>Established accounts: NET 30 or NET 60 terms available</li>
+                  <li>Established accounts: 60 terms available under condition</li>
                   <li>Accepted methods: Bank transfer (SWIFT/SEPA)</li>
-                  <li>Late payments subject to 1.5% monthly interest</li>
+                  <li>Late payments subject to 8% monthly interest</li>
                 </ul>
               </section>
 
@@ -167,7 +168,6 @@ export const Terms: React.FC = () => {
                   <li>Breach of these Terms</li>
                   <li>Non-payment or repeated late payments</li>
                   <li>Fraudulent or suspicious activity</li>
-                  <li>Failure to meet minimum activity requirements</li>
                 </ul>
               </section>
 

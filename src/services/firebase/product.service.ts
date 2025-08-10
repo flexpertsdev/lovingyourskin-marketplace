@@ -12,105 +12,10 @@ import {
   Timestamp
 } from 'firebase/firestore'
 import { db } from '../../lib/firebase/config'
-import { Product, Brand } from '../../types'
-import { transformBrandData, transformProductData } from '../../utils/transformMockData'
+import { Product } from '../../types'
 import { getProductName, getProductDescription } from '../../utils/product-helpers'
 
 class FirebaseProductService {
-  // ============================================
-  // BRAND OPERATIONS
-  // ============================================
-  
-  // Get all brands
-  async getBrands(): Promise<Brand[]> {
-    try {
-      const brandsSnapshot = await getDocs(collection(db, 'brands'))
-      return brandsSnapshot.docs.map(doc => {
-        const data = doc.data()
-        // Transform the data to ensure it matches the Brand interface
-        return transformBrandData({
-          ...data,
-          id: doc.id
-        })
-      })
-    } catch (error) {
-      console.error('Error fetching brands:', error)
-      throw new Error('Failed to fetch brands')
-    }
-  }
-  
-  // Get brand by ID or slug
-  async getBrand(idOrSlug: string): Promise<Brand | null> {
-    try {
-      // First try to get by ID
-      const brandDoc = await getDoc(doc(db, 'brands', idOrSlug))
-      if (brandDoc.exists()) {
-        const data = brandDoc.data()
-        return transformBrandData({ ...data, id: brandDoc.id })
-      }
-      
-      // If not found by ID, try by slug
-      const slugQuery = query(collection(db, 'brands'), where('slug', '==', idOrSlug))
-      const slugSnapshot = await getDocs(slugQuery)
-      
-      if (!slugSnapshot.empty) {
-        const doc = slugSnapshot.docs[0]
-        const data = doc.data()
-        return transformBrandData({ ...data, id: doc.id })
-      }
-      
-      return null
-    } catch (error) {
-      console.error('Error fetching brand:', error)
-      throw new Error('Failed to fetch brand')
-    }
-  }
-  
-  // Create a new brand
-  async createBrand(brandData: Omit<Brand, 'id'>): Promise<Brand> {
-    try {
-      const docRef = await addDoc(collection(db, 'brands'), {
-        ...brandData,
-        createdAt: Timestamp.now(),
-        updatedAt: Timestamp.now()
-      })
-      
-      const newBrand = await getDoc(docRef)
-      const data = newBrand.data()
-      return transformBrandData({ ...data, id: newBrand.id })
-    } catch (error) {
-      console.error('Error creating brand:', error)
-      throw new Error('Failed to create brand')
-    }
-  }
-  
-  // Update a brand
-  async updateBrand(brandId: string, updates: Partial<Brand>): Promise<void> {
-    try {
-      await updateDoc(doc(db, 'brands', brandId), {
-        ...updates,
-        updatedAt: Timestamp.now()
-      })
-    } catch (error) {
-      console.error('Error updating brand:', error)
-      throw new Error('Failed to update brand')
-    }
-  }
-  
-  // Delete a brand
-  async deleteBrand(brandId: string): Promise<void> {
-    try {
-      await deleteDoc(doc(db, 'brands', brandId))
-    } catch (error) {
-      console.error('Error deleting brand:', error)
-      throw new Error('Failed to delete brand')
-    }
-  }
-  
-  // ============================================
-  // PRODUCT OPERATIONS
-  // ============================================
-  
   // Get all products
   async getProducts(): Promise<Product[]> {
     try {
@@ -118,13 +23,10 @@ class FirebaseProductService {
         query(collection(db, 'products'), where('status', '==', 'active'))
       )
       
-      return productsSnapshot.docs.map(doc => {
-        const data = doc.data()
-        return transformProductData({
-          ...data,
-          id: doc.id
-        })
-      })
+      return productsSnapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id
+      } as Product))
     } catch (error) {
       console.error('Error fetching products:', error)
       throw new Error('Failed to fetch products')
@@ -141,13 +43,10 @@ class FirebaseProductService {
       )
       
       const productsSnapshot = await getDocs(productsQuery)
-      return productsSnapshot.docs.map(doc => {
-        const data = doc.data()
-        return transformProductData({
-          ...data,
-          id: doc.id
-        })
-      })
+      return productsSnapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id
+      } as Product))
     } catch (error) {
       console.error('Error fetching products by brand:', error)
       throw new Error('Failed to fetch products')
@@ -189,7 +88,7 @@ class FirebaseProductService {
       }
       
       const data = productDoc.data()
-      return transformProductData({ ...data, id: productDoc.id })
+      return { ...data, id: productDoc.id } as Product
     } catch (error) {
       console.error('Error fetching product:', error)
       throw new Error('Failed to fetch product')

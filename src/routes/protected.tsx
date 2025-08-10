@@ -2,7 +2,6 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { ProtectedRoute } from '../components/auth'
 import { Landing } from '../pages/Landing'
-import { ComponentDemo } from '../pages/ComponentDemo'
 import { Login, Register } from '../pages/auth'
 import { Brands } from '../pages/Brands'
 import { BrandDetail } from '../pages/BrandDetail'
@@ -26,7 +25,7 @@ import { RefundPolicy } from '../pages/RefundPolicy'
 import { Contact } from '../pages/Contact'
 import { Careers } from '../pages/Careers'
 import { CookiePolicy } from '../pages/CookiePolicy'
-import { AdminSetup } from '../pages/admin/Setup'
+import AdminSetup from '../pages/admin/AdminSetup'
 import { Preorder } from '../pages/Preorder'
 import { PreorderDetail } from '../pages/PreorderDetail'
 
@@ -35,7 +34,6 @@ export const AppRoutes: React.FC = () => {
     <Routes>
       {/* Public Routes */}
       <Route path="/" element={<Landing />} />
-      <Route path="/components" element={<ComponentDemo />} />
       
       {/* Auth Routes */}
       <Route path="/login" element={<Login />} />

@@ -60,7 +60,7 @@ const timelineSteps = [
   {
     day: 'Day 6-15',
     title: 'Shipping & Delivery',
-    description: 'Track your shipment in real-time. Receive your products with all necessary documentation.'
+    description: 'Receive your products in time, we handle all the necessary hurdles.'
   }
 ]
 

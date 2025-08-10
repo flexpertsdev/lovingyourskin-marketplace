@@ -7,7 +7,7 @@ import { Container } from "../components/layout/Container";
 import { Grid } from "../components/layout/Grid";
 import { Section } from "../components/layout/Section";
 import { PageHeader } from "../components/layout/PageHeader";
-import { productService } from "../services";
+import { brandService, productService } from "../services";
 import { Accordion } from "../components/ui/Accordion";
 import { Brand, Product } from "../types";
 import { Spinner } from "../components/ui";
@@ -25,7 +25,7 @@ export const Preorder: FunctionComponent = () => {
         setProducts(allProducts);
         
         if (allProducts.length > 0) {
-          const brandData = await productService.getBrand(allProducts[0].brandId);
+          const brandData = await brandService.getBrand(allProducts[0].brandId);
           setBrand(brandData);
         }
       } catch (error) {

@@ -130,7 +130,7 @@ export const AdminDashboard: React.FC = () => {
             <Grid cols={5} gap="md">
               <Card 
                 className="hover:shadow-lg transition-shadow cursor-pointer"
-                onClick={() => navigate('/admin/orders?status=pending')}
+                onClick={() => navigate('/admin/orders')}
               >
                 <CardContent className="text-center py-6">
                   <div className="text-3xl mb-2">📋</div>
@@ -173,7 +173,7 @@ export const AdminDashboard: React.FC = () => {
               
               <Card 
                 className="hover:shadow-lg transition-shadow cursor-pointer"
-                onClick={() => navigate('/admin/brands?status=pending')}
+                onClick={() => navigate('/admin/brands')}
               >
                 <CardContent className="text-center py-6">
                   <div className="text-3xl mb-2">🏢</div>
@@ -308,6 +308,13 @@ export const AdminDashboard: React.FC = () => {
                       onClick={() => navigate('/admin/affiliates')}
                     >
                       💰 Manage Affiliates
+                    </Button>
+                    <Button 
+                      variant="secondary" 
+                      fullWidth
+                      onClick={() => navigate('/admin/migrate-images')}
+                    >
+                      🖼️ Migrate External Images
                     </Button>
                   </div>
                 </CardContent>

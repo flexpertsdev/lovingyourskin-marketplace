@@ -192,26 +192,21 @@ export interface ProductVariant {
   }
 }
 
+// Multi-language support type
+export interface MultiLangString {
+  en: string
+  ko: string
+  zh: string
+}
+
 // Brand types based on mock data
 export interface Brand {
   id: string
   slug: string
-  name: {
-    en: string
-    ko: string
-    zh: string
-  }
-  tagline: string
-  description: {
-    en: string
-    ko: string
-    zh: string
-  }
-  story?: {
-    en: string
-    ko: string
-    zh: string
-  }
+  name: string | MultiLangString
+  tagline: string | MultiLangString
+  description: string | MultiLangString
+  story?: string
   logo: string
   heroImage: string
   heroImages?: string[]
@@ -223,6 +218,7 @@ export interface Brand {
   featureTags: string[]
   technologies?: Technology[]
   categories: string[]
+  isExclusivePartner?: boolean
   stats: {
     yearsInBusiness: number
     productsSold: string
@@ -230,12 +226,52 @@ export interface Brand {
   }
   active: boolean
   featured: boolean
+  // Additional fields found in Firestore
+  clinicalResults?: ClinicalResults
+  logoStyle?: LogoStyle
+  // Admin-specific fields (should be stored in Firestore)
+  contactEmail?: string
+  contactPerson?: string
+  website?: string
+  productCategories?: string[]
+  status?: 'active' | 'pending' | 'inactive'
+  applicationDate?: string
+  approvedDate?: string
+  createdAt?: any // Firestore timestamp
+  updatedAt?: any // Firestore timestamp
 }
 
 export interface Technology {
   name: string
   patent?: string
   description: string
+}
+
+// Clinical results type for brands
+export interface ClinicalResults {
+  hairLossReduction?: {
+    value: number
+    duration: string
+  }
+  hairGrowthVisible?: {
+    value: number
+    duration: string
+  }
+  scalpHealth?: {
+    value: number
+    duration: string
+  }
+  customerSatisfaction?: {
+    value: number
+    unit: string
+  }
+}
+
+// Logo style configuration
+export interface LogoStyle {
+  height?: string
+  objectFit?: string
+  backgroundColor?: string
 }
 
 export interface Category {

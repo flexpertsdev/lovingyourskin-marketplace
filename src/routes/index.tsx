@@ -4,13 +4,10 @@ import { useAuthStore } from '../stores/auth.store'
 
 // Pages
 import { Landing } from '../pages/Landing'
-import { ComponentDemo } from '../pages/ComponentDemo'
 import { Login, Register, ConsumerRegister } from '../pages/auth'
 import { Brands } from '../pages/Brands'
 import { BrandDetail } from '../pages/BrandDetail'
 import { ProductDetail } from '../pages/ProductDetail'
-import { Test } from '../pages/Test'
-import { TestAuth } from '../pages/TestAuth'
 import { Cart } from '../pages/Cart'
 import { Checkout } from '../pages/Checkout'
 import { Orders } from '../pages/Orders'
@@ -35,16 +32,14 @@ import AdminLogin from '../pages/admin/AdminLogin'
 import { Preorder } from '../pages/Preorder'
 import { PreorderDetail } from '../pages/PreorderDetail'
 import UserManagement from '../pages/admin/UserManagement'
-import { TestAuthFlow } from '../pages/TestAuthFlow'
 import { AdminMessages } from '../pages/admin/AdminMessages'
 import { AdminAffiliates } from '../pages/admin/AdminAffiliates'
-import { TestInviteCode } from '../pages/TestInviteCode'
 import ProductManagement from '../pages/admin/ProductManagement'
-import DebugAuth from '../pages/DebugAuth'
-import { TestFirestore } from '../pages/TestFirestore'
+import AdminBrands from '../pages/admin/AdminBrands'
+import AdminOrders from '../pages/admin/AdminOrders'
+import MigrateImages from '../pages/admin/MigrateImages'
 
 // Consumer Pages
-import { Shop } from '../pages/Shop'
 import { ConsumerShop } from '../pages/ConsumerShop'
 import { ConsumerCart } from '../pages/ConsumerCart'
 import { ConsumerCheckout } from '../pages/ConsumerCheckout'
@@ -53,6 +48,7 @@ import { ConsumerProductDetail } from '../pages/ConsumerProductDetail'
 import { ConsumerBrands } from '../pages/ConsumerBrands'
 import { ConsumerPreorders } from '../pages/ConsumerPreorders'
 import { ConsumerBrandDetail } from '../pages/ConsumerBrandDetail'
+import { Wishlist } from '../pages/Wishlist'
 
 // Protected Route Component
 interface ProtectedRouteProps {
@@ -127,19 +123,9 @@ export const AppRoutes: React.FC = () => {
   
   return (
     <Routes>
-      {/* Debug Route */}
-      <Route path="/debug" element={<DebugAuth />} />
-      <Route path="/test-auth-flow" element={<TestAuthFlow />} />
-      <Route path="/test-invite-code" element={<TestInviteCode />} />
-      <Route path="/test-firebase" element={<TestFirestore />} />
-      <Route path="/test-firestore" element={<TestFirestore />} />
-      
+   
       {/* Public Routes */}
       <Route path="/" element={<Landing />} />
-      <Route path="/test" element={<Test />} />
-      <Route path="/test-auth" element={<TestAuth />} />
-      <Route path="/debug-auth" element={<DebugAuth />} />
-      <Route path="/components" element={<ComponentDemo />} />
       
       {/* Auth Routes */}
       <Route path="/login" element={<Login />} />
@@ -259,6 +245,21 @@ export const AppRoutes: React.FC = () => {
           <ProductManagement />
         </AdminRoute>
       } />
+      <Route path="/admin/brands" element={
+        <AdminRoute>
+          <AdminBrands />
+        </AdminRoute>
+      } />
+      <Route path="/admin/orders" element={
+        <AdminRoute>
+          <AdminOrders />
+        </AdminRoute>
+      } />
+      <Route path="/admin/migrate-images" element={
+        <AdminRoute>
+          <MigrateImages />
+        </AdminRoute>
+      } />
       
       {/* Admin Auth Routes */}
       <Route path="/admin/login" element={<AdminLogin />} />
@@ -266,38 +267,22 @@ export const AppRoutes: React.FC = () => {
       {/* Admin Setup - Special route, should be removed after initial setup */}
       <Route path="/admin/setup" element={<AdminSetup />} />
       
-      {/* Consumer/B2C Routes */}
-      <Route path="/shop" element={<Shop />} />
-      <Route path="/consumer/shop" element={<ConsumerShop />} />
-      <Route path="/consumer/brands" element={<ConsumerBrands />} />
-      <Route path="/consumer/brands/:brandId" element={<ConsumerBrandDetail />} />
-      <Route path="/consumer/preorders" element={<ConsumerPreorders />} />
-      <Route path="/consumer/products/:productId" element={<ConsumerProductDetail />} />
-      <Route path="/consumer/cart" element={<ConsumerCart />} />
-      <Route path="/consumer/login" element={<ConsumerLogin />} />
-      <Route path="/consumer/register" element={<ConsumerRegister />} />
-      <Route path="/consumer/orders" element={
-        <ConsumerRoute>
-          <Orders />
-        </ConsumerRoute>
-      } />
-      <Route path="/consumer/wishlist" element={
-        <ConsumerRoute>
-          <div className="min-h-screen flex items-center justify-center">
-            <p>Wishlist page coming soon</p>
-          </div>
-        </ConsumerRoute>
-      } />
-      <Route path="/shop/login" element={<ConsumerLogin />} />
-      <Route path="/shop/cart" element={<ConsumerCart />} />
+      {/* Consumer/B2C Routes - Public */}
+      <Route path="/shop" element={<ConsumerShop />} />
+      <Route path="/shop/brands" element={<ConsumerBrands />} />
+      <Route path="/shop/brands/:brandId" element={<ConsumerBrandDetail />} />
+      <Route path="/shop/preorders" element={<ConsumerPreorders />} />
       <Route path="/shop/products/:productId" element={<ConsumerProductDetail />} />
+      <Route path="/shop/cart" element={<ConsumerCart />} />
+      <Route path="/shop/login" element={<ConsumerLogin />} />
+      <Route path="/shop/register" element={<ConsumerRegister />} />
+      
+      {/* Consumer Protected Routes */}
       <Route path="/shop/checkout" element={
         <ConsumerRoute>
           <ConsumerCheckout />
         </ConsumerRoute>
       } />
-      
-      {/* Consumer Protected Routes */}
       <Route path="/shop/account" element={
         <ConsumerRoute>
           <Profile />
@@ -310,11 +295,12 @@ export const AppRoutes: React.FC = () => {
       } />
       <Route path="/shop/wishlist" element={
         <ConsumerRoute>
-          <div className="min-h-screen flex items-center justify-center">
-            <p>Wishlist page coming soon</p>
-          </div>
+          <Wishlist />
         </ConsumerRoute>
       } />
+      
+      {/* Legacy consumer routes - redirect to new /shop/* pattern */}
+      <Route path="/consumer/*" element={<Navigate to="/shop" replace />} />
       
       {/* 404 */}
       <Route path="*" element={

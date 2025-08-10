@@ -9,6 +9,7 @@ import { db } from '../lib/firebase/config'
 import { Product, Brand } from '../types'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
 import toast from 'react-hot-toast'
+import { getLocalizedString } from '../lib/utils/cn'
 
 // Icon components
 const SearchIcon = () => (
@@ -98,18 +99,18 @@ const BrandShowcase: React.FC<{ brands: Brand[] }> = ({ brands }) => {
               {brand.heroImage ? (
                 <img 
                   src={brand.heroImage} 
-                  alt={brand.name}
+                  alt={getLocalizedString(brand.name)}
                   className="w-full h-24 object-cover rounded mb-3 group-hover:scale-105 transition-transform"
                 />
               ) : (
                 <div className="w-full h-24 bg-gradient-to-br from-rose-gold/20 to-rose-gold/10 rounded mb-3 flex items-center justify-center">
                   <span className="text-2xl font-light text-rose-gold">
-                    {brand.name.charAt(0)}
+                    {getLocalizedString(brand.name).charAt(0)}
                   </span>
                 </div>
               )}
               <h3 className="text-sm font-medium text-deep-charcoal text-center">
-                {brand.name}
+                {getLocalizedString(brand.name)}
               </h3>
             </Link>
           ))}
