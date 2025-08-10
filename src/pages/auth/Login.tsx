@@ -21,8 +21,29 @@ export const Login: React.FC = () => {
       await login(formData.email, formData.password)
       // Get updated user after login
       const authStore = useAuthStore.getState()
-      if (authStore.user?.role === 'admin') {
-        navigate('/admin/dashboard')
+      const user = authStore.user
+      
+      // Redirect based on user role
+      if (user) {
+        switch (user.role) {
+          case 'consumer':
+            navigate('/shop')
+            break
+          case 'affiliate':
+            navigate('/affiliate/dashboard')
+            break
+          case 'admin':
+            navigate('/admin')
+            break
+          case 'retailer':
+            navigate('/brands')
+            break
+          case 'brand':
+            navigate('/brand/dashboard')
+            break
+          default:
+            navigate('/dashboard')
+        }
       } else {
         navigate('/dashboard')
       }
@@ -91,7 +112,7 @@ export const Login: React.FC = () => {
               <p className="text-sm text-text-secondary">
                 Don't have an account?{' '}
                 <Link to="/register" className="text-rose-gold hover:text-rose-gold-dark font-medium">
-                  Request invitation
+                  Sign up
                 </Link>
               </p>
             </div>

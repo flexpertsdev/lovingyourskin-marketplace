@@ -1,7 +1,7 @@
 // Core types based on feature requirements from lys-project-plan-features.md
 
 // User types with role-based access (lines 57-61)
-export type UserRole = 'admin' | 'retailer' | 'brand' | 'consumer'
+export type UserRole = 'admin' | 'retailer' | 'brand' | 'consumer' | 'affiliate'
 
 export interface User {
   id: string
@@ -10,6 +10,7 @@ export interface User {
   companyId?: string // Optional for admin users and consumers
   brandId?: string // For brand users
   salesRepId?: string // Auto-linked from invite
+  affiliateId?: string // Links to their affiliate code if they are an affiliate
   language: 'en' | 'ko' | 'zh'
   name: string
   createdAt: Date
@@ -65,6 +66,25 @@ export interface InviteCode {
   createdBy: string
   expiresAt: Date
   createdAt: Date
+  // Affiliate-specific fields (only used when role='affiliate')
+  commissionPercent?: number // Commission rate for the affiliate
+  defaultDiscountPercent?: number // Default discount for their future public code
+}
+
+// Affiliate code system (public codes for customer discounts)
+export interface AffiliateCode {
+  id: string
+  code: string // Public code like "SAVE20" 
+  userId: string // The affiliate who owns this code
+  userName?: string // Affiliate's name for display
+  discountPercent: number // Customer discount
+  commissionPercent: number // Affiliate commission
+  active: boolean
+  usageCount: number
+  totalSales: number
+  totalCommission: number
+  createdAt: Date
+  updatedAt: Date
 }
 
 // Product types based on Firestore schema
@@ -334,6 +354,9 @@ export interface Order {
   brandName: string
   status: OrderStatus
   items: OrderItem[]
+  // Affiliate tracking
+  affiliateCode?: string // The affiliate code used for this order
+  affiliateUserId?: string // The affiliate who gets commission
   totalAmount: {
     items: number
     shipping: number

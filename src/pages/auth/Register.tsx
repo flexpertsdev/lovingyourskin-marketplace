@@ -9,7 +9,6 @@ export const Register: React.FC = () => {
   const [searchParams] = useSearchParams()
   const { register, isLoading, error, clearError } = useAuthStore()
   
-  const [step, setStep] = useState<'invite' | 'details'>('invite')
   const [inviteCode, setInviteCode] = useState('')
   const [formData, setFormData] = useState({
     email: '',
@@ -28,28 +27,12 @@ export const Register: React.FC = () => {
     
     if (codeParam) {
       setInviteCode(codeParam.toUpperCase())
-      
-      // If email is also provided, pre-fill it
-      if (emailParam) {
-        setFormData(prev => ({ ...prev, email: emailParam }))
-      }
-      
-      // Auto-advance to details step if code is provided
-      if (codeParam.trim().length >= 6) {
-        setStep('details')
-      }
+    }
+    
+    if (emailParam) {
+      setFormData(prev => ({ ...prev, email: emailParam }))
     }
   }, [searchParams])
-  
-  const handleInviteSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (inviteCode.trim().length < 6) {
-      setValidationError('Please enter a valid invitation code')
-      return
-    }
-    setValidationError('')
-    setStep('details')
-  }
   
   const handleRegisterSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -69,13 +52,38 @@ export const Register: React.FC = () => {
     }
     
     try {
-      await register(inviteCode, {
+      // Pass invite code (can be empty string for consumer registration)
+      const result = await register(inviteCode, {
         email: formData.email,
         password: formData.password,
         name: formData.name,
         language: formData.language
       })
-      navigate('/dashboard')
+      
+      // Redirect based on user role
+      if (result?.user) {
+        switch (result.user.role) {
+          case 'consumer':
+            navigate('/shop')
+            break
+          case 'affiliate':
+            navigate('/affiliate/dashboard')
+            break
+          case 'admin':
+            navigate('/admin')
+            break
+          case 'retailer':
+            navigate('/brands')
+            break
+          case 'brand':
+            navigate('/brand/dashboard')
+            break
+          default:
+            navigate('/dashboard')
+        }
+      } else {
+        navigate('/dashboard')
+      }
     } catch (error) {
       // Error is handled by the store
     }
@@ -86,114 +94,92 @@ export const Register: React.FC = () => {
       <Container size="sm">
         <Card className="w-full max-w-md mx-auto">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl">Join Loving Your Skin</CardTitle>
+            <CardTitle className="text-2xl">Create Your Account</CardTitle>
             <CardDescription>
-              {step === 'invite' 
-                ? 'Enter your invitation code to get started' 
-                : 'Create your account'}
+              Join the Loving Your Skin community
             </CardDescription>
           </CardHeader>
           
           <CardContent>
-            {step === 'invite' ? (
-              <form onSubmit={handleInviteSubmit} className="space-y-4">
-                <Input
-                  label="Invitation Code"
-                  placeholder="Enter your code"
-                  value={inviteCode}
-                  onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
-                  error={validationError || (error && step === 'invite' ? error : undefined)}
-                  hint="Don't have a code? Request one on our homepage"
-                  required
-                  maxLength={30}
-                />
-                
-                <Button type="submit" fullWidth size="large">
-                  Verify Code
-                </Button>
-                
-                {/* Demo Codes */}
-                <div className="mt-4 p-4 bg-soft-pink rounded-lg">
-                  <p className="text-sm font-medium text-deep-charcoal mb-2">Demo Invitation Codes:</p>
-                  <p className="text-xs text-text-secondary">Retailer: RETAIL2024</p>
-                  <p className="text-xs text-text-secondary">Brand: BRAND2024</p>
-                </div>
-              </form>
-            ) : (
-              <form onSubmit={handleRegisterSubmit} className="space-y-4">
-                <Input
-                  label="Full Name"
-                  placeholder="John Doe"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  required
-                  autoComplete="name"
-                />
-                
-                <Input
-                  label="Email"
-                  type="email"
-                  placeholder="you@example.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  required
-                  autoComplete="email"
-                />
-                
-                <Select
-                  label="Preferred Language"
-                  value={formData.language}
-                  onChange={(e) => setFormData({ ...formData, language: e.target.value as 'en' | 'ko' | 'zh' })}
-                  options={[
-                    { value: 'en', label: 'English' },
-                    { value: 'ko', label: '한국어 (Korean)' },
-                    { value: 'zh', label: '中文 (Chinese)' }
-                  ]}
-                />
-                
-                <Input
-                  label="Password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  hint="Minimum 8 characters"
-                  required
-                  autoComplete="new-password"
-                />
-                
-                <Input
-                  label="Confirm Password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={formData.confirmPassword}
-                  onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                  error={validationError || (error || undefined)}
-                  required
-                  autoComplete="new-password"
-                />
-                
-                <div className="flex gap-3">
-                  <Button
-                    type="button"
-                    variant="secondary"
-                    onClick={() => setStep('invite')}
-                    disabled={isLoading}
-                  >
-                    Back
-                  </Button>
-                  <Button
-                    type="submit"
-                    fullWidth
-                    size="large"
-                    loading={isLoading}
-                    disabled={isLoading}
-                  >
-                    Create Account
-                  </Button>
-                </div>
-              </form>
-            )}
+            <form onSubmit={handleRegisterSubmit} className="space-y-4">
+              <Input
+                label="Full Name"
+                placeholder="John Doe"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                required
+                autoComplete="name"
+              />
+              
+              <Input
+                label="Email"
+                type="email"
+                placeholder="you@example.com"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                required
+                autoComplete="email"
+              />
+              
+              <Select
+                label="Preferred Language"
+                value={formData.language}
+                onChange={(e) => setFormData({ ...formData, language: e.target.value as 'en' | 'ko' | 'zh' })}
+                options={[
+                  { value: 'en', label: 'English' },
+                  { value: 'ko', label: '한국어 (Korean)' },
+                  { value: 'zh', label: '中文 (Chinese)' }
+                ]}
+              />
+              
+              <Input
+                label="Password"
+                type="password"
+                placeholder="••••••••"
+                value={formData.password}
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                hint="Minimum 8 characters"
+                required
+                autoComplete="new-password"
+              />
+              
+              <Input
+                label="Confirm Password"
+                type="password"
+                placeholder="••••••••"
+                value={formData.confirmPassword}
+                onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                required
+                autoComplete="new-password"
+              />
+              
+              <Input
+                label="Invitation Code (Optional)"
+                placeholder="Enter code if you have one"
+                value={inviteCode}
+                onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
+                hint="Have a retailer, brand, or affiliate code? Enter it here"
+                maxLength={30}
+              />
+              
+              {validationError && (
+                <div className="text-red-500 text-sm">{validationError}</div>
+              )}
+              
+              {error && (
+                <div className="text-red-500 text-sm">{error}</div>
+              )}
+              
+              <Button
+                type="submit"
+                fullWidth
+                size="large"
+                loading={isLoading}
+                disabled={isLoading}
+              >
+                Create Account
+              </Button>
+            </form>
             
             <div className="mt-6 text-center">
               <p className="text-sm text-text-secondary">

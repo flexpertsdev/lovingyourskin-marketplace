@@ -40,6 +40,9 @@ import AdminOrders from '../pages/admin/AdminOrders'
 import MigrateImages from '../pages/admin/MigrateImages'
 import AdminDiscounts from '../pages/admin/AdminDiscounts'
 
+// Affiliate Pages
+import { AffiliateDashboard } from '../pages/affiliate/AffiliateDashboard'
+
 // Consumer Pages
 import { ConsumerShop } from '../pages/ConsumerShop'
 import { ConsumerCart } from '../pages/ConsumerCart'
@@ -296,6 +299,13 @@ export const AppRoutes: React.FC = () => {
       
       {/* Admin Setup - Special route, should be removed after initial setup */}
       <Route path="/admin/setup" element={<AdminSetup />} />
+      
+      {/* Affiliate Routes */}
+      <Route path="/affiliate/dashboard" element={
+        <ProtectedRoute allowedRoles={['affiliate']}>
+          <AffiliateDashboard />
+        </ProtectedRoute>
+      } />
       
       {/* Consumer/B2C Routes - Public */}
       <Route path="/shop" element={<ConsumerShop />} />
