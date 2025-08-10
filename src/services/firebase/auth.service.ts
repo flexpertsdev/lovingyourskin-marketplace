@@ -132,15 +132,24 @@ class FirebaseAuthService {
       )
       
       // Create user document in Firestore
-      const userDoc = {
+      const userDoc: any = {
         email: userData.email,
         name: userData.name,
         role: invite.role,
-        companyId: invite.companyId,
-        salesRepId: invite.salesRepId,
         language: userData.language,
         createdAt: new Date(),
         lastLoginAt: new Date()
+      }
+      
+      // Only add these fields if they're defined
+      if (invite.companyId) {
+        userDoc.companyId = invite.companyId
+      }
+      if (invite.salesRepId) {
+        userDoc.salesRepId = invite.salesRepId
+      }
+      if (invite.role === 'affiliate') {
+        userDoc.affiliateId = userCredential.user.uid
       }
       
       await setDoc(doc(db, 'users', userCredential.user.uid), userDoc)
@@ -152,7 +161,7 @@ class FirebaseAuthService {
         usedAt: new Date()
       }, { merge: true })
       
-      // If this is an affiliate, create their affiliate discount code
+      // If this is an affiliate, create their affiliate code
       if (invite.role === 'affiliate') {
         // Generate a unique affiliate code based on their name
         const affiliateCode = userData.name
@@ -160,39 +169,67 @@ class FirebaseAuthService {
           .replace(/[^A-Z0-9]/g, '')
           .substring(0, 10) + Math.random().toString(36).substring(2, 6).toUpperCase()
         
-        // Create the affiliate record
+        // Create the affiliate code in affiliateCodes collection
         const affiliateData = {
-          id: userCredential.user.uid,
-          userId: userCredential.user.uid,
-          name: userData.name,
-          email: userData.email,
           code: affiliateCode,
-          commissionRate: invite.commissionPercent || 10, // Default 10% commission
-          totalSales: 0,
-          totalCommission: 0,
+          name: userData.name,
+          userId: userCredential.user.uid,
+          campaign: invite.companyId || 'default',
+          description: `Affiliate code for ${userData.name}`,
+          
+          // Commission settings
+          commissionType: 'percentage' as const,
+          commissionValue: invite.commissionPercent || 10,
+          
+          // Discount settings
+          discountType: 'percentage' as const,
+          discountValue: invite.defaultDiscountPercent || 10,
+          
+          // Statistics
+          currentUses: 0,
+          totalRevenue: 0,
           totalOrders: 0,
-          status: 'active' as const,
+          totalCustomers: 0,
+          
+          // Status
+          active: true,
+          validFrom: new Date(),
+          validUntil: null,
+          
+          // Metadata
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
+          createdBy: userCredential.user.uid
         }
         
-        await setDoc(doc(db, 'affiliates', userCredential.user.uid), affiliateData)
+        await setDoc(doc(db, 'affiliateCodes', affiliateCode), affiliateData)
         
-        // Create the discount code for this affiliate
+        // Create the corresponding discount code in discountCodes collection
         const discountData = {
-          id: affiliateCode,
           code: affiliateCode,
+          name: `${userData.name} Affiliate Code`,
+          description: `Affiliate code for ${userData.name}`,
           type: 'affiliate' as const,
+          
+          // Discount details
           discountType: 'percentage' as const,
-          discountValue: invite.defaultDiscountPercent || 10, // Default 10% discount
-          affiliateId: userCredential.user.uid,
-          usageLimit: null, // Unlimited uses for affiliate codes
-          usageCount: 0,
+          discountValue: invite.defaultDiscountPercent || 10,
+          
+          // Usage tracking
+          currentUses: 0,
+          totalOrders: 0,
+          totalRevenue: 0,
+          totalSavings: 0,
+          
+          // Status
+          active: true,
           validFrom: new Date(),
-          validUntil: null, // No expiration for affiliate codes
-          isActive: true,
+          validUntil: null,
+          
+          // Metadata
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
+          createdBy: userCredential.user.uid
         }
         
         await setDoc(doc(db, 'discountCodes', affiliateCode), discountData)
