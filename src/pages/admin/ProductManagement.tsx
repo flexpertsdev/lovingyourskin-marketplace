@@ -15,8 +15,9 @@ import { Textarea } from '@/components/ui/Textarea';
 import { Label } from '@/components/ui/label';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import toast from 'react-hot-toast';
-import { Loader2, Search, Plus, Edit, Trash2, X } from 'lucide-react';
+import { Loader2, Search, Plus, Edit, Trash2 } from 'lucide-react';
 import { getProductName, getProductPrimaryImage } from '@/utils/product-helpers';
+import { ImageUploadManager } from '@/components/admin/ImageUploadManager';
 
 export default function ProductManagement() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -340,13 +341,13 @@ function ProductEditForm({
     setIsDirty(true);
   };
 
-  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files) return;
-
-    // TODO: Implement image upload to Firebase Storage
-    console.log('Files selected:', files);
-    toast('Image upload feature coming soon', { icon: 'ℹ️' });
+  const handleImagesUpdate = (images: string[]) => {
+    updateFormData({
+      images: {
+        primary: images[0] || formData.images?.primary || '',
+        gallery: images
+      }
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -596,41 +597,17 @@ function ProductEditForm({
         </TabsContent>
 
         <TabsContent value="images" className="mt-6">
-          <div className="px-6 py-6 space-y-4">
-            <div>
-              <Label>Current Images</Label>
-              <div className="grid grid-cols-4 gap-4 mt-2">
-                {formData.images?.gallery?.map((img, index) => (
-                  <div key={index} className="relative">
-                    <img src={img} alt="" className="w-full h-32 object-cover rounded" />
-                    <Button
-                      size="small"
-                      variant="secondary"
-                      className="absolute top-2 right-2 text-red-600"
-                      onClick={() => {
-                        const newGallery = formData.images.gallery.filter((_, i) => i !== index);
-                        updateFormData({
-                          images: { ...formData.images, gallery: newGallery },
-                        });
-                      }}
-                    >
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <Label htmlFor="images">Upload New Images</Label>
-              <Input
-                id="images"
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleImageChange}
-              />
-            </div>
+          <div className="px-6 py-6">
+            <ImageUploadManager
+              images={formData.images?.gallery || []}
+              onChange={handleImagesUpdate}
+              entityType="product"
+              entityId={product.id || 'new'}
+              brandId={formData.brandId}
+              maxImages={10}
+              label="Product Images"
+              helpText="Upload up to 10 images. The first image will be used as the primary image."
+            />
           </div>
         </TabsContent>
 
@@ -934,13 +911,13 @@ function ProductCreateForm({
     setIsDirty(true);
   };
 
-  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files) return;
-
-    // TODO: Implement image upload to Firebase Storage
-    console.log('Files selected:', files);
-    toast('Image upload feature coming soon', { icon: 'ℹ️' });
+  const handleImagesUpdate = (images: string[]) => {
+    updateFormData({
+      images: {
+        primary: images[0] || formData.images?.primary || '',
+        gallery: images
+      }
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -1234,30 +1211,17 @@ function ProductCreateForm({
         </TabsContent>
 
         <TabsContent value="images" className="mt-6">
-          <div className="px-6 py-6 space-y-4">
-            <div>
-              <Label htmlFor="primaryImage">Primary Image URL</Label>
-              <Input
-                id="primaryImage"
-                value={formData.images?.primary || ''}
-                onChange={(e) => updateFormData({
-                  images: { ...formData.images, primary: e.target.value, gallery: formData.images?.gallery || [] }
-                })}
-                placeholder="https://..."
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="images">Upload Images</Label>
-              <Input
-                id="images"
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleImageChange}
-              />
-              <p className="text-sm text-gray-500 mt-1">Image upload to Firebase Storage coming soon</p>
-            </div>
+          <div className="px-6 py-6">
+            <ImageUploadManager
+              images={formData.images?.gallery || []}
+              onChange={handleImagesUpdate}
+              entityType="product"
+              entityId="new"
+              brandId={formData.brandId}
+              maxImages={10}
+              label="Product Images"
+              helpText="Upload up to 10 images. The first image will be used as the primary image."
+            />
           </div>
         </TabsContent>
 

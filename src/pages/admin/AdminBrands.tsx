@@ -14,8 +14,9 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import toast from 'react-hot-toast'
 import { Search, Plus, Edit, Trash2 } from 'lucide-react'
 import { useAuthStore } from '../../stores/auth.store'
-import { brandService, storageService } from '../../services'
+import { brandService } from '../../services'
 import type { Brand } from '../../types'
+import { ImageUploadManager } from '../../components/admin/ImageUploadManager'
 
 // Extended Brand type for admin management - no longer needed as fields are now in main Brand type
 type AdminBrand = Brand
@@ -394,7 +395,6 @@ function BrandEditForm({
   onCancel: () => void
 }) {
   const [formData, setFormData] = useState(brand)
-  const [uploadingLogo, setUploadingLogo] = useState(false)
   const categories = ['cleansers', 'toners', 'serums', 'moisturizers', 'masks', 'sun-care', 'hair-care', 'body-care']
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -450,88 +450,16 @@ function BrandEditForm({
           </div>
 
           <div>
-            <Label htmlFor="logo">Logo</Label>
-            <div className="space-y-2">
-              {formData.logo && (
-                <div className="flex items-center gap-4">
-                  <img
-                    src={formData.logo}
-                    alt="Brand logo"
-                    className="w-20 h-20 object-contain border rounded"
-                  />
-                  <Button
-                    type="button"
-                    variant="secondary"
-                    size="small"
-                    onClick={() => setFormData({ ...formData, logo: '' })}
-                  >
-                    Remove
-                  </Button>
-                </div>
-              )}
-              <div className="flex gap-2">
-                <Input
-                  id="logo"
-                  value={formData.logo || ''}
-                  onChange={(e) => setFormData({ ...formData, logo: e.target.value })}
-                  placeholder="https://example.com/logo.png"
-                  className="flex-1"
-                />
-                <Button
-                  type="button"
-                  variant="secondary"
-                  onClick={async () => {
-                    if (formData.logo && !storageService.isFirebaseStorageUrl(formData.logo)) {
-                      setUploadingLogo(true)
-                      try {
-                        const newUrl = await storageService.migrateExternalImage(
-                          formData.logo,
-                          'brand',
-                          brand.id
-                        )
-                        setFormData({ ...formData, logo: newUrl })
-                        toast.success('Logo uploaded to Firebase Storage')
-                      } catch (error) {
-                        toast.error('Failed to upload logo')
-                      } finally {
-                        setUploadingLogo(false)
-                      }
-                    }
-                  }}
-                  disabled={!formData.logo || storageService.isFirebaseStorageUrl(formData.logo) || uploadingLogo}
-                >
-                  {uploadingLogo ? 'Uploading...' : 'Upload to Firebase'}
-                </Button>
-              </div>
-              <div className="flex items-center gap-2">
-                <Input
-                  type="file"
-                  accept="image/*"
-                  onChange={async (e) => {
-                    const file = e.target.files?.[0]
-                    if (file) {
-                      setUploadingLogo(true)
-                      try {
-                        const path = storageService.getBrandLogoPath(brand.id, file.name)
-                        const url = await storageService.uploadImageFile(file, path)
-                        setFormData({ ...formData, logo: url })
-                        toast.success('Logo uploaded successfully')
-                      } catch (error) {
-                        console.error('Upload error:', error)
-                        toast.error('Failed to upload logo')
-                      } finally {
-                        setUploadingLogo(false)
-                      }
-                    }
-                  }}
-                  disabled={uploadingLogo}
-                />
-                <span className="text-sm text-gray-500">or</span>
-              </div>
-              <p className="text-xs text-gray-500">
-                Upload an image file or enter an image URL above
-              </p>
-            </div>
+            <Label>Brand Logo</Label>
+            <ImageUploadManager
+              images={formData.logo ? [formData.logo] : []}
+              onChange={(images) => setFormData({ ...formData, logo: images[0] || '' })}
+              entityType="brand"
+              entityId={brand.id}
+              maxImages={1}
+              label=""
+              helpText="Upload your brand logo. Recommended size: 400x400px"
+            />
           </div>
 
           <div>
@@ -997,6 +925,19 @@ function BrandCreateForm({
             value={formData.website || ''}
             onChange={(e) => setFormData({ ...formData, website: e.target.value })}
             placeholder="https://example.com"
+          />
+        </div>
+
+        <div>
+          <Label>Brand Logo</Label>
+          <ImageUploadManager
+            images={formData.logo ? [formData.logo] : []}
+            onChange={(images) => setFormData({ ...formData, logo: images[0] || '' })}
+            entityType="brand"
+            entityId="new"
+            maxImages={1}
+            label=""
+            helpText="Upload your brand logo. Recommended size: 400x400px"
           />
         </div>
 

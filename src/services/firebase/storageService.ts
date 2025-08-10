@@ -1,5 +1,12 @@
 import { storage } from '../../lib/firebase/config'
-import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
+import { ref, uploadBytes, getDownloadURL, deleteObject, uploadBytesResumable, UploadTaskSnapshot } from 'firebase/storage'
+import { extractStoragePathFromUrl, generateUniqueFilename, compressImage } from '../../utils/imageUtils'
+
+export interface UploadProgress {
+  bytesTransferred: number
+  totalBytes: number
+  percentage: number
+}
 
 class StorageService {
   /**
@@ -153,6 +160,133 @@ class StorageService {
     )
     
     return migratedImages
+  }
+
+  /**
+   * Upload an image file with progress tracking
+   */
+  async uploadImageFileWithProgress(
+    file: File,
+    path: string,
+    onProgress?: (progress: UploadProgress) => void,
+    compress: boolean = true
+  ): Promise<string> {
+    try {
+      // Compress image if requested
+      let fileToUpload = file
+      if (compress) {
+        fileToUpload = await compressImage(file)
+      }
+
+      // Generate unique filename to avoid conflicts
+      const uniquePath = path.includes('.') 
+        ? path 
+        : `${path}/${generateUniqueFilename(file.name)}`
+
+      const storageRef = ref(storage, uniquePath)
+      const uploadTask = uploadBytesResumable(storageRef, fileToUpload)
+
+      return new Promise((resolve, reject) => {
+        uploadTask.on(
+          'state_changed',
+          (snapshot: UploadTaskSnapshot) => {
+            const progress: UploadProgress = {
+              bytesTransferred: snapshot.bytesTransferred,
+              totalBytes: snapshot.totalBytes,
+              percentage: (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            }
+            onProgress?.(progress)
+          },
+          (error) => {
+            console.error('Upload error:', error)
+            reject(error)
+          },
+          async () => {
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
+            resolve(downloadURL)
+          }
+        )
+      })
+    } catch (error) {
+      console.error('Error uploading image with progress:', error)
+      throw error
+    }
+  }
+
+  /**
+   * Delete an image by its URL
+   */
+  async deleteImageByUrl(url: string): Promise<void> {
+    try {
+      const path = extractStoragePathFromUrl(url)
+      if (!path) {
+        throw new Error('Could not extract storage path from URL')
+      }
+      await this.deleteImage(path)
+    } catch (error) {
+      console.error('Error deleting image by URL:', error)
+      throw error
+    }
+  }
+
+  /**
+   * Batch upload multiple files with progress tracking
+   */
+  async batchUploadFiles(
+    files: File[],
+    basePath: string,
+    onProgress?: (fileIndex: number, progress: UploadProgress) => void,
+    compress: boolean = true
+  ): Promise<string[]> {
+    const uploadPromises = files.map((file, index) => 
+      this.uploadImageFileWithProgress(
+        file,
+        `${basePath}/${generateUniqueFilename(file.name)}`,
+        (progress) => onProgress?.(index, progress),
+        compress
+      )
+    )
+
+    try {
+      const urls = await Promise.all(uploadPromises)
+      return urls
+    } catch (error) {
+      console.error('Error in batch upload:', error)
+      throw error
+    }
+  }
+
+  /**
+   * Batch delete multiple images by URLs
+   */
+  async batchDeleteByUrls(urls: string[]): Promise<void> {
+    const deletePromises = urls.map(url => this.deleteImageByUrl(url))
+    
+    try {
+      await Promise.all(deletePromises)
+    } catch (error) {
+      console.error('Error in batch delete:', error)
+      // Continue deleting even if some fail
+      const results = await Promise.allSettled(deletePromises)
+      const failed = results.filter(r => r.status === 'rejected')
+      if (failed.length > 0) {
+        console.warn(`Failed to delete ${failed.length} images`)
+      }
+    }
+  }
+
+  /**
+   * Get a storage path for brand images
+   */
+  getBrandImagePath(brandId: string, filename: string): string {
+    return `brands/${brandId}/images/${filename}`
+  }
+
+  /**
+   * Get a storage path for product gallery images
+   */
+  getProductGalleryPath(brandId: string, productId: string, filename: string): string {
+    return `products/${brandId}/${productId}/gallery/${filename}`
   }
 }
 
