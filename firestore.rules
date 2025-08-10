@@ -140,8 +140,14 @@ service cloud.firestore {
       // Anyone can read to validate codes
       allow read: if true;
       
-      // Only admins can manage affiliate codes
-      allow create, update, delete: if isAdmin();
+      // Allow users to create their own affiliate code during registration
+      // The code ID should match their generated affiliate code
+      allow create: if isAuthenticated() && 
+        request.resource.data.userId == request.auth.uid &&
+        request.resource.data.createdBy == request.auth.uid;
+      
+      // Only admins can update or delete affiliate codes
+      allow update, delete: if isAdmin();
     }
     
     // Shopping carts (B2C)
@@ -211,8 +217,14 @@ service cloud.firestore {
       // Anyone can read to validate codes during checkout
       allow read: if true;
       
-      // Only admins can manage discount codes
-      allow create, update, delete: if isAdmin();
+      // Allow users to create discount codes linked to their affiliate code
+      // This happens during affiliate registration
+      allow create: if isAuthenticated() && 
+        request.resource.data.type == 'affiliate' &&
+        request.resource.data.createdBy == request.auth.uid;
+      
+      // Only admins can update or delete discount codes
+      allow update, delete: if isAdmin();
     }
     
     // Affiliate tracking collection
