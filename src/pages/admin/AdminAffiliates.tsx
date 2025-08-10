@@ -161,17 +161,23 @@ export default function AdminAffiliates() {
 
       // TODO: Update affiliate service to use new Affiliate type
       // For now, create using the old AffiliateCode structure
+      const affiliateCode = newAffiliate.discountCode || `AFF${Date.now()}`
+      
       await affiliateService.createAffiliateCode({
-        code: newAffiliate.discountCode || `AFF${Date.now()}`,
+        code: affiliateCode,
         name: newAffiliate.name || 'Unnamed Affiliate',
         description: `Affiliate code for ${newAffiliate.name}`,
-        campaign: newAffiliate.company,
+        campaign: newAffiliate.company || '',
+        userId: user?.id,
         commissionType: newAffiliate.commissionType || 'percentage',
         commissionValue: newAffiliate.commissionValue || 10,
         discountType: 'percentage',
         discountValue: 10, // Default 10% discount for customers
+        maxUses: undefined,
+        maxUsesPerCustomer: undefined,
         active: newAffiliate.status === 'active',
         validFrom: new Date(),
+        validUntil: undefined,
         createdBy: user?.id || ''
       })
       
@@ -181,7 +187,8 @@ export default function AdminAffiliates() {
       setCreateDialogOpen(false)
     } catch (error) {
       console.error('Error creating affiliate:', error)
-      toast.error('Failed to create affiliate')
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+      toast.error(`Failed to create affiliate: ${errorMessage}`)
     }
   }
 

@@ -81,6 +81,9 @@ export const Orders: React.FC = () => {
   }
   
   const getLatestUpdate = (order: Order) => {
+    if (!order.timeline || order.timeline.length === 0) {
+      return 'No updates'
+    }
     const latest = order.timeline[order.timeline.length - 1]
     return latest ? latest.description : 'No updates'
   }
@@ -176,7 +179,7 @@ export const Orders: React.FC = () => {
                         <p className="text-2xl font-medium text-rose-gold mb-2">
                           £{order.totalAmount.total.toFixed(2)}
                         </p>
-                        {order.documents.length > 0 && (
+                        {order.documents && order.documents.length > 0 && (
                           <p className="text-sm text-text-secondary">
                             📎 {order.documents.length} document{order.documents.length > 1 ? 's' : ''}
                           </p>
@@ -188,7 +191,7 @@ export const Orders: React.FC = () => {
                     <div className="mt-4 pt-4 border-t border-border-gray">
                       <div className="flex items-center gap-2 overflow-x-auto">
                         {['pending', 'confirmed', 'processing', 'invoiced', 'paid', 'preparing', 'shipped', 'delivered', 'completed'].map((status, index) => {
-                          const isCompleted = order.timeline.some(t => t.status === status)
+                          const isCompleted = order.timeline && order.timeline.some(t => t.status === status)
                           const isCurrent = order.status === status
                           
                           return (

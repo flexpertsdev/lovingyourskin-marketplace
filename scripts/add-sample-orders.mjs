@@ -20,6 +20,47 @@ initializeApp({
 
 const db = getFirestore();
 
+// Helper function to generate timeline based on status
+function generateTimeline(status, createdDate) {
+  const timeline = [];
+  const statusOrder = ['pending', 'confirmed', 'processing', 'invoiced', 'paid', 'preparing', 'shipped', 'delivered', 'completed'];
+  
+  // Handle cancelled status specially
+  if (status === 'cancelled') {
+    timeline.push({
+      status: 'pending',
+      description: 'Order pending',
+      timestamp: Timestamp.fromDate(createdDate)
+    });
+    const cancelDate = new Date(createdDate);
+    cancelDate.setHours(cancelDate.getHours() + 2);
+    timeline.push({
+      status: 'cancelled',
+      description: 'Order cancelled',
+      timestamp: Timestamp.fromDate(cancelDate)
+    });
+    return timeline;
+  }
+  
+  const currentIndex = statusOrder.indexOf(status);
+  
+  if (currentIndex >= 0) {
+    // Add all statuses up to the current one
+    for (let i = 0; i <= currentIndex; i++) {
+      const date = new Date(createdDate);
+      date.setHours(date.getHours() + (i * 24)); // Each status 1 day apart
+      
+      timeline.push({
+        status: statusOrder[i],
+        description: `Order ${statusOrder[i]}`,
+        timestamp: Timestamp.fromDate(date)
+      });
+    }
+  }
+  
+  return timeline;
+}
+
 // Sample orders
 const orders = [
   {
@@ -56,8 +97,11 @@ const orders = [
     },
     paymentMethod: 'card',
     createdAt: Timestamp.fromDate(new Date('2024-01-15')),
+    updatedAt: Timestamp.fromDate(new Date('2024-01-22')),
+    timeline: generateTimeline('delivered', new Date('2024-01-15')),
     trackingNumber: 'GB123456789',
-    notes: 'Gift wrapping requested'
+    notes: 'Gift wrapping requested',
+    documents: []
   },
   {
     orderNumber: 'ORD-2024-002',
@@ -93,7 +137,10 @@ const orders = [
     },
     paymentMethod: 'invoice',
     createdAt: Timestamp.fromDate(new Date('2024-01-18')),
-    trackingNumber: 'GB987654321'
+    updatedAt: Timestamp.fromDate(new Date('2024-01-23')),
+    timeline: generateTimeline('shipped', new Date('2024-01-18')),
+    trackingNumber: 'GB987654321',
+    documents: []
   },
   {
     orderNumber: 'ORD-2024-003',
@@ -138,7 +185,10 @@ const orders = [
     },
     paymentMethod: 'card',
     createdAt: Timestamp.fromDate(new Date('2024-01-20')),
-    notes: 'Contains pre-order items - ship when available'
+    updatedAt: Timestamp.fromDate(new Date('2024-01-21')),
+    timeline: generateTimeline('processing', new Date('2024-01-20')),
+    notes: 'Contains pre-order items - ship when available',
+    documents: []
   },
   {
     orderNumber: 'ORD-2024-004',
@@ -172,7 +222,10 @@ const orders = [
       total: 75.59
     },
     paymentMethod: 'card',
-    createdAt: Timestamp.fromDate(new Date('2024-01-22'))
+    createdAt: Timestamp.fromDate(new Date('2024-01-22')),
+    updatedAt: Timestamp.fromDate(new Date('2024-01-22')),
+    timeline: generateTimeline('pending', new Date('2024-01-22')),
+    documents: []
   },
   {
     orderNumber: 'ORD-2024-005',
@@ -218,7 +271,10 @@ const orders = [
     },
     paymentMethod: 'invoice',
     createdAt: Timestamp.fromDate(new Date('2024-01-23')),
-    notes: 'Mixed order with pre-order items - partial shipment acceptable'
+    updatedAt: Timestamp.fromDate(new Date('2024-01-23')),
+    timeline: generateTimeline('pending', new Date('2024-01-23')),
+    notes: 'Mixed order with pre-order items - partial shipment acceptable',
+    documents: []
   },
   {
     orderNumber: 'ORD-2024-006',
@@ -253,7 +309,10 @@ const orders = [
     },
     paymentMethod: 'card',
     createdAt: Timestamp.fromDate(new Date('2024-01-19')),
-    notes: 'Customer cancelled - payment refunded'
+    updatedAt: Timestamp.fromDate(new Date('2024-01-19')),
+    timeline: generateTimeline('cancelled', new Date('2024-01-19')),
+    notes: 'Customer cancelled - payment refunded',
+    documents: []
   }
 ];
 
