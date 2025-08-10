@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { Layout } from '../components/layout'
 import { Container, Section } from '../components/layout'
 import { Button, Card, CardContent, Badge } from '../components/ui'
@@ -33,10 +33,14 @@ const statusLabels: Record<OrderStatus, string> = {
 
 export const Orders: React.FC = () => {
   const navigate = useNavigate()
+  const location = useLocation()
   const { user } = useAuthStore()
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [statusFilter, setStatusFilter] = useState<OrderStatus | 'all'>('all')
+  
+  // Detect if we're in consumer mode based on the route
+  const isConsumerMode = location.pathname.startsWith('/shop')
   
   useEffect(() => {
     loadOrders()
@@ -83,7 +87,7 @@ export const Orders: React.FC = () => {
   
   if (loading) {
     return (
-      <Layout>
+      <Layout mode={isConsumerMode ? 'consumer' : 'b2b'}>
         <Section>
           <Container>
             <div className="text-center py-20">Loading orders...</div>
@@ -94,7 +98,7 @@ export const Orders: React.FC = () => {
   }
   
   return (
-    <Layout>
+    <Layout mode={isConsumerMode ? 'consumer' : 'b2b'}>
       <Section>
         <Container>
           <div className="flex justify-between items-center mb-8">
@@ -116,7 +120,7 @@ export const Orders: React.FC = () => {
                 ))}
               </select>
               
-              <Button onClick={() => navigate('/brands')}>
+              <Button onClick={() => navigate(isConsumerMode ? '/shop/brands' : '/brands')}>
                 New Order
               </Button>
             </div>
@@ -136,8 +140,8 @@ export const Orders: React.FC = () => {
                     : `No ${statusLabels[statusFilter as OrderStatus]?.toLowerCase()} orders`
                   }
                 </p>
-                {user?.role === 'retailer' && (
-                  <Button onClick={() => navigate('/brands')}>
+                {(user?.role === 'retailer' || isConsumerMode) && (
+                  <Button onClick={() => navigate(isConsumerMode ? '/shop/brands' : '/brands')}>
                     Browse Brands
                   </Button>
                 )}
@@ -149,7 +153,7 @@ export const Orders: React.FC = () => {
                 <Card 
                   key={order.id} 
                   className="hover:shadow-lg transition-shadow cursor-pointer"
-                  onClick={() => navigate(`/orders/${order.id}`)}
+                  onClick={() => navigate(isConsumerMode ? `/shop/orders/${order.id}` : `/orders/${order.id}`)}
                 >
                   <CardContent>
                     <div className="flex justify-between items-start">

@@ -43,6 +43,7 @@ import MigrateImages from '../pages/admin/MigrateImages'
 import { ConsumerShop } from '../pages/ConsumerShop'
 import { ConsumerCart } from '../pages/ConsumerCart'
 import { ConsumerCheckout } from '../pages/ConsumerCheckout'
+import { CheckoutSuccess } from '../pages/CheckoutSuccess'
 import { ConsumerLogin } from '../pages/ConsumerLogin'
 import { ConsumerProductDetail } from '../pages/ConsumerProductDetail'
 import { ConsumerBrands } from '../pages/ConsumerBrands'
@@ -107,14 +108,37 @@ const RetailerRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   )
 }
 
-// Consumer Route Component
+// Consumer Route Component - Allow any authenticated user on consumer pages
 const ConsumerRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log('[ConsumerRoute] Checking consumer access')
-  return (
-    <ProtectedRoute allowedRoles={['consumer']}>
-      {children}
-    </ProtectedRoute>
-  )
+  const { user } = useAuthStore()
+  console.log('[ConsumerRoute] Checking authentication for consumer pages')
+  
+  if (!user) {
+    console.log('[ConsumerRoute] Not authenticated, redirecting to consumer login')
+    return <Navigate to="/shop/login" replace />
+  }
+  
+  console.log('[ConsumerRoute] User authenticated, access granted')
+  return <>{children}</>
+}
+
+// B2B Route Component - Block consumers from accessing B2B pages
+const B2BRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { user } = useAuthStore()
+  console.log('[B2BRoute] Checking B2B access')
+  
+  if (!user) {
+    console.log('[B2BRoute] Not authenticated, redirecting to login')
+    return <Navigate to="/login" replace />
+  }
+  
+  if (user.role === 'consumer') {
+    console.log('[B2BRoute] Consumer trying to access B2B page, redirecting to shop')
+    return <Navigate to="/shop" replace />
+  }
+  
+  console.log('[B2BRoute] B2B access granted')
+  return <>{children}</>
 }
 
 export const AppRoutes: React.FC = () => {
@@ -146,21 +170,21 @@ export const AppRoutes: React.FC = () => {
       <Route path="/refunds" element={<RefundPolicy />} />
       <Route path="/careers" element={<Careers />} />
       
-      {/* Protected Routes - Require Authentication */}
+      {/* B2B Routes - Block consumers */}
       <Route path="/brands" element={
-        <ProtectedRoute>
+        <B2BRoute>
           <Brands />
-        </ProtectedRoute>
+        </B2BRoute>
       } />
       <Route path="/brands/:brandId" element={
-        <ProtectedRoute>
+        <B2BRoute>
           <BrandDetail />
-        </ProtectedRoute>
+        </B2BRoute>
       } />
       <Route path="/products/:productId" element={
-        <ProtectedRoute>
+        <B2BRoute>
           <ProductDetail />
-        </ProtectedRoute>
+        </B2BRoute>
       } />
       
       {/* Dashboard - Available to all authenticated users */}
@@ -182,26 +206,26 @@ export const AppRoutes: React.FC = () => {
         </ProtectedRoute>
       } />
       
-      {/* Retailer-specific Routes */}
+      {/* B2B Commerce Routes */}
       <Route path="/cart" element={
-        <RetailerRoute>
+        <B2BRoute>
           <Cart />
-        </RetailerRoute>
+        </B2BRoute>
       } />
       <Route path="/checkout" element={
-        <RetailerRoute>
+        <B2BRoute>
           <Checkout />
-        </RetailerRoute>
+        </B2BRoute>
       } />
       <Route path="/orders" element={
-        <RetailerRoute>
+        <B2BRoute>
           <Orders />
-        </RetailerRoute>
+        </B2BRoute>
       } />
       <Route path="/orders/:orderId" element={
-        <RetailerRoute>
+        <B2BRoute>
           <OrderDetail />
-        </RetailerRoute>
+        </B2BRoute>
       } />
       <Route path="/preorder" element={
         <RetailerRoute>
@@ -283,6 +307,7 @@ export const AppRoutes: React.FC = () => {
           <ConsumerCheckout />
         </ConsumerRoute>
       } />
+      <Route path="/shop/checkout/success" element={<CheckoutSuccess />} />
       <Route path="/shop/account" element={
         <ConsumerRoute>
           <Profile />

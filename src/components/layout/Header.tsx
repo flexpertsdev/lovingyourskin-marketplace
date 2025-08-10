@@ -3,7 +3,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../stores/auth.store'
 import { useCartStore } from '../../stores/cart.store'
 import { useConsumerCartStore } from '../../stores/consumer-cart.store'
-import { useUIStore } from '../../stores/ui.store'
 import { Button } from '../ui'
 import { cn } from '../../lib/utils/cn'
 // Icon components
@@ -39,55 +38,75 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
   const location = useLocation()
   const navigate = useNavigate()
-  const { user, logout, isAuthenticated, updateLanguage } = useAuthStore()
+  const { user, logout, isAuthenticated } = useAuthStore()
   const { getTotalItems: getB2BCartItems } = useCartStore()
   const { getTotalItems: getConsumerCartItems } = useConsumerCartStore()
-  const { language: uiLanguage, setLanguage: setUILanguage } = useUIStore()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
   
-  // Define navigation items based on mode
-  const b2bNavItems: NavItem[] = [
-    { label: 'How It Works', href: '/how-it-works' },
-    { label: 'For Brands', href: '/for-brands' },
-    { label: 'For Retailers', href: '/for-retailers' },
-  ]
-
-  const consumerNavItems: NavItem[] = [
-    { label: 'Shop', href: '/shop' },
-    { label: 'Brands', href: '/shop/brands' },
-    { label: 'Pre-orders', href: '/shop/preorders' },
-  ]
-
-  const publicNavItems = mode === 'consumer' ? consumerNavItems : b2bNavItems
-  
-  // Get cart items count
-  const cartItemsCount = mode === 'consumer' ? getConsumerCartItems() : getB2BCartItems()
-  
-  // Add cart icon for non-logged in consumer users
+  // Cart icon component
   const CartIcon = () => (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
     </svg>
   )
-
-  const authNavItems: NavItem[] = mode === 'consumer' ? [
-    // B2C Consumer items
-    { label: 'Shop', href: '/shop', requiresAuth: true, roles: ['consumer'] },
-    { label: 'Cart', href: '/shop/cart', requiresAuth: true, roles: ['consumer'] },
-    { label: 'My Orders', href: '/shop/orders', requiresAuth: true, roles: ['consumer'] },
-    { label: 'Wishlist', href: '/shop/wishlist', requiresAuth: true, roles: ['consumer'] },
-  ] : [
-    // B2B Retailer/Brand items
-    { label: 'Brands', href: '/brands', requiresAuth: true, roles: ['retailer', 'admin'] },
-    { label: 'Cart', href: '/cart', requiresAuth: true, roles: ['retailer'] },
-    { label: 'Dashboard', href: '/dashboard', requiresAuth: true, roles: ['retailer', 'brand'] }, // Remove admin from Dashboard
-    { label: 'Orders', href: '/orders', requiresAuth: true, roles: ['retailer', 'admin'] },
-    { label: 'Messages', href: '/messages', requiresAuth: true, roles: ['retailer', 'brand', 'admin'] },
-  ]
   
-  // Sync language from user preference or UI store
-  const currentLanguage = user?.language || uiLanguage || 'en'
+  // Get cart items count
+  const cartItemsCount = mode === 'consumer' ? getConsumerCartItems() : getB2BCartItems()
+  
+  // Simplified navigation logic based on mode
+  let navItems: NavItem[] = []
+  
+  if (mode === 'consumer') {
+    // Consumer mode navigation
+    navItems = [
+      { label: 'Shop', href: '/shop' },
+      { label: 'Brands', href: '/shop/brands' },
+      { label: 'Pre-orders', href: '/shop/preorders' },
+      { label: 'Cart', href: '/shop/cart' }
+    ]
+    
+    // Add My Orders for authenticated users
+    if (isAuthenticated) {
+      navItems.push({ label: 'My Orders', href: '/shop/orders', requiresAuth: true })
+    }
+  } else {
+    // B2B mode navigation
+    if (isAuthenticated) {
+      // Role-based B2B navigation
+      switch (user?.role) {
+        case 'retailer':
+          navItems = [
+            { label: 'Brands', href: '/brands', requiresAuth: true },
+            { label: 'Cart', href: '/cart', requiresAuth: true },
+            { label: 'Dashboard', href: '/dashboard', requiresAuth: true },
+            { label: 'Orders', href: '/orders', requiresAuth: true },
+            { label: 'Messages', href: '/messages', requiresAuth: true }
+          ]
+          break
+        case 'brand':
+          navItems = [
+            { label: 'Dashboard', href: '/dashboard', requiresAuth: true },
+            { label: 'Messages', href: '/messages', requiresAuth: true }
+          ]
+          break
+        case 'admin':
+          // Admin gets minimal nav, most navigation in admin panel
+          navItems = []
+          break
+        default:
+          // Consumer shouldn't be here due to B2BRoute protection
+          navItems = []
+      }
+    } else {
+      // Public B2B navigation
+      navItems = [
+        { label: 'How It Works', href: '/how-it-works' },
+        { label: 'For Brands', href: '/for-brands' },
+        { label: 'For Retailers', href: '/for-retailers' }
+      ]
+    }
+  }
   
   // Debug logging
   useEffect(() => {
@@ -96,27 +115,12 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
   
   const isActive = (href: string) => location.pathname === href
   
-  const allNavItems = isAuthenticated 
-    ? authNavItems.filter(item => !item.roles || item.roles.includes(user?.role || 'retailer'))
-    : publicNavItems
-  
   const handleLogout = async () => {
     console.log('[Header] Logging out...')
     await logout()
     navigate('/')
     setShowUserMenu(false)
     setIsMobileMenuOpen(false)
-  }
-  
-  const handleLanguageChange = async (newLanguage: string) => {
-    const langCode = newLanguage.toLowerCase() as 'en' | 'ko' | 'zh'
-    if (user) {
-      // Update language for authenticated user
-      await updateLanguage(langCode)
-    } else {
-      // Update language in UI store for non-authenticated users
-      setUILanguage(langCode)
-    }
   }
     
   return (
@@ -134,7 +138,7 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
         <div className="hidden md:flex items-center gap-8">
           {/* Nav Items */}
           <div className="flex items-center gap-2">
-            {allNavItems.map((item) => (
+            {navItems.map((item) => (
               <Link
                 key={item.href}
                 to={item.href}
@@ -145,18 +149,20 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
                     : 'text-text-primary hover:bg-soft-pink-hover hover:text-deep-charcoal'
                 )}
               >
-                {item.label}
+                <span>{item.label}</span>
                 {/* B2B Cart Badge */}
                 {item.href === '/cart' && mode === 'b2b' && getB2BCartItems() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-rose-gold text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {getB2BCartItems()}
-                  </span>
+                  <>
+                    <span className="mx-1">·</span>
+                    <span className="text-rose-gold">({getB2BCartItems()})</span>
+                  </>
                 )}
                 {/* B2C Cart Badge */}
                 {item.href === '/shop/cart' && mode === 'consumer' && getConsumerCartItems() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-rose-gold text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {getConsumerCartItems()}
-                  </span>
+                  <>
+                    <span className="mx-1">·</span>
+                    <span className="text-rose-gold">({getConsumerCartItems()})</span>
+                  </>
                 )}
               </Link>
             ))}
@@ -180,17 +186,6 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
           
           {/* User Actions */}
           <div className="flex items-center gap-3">
-            {/* Language Selector */}
-            <select
-              value={currentLanguage.toUpperCase()}
-              onChange={(e) => handleLanguageChange(e.target.value)}
-              className="px-3 py-1.5 text-xs border border-border-gray rounded-full bg-white cursor-pointer hover:border-rose-gold transition-colors"
-            >
-              <option value="EN">EN</option>
-              <option value="KO">한국어</option>
-              <option value="ZH">中文</option>
-            </select>
-            
             {/* Cart Icon for non-logged in consumer users */}
             {!isAuthenticated && mode === 'consumer' && (
               <Link
@@ -327,7 +322,7 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
                     </Link>
                   )}
                   
-                  {allNavItems.map((item) => (
+                  {navItems.map((item) => (
                     <Link
                       key={item.href}
                       to={item.href}
@@ -365,20 +360,6 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
                       Admin Panel
                     </Link>
                   )}
-                </div>
-                
-                {/* Language Selector */}
-                <div className="mt-8 pt-8 border-t border-border-gray">
-                  <label className="block text-sm text-text-secondary mb-2">Language</label>
-                  <select
-                    value={currentLanguage.toUpperCase()}
-                    onChange={(e) => handleLanguageChange(e.target.value)}
-                    className="w-full px-4 py-3 text-base border border-border-gray rounded-lg bg-white"
-                  >
-                    <option value="EN">English</option>
-                    <option value="KO">한국어</option>
-                    <option value="ZH">中文</option>
-                  </select>
                 </div>
               </div>
             </div>

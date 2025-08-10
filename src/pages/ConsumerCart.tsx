@@ -4,6 +4,8 @@ import { useConsumerCartStore } from '../stores/consumer-cart.store'
 import { Layout, Container } from '../components/layout'
 import { Button } from '../components/ui/Button'
 import { Card, CardContent } from '../components/ui/Card'
+import { DiscountCodeInput } from '../components/features/DiscountCodeInput'
+import { useAffiliateTracking } from '../hooks/useAffiliateTracking'
 // Icon components
 const Trash2Icon = () => (
   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -49,9 +51,14 @@ export const ConsumerCart: React.FC = () => {
     getEstimatedShipping,
     getEstimatedTax,
     getPreOrderDiscount,
+    getAffiliateDiscount,
     getTotalAmount,
-    isPreOrderCart
+    isPreOrderCart,
+    affiliateCode
   } = useConsumerCartStore()
+  
+  // Use affiliate tracking hook
+  useAffiliateTracking()
 
   const handleCheckout = () => {
     if (!user) {
@@ -83,7 +90,9 @@ export const ConsumerCart: React.FC = () => {
   const subtotal = getSubtotal()
   const shipping = getEstimatedShipping()
   const tax = getEstimatedTax()
-  const discount = getPreOrderDiscount()
+  const preOrderDiscount = getPreOrderDiscount()
+  const affiliateDiscount = getAffiliateDiscount()
+  const totalDiscount = preOrderDiscount + affiliateDiscount
   const total = getTotalAmount()
   const hasPreOrder = isPreOrderCart()
 
@@ -205,10 +214,17 @@ export const ConsumerCart: React.FC = () => {
                   <span>{formatCurrency(subtotal)}</span>
                 </div>
                 
-                {discount > 0 && (
+                {preOrderDiscount > 0 && (
                   <div className="flex justify-between text-green-600">
                     <span>Pre-order Discount</span>
-                    <span>-{formatCurrency(discount)}</span>
+                    <span>-{formatCurrency(preOrderDiscount)}</span>
+                  </div>
+                )}
+                
+                {affiliateDiscount > 0 && (
+                  <div className="flex justify-between text-green-600">
+                    <span>Discount Code</span>
+                    <span>-{formatCurrency(affiliateDiscount)}</span>
                   </div>
                 )}
                 
@@ -228,6 +244,11 @@ export const ConsumerCart: React.FC = () => {
                     <span>{formatCurrency(total)}</span>
                   </div>
                 </div>
+              </div>
+              
+              {/* Discount Code Input */}
+              <div className="mb-4">
+                <DiscountCodeInput />
               </div>
 
               {hasPreOrder && (

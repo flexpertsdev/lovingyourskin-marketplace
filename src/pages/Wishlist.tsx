@@ -74,7 +74,7 @@ export const Wishlist: React.FC = () => {
 
   if (loading) {
     return (
-      <Layout>
+      <Layout mode="consumer">
         <Section className="py-16">
           <Container className="flex justify-center">
             <Spinner size="large" />
@@ -85,7 +85,7 @@ export const Wishlist: React.FC = () => {
   }
 
   return (
-    <Layout>
+    <Layout mode="consumer">
       <Section className="py-8 md:py-12">
         <Container>
           <div className="mb-8">

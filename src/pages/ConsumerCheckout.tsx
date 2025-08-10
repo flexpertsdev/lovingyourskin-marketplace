@@ -5,13 +5,23 @@ import { Container, Section } from '../components/layout'
 import { Button, Card, CardContent, Input, Select } from '../components/ui'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
 import { useAuthStore } from '../stores/auth.store'
-import { orderService } from '../services'
+import { stripeService } from '../services/stripe/stripe.service'
+import { useAffiliateTracking } from '../hooks/useAffiliateTracking'
 import toast from 'react-hot-toast'
 
 export const ConsumerCheckout: React.FC = () => {
   const navigate = useNavigate()
   const { user } = useAuthStore()
-  const { items, getSubtotal, getTotalAmount, clearCart } = useConsumerCartStore()
+  const { 
+    items, 
+    getSubtotal, 
+    getTotalAmount, 
+    getAffiliateDiscount,
+    affiliateCode,
+    affiliateDiscount,
+    clearCart 
+  } = useConsumerCartStore()
+  const { trackPurchase } = useAffiliateTracking()
   
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
@@ -102,99 +112,65 @@ export const ConsumerCheckout: React.FC = () => {
     
     setLoading(true)
     try {
-      // Group items by brand
-      const itemsByBrand = items.reduce((acc, item) => {
-        const brandId = item.product.brandId
-        if (!acc[brandId]) {
-          acc[brandId] = []
-        }
-        acc[brandId].push(item)
-        return acc
-      }, {} as Record<string, typeof items>)
-      
-      // Create an order for each brand
-      const orderPromises = Object.entries(itemsByBrand).map(async ([brandId, brandItems]) => {
-        const brandName = brandItems[0].product.brand?.name
-        const brandNameStr = brandName || 'Unknown Brand'
-        
-        const orderData = {
-          userId: user?.id || 'consumer-' + Date.now(),
-          userType: 'consumer' as const,
-          consumerId: user?.id || 'consumer-' + Date.now(),
-          brandId,
-          brandName: brandNameStr,
-          status: 'pending' as const,
-          items: brandItems.map(item => {
-            const basePrice = item.product.retailPrice?.item || item.product.price?.retail || 0
-            const price = item.product.isPreorder && item.product.preorderDiscount
-              ? basePrice * (1 - item.product.preorderDiscount / 100)
-              : basePrice
-            
-            return {
-              productId: item.product.id,
-              productName: item.product.name,
-              quantity: item.quantity,
-              pricePerItem: price,
-              pricePerCarton: price, // For B2C, price per item and carton are the same
-              totalPrice: price * item.quantity
-            }
-          }),
-          totalAmount: {
-            items: brandItems.reduce((sum, item) => {
-              const basePrice = item.product.retailPrice?.item || item.product.price?.retail || 0
-              const price = item.product.isPreorder && item.product.preorderDiscount
-                ? basePrice * (1 - item.product.preorderDiscount / 100)
-                : basePrice
-              return sum + (price * item.quantity)
-            }, 0),
-            shipping: 0, // Calculate based on location
-            tax: 0, // Will be calculated
-            total: 0, // Will be calculated
-            currency: 'GBP' as const
-          },
-          shippingAddress: {
-            name: formData.name,
-            street: formData.address.street,
-            city: formData.address.city,
-            postalCode: formData.address.postalCode,
-            country: formData.address.country,
-            phone: formData.phone
-          },
-          paymentMethod: formData.paymentMethod,
-          paymentStatus: 'pending' as const,
-          timeline: [],
-          documents: [],
-          messageThreadId: ''
-        }
-        
-        // Calculate tax and total
-        orderData.totalAmount.tax = orderData.totalAmount.items * 0.2 // 20% VAT
-        orderData.totalAmount.total = orderData.totalAmount.items + orderData.totalAmount.tax + orderData.totalAmount.shipping
-        
-        return orderService.create(orderData)
+      // Create or update Stripe customer
+      let stripeCustomerId = undefined
+      if (user) {
+        const customer = await stripeService.createOrUpdateCustomer({
+          email: formData.email,
+          name: formData.name,
+          metadata: {
+            userId: user.id,
+            userType: 'consumer'
+          }
+        })
+        stripeCustomerId = customer.customerId
+      }
+
+      // Create Stripe checkout session
+      const { sessionUrl } = await stripeService.createB2CCheckoutSession({
+        items,
+        customer: {
+          email: formData.email,
+          name: formData.name,
+          id: stripeCustomerId
+        },
+        shippingAddress: {
+          name: formData.name,
+          street: formData.address.street,
+          city: formData.address.city,
+          postalCode: formData.address.postalCode,
+          country: formData.address.country,
+          phone: formData.phone
+        },
+        successUrl: `${window.location.origin}/shop/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancelUrl: `${window.location.origin}/shop/cart`,
+        affiliateCode: affiliateCode,
+        affiliateDiscount: affiliateDiscount
       })
+
+      // Track affiliate conversion if applicable
+      if (affiliateCode) {
+        const orderValue = getTotalAmount()
+        await trackPurchase(`stripe-${Date.now()}`, orderValue)
+      }
+
+      // Redirect to Stripe Checkout
+      window.location.href = sessionUrl
       
-      await Promise.all(orderPromises)
-      
-      // Clear cart after successful order creation
-      clearCart()
-      
-      toast.success('Order placed successfully!')
-      navigate('/shop/orders')
     } catch (error) {
-      console.error('Failed to create order:', error)
-      toast.error('Failed to place order. Please try again.')
-    } finally {
+      console.error('Failed to create checkout session:', error)
+      toast.error('Failed to start checkout. Please try again.')
       setLoading(false)
     }
   }
   
   // Calculate totals
   const subtotal = getSubtotal()
+  const discount = getAffiliateDiscount()
   const taxRate = 0.2 // 20% VAT
-  const tax = subtotal * taxRate
+  const tax = (subtotal - discount) * taxRate
   const shipping: number = 0 // Free shipping for now
-  const total = getTotalAmount() + shipping
+  const total = getTotalAmount()
   
   return (
     <Layout>
@@ -338,6 +314,12 @@ export const ConsumerCheckout: React.FC = () => {
                         <span>Subtotal</span>
                         <span>£{subtotal.toFixed(2)}</span>
                       </div>
+                      {discount > 0 && (
+                        <div className="flex justify-between text-sm text-green-600">
+                          <span>Discount</span>
+                          <span>-£{discount.toFixed(2)}</span>
+                        </div>
+                      )}
                       <div className="flex justify-between text-sm">
                         <span>Tax (VAT 20%)</span>
                         <span>£{tax.toFixed(2)}</span>
@@ -361,7 +343,7 @@ export const ConsumerCheckout: React.FC = () => {
                         fullWidth
                         disabled={loading}
                       >
-                        {loading ? 'Processing...' : 'Place Order'}
+                        {loading ? 'Processing...' : 'Continue to Payment'}
                       </Button>
                       
                       <p className="text-xs text-text-secondary text-center mt-4">

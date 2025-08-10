@@ -1,5 +1,4 @@
-// TODO: Install @stripe/stripe-js
-// import { loadStripe, Stripe } from '@stripe/stripe-js'
+import { loadStripe, Stripe } from '@stripe/stripe-js'
 import { 
   Order, 
   ConsumerCartItem,
@@ -9,18 +8,17 @@ import {
 } from '../../types'
 
 // Initialize Stripe
-let stripePromise: Promise<any | null> | null = null
+let stripePromise: Promise<Stripe | null> | null = null
 
 const getStripe = () => {
   if (!stripePromise) {
-    // stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || '')
-    stripePromise = Promise.resolve(null) // TODO: Uncomment above when stripe is installed
+    stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || '')
   }
   return stripePromise
 }
 
 export class StripeService {
-  private apiUrl = '/api' // TODO: Use import.meta.env.VITE_API_URL when available
+  private apiUrl = '/.netlify/functions' // Netlify Functions endpoint
 
   /**
    * Create a Stripe checkout session for B2C customers
@@ -33,82 +31,74 @@ export class StripeService {
       name: string
       id?: string
     }
-    shippingAddress: Address
+    shippingAddress?: Address
     successUrl: string
     cancelUrl: string
+    affiliateCode?: string
+    affiliateDiscount?: {
+      type: 'percentage' | 'fixed'
+      value: number
+    }
   }): Promise<{
     sessionId: string
     sessionUrl: string
   }> {
     try {
-      const lineItems = data.items.map(item => ({
-        price_data: {
-          currency: 'gbp',
-          product_data: {
-            name: item.product.name,
-        description: item.product.description,
-            images: [item.product.images.primary], // Stripe accepts max 8 images
-            metadata: {
-              productId: item.product.id,
-              brandId: item.product.brandId
-            }
-          },
-          unit_amount: Math.round(item.product.retailPrice?.item || 0) * 100 // Convert to pence
-        },
-        quantity: item.quantity
-      }))
+      // Transform cart items to the format expected by the API
+      const transformedItems = data.items.map(item => {
+        // Handle different image formats
+        let imageUrl = ''
+        if (Array.isArray(item.product.images)) {
+          imageUrl = item.product.images[0] || ''
+        } else if (typeof item.product.images === 'string') {
+          imageUrl = item.product.images
+        } else if (item.product.images?.primary) {
+          imageUrl = item.product.images.primary
+        }
 
-      // Calculate any pre-order discounts
-      const discount = data.items.some(item => item.preOrderDiscount) ? {
-        coupon: await this.createPreOrderCoupon(data.items[0].preOrderDiscount || 20)
-      } : undefined
+        // Calculate price considering pre-order discount
+        const basePrice = item.product.retailPrice?.item || item.product.price?.retail || 0
+        const pricePerItem = item.preOrderDiscount 
+          ? basePrice * (1 - item.preOrderDiscount / 100)
+          : basePrice
 
-      const response = await fetch(`${this.apiUrl}/stripe/create-checkout-session`, {
+        return {
+          productId: item.product.id,
+          productName: item.product.name,
+          productDescription: item.product.description || '',
+          brandId: item.product.brandId,
+          images: imageUrl ? [imageUrl] : [],
+          pricePerItem,
+          quantity: item.quantity
+        }
+      })
+
+      const response = await fetch(`${this.apiUrl}/stripe-checkout`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          mode: 'payment',
-          lineItems,
+          items: transformedItems,
           customerEmail: data.customer.email,
-          metadata: {
-            orderType: 'b2c',
-            customerId: data.customer.id || 'guest',
-            customerName: data.customer.name
-          },
-          shippingAddress: {
-            name: data.shippingAddress.name,
-            address: {
-              line1: data.shippingAddress.street,
-              city: data.shippingAddress.city,
-              postal_code: data.shippingAddress.postalCode,
-              country: data.shippingAddress.country
-            }
-          },
+          customerId: data.customer.id,
+          customerName: data.customer.name,
+          shippingAddress: data.shippingAddress,
           successUrl: data.successUrl,
           cancelUrl: data.cancelUrl,
-          discounts: discount ? [discount] : [],
-          invoice_creation: {
-            enabled: true,
-            invoice_data: {
-              description: 'Thank you for your order from Loving Your Skin',
-              footer: 'K-Beauty products delivered to Europe',
-              metadata: {
-                orderType: 'b2c'
-              }
-            }
-          }
+          affiliateCode: data.affiliateCode,
+          affiliateDiscount: data.affiliateDiscount
         })
       })
 
       if (!response.ok) {
-        throw new Error('Failed to create checkout session')
+        const error = await response.json()
+        throw new Error(error.details || 'Failed to create checkout session')
       }
 
       const session = await response.json()
       return {
-        sessionId: session.id,
+        sessionId: session.sessionId,
         sessionUrl: session.url
       }
     } catch (error) {
@@ -258,6 +248,62 @@ export class StripeService {
 
     if (!response.ok) {
       throw new Error('Failed to send invoice')
+    }
+  }
+
+  /**
+   * Create or update a Stripe customer
+   */
+  async createOrUpdateCustomer(data: {
+    email: string
+    name: string
+    metadata?: Record<string, string>
+    customerId?: string
+  }): Promise<{
+    customerId: string
+    email: string
+    name: string
+  }> {
+    try {
+      const response = await fetch(`${this.apiUrl}/stripe-customer`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to create/update customer')
+      }
+
+      return response.json()
+    } catch (error) {
+      console.error('Error creating/updating customer:', error)
+      throw error
+    }
+  }
+
+  /**
+   * Get customer details including payment methods
+   */
+  async getCustomer(customerId?: string, email?: string): Promise<any> {
+    try {
+      const params = new URLSearchParams()
+      if (customerId) params.append('customerId', customerId)
+      if (email) params.append('email', email)
+
+      const response = await fetch(`${this.apiUrl}/stripe-customer?${params}`)
+      
+      if (!response.ok) {
+        if (response.status === 404) return null
+        throw new Error('Failed to get customer')
+      }
+
+      return response.json()
+    } catch (error) {
+      console.error('Error getting customer:', error)
+      throw error
     }
   }
 }
