@@ -58,9 +58,9 @@ export const handler: Handler = async (event) => {
       case 'checkout.session.completed': {
         const session = stripeEvent.data.object as Stripe.Checkout.Session
         
-        // Retrieve the full session with line items
+        // Retrieve the full session with line items and product metadata
         const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
-          expand: ['line_items', 'customer', 'payment_intent']
+          expand: ['line_items.data.price.product', 'customer', 'payment_intent']
         })
 
         // Extract metadata
@@ -87,13 +87,23 @@ export const handler: Handler = async (event) => {
           paymentMethod: 'stripe_card' as const,
           
           // Items from line items
-          items: fullSession.line_items?.data.map(item => ({
-            productId: item.price?.product || '',
-            productName: item.description || '',
-            quantity: item.quantity || 0,
-            pricePerItem: (item.amount_subtotal || 0) / 100 / (item.quantity || 1),
-            totalPrice: (item.amount_subtotal || 0) / 100
-          })) || [],
+          items: fullSession.line_items?.data.map(item => {
+            // Try to get productId from metadata if product is expanded
+            let productId = ''
+            if (typeof item.price?.product === 'object' && item.price.product?.metadata) {
+              productId = item.price.product.metadata.productId || ''
+            } else if (typeof item.price?.product === 'string') {
+              productId = item.price.product
+            }
+            
+            return {
+              productId: productId,
+              productName: item.description || '',
+              quantity: item.quantity || 0,
+              pricePerItem: (item.amount_subtotal || 0) / 100 / (item.quantity || 1),
+              totalPrice: (item.amount_subtotal || 0) / 100
+            }
+          }) || [],
           
           // Amounts
           totalAmount: {
@@ -151,11 +161,40 @@ export const handler: Handler = async (event) => {
         const orderRef = await db.collection('orders').add(orderData)
         console.log('Order created:', orderRef.id)
 
+        // Update product stock
+        console.log('Updating product stock...')
+        for (const item of orderData.items) {
+          if (item.productId) {
+            try {
+              // Get the product document
+              const productRef = db.collection('products').doc(item.productId)
+              const productDoc = await productRef.get()
+              
+              if (productDoc.exists) {
+                const productData = productDoc.data()
+                const currentStock = productData?.stock || 0
+                const newStock = Math.max(0, currentStock - item.quantity)
+                
+                // Update the stock
+                await productRef.update({
+                  stock: newStock,
+                  updatedAt: Timestamp.now()
+                })
+                
+                console.log(`Updated stock for product ${item.productId}: ${currentStock} -> ${newStock}`)
+              }
+            } catch (stockError) {
+              console.error(`Error updating stock for product ${item.productId}:`, stockError)
+              // Continue processing even if stock update fails
+            }
+          }
+        }
+
         // Update affiliate tracking if applicable
         if (affiliateCode) {
-          // Find the affiliate code
-          const affiliateSnapshot = await db.collection('affiliateCodes')
-            .where('code', '==', affiliateCode)
+          // Find the affiliate code (supporting both old and new structure)
+          let affiliateSnapshot = await db.collection('affiliateCodes')
+            .where('code', '==', affiliateCode.toUpperCase())
             .limit(1)
             .get()
           
@@ -163,16 +202,18 @@ export const handler: Handler = async (event) => {
             const affiliateDoc = affiliateSnapshot.docs[0]
             const affiliateData = affiliateDoc.data()
             
-            // Calculate commission
-            const commissionRate = affiliateData.commissionRate || 0.1 // 10% default
-            const commission = orderData.totalAmount.items * commissionRate
+            // Calculate commission based on the affiliate's commission settings
+            const commissionType = affiliateData.commissionType || 'percentage'
+            const commissionValue = affiliateData.commissionValue || 10
+            const commission = commissionType === 'percentage' 
+              ? orderData.totalAmount.items * (commissionValue / 100)
+              : commissionValue
             
             // Update affiliate stats
             await affiliateDoc.ref.update({
               currentUses: (affiliateData.currentUses || 0) + 1,
               totalRevenue: (affiliateData.totalRevenue || 0) + orderData.totalAmount.items,
               totalOrders: (affiliateData.totalOrders || 0) + 1,
-              totalCommission: (affiliateData.totalCommission || 0) + commission,
               updatedAt: Timestamp.now()
             })
             
@@ -180,14 +221,49 @@ export const handler: Handler = async (event) => {
             await db.collection('affiliateCommissions').add({
               affiliateCodeId: affiliateDoc.id,
               affiliateCode: affiliateCode,
+              affiliateUserId: affiliateData.userId || null,
               orderId: orderRef.id,
               orderNumber: orderData.orderNumber,
               orderValue: orderData.totalAmount.items,
-              commissionRate: commissionRate,
+              commissionType: commissionType,
+              commissionValue: commissionValue,
               commissionAmount: commission,
               status: 'pending',
               createdAt: Timestamp.now()
             })
+            
+            // Create or update affiliate tracking record
+            const trackingQuery = await db.collection('affiliateTracking')
+              .where('affiliateCode', '==', affiliateCode)
+              .where('customerEmail', '==', fullSession.customer_email || '')
+              .limit(1)
+              .get()
+            
+            if (!trackingQuery.empty) {
+              // Update existing tracking record
+              await trackingQuery.docs[0].ref.update({
+                status: 'purchased',
+                orderId: orderRef.id,
+                orderValue: orderData.totalAmount.items,
+                commission: commission,
+                purchasedAt: Timestamp.now()
+              })
+            } else {
+              // Create new tracking record
+              await db.collection('affiliateTracking').add({
+                affiliateCodeId: affiliateDoc.id,
+                affiliateCode: affiliateCode,
+                sessionId: fullSession.id,
+                customerId: customerId,
+                customerEmail: fullSession.customer_email || '',
+                orderId: orderRef.id,
+                orderValue: orderData.totalAmount.items,
+                commission: commission,
+                status: 'purchased',
+                clickedAt: Timestamp.now(),
+                purchasedAt: Timestamp.now()
+              })
+            }
           }
         }
 

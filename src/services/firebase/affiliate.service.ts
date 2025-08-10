@@ -29,8 +29,17 @@ class FirebaseAffiliateService {
         throw new Error('Affiliate code already exists')
       }
       
+      // Clean the data object to remove undefined values
+      const cleanData: any = {}
+      Object.keys(data).forEach(key => {
+        const value = (data as any)[key]
+        if (value !== undefined) {
+          cleanData[key] = value
+        }
+      })
+      
       const docRef = await addDoc(collection(db, 'affiliateCodes'), {
-        ...data,
+        ...cleanData,
         currentUses: 0,
         totalRevenue: 0,
         totalOrders: 0,

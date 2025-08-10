@@ -82,7 +82,8 @@ service cloud.firestore {
         (isAuthenticated() && resource.data.customerEmail == request.auth.token.email) ||
         (isRetailer() && resource.data.retailerId == request.auth.uid) ||
         (isBrandOwner(resource.data.brandId)) ||
-        (isConsumer() && resource.data.userType == 'consumer');
+        (isConsumer() && resource.data.userId == request.auth.uid) ||
+        (isConsumer() && resource.data.userType == 'consumer' && resource.data.customerEmail == request.auth.token.email);
       
       // Anyone authenticated can create orders
       allow create: if isAuthenticated();
@@ -193,6 +194,36 @@ service cloud.firestore {
       allow read: if isAuthenticated();
       allow create: if isAdmin();
       allow update: if isAdmin() || isOwner(resource.data.userId);
+      allow delete: if isAdmin();
+    }
+    
+    // Discount codes collection
+    match /discountCodes/{codeId} {
+      // Anyone can read to validate codes during checkout
+      allow read: if true;
+      
+      // Only admins can manage discount codes
+      allow create, update, delete: if isAdmin();
+    }
+    
+    // Affiliate tracking collection
+    match /affiliateTracking/{trackingId} {
+      // Admins can read tracking data
+      allow read: if isAdmin();
+      
+      // Only backend (via Admin SDK) should write tracking data
+      allow create, update: if false; // Backend only
+      allow delete: if isAdmin();
+    }
+    
+    // Affiliate commissions collection
+    match /affiliateCommissions/{commissionId} {
+      // Admins and the affiliate owner can read
+      allow read: if isAdmin() || 
+        (isAuthenticated() && resource.data.affiliateUserId == request.auth.uid);
+      
+      // Only backend (via Admin SDK) should write commission data
+      allow create, update: if false; // Backend only
       allow delete: if isAdmin();
     }
   }

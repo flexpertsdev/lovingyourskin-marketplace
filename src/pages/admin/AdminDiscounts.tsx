@@ -85,21 +85,26 @@ export default function AdminDiscounts() {
 
   const handleCreateDiscount = async (newDiscount: Partial<DiscountCode>) => {
     try {
-      await discountService.createDiscountCode({
-        code: newDiscount.code || '',
+      const discountData: any = {
+        code: (newDiscount.code || '').toUpperCase(),
         name: newDiscount.name || '',
         description: newDiscount.description || '',
         type: newDiscount.type || 'general',
         discountType: newDiscount.discountType || 'percentage',
         discountValue: newDiscount.discountValue || 0,
-        maxUses: newDiscount.maxUses,
-        maxUsesPerCustomer: newDiscount.maxUsesPerCustomer,
         validFrom: newDiscount.validFrom || new Date(),
-        validUntil: newDiscount.validUntil,
         active: newDiscount.active !== undefined ? newDiscount.active : true,
-        conditions: newDiscount.conditions,
         createdBy: user?.id || ''
-      })
+      }
+      
+      // Only add optional fields if they have values
+      if (newDiscount.maxUses) discountData.maxUses = newDiscount.maxUses
+      if (newDiscount.maxUsesPerCustomer) discountData.maxUsesPerCustomer = newDiscount.maxUsesPerCustomer
+      if (newDiscount.validUntil) discountData.validUntil = newDiscount.validUntil
+      if (newDiscount.conditions) discountData.conditions = newDiscount.conditions
+      if (newDiscount.minOrderValue) discountData.minOrderValue = newDiscount.minOrderValue
+      
+      await discountService.createDiscountCode(discountData)
       toast.success('Discount code created successfully')
       fetchDiscounts()
       setCreateDialogOpen(false)

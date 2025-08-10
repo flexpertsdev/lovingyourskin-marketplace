@@ -36,8 +36,17 @@ class FirebaseDiscountService {
         throw new Error('Discount code already exists')
       }
       
+      // Clean the data object to remove undefined values
+      const cleanData: any = {}
+      Object.keys(data).forEach(key => {
+        const value = (data as any)[key]
+        if (value !== undefined) {
+          cleanData[key] = value
+        }
+      })
+      
       const docRef = await addDoc(collection(db, 'discountCodes'), {
-        ...data,
+        ...cleanData,
         code: data.code.toUpperCase(),
         currentUses: 0,
         totalRevenue: 0,

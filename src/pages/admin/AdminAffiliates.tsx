@@ -163,7 +163,7 @@ export default function AdminAffiliates() {
       // For now, create using the old AffiliateCode structure
       const affiliateCode = newAffiliate.discountCode || `AFF${Date.now()}`
       
-      await affiliateService.createAffiliateCode({
+      const affiliateData: any = {
         code: affiliateCode,
         name: newAffiliate.name || 'Unnamed Affiliate',
         description: `Affiliate code for ${newAffiliate.name}`,
@@ -173,13 +173,15 @@ export default function AdminAffiliates() {
         commissionValue: newAffiliate.commissionValue || 10,
         discountType: 'percentage',
         discountValue: 10, // Default 10% discount for customers
-        maxUses: undefined,
-        maxUsesPerCustomer: undefined,
         active: newAffiliate.status === 'active',
         validFrom: new Date(),
-        validUntil: undefined,
         createdBy: user?.id || ''
-      })
+      }
+      
+      // Only add optional fields if they have values
+      // Don't add undefined values as Firestore doesn't accept them
+      
+      await affiliateService.createAffiliateCode(affiliateData)
       
       toast.success('Affiliate created successfully')
       fetchAffiliates()
