@@ -94,32 +94,57 @@ export const Checkout: React.FC = () => {
         
         const orderData = {
           userId: user?.id || '',
+          userType: user?.role === 'retailer' ? 'retailer' as const : 'consumer' as const,
           brandId: brandGroup.brandId,
           brandName: brandGroup.brandName,
-          items: brandItems.map(item => ({
-            productId: item.product.id,
-            productName: getProductName(item.product),
-            quantity: item.quantity, // This is in cartons
-            pricePerItem: item.product.variants?.[0]?.pricing?.b2b?.wholesalePrice || 
-                         item.product.price?.wholesale || 
-                         item.product.price?.retail ||
-                         item.product.retailPrice?.item || 0,
-            unitsPerCarton: item.product.variants?.[0]?.pricing?.b2b?.unitsPerCarton || 
-                           item.product.itemsPerCarton || 1
-          })),
+          items: brandItems.map(item => {
+            const pricePerItem = item.product.variants?.[0]?.pricing?.b2b?.wholesalePrice || 
+                               item.product.price?.wholesale || 
+                               item.product.price?.retail ||
+                               item.product.retailPrice?.item || 0
+            const unitsPerCarton = item.product.variants?.[0]?.pricing?.b2b?.unitsPerCarton || 
+                                 item.product.itemsPerCarton || 1
+            const pricePerCarton = pricePerItem * unitsPerCarton
+            return {
+              productId: item.product.id,
+              productName: getProductName(item.product),
+              quantity: item.quantity, // This is in cartons
+              pricePerItem,
+              pricePerCarton,
+              totalPrice: pricePerCarton * item.quantity
+            }
+          }),
           status: 'pending' as const,
-          subtotal: brandSubtotal,
-          tax: brandTax,
-          shipping: 0, // Calculated later
-          total: brandTotal,
-          shippingAddress,
+          totalAmount: {
+            items: brandSubtotal,
+            shipping: 0,
+            tax: brandTax,
+            total: brandTotal,
+            currency: 'GBP' as const
+          },
+          shippingAddress: {
+            name: user?.displayName || '',
+            street: shippingAddress,
+            city: '',
+            postalCode: '',
+            country: 'UK'
+          },
+          paymentMethod: 'stripe_card' as const,
+          paymentStatus: 'pending' as const,
+          timeline: [{
+            status: 'pending' as const,
+            timestamp: new Date(),
+            description: 'Order created'
+          }],
+          documents: [],
+          messageThreadId: `order-${Date.now()}-${brandGroup.brandId}`,
           notes: additionalNotes,
           createdAt: new Date(),
           updatedAt: new Date()
         }
         
         const orderId = await orderService.createOrder(orderData)
-        createdOrderIds.push(orderId)
+        createdOrderIds.push(orderId as string)
         
         // Clear items from this brand from cart
         await clearBrandItems(brandGroup.brandId)
@@ -186,9 +211,8 @@ export const Checkout: React.FC = () => {
                 {/* Company Information */}
                 <div className="bg-soft-pink p-4 rounded-lg">
                   <p className="font-medium mb-2">Company Information</p>
-                  <p>{user?.companyName || 'Your Company'}</p>
+                  <p>{user?.name || 'Your Company'}</p>
                   <p>{user?.email}</p>
-                  {user?.vatNumber && <p>VAT: {user.vatNumber}</p>}
                 </div>
                 
                 {/* Shipping Address */}

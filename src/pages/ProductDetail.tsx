@@ -116,8 +116,8 @@ export const ProductDetail: React.FC = () => {
   // Get recommended retail price
   const getRetailPrice = () => {
     const variant = product?.variants?.[selectedVariant]
-    if (variant?.pricing?.b2b?.recommendedRetailPrice !== undefined) {
-      return variant.pricing.b2b.recommendedRetailPrice
+    if (variant?.pricing?.b2c?.retailPrice !== undefined) {
+      return variant.pricing.b2c.retailPrice
     }
     if (product?.retailPrice?.item !== undefined) {
       return product.retailPrice.item
@@ -268,10 +268,9 @@ export const ProductDetail: React.FC = () => {
               </p>
             </div>
             
-            {/* Ingredients - Check variant first, then product level */}
+            {/* Ingredients - Check product level */}
             {(() => {
-              const variant = product.variants?.[selectedVariant]
-              const ingredients = variant?.ingredients || product.ingredients
+              const ingredients = product.ingredients
               if (ingredients && Array.isArray(ingredients) && ingredients.length > 0) {
                 return (
                   <div>

@@ -441,7 +441,7 @@ class FirebaseCartService {
     
     // Check MOQ for all brands
     const moqValidations = await this.validateAllMOQ(userId)
-    const allMOQMet = moqValidations.every(validation => validation.valid)
+    const allMOQMet = moqValidations.every(validation => validation.met)
     
     return allMOQMet
   }

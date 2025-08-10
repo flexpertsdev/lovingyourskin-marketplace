@@ -8,6 +8,7 @@ import { useAuthStore } from '../stores/auth.store'
 import { stripeService } from '../services/stripe/stripe.service'
 import { useAffiliateTracking } from '../hooks/useAffiliateTracking'
 import { formatCurrency } from '../utils/currency'
+import { DiscountCodeInput } from '../components/features/DiscountCodeInput'
 import toast from 'react-hot-toast'
 
 export const ConsumerCheckout: React.FC = () => {
@@ -306,6 +307,11 @@ export const ConsumerCheckout: React.FC = () => {
                           </div>
                         )
                       })}
+                    </div>
+                    
+                    {/* Discount Code Input */}
+                    <div className="mb-4">
+                      <DiscountCodeInput />
                     </div>
                     
                     {/* Totals */}
