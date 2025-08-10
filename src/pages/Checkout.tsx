@@ -123,7 +123,7 @@ export const Checkout: React.FC = () => {
             currency: 'GBP' as const
           },
           shippingAddress: {
-            name: user?.displayName || '',
+            name: user?.name || '',
             street: shippingAddress,
             city: '',
             postalCode: '',
@@ -143,8 +143,8 @@ export const Checkout: React.FC = () => {
           updatedAt: new Date()
         }
         
-        const orderId = await orderService.createOrder(orderData)
-        createdOrderIds.push(orderId as string)
+        const order = await orderService.createOrder(orderData)
+        createdOrderIds.push(order.id)
         
         // Clear items from this brand from cart
         await clearBrandItems(brandGroup.brandId)
