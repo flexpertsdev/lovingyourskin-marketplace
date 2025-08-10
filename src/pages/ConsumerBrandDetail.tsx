@@ -98,7 +98,7 @@ const ConsumerProductCard: React.FC<{ product: Product }> = ({ product }) => {
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-xl font-light text-rose-gold">
-              £{productPrice.toFixed(2)}
+              ${productPrice.toFixed(2)}
             </span>
             {(b2cVariant?.size || product.volume) && (
               <span className="text-sm text-text-secondary">
@@ -172,8 +172,8 @@ export const ConsumerBrandDetail: React.FC = () => {
       const brandProducts: Product[] = []
       productsSnapshot.forEach((doc) => {
         const data = doc.data()
-        // Only include products with B2C pricing enabled
-        if (data.variants?.some((v: any) => v.pricing?.b2c?.enabled)) {
+        // Only include products with isB2C flag (default to true for backward compatibility)
+        if (data.isB2C !== false) {
           brandProducts.push({ id: doc.id, ...data } as Product)
         }
       })

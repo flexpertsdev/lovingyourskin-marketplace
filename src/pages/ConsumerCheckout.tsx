@@ -7,6 +7,7 @@ import { useConsumerCartStore } from '../stores/consumer-cart.store'
 import { useAuthStore } from '../stores/auth.store'
 import { stripeService } from '../services/stripe/stripe.service'
 import { useAffiliateTracking } from '../hooks/useAffiliateTracking'
+import { formatCurrency } from '../utils/currency'
 import toast from 'react-hot-toast'
 
 export const ConsumerCheckout: React.FC = () => {
@@ -18,8 +19,7 @@ export const ConsumerCheckout: React.FC = () => {
     getTotalAmount, 
     getAffiliateDiscount,
     affiliateCode,
-    affiliateDiscount,
-    clearCart 
+    affiliateDiscount 
   } = useConsumerCartStore()
   const { trackPurchase } = useAffiliateTracking()
   
@@ -135,6 +135,7 @@ export const ConsumerCheckout: React.FC = () => {
           id: stripeCustomerId
         },
         shippingAddress: {
+          id: `address-${Date.now()}`,
           name: formData.name,
           street: formData.address.street,
           city: formData.address.city,
@@ -167,10 +168,9 @@ export const ConsumerCheckout: React.FC = () => {
   // Calculate totals
   const subtotal = getSubtotal()
   const discount = getAffiliateDiscount()
-  const taxRate = 0.2 // 20% VAT
-  const tax = (subtotal - discount) * taxRate
-  const shipping: number = 0 // Free shipping for now
   const total = getTotalAmount()
+  // VAT is included in prices - calculate the VAT portion for display
+  const vatIncluded = (subtotal - discount) - ((subtotal - discount) / 1.2)
   
   return (
     <Layout>
@@ -302,7 +302,7 @@ export const ConsumerCheckout: React.FC = () => {
                                 <p className="text-success-green text-xs">Pre-order: {item.product.preorderDiscount}% off</p>
                               )}
                             </div>
-                            <p>£{(price * item.quantity).toFixed(2)}</p>
+                            <p>{formatCurrency(price * item.quantity)}</p>
                           </div>
                         )
                       })}
@@ -312,21 +312,21 @@ export const ConsumerCheckout: React.FC = () => {
                     <div className="border-t border-border-gray pt-4 space-y-2">
                       <div className="flex justify-between text-sm">
                         <span>Subtotal</span>
-                        <span>£{subtotal.toFixed(2)}</span>
+                        <span>{formatCurrency(subtotal)}</span>
                       </div>
                       {discount > 0 && (
                         <div className="flex justify-between text-sm text-green-600">
                           <span>Discount</span>
-                          <span>-£{discount.toFixed(2)}</span>
+                          <span>-{formatCurrency(discount)}</span>
                         </div>
                       )}
-                      <div className="flex justify-between text-sm">
-                        <span>Tax (VAT 20%)</span>
-                        <span>£{tax.toFixed(2)}</span>
-                      </div>
-                      <div className="flex justify-between text-sm">
+                      <div className="flex justify-between text-sm text-green-600">
                         <span>Shipping</span>
-                        <span>{shipping === 0 ? 'Free' : `£${shipping.toFixed(2)}`}</span>
+                        <span>FREE</span>
+                      </div>
+                      <div className="flex justify-between text-sm text-gray-600">
+                        <span>VAT included</span>
+                        <span>{formatCurrency(vatIncluded)}</span>
                       </div>
                     </div>
                     
@@ -334,7 +334,7 @@ export const ConsumerCheckout: React.FC = () => {
                       <div className="flex justify-between items-center mb-6">
                         <span className="text-lg font-medium">Total</span>
                         <span className="text-2xl font-medium text-rose-gold">
-                          £{total.toFixed(2)}
+                          {formatCurrency(total)}
                         </span>
                       </div>
                       

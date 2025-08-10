@@ -11,6 +11,7 @@ import { Spinner } from '../components/ui/Spinner'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
 import toast from 'react-hot-toast'
 import { getProductPrimaryImage, getProductImageGallery } from '../utils/product-helpers'
+import { formatCurrency } from '../utils/currency'
 
 // Icon components
 const ChevronLeftIcon = () => (
@@ -62,12 +63,7 @@ const RefreshIcon = () => (
 )
 
 // Helper function to format currency
-const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat('en-GB', {
-    style: 'currency',
-    currency: 'GBP'
-  }).format(amount)
-}
+// formatCurrency is now imported from utils/currency
 
 export const ConsumerProductDetail: React.FC = () => {
   const { productId } = useParams<{ productId: string }>()
@@ -505,7 +501,7 @@ export const ConsumerProductDetail: React.FC = () => {
         </div>
         <div className="text-center">
           <TruckIcon />
-          <p className="text-sm mt-2">Free Shipping over £50</p>
+          <p className="text-sm mt-2">Free Shipping</p>
         </div>
         <div className="text-center">
           <RefreshIcon />

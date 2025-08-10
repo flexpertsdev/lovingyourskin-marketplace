@@ -9,6 +9,8 @@ import { firebaseOrderService } from './firebase/order.service'
 import { firebaseDashboardService } from './firebase/dashboard.service'
 import { firebaseMessageService } from './firebase/message.service'
 import { firebaseStorageService } from './firebase/storageService'
+import { firebaseDiscountService } from './firebase/discount.service'
+import { firebaseAffiliateService } from './firebase/affiliate.service'
 
 // Export Firebase services
 export const authService = firebaseAuthService
@@ -19,3 +21,5 @@ export const orderService = firebaseOrderService
 export const dashboardService = firebaseDashboardService
 export const messageService = firebaseMessageService
 export const storageService = firebaseStorageService
+export const discountService = firebaseDiscountService
+export const affiliateService = firebaseAffiliateService

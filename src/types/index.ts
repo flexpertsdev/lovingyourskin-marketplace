@@ -101,6 +101,10 @@ export interface Product {
   preorderDiscount?: number
   preorderEndDate?: string
   
+  // Marketplace visibility flags
+  isB2C?: boolean  // Show in consumer shop
+  isB2B?: boolean  // Show in B2B marketplace
+  
   // Tags and categorization
   tags: string[]
   
@@ -505,3 +509,12 @@ export type { ContactMessage } from '../services/firebase/message.service'
 
 // Re-export affiliate types
 export type { AffiliateCode, AffiliateTracking, AffiliateStats } from './affiliate'
+
+// Re-export discount types
+export type { 
+  DiscountCode, 
+  Affiliate, 
+  DiscountValidationResult, 
+  DiscountUsage, 
+  CommissionPayout 
+} from './discount'

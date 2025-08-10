@@ -42,3 +42,4 @@ ui-debug.log
 serviceAccountKey.json
 *-firebase-adminsdk-*.json
 EOF < /dev/null.env
+.env

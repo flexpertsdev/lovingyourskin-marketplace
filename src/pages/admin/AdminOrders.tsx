@@ -12,6 +12,8 @@ import { Label } from '../../components/ui/label'
 import toast from 'react-hot-toast'
 import { Search, Eye, Package, Truck, Check, X } from 'lucide-react'
 import { useAuthStore } from '../../stores/auth.store'
+import { collection, query, getDocs, doc, updateDoc, orderBy, Timestamp } from 'firebase/firestore'
+import { db } from '../../lib/firebase/config'
 
 interface OrderItem {
   productId: string
@@ -21,6 +23,7 @@ interface OrderItem {
   unitPrice: number
   totalPrice: number
   variant?: string
+  isPreorder?: boolean
 }
 
 interface Order {
@@ -49,82 +52,43 @@ interface Order {
   notes?: string
 }
 
-// Mock data for orders
-const mockOrders: Order[] = [
-  {
-    id: '1',
-    orderNumber: 'ORD-2024-001',
-    type: 'b2b',
-    customerName: 'Beauty Boutique',
-    customerEmail: 'orders@beautyboutique.com',
-    customerType: 'retailer',
-    status: 'processing',
-    items: [
-      {
-        productId: '1',
-        productName: 'Hydrating Serum',
-        brandName: 'Baohlab',
-        quantity: 24,
-        unitPrice: 25.00,
-        totalPrice: 600.00
-      },
-      {
-        productId: '2',
-        productName: 'Vitamin C Cream',
-        brandName: 'Lalucell',
-        quantity: 12,
-        unitPrice: 35.00,
-        totalPrice: 420.00
-      }
-    ],
-    subtotal: 1020.00,
-    tax: 102.00,
-    shipping: 50.00,
-    total: 1172.00,
-    shippingAddress: {
-      street: '123 Main St',
-      city: 'New York',
-      state: 'NY',
-      zip: '10001',
-      country: 'USA'
+// Helper function to convert Firestore order to our Order type
+const convertFirestoreOrder = (data: any, id: string): Order => {
+  return {
+    id,
+    orderNumber: data.orderNumber || `ORD-${id.slice(0, 8)}`,
+    type: data.userType === 'consumer' ? 'b2c' : 'b2b',
+    customerName: data.shippingAddress?.name || data.retailerName || 'Unknown',
+    customerEmail: data.customerEmail || '',
+    customerType: data.userType || 'consumer',
+    status: data.status || 'pending',
+    items: (data.items || []).map((item: any) => ({
+      productId: item.productId,
+      productName: item.productName,
+      brandName: item.brandName || data.brandName || '',
+      quantity: item.quantity,
+      unitPrice: item.pricePerItem || item.unitPrice || 0,
+      totalPrice: item.totalPrice || (item.quantity * (item.pricePerItem || 0)),
+      variant: item.variant,
+      isPreorder: item.product?.isPreorder || false
+    })),
+    subtotal: data.totalAmount?.items || data.subtotal || 0,
+    tax: data.totalAmount?.tax || data.tax || 0,
+    shipping: data.totalAmount?.shipping || data.shipping || 0,
+    total: data.totalAmount?.total || data.total || 0,
+    shippingAddress: data.shippingAddress || {
+      street: '',
+      city: '',
+      state: '',
+      zip: '',
+      country: ''
     },
-    orderDate: '2024-01-15T10:30:00Z',
-    estimatedDelivery: '2024-01-22T00:00:00Z'
-  },
-  {
-    id: '2',
-    orderNumber: 'ORD-2024-002',
-    type: 'b2c',
-    customerName: 'Jane Smith',
-    customerEmail: 'jane.smith@email.com',
-    customerType: 'consumer',
-    status: 'shipped',
-    items: [
-      {
-        productId: '3',
-        productName: 'Sun Protection Cushion',
-        brandName: 'Sunnicorn',
-        quantity: 1,
-        unitPrice: 45.00,
-        totalPrice: 45.00
-      }
-    ],
-    subtotal: 45.00,
-    tax: 4.50,
-    shipping: 10.00,
-    total: 59.50,
-    shippingAddress: {
-      street: '456 Oak Ave',
-      city: 'Los Angeles',
-      state: 'CA',
-      zip: '90001',
-      country: 'USA'
-    },
-    orderDate: '2024-01-14T15:45:00Z',
-    estimatedDelivery: '2024-01-18T00:00:00Z',
-    trackingNumber: 'TRACK123456789'
+    orderDate: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : data.createdAt || new Date().toISOString(),
+    estimatedDelivery: data.estimatedDelivery?.toDate ? data.estimatedDelivery.toDate().toISOString() : data.estimatedDelivery,
+    trackingNumber: data.trackingNumber,
+    notes: data.notes
   }
-]
+}
 
 export default function AdminOrders() {
   const navigate = useNavigate()
@@ -134,6 +98,7 @@ export default function AdminOrders() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedStatus, setSelectedStatus] = useState('all')
   const [selectedType, setSelectedType] = useState('all')
+  const [showPreordersOnly, setShowPreordersOnly] = useState(false)
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)
   const [detailDialogOpen, setDetailDialogOpen] = useState(false)
 
@@ -148,8 +113,21 @@ export default function AdminOrders() {
   const fetchOrders = async () => {
     setLoading(true)
     try {
-      // Using mock data for now
-      let filtered = [...mockOrders]
+      // Fetch orders from Firestore
+      const ordersQuery = query(
+        collection(db, 'orders'),
+        orderBy('createdAt', 'desc')
+      )
+      const ordersSnapshot = await getDocs(ordersQuery)
+      
+      let fetchedOrders: Order[] = []
+      ordersSnapshot.forEach((doc) => {
+        const order = convertFirestoreOrder(doc.data(), doc.id)
+        fetchedOrders.push(order)
+      })
+      
+      // Apply filters
+      let filtered = [...fetchedOrders]
       
       // Apply status filter
       if (selectedStatus !== 'all') {
@@ -159,6 +137,13 @@ export default function AdminOrders() {
       // Apply type filter
       if (selectedType !== 'all') {
         filtered = filtered.filter(order => order.type === selectedType)
+      }
+      
+      // Apply preorder filter
+      if (showPreordersOnly) {
+        filtered = filtered.filter(order => 
+          order.items.some(item => item.isPreorder)
+        )
       }
       
       // Apply search filter
@@ -208,9 +193,15 @@ export default function AdminOrders() {
     )
   }
 
-  const handleUpdateStatus = async (_orderId: string, newStatus: Order['status']) => {
+  const handleUpdateStatus = async (orderId: string, newStatus: Order['status']) => {
     try {
-      // Mock update - in real app, this would update the database using orderId
+      // Update order status in Firestore
+      const orderRef = doc(db, 'orders', orderId)
+      await updateDoc(orderRef, {
+        status: newStatus,
+        updatedAt: Timestamp.now()
+      })
+      
       toast.success(`Order status updated to ${newStatus}`)
       fetchOrders()
     } catch (error) {
@@ -280,6 +271,16 @@ export default function AdminOrders() {
                 <option value="b2b">B2B Orders</option>
                 <option value="b2c">B2C Orders</option>
               </select>
+              
+              <label className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg">
+                <input
+                  type="checkbox"
+                  checked={showPreordersOnly}
+                  onChange={(e) => setShowPreordersOnly(e.target.checked)}
+                  className="h-4 w-4 text-rose-gold focus:ring-rose-gold"
+                />
+                <span>Pre-orders Only</span>
+              </label>
             </div>
 
             {/* Orders Table */}
@@ -323,7 +324,12 @@ export default function AdminOrders() {
                           {formatDate(order.orderDate)}
                         </TableCell>
                         <TableCell>
-                          {order.items.length} items
+                          <div>
+                            <span>{order.items.length} items</span>
+                            {order.items.some(item => item.isPreorder) && (
+                              <Badge variant="warning" className="ml-2 text-xs">Pre-order</Badge>
+                            )}
+                          </div>
                         </TableCell>
                         <TableCell className="font-medium">
                           {formatCurrency(order.total)}
@@ -481,6 +487,7 @@ function OrderDetailView({
               <TableRow>
                 <TableHead>Product</TableHead>
                 <TableHead>Brand</TableHead>
+                <TableHead>Status</TableHead>
                 <TableHead>Quantity</TableHead>
                 <TableHead>Unit Price</TableHead>
                 <TableHead>Total</TableHead>
@@ -496,6 +503,13 @@ function OrderDetailView({
                     )}
                   </TableCell>
                   <TableCell>{item.brandName}</TableCell>
+                  <TableCell>
+                    {item.isPreorder ? (
+                      <Badge variant="warning">Pre-order</Badge>
+                    ) : (
+                      <Badge variant="success">In Stock</Badge>
+                    )}
+                  </TableCell>
                   <TableCell>{item.quantity}</TableCell>
                   <TableCell>{formatCurrency(item.unitPrice)}</TableCell>
                   <TableCell className="font-medium">

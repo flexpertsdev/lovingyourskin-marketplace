@@ -50,7 +50,9 @@ export const BrandDetail: React.FC = () => {
       
       // Load products for this brand
       const productsData = await productService.getProductsByBrand(brandId!)
-      setProducts(productsData)
+      // Filter only products with isB2B flag (default to true for backward compatibility)
+      const b2bProducts = productsData.filter(p => p.isB2B !== false)
+      setProducts(b2bProducts)
     } catch (error) {
       console.error('Failed to load brand data:', error)
     } finally {

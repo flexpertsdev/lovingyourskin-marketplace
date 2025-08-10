@@ -30,14 +30,8 @@ const ShoppingBagIcon = () => (
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
   </svg>
 )
-// Format currency helper
-const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat('en-GB', {
-    style: 'currency',
-    currency: 'GBP'
-  }).format(amount)
-}
 import { useAuthStore } from '../stores/auth.store'
+import { formatCurrency } from '../utils/currency'
 
 export const ConsumerCart: React.FC = () => {
   const navigate = useNavigate()
@@ -48,13 +42,11 @@ export const ConsumerCart: React.FC = () => {
     removeItem,
     getTotalItems,
     getSubtotal,
-    getEstimatedShipping,
     getEstimatedTax,
     getPreOrderDiscount,
     getAffiliateDiscount,
     getTotalAmount,
-    isPreOrderCart,
-    affiliateCode
+    isPreOrderCart
   } = useConsumerCartStore()
   
   // Use affiliate tracking hook
@@ -88,11 +80,9 @@ export const ConsumerCart: React.FC = () => {
   }
 
   const subtotal = getSubtotal()
-  const shipping = getEstimatedShipping()
   const tax = getEstimatedTax()
   const preOrderDiscount = getPreOrderDiscount()
   const affiliateDiscount = getAffiliateDiscount()
-  const totalDiscount = preOrderDiscount + affiliateDiscount
   const total = getTotalAmount()
   const hasPreOrder = isPreOrderCart()
 
@@ -228,13 +218,13 @@ export const ConsumerCart: React.FC = () => {
                   </div>
                 )}
                 
-                <div className="flex justify-between">
-                  <span>Estimated Shipping</span>
-                  <span>{shipping === 0 ? 'FREE' : formatCurrency(shipping)}</span>
+                <div className="flex justify-between text-green-600">
+                  <span>Shipping</span>
+                  <span>FREE</span>
                 </div>
                 
-                <div className="flex justify-between">
-                  <span>Estimated Tax</span>
+                <div className="flex justify-between text-sm text-gray-600">
+                  <span>VAT included</span>
                   <span>{formatCurrency(tax)}</span>
                 </div>
                 
@@ -257,12 +247,6 @@ export const ConsumerCart: React.FC = () => {
                     This order contains pre-order items. Expected delivery date will be shown at checkout.
                   </p>
                 </div>
-              )}
-
-              {shipping > 0 && (
-                <p className="text-sm text-gray-600 mb-4">
-                  Add {formatCurrency(50 - subtotal)} more for free shipping
-                </p>
               )}
 
               <Button onClick={handleCheckout} className="w-full" size="large">

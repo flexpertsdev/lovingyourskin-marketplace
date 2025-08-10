@@ -1,4 +1,4 @@
-export const formatCurrency = (amount: number, currency: string = 'GBP'): string => {
+export const formatCurrency = (amount: number, currency: string = 'USD'): string => {
   const currencySymbols: Record<string, string> = {
     GBP: '£',
     EUR: '€',

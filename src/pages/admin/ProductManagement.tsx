@@ -434,27 +434,54 @@ function ProductEditForm({
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="featured"
-                  checked={formData.featured}
-                  onChange={(e) => updateFormData({ featured: e.target.checked })}
-                  className="h-4 w-4 text-rose-gold"
-                />
-                <Label htmlFor="featured">Featured Product</Label>
-              </div>
+            <div className="space-y-4">
+              <h3 className="text-sm font-medium text-gray-700">Product Visibility</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="isB2C"
+                    checked={formData.isB2C !== false}
+                    onChange={(e) => updateFormData({ isB2C: e.target.checked })}
+                    className="h-4 w-4 text-rose-gold"
+                  />
+                  <Label htmlFor="isB2C">Show in Consumer Shop</Label>
+                </div>
 
-              <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="isPreorder"
-                  checked={formData.isPreorder}
-                  onChange={(e) => updateFormData({ isPreorder: e.target.checked })}
-                  className="h-4 w-4 text-rose-gold"
-                />
-                <Label htmlFor="isPreorder">Pre-order Product</Label>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="isB2B"
+                    checked={formData.isB2B !== false}
+                    onChange={(e) => updateFormData({ isB2B: e.target.checked })}
+                    className="h-4 w-4 text-rose-gold"
+                  />
+                  <Label htmlFor="isB2B">Show in B2B Marketplace</Label>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="featured"
+                    checked={formData.featured}
+                    onChange={(e) => updateFormData({ featured: e.target.checked })}
+                    className="h-4 w-4 text-rose-gold"
+                  />
+                  <Label htmlFor="featured">Featured Product</Label>
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="isPreorder"
+                    checked={formData.isPreorder}
+                    onChange={(e) => updateFormData({ isPreorder: e.target.checked })}
+                    className="h-4 w-4 text-rose-gold"
+                  />
+                  <Label htmlFor="isPreorder">Available for Pre-order</Label>
+                </div>
               </div>
             </div>
 
@@ -1035,27 +1062,54 @@ function ProductCreateForm({
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="featured"
-                  checked={formData.featured}
-                  onChange={(e) => updateFormData({ featured: e.target.checked })}
-                  className="h-4 w-4 text-rose-gold"
-                />
-                <Label htmlFor="featured">Featured Product</Label>
-              </div>
+            <div className="space-y-4">
+              <h3 className="text-sm font-medium text-gray-700">Product Visibility</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="isB2C"
+                    checked={formData.isB2C !== false}
+                    onChange={(e) => updateFormData({ isB2C: e.target.checked })}
+                    className="h-4 w-4 text-rose-gold"
+                  />
+                  <Label htmlFor="isB2C">Show in Consumer Shop</Label>
+                </div>
 
-              <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="isPreorder"
-                  checked={formData.isPreorder}
-                  onChange={(e) => updateFormData({ isPreorder: e.target.checked })}
-                  className="h-4 w-4 text-rose-gold"
-                />
-                <Label htmlFor="isPreorder">Pre-order Product</Label>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="isB2B"
+                    checked={formData.isB2B !== false}
+                    onChange={(e) => updateFormData({ isB2B: e.target.checked })}
+                    className="h-4 w-4 text-rose-gold"
+                  />
+                  <Label htmlFor="isB2B">Show in B2B Marketplace</Label>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="featured"
+                    checked={formData.featured}
+                    onChange={(e) => updateFormData({ featured: e.target.checked })}
+                    className="h-4 w-4 text-rose-gold"
+                  />
+                  <Label htmlFor="featured">Featured Product</Label>
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="isPreorder"
+                    checked={formData.isPreorder}
+                    onChange={(e) => updateFormData({ isPreorder: e.target.checked })}
+                    className="h-4 w-4 text-rose-gold"
+                  />
+                  <Label htmlFor="isPreorder">Available for Pre-order</Label>
+                </div>
               </div>
             </div>
 

@@ -40,8 +40,11 @@ const BrandShowcase: React.FC<{ brands: Brand[] }> = ({ brands }) => {
   const scrollRef = useRef<HTMLDivElement>(null)
   const [isPaused, setIsPaused] = useState(false)
   
+  // Filter for exclusive partners only (isExclusivePartner is true or undefined)
+  const exclusiveBrands = brands.filter(b => b.isExclusivePartner !== false)
+  
   // Duplicate brands for infinite scroll effect
-  const duplicatedBrands = [...brands, ...brands, ...brands]
+  const duplicatedBrands = [...exclusiveBrands, ...exclusiveBrands, ...exclusiveBrands]
 
   useEffect(() => {
     const scrollElement = scrollRef.current
@@ -72,7 +75,10 @@ const BrandShowcase: React.FC<{ brands: Brand[] }> = ({ brands }) => {
     return () => {
       cancelAnimationFrame(animationId)
     }
-  }, [isPaused, brands.length])
+  }, [isPaused, exclusiveBrands.length])
+
+  // Don't render if no exclusive brands
+  if (exclusiveBrands.length === 0) return null
 
   return (
     <div className="mb-12">
@@ -131,19 +137,9 @@ const ShopFilters: React.FC<{
   selectedBrand: string
   onBrandChange: (brand: string) => void
   brands: string[]
-  skinTypes: string[]
-  selectedSkinType: string
-  onSkinTypeChange: (type: string) => void
-  priceRange: [number, number]
-  onPriceRangeChange: (range: [number, number]) => void
-  showCertified: boolean
-  onCertifiedChange: (show: boolean) => void
 }> = ({ 
   categories, selectedCategory, onCategoryChange,
-  selectedBrand, onBrandChange, brands,
-  skinTypes, selectedSkinType, onSkinTypeChange,
-  priceRange, onPriceRangeChange,
-  showCertified, onCertifiedChange
+  selectedBrand, onBrandChange, brands
 }) => {
   return (
     <div className="bg-white rounded-lg p-6 shadow-sm sticky top-24">
@@ -197,76 +193,6 @@ const ShopFilters: React.FC<{
           ))}
         </select>
       </div>
-
-      {/* Skin Type */}
-      <div className="mb-6">
-        <h4 className="text-sm font-medium text-deep-charcoal mb-3">Skin Type</h4>
-        <div className="space-y-2">
-          <label className="flex items-center gap-3 cursor-pointer">
-            <input
-              type="radio"
-              name="skinType"
-              value="all"
-              checked={selectedSkinType === 'all'}
-              onChange={() => onSkinTypeChange('all')}
-              className="text-rose-gold focus:ring-rose-gold"
-            />
-            <span className="text-sm text-text-secondary">All Skin Types</span>
-          </label>
-          {skinTypes.map(type => (
-            <label key={type} className="flex items-center gap-3 cursor-pointer">
-              <input
-                type="radio"
-                name="skinType"
-                value={type}
-                checked={selectedSkinType === type}
-                onChange={() => onSkinTypeChange(type)}
-                className="text-rose-gold focus:ring-rose-gold"
-              />
-              <span className="text-sm text-text-secondary">{type}</span>
-            </label>
-          ))}
-        </div>
-      </div>
-
-      {/* Price Range */}
-      <div className="mb-6">
-        <h4 className="text-sm font-medium text-deep-charcoal mb-3">Price Range</h4>
-        <div className="flex gap-2 mb-3">
-          <input
-            type="number"
-            placeholder="Min"
-            value={priceRange[0]}
-            onChange={(e) => onPriceRangeChange([Number(e.target.value), priceRange[1]])}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-rose-gold focus:border-rose-gold"
-          />
-          <span className="self-center">-</span>
-          <input
-            type="number"
-            placeholder="Max"
-            value={priceRange[1] || ''}
-            onChange={(e) => onPriceRangeChange([priceRange[0], Number(e.target.value)])}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-rose-gold focus:border-rose-gold"
-          />
-        </div>
-        <div className="text-xs text-text-secondary">
-          ${priceRange[0]} - ${priceRange[1] || '∞'}
-        </div>
-      </div>
-
-      {/* Certifications */}
-      <div className="mb-6">
-        <h4 className="text-sm font-medium text-deep-charcoal mb-3">Certifications</h4>
-        <label className="flex items-center gap-3 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={showCertified}
-            onChange={(e) => onCertifiedChange(e.target.checked)}
-            className="text-rose-gold focus:ring-rose-gold rounded"
-          />
-          <span className="text-sm text-text-secondary">K-Beauty Certified Only</span>
-        </label>
-      </div>
     </div>
   )
 }
@@ -280,9 +206,6 @@ export const ConsumerShop: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [selectedBrand, setSelectedBrand] = useState('all')
-  const [selectedSkinType, setSelectedSkinType] = useState('all')
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 500])
-  const [showCertified, setShowCertified] = useState(false)
   const [sortBy, setSortBy] = useState('featured')
   const [wishlist, setWishlist] = useState<string[]>([])
   const toastIdRef = useRef<string | null>(null)
@@ -305,8 +228,8 @@ export const ConsumerShop: React.FC = () => {
       const fetchedProducts: Product[] = []
       productsSnapshot.forEach((doc) => {
         const data = doc.data()
-        // Only include products with B2C pricing
-        if (data.variants?.some((v: any) => v.pricing?.b2c?.enabled)) {
+        // Only include products with isB2C flag (default to true for backward compatibility)
+        if (data.isB2C !== false) {
           fetchedProducts.push({ id: doc.id, ...data } as Product)
         }
       })
@@ -331,7 +254,6 @@ export const ConsumerShop: React.FC = () => {
   // Get unique values for filters
   const categories = Array.from(new Set(products.map(p => p.category))).filter(Boolean).sort()
   const brandNames = Array.from(new Set(products.map(p => p.brandId))).filter(Boolean).sort()
-  const skinTypes = ['Normal', 'Dry', 'Oily', 'Combination', 'Sensitive']
 
   // Filter and sort products
   const filteredProducts = products
@@ -354,23 +276,6 @@ export const ConsumerShop: React.FC = () => {
 
       // Brand filter
       if (selectedBrand !== 'all' && product.brandId !== selectedBrand) {
-        return false
-      }
-
-      // Skin type filter
-      if (selectedSkinType !== 'all' && !product.tags?.includes(selectedSkinType.toLowerCase())) {
-        return false
-      }
-
-      // Price filter - get B2C price from variants
-      const b2cVariant = product.variants?.find(v => v.pricing?.b2c?.enabled)
-      const price = b2cVariant?.pricing?.b2c?.retailPrice || 0
-      if (price < priceRange[0] || (priceRange[1] && price > priceRange[1])) {
-        return false
-      }
-
-      // Certification filter
-      if (showCertified && !product.specifications?.certifications?.length) {
         return false
       }
 
@@ -512,13 +417,6 @@ export const ConsumerShop: React.FC = () => {
               selectedBrand={selectedBrand}
               onBrandChange={setSelectedBrand}
               brands={brandNames}
-              skinTypes={skinTypes}
-              selectedSkinType={selectedSkinType}
-              onSkinTypeChange={setSelectedSkinType}
-              priceRange={priceRange}
-              onPriceRangeChange={setPriceRange}
-              showCertified={showCertified}
-              onCertifiedChange={setShowCertified}
             />
           </aside>
 
@@ -646,9 +544,6 @@ export const ConsumerShop: React.FC = () => {
                   setSearchQuery('')
                   setSelectedCategory('all')
                   setSelectedBrand('all')
-                  setSelectedSkinType('all')
-                  setPriceRange([0, 500])
-                  setShowCertified(false)
                 }}>
                   Clear All Filters
                 </Button>

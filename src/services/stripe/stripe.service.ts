@@ -201,27 +201,28 @@ export class StripeService {
 
   /**
    * Create a pre-order discount coupon
+   * @deprecated Not currently used - pre-order discounts handled differently
    */
-  private async createPreOrderCoupon(percentOff: number): Promise<string> {
-    const response = await fetch(`${this.apiUrl}/stripe/create-coupon`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        percent_off: percentOff,
-        duration: 'once',
-        name: `Pre-Order ${percentOff}% Discount`
-      })
-    })
+  // private async createPreOrderCoupon(percentOff: number): Promise<string> {
+  //   const response = await fetch(`${this.apiUrl}/stripe/create-coupon`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       percent_off: percentOff,
+  //       duration: 'once',
+  //       name: `Pre-Order ${percentOff}% Discount`
+  //     })
+  //   })
 
-    if (!response.ok) {
-      throw new Error('Failed to create coupon')
-    }
+  //   if (!response.ok) {
+  //     throw new Error('Failed to create coupon')
+  //   }
 
-    const coupon = await response.json()
-    return coupon.id
-  }
+  //   const coupon = await response.json()
+  //   return coupon.id
+  // }
 
   /**
    * Retrieve a checkout session by ID

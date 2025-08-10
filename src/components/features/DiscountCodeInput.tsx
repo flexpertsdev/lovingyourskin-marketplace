@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Button } from '../ui/Button'
 import { Input } from '../ui/Input'
-import { firebaseAffiliateService } from '../../services/firebase/affiliate.service'
+import { firebaseDiscountService } from '../../services/firebase/discount.service'
 import { useConsumerCartStore } from '../../stores/consumer-cart.store'
+import { useAuthStore } from '../../stores/auth.store'
 import toast from 'react-hot-toast'
 
 interface DiscountCodeInputProps {
@@ -17,7 +18,8 @@ export const DiscountCodeInput: React.FC<DiscountCodeInputProps> = ({
   const [code, setCode] = useState('')
   const [loading, setLoading] = useState(false)
   const [showInput, setShowInput] = useState(false)
-  const { affiliateCode, setAffiliateCode } = useConsumerCartStore()
+  const { affiliateCode, setAffiliateCode, getSubtotal, items } = useConsumerCartStore()
+  const { user } = useAuthStore()
 
   const handleApplyCode = async () => {
     if (!code.trim()) {
@@ -27,32 +29,32 @@ export const DiscountCodeInput: React.FC<DiscountCodeInputProps> = ({
 
     setLoading(true)
     try {
-      // Validate the affiliate code
-      const validation = await firebaseAffiliateService.validateAffiliateCode(code)
+      const subtotal = getSubtotal()
       
-      if (!validation.valid || !validation.affiliateCode) {
+      // Get product and brand IDs from cart
+      const productIds = items.map(item => item.product.id)
+      const brandIds = [...new Set(items.map(item => item.product.brandId))]
+      
+      // Validate the discount code with order details
+      const validation = await firebaseDiscountService.validateDiscountCode(code, {
+        customerId: user?.id,
+        orderValue: subtotal,
+        productIds,
+        brandIds,
+        isNewCustomer: !user?.createdAt || (new Date().getTime() - new Date(user.createdAt).getTime()) < 30 * 24 * 60 * 60 * 1000 // New if account < 30 days
+      })
+      
+      if (!validation.valid || !validation.discountCode) {
         toast.error(validation.error || 'Invalid discount code')
         return
       }
 
-      const affiliateData = validation.affiliateCode
+      const discountData = validation.discountCode
       
-      // Check if code is expired
-      if (affiliateData.validUntil && new Date(affiliateData.validUntil) < new Date()) {
-        toast.error('This discount code has expired')
-        return
-      }
-
-      // Check usage limits
-      if (affiliateData.maxUses && affiliateData.currentUses >= affiliateData.maxUses) {
-        toast.error('This discount code has reached its usage limit')
-        return
-      }
-
       // Apply the discount
       const discount = {
-        type: affiliateData.discountType as 'percentage' | 'fixed',
-        value: affiliateData.discountValue
+        type: discountData.discountType,
+        value: discountData.discountValue
       }
 
       setAffiliateCode(code.toUpperCase(), discount)
@@ -62,20 +64,11 @@ export const DiscountCodeInput: React.FC<DiscountCodeInputProps> = ({
         onApply(code.toUpperCase(), discount)
       }
 
-      // Track the usage
-      await firebaseAffiliateService.trackAffiliateClick({
-        affiliateCodeId: affiliateData.id,
-        affiliateCode: code.toUpperCase(),
-        sessionId: `manual-${Date.now()}`,
-        landingPage: window.location.href,
-        userAgent: navigator.userAgent
-      })
-
       toast.success(
         `Discount applied! ${
           discount.type === 'percentage' 
             ? `${discount.value}% off` 
-            : `£${discount.value} off`
+            : `$${discount.value} off`
         }`
       )
       

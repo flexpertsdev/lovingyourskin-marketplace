@@ -33,11 +33,12 @@ import { Preorder } from '../pages/Preorder'
 import { PreorderDetail } from '../pages/PreorderDetail'
 import UserManagement from '../pages/admin/UserManagement'
 import { AdminMessages } from '../pages/admin/AdminMessages'
-import { AdminAffiliates } from '../pages/admin/AdminAffiliates'
+import AdminAffiliates from '../pages/admin/AdminAffiliates'
 import ProductManagement from '../pages/admin/ProductManagement'
 import AdminBrands from '../pages/admin/AdminBrands'
 import AdminOrders from '../pages/admin/AdminOrders'
 import MigrateImages from '../pages/admin/MigrateImages'
+import AdminDiscounts from '../pages/admin/AdminDiscounts'
 
 // Consumer Pages
 import { ConsumerShop } from '../pages/ConsumerShop'
@@ -262,6 +263,11 @@ export const AppRoutes: React.FC = () => {
       <Route path="/admin/affiliates" element={
         <AdminRoute>
           <AdminAffiliates />
+        </AdminRoute>
+      } />
+      <Route path="/admin/discounts" element={
+        <AdminRoute>
+          <AdminDiscounts />
         </AdminRoute>
       } />
       <Route path="/admin/products" element={

@@ -108,22 +108,16 @@ export const Orders: React.FC = () => {
                'My Orders'}
             </h1>
             
-            <div className="flex items-center gap-4">
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value as OrderStatus | 'all')}
-                className="px-4 py-2 border border-border-gray rounded-lg bg-white text-text-primary"
-              >
-                <option value="all">All Orders</option>
-                {Object.entries(statusLabels).map(([value, label]) => (
-                  <option key={value} value={value}>{label}</option>
-                ))}
-              </select>
-              
-              <Button onClick={() => navigate(isConsumerMode ? '/shop/brands' : '/brands')}>
-                New Order
-              </Button>
-            </div>
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value as OrderStatus | 'all')}
+              className="px-4 py-2 border border-border-gray rounded-lg bg-white text-text-primary"
+            >
+              <option value="all">All Orders</option>
+              {Object.entries(statusLabels).map(([value, label]) => (
+                <option key={value} value={value}>{label}</option>
+              ))}
+            </select>
           </div>
           
           {orders.length === 0 ? (
@@ -141,8 +135,8 @@ export const Orders: React.FC = () => {
                   }
                 </p>
                 {(user?.role === 'retailer' || isConsumerMode) && (
-                  <Button onClick={() => navigate(isConsumerMode ? '/shop/brands' : '/brands')}>
-                    Browse Brands
+                  <Button onClick={() => navigate(isConsumerMode ? '/shop' : '/brands')}>
+                    Browse Products
                   </Button>
                 )}
               </CardContent>

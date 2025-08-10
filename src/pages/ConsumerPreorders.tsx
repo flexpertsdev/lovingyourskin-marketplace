@@ -71,11 +71,11 @@ export const ConsumerPreorders: React.FC = () => {
     try {
       setLoading(true)
       const allProducts = await productService.getAll()
-      // Filter only pre-order products with retail pricing
+      // Filter only pre-order products that are visible in B2C shop
       const preorderProducts = allProducts.filter(p => 
         p.isPreorder && 
-        p.retailPrice && 
-        p.retailPrice.item > 0
+        p.isB2C !== false &&
+        ((p.retailPrice?.item && p.retailPrice.item > 0) || p.variants?.[0]?.pricing?.b2c?.retailPrice > 0)
       )
       setProducts(preorderProducts)
     } catch (error) {
@@ -214,15 +214,15 @@ export const ConsumerPreorders: React.FC = () => {
                       {product.preorderDiscount && product.retailPrice ? (
                         <div className="flex items-center gap-2">
                           <span className="text-xl font-light text-rose-gold">
-                            £{(product.retailPrice.item * (1 - product.preorderDiscount / 100)).toFixed(2)}
+                            ${(product.retailPrice.item * (1 - product.preorderDiscount / 100)).toFixed(2)}
                           </span>
                           <span className="text-sm text-text-secondary line-through">
-                            £{product.retailPrice?.item.toFixed(2)}
+                            ${product.retailPrice?.item.toFixed(2)}
                           </span>
                         </div>
                       ) : (
                         <span className="text-xl font-light text-rose-gold">
-                          £{product.retailPrice?.item.toFixed(2)}
+                          ${product.retailPrice?.item.toFixed(2)}
                         </span>
                       )}
                     </div>

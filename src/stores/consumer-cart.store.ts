@@ -51,16 +51,18 @@ interface ConsumerCartStore {
   }
 }
 
-// Calculate estimated shipping based on order value
-const calculateShipping = (subtotal: number): number => {
-  if (subtotal >= 50) return 0 // Free shipping over £50
-  if (subtotal >= 30) return 4.99
-  return 6.99
+// Shipping is always free for consumers
+const calculateShipping = (_subtotal: number): number => {
+  return 0 // Free shipping for all consumer orders
 }
 
-// Calculate estimated tax (20% VAT)
-const calculateTax = (subtotal: number): number => {
-  return subtotal * 0.20
+// VAT is included in prices (UK/EU standard)
+// This calculates the VAT portion that's already included in the price
+const calculateIncludedTax = (subtotal: number): number => {
+  // VAT is 20% of the pre-tax amount
+  // If price is £120 (inc VAT), then VAT portion is £20 (£100 + £20 VAT = £120)
+  // Formula: VAT = Price - (Price / 1.2)
+  return subtotal - (subtotal / 1.2)
 }
 
 export const useConsumerCartStore = create<ConsumerCartStore>()(
@@ -265,16 +267,17 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
         const subtotal = get().getSubtotal()
         const preOrderDiscount = get().getPreOrderDiscount()
         const affiliateDiscount = get().getAffiliateDiscount()
-        return calculateTax(subtotal - preOrderDiscount - affiliateDiscount)
+        // VAT is included in prices, so we calculate the VAT portion
+        return calculateIncludedTax(subtotal - preOrderDiscount - affiliateDiscount)
       },
       
       getTotalAmount: () => {
         const subtotal = get().getSubtotal()
-        const shipping = get().getEstimatedShipping()
-        const tax = get().getEstimatedTax()
+        const shipping = get().getEstimatedShipping() // Always 0 for consumers
         const preOrderDiscount = get().getPreOrderDiscount()
         const affiliateDiscount = get().getAffiliateDiscount()
-        return subtotal + shipping + tax - preOrderDiscount - affiliateDiscount
+        // Tax is already included in subtotal, so don't add it again
+        return subtotal + shipping - preOrderDiscount - affiliateDiscount
       },
       
       getPreOrderDiscount: () => {
@@ -315,8 +318,8 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
       getCheckoutData: () => {
         const state = get()
         const subtotal = state.getSubtotal()
-        const shipping = state.getEstimatedShipping()
-        const tax = state.getEstimatedTax()
+        const shipping = state.getEstimatedShipping() // Always 0 for consumers
+        const tax = state.getEstimatedTax() // VAT portion already included in subtotal
         const discount = state.getPreOrderDiscount()
         const affiliateDiscount = state.getAffiliateDiscount()
         const total = state.getTotalAmount()
@@ -327,7 +330,7 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
           summary: {
             subtotal,
             shipping,
-            tax,
+            tax, // This is the VAT portion that's included in subtotal
             discount,
             affiliateDiscount,
             total,

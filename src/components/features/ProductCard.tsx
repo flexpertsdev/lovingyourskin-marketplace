@@ -34,11 +34,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
   }
   
   const getCurrency = (): string => {
-    const currency = product.price?.currency || product.retailPrice?.currency || 'GBP'
-    if (currency === 'USD') return '$'
-    if (currency === 'EUR') return '€'
-    if (currency === 'CHF') return 'CHF '
-    return '£'
+    // Always use USD for now as all prices are stored in USD
+    return '$'
   }
   
   return (
