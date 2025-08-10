@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { Container, Section, Grid } from '../components/layout'
 import { Button, Badge, Spinner, Card, CardContent } from '../components/ui'
 import { HeroCarousel } from '../components/features/HeroCarousel'
-import { productService } from '../services'
+import { brandService, productService } from '../services'
 import { Brand, Product } from '../types'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
 import toast from 'react-hot-toast'
@@ -36,7 +36,7 @@ export const BoutiqueCollection: React.FC = () => {
       setIsLoading(true)
       
       // Load brand details
-      const brandData = await productService.getBrand(brandId!)
+      const brandData = await brandService.getBrand(brandId!)
       
       if (!brandData) {
         navigate('/shop')
@@ -101,15 +101,15 @@ export const BoutiqueCollection: React.FC = () => {
             {brand.logo && (
               <img 
                 src={brand.logo} 
-                alt={typeof brand.name === 'string' ? brand.name : brand.name?.en || 'Brand'}
+                alt={brand.name}
                 className="h-24 mx-auto mb-6 object-contain"
               />
             )}
             <h1 className="text-4xl font-light text-deep-charcoal mb-4">
-              {typeof brand.name === 'string' ? brand.name : brand.name?.en || ''}
+              {brand.name}
             </h1>
             <p className="text-xl text-text-secondary mb-8">
-              {typeof brand.description === 'string' ? brand.description : brand.description?.en || ''}
+              {brand.description}
             </p>
             
             {/* Brand Features */}
@@ -141,7 +141,7 @@ export const BoutiqueCollection: React.FC = () => {
       {brand.heroImages && brand.heroImages.length > 0 && (
         <HeroCarousel
           images={brand.heroImages}
-          alt={typeof brand.name === 'string' ? brand.name : brand.name?.en || 'Brand'}
+          alt={brand.name}
         />
       )}
       
@@ -153,7 +153,7 @@ export const BoutiqueCollection: React.FC = () => {
               <CardContent className="p-8">
                 <h2 className="text-2xl font-light text-deep-charcoal mb-6 text-center">Our Story</h2>
                 <p className="text-text-secondary leading-relaxed text-lg">
-                  {typeof brand.story === 'string' ? brand.story : brand.story?.en || ''}
+                  {brand.story}
                 </p>
               </CardContent>
             </Card>
@@ -246,7 +246,7 @@ export const BoutiqueCollection: React.FC = () => {
       <Section background="pink" className="text-center">
         <Container>
           <h3 className="text-2xl font-light text-deep-charcoal mb-4">
-            Love {typeof brand.name === 'string' ? brand.name : brand.name?.en || 'this brand'}?
+            Love {brand.name}?
           </h3>
           <p className="text-text-secondary mb-6">
             Explore more premium K-beauty brands in our boutique

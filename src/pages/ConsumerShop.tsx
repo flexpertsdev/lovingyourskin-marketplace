@@ -98,18 +98,18 @@ const BrandShowcase: React.FC<{ brands: Brand[] }> = ({ brands }) => {
               {brand.heroImage ? (
                 <img 
                   src={brand.heroImage} 
-                  alt={typeof brand.name === 'string' ? brand.name : brand.name?.en || 'Brand'}
+                  alt={brand.name}
                   className="w-full h-24 object-cover rounded mb-3 group-hover:scale-105 transition-transform"
                 />
               ) : (
                 <div className="w-full h-24 bg-gradient-to-br from-rose-gold/20 to-rose-gold/10 rounded mb-3 flex items-center justify-center">
                   <span className="text-2xl font-light text-rose-gold">
-                    {(typeof brand.name === 'string' ? brand.name : brand.name?.en || 'B').charAt(0)}
+                    {brand.name.charAt(0)}
                   </span>
                 </div>
               )}
               <h3 className="text-sm font-medium text-deep-charcoal text-center">
-                {typeof brand.name === 'string' ? brand.name : brand.name?.en || 'Brand'}
+                {brand.name}
               </h3>
             </Link>
           ))}

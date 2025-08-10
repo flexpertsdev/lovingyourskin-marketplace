@@ -170,10 +170,10 @@ export const Dashboard: React.FC = () => {
                   onClick={() => navigate(`/brands/${brand.id}`)}
                 >
                   <div className="h-48 bg-soft-pink flex items-center justify-center text-2xl font-light text-text-secondary">
-                    {brand.name.en}
+                    {brand.name}
                   </div>
                   <CardContent>
-                    <h3 className="font-medium mb-2">{brand.name.en}</h3>
+                    <h3 className="font-medium mb-2">{brand.name}</h3>
                     <p className="text-sm text-text-secondary line-clamp-2">
                       {brand.tagline}
                     </p>

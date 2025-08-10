@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { Layout, Container, Section, Grid } from '../components/layout'
 import { Button, Badge, Spinner, Card, CardContent, CardHeader, CardTitle } from '../components/ui'
-import { productService, cartService } from '../services'
+import { brandService, productService, cartService } from '../services'
 import { useCartStore } from '../stores/cart.store'
 import { Product, Brand } from '../types'
 
@@ -38,7 +38,7 @@ export const ProductDetail: React.FC = () => {
       setProduct(productData)
       
       // Load brand details
-      const brands = await productService.getBrands()
+      const brands = await brandService.getBrands()
       const brandData = brands.find(b => b.id === productData.brandId)
       setBrand(brandData || null)
     } catch (error) {
@@ -122,7 +122,7 @@ export const ProductDetail: React.FC = () => {
           {brand && (
             <>
               <Link to={`/brands/${brand.id}`} className="hover:text-rose-gold">
-                {brand.name.en}
+                {brand.name}
               </Link>
               <span>/</span>
             </>
@@ -173,7 +173,7 @@ export const ProductDetail: React.FC = () => {
                   to={`/brands/${brand.id}`}
                   className="text-rose-gold hover:text-rose-gold-dark mb-2 inline-block"
                 >
-                  {brand.name.en}
+                  {brand.name}
                 </Link>
               )}
               <h1 className="text-3xl font-light text-deep-charcoal mb-2">

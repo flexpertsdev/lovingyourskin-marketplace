@@ -7,8 +7,6 @@ import { Login, Register } from '../pages/auth'
 import { Brands } from '../pages/Brands'
 import { BrandDetail } from '../pages/BrandDetail'
 import { ProductDetail } from '../pages/ProductDetail'
-import { Test } from '../pages/Test'
-import { TestAuth } from '../pages/TestAuth'
 import { Cart } from '../pages/Cart'
 import { Checkout } from '../pages/Checkout'
 import { Orders } from '../pages/Orders'
@@ -37,8 +35,6 @@ export const AppRoutes: React.FC = () => {
     <Routes>
       {/* Public Routes */}
       <Route path="/" element={<Landing />} />
-      <Route path="/test" element={<Test />} />
-      <Route path="/test-auth" element={<TestAuth />} />
       <Route path="/components" element={<ComponentDemo />} />
       
       {/* Auth Routes */}

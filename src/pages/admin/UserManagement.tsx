@@ -205,7 +205,7 @@ const UserManagement: React.FC = () => {
                             { value: '', label: 'Select a brand' },
                             ...brands.map(brand => ({
                               value: brand.id,
-                              label: typeof brand.name === 'string' ? brand.name : brand.name?.en || 'Brand'
+                              label: brand.name
                             }))
                           ]}
                         />
@@ -282,7 +282,7 @@ const UserManagement: React.FC = () => {
                                 {(() => {
                                   const brand = brands.find(b => b.id === invite.companyId);
                                   if (!brand?.name) return invite.companyId;
-                                  return typeof brand.name === 'string' ? brand.name : brand.name.en;
+                                  return brand.name;
                                 })()}
                               </span>
                             ) : invite.companyId ? (

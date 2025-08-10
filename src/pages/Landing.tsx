@@ -4,7 +4,7 @@ import { Container, Section, Grid } from '../components/layout'
 import { Button, Input, Textarea, Card, CardContent } from '../components/ui'
 import { Layout } from '../components/layout'
 import { TestimonialCard, PartnerCard } from '../components/features'
-import { productService } from '../services'
+import { brandService } from '../services'
 import type { Brand } from '../types'
 
 interface Feature {
@@ -93,7 +93,7 @@ const benefits = {
     },
     {
       title: 'Simplified Process',
-      description: 'We make international expansion smooth and manageable'
+      description: 'They make international expansion smooth and manageable'
     },
     {
       title: 'Secure Partnerships',
@@ -113,34 +113,32 @@ export const Landing: React.FC = () => {
     email: '',
     message: ''
   })
-  const [brands, setBrands] = useState<{
-    lalucell?: Brand
-    sunnicorn?: Brand
-    baohlab?: Brand
-    thecelllab?: Brand
-  }>({})
+  const [exclusivePartners, setExclusivePartners] = useState<Brand[]>([])
+  const [currentBrandIndex, setCurrentBrandIndex] = useState(0)
   
   useEffect(() => {
-    const loadBrands = async () => {
+    const loadExclusivePartners = async () => {
       try {
-        const [lalucell, sunnicorn, baohlab, thecelllab] = await Promise.all([
-          productService.getBrand('lalucell'),
-          productService.getBrand('sunnicorn'),
-          productService.getBrand('baohlab'),
-          productService.getBrand('thecelllab')
-        ])
-        setBrands({
-          lalucell: lalucell || undefined,
-          sunnicorn: sunnicorn || undefined,
-          baohlab: baohlab || undefined,
-          thecelllab: thecelllab || undefined
-        })
+        const partners = await brandService.getExclusivePartners()
+        console.log('Loaded exclusive partners:', partners)
+        setExclusivePartners(partners)
       } catch (error) {
-        console.error('Failed to load brands:', error)
+        console.error('Failed to load exclusive partners:', error)
       }
     }
-    loadBrands()
+    loadExclusivePartners()
   }, [])
+
+  // Brand carousel effect
+  useEffect(() => {
+    if (exclusivePartners.length === 0) return
+    
+    const interval = setInterval(() => {
+      setCurrentBrandIndex((prev) => (prev + 1) % exclusivePartners.length)
+    }, 5000) // Change every 5 seconds
+    
+    return () => clearInterval(interval)
+  }, [exclusivePartners.length])
   
   const handleSubmit = (_e: React.FormEvent) => {
     // Let Netlify handle the form submission
@@ -150,15 +148,43 @@ export const Landing: React.FC = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <Section className="relative text-center bg-gradient-to-br from-soft-pink to-white py-20">
+      <Section className="relative text-center bg-gradient-to-br from-soft-pink to-white py-20 overflow-hidden">
+        {/* Background with reduced opacity */}
         <div 
-          className="absolute inset-0 opacity-10"
+          className="absolute inset-0 opacity-30"
           style={{
             backgroundImage: 'url(https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1920)',
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}
         />
+        
+        {/* Brand Carousel Overlay */}
+        {exclusivePartners.length > 0 && (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            {exclusivePartners.map((brand, index) => (
+              <div
+                key={brand.id}
+                className={`absolute inset-0 flex items-center justify-center transition-all duration-1000 ease-in-out ${
+                  index === currentBrandIndex 
+                    ? 'opacity-20 scale-100' 
+                    : 'opacity-0 scale-95'
+                }`}
+              >
+                <img
+                  src={brand.heroImage || brand.logo}
+                  alt={`${brand.name} products`}
+                  className="max-w-2xl max-h-96 object-contain"
+                  style={{
+                    filter: 'blur(1px)',
+                    mixBlendMode: 'multiply'
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+        
         <Container className="relative z-10">
           <div className="mb-8">
             <img 
@@ -185,15 +211,19 @@ export const Landing: React.FC = () => {
         </Container>
       </Section>
       
-      {/* Boutique Shop Banner */}
-      <div className="bg-rose-gold text-white py-4">
-        <Container>
-          <Link to="/consumer/shop" className="flex items-center justify-center gap-3 hover:opacity-80 transition-opacity">
-            <span className="text-lg font-light">Looking for our retail boutique?</span>
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
+      {/* Retail Shop Banner - More Prominent */}
+      <div className="bg-gradient-to-r from-rose-gold via-pink-500 to-rose-gold text-white py-6 shadow-lg relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <Container className="relative z-10">
+          <Link to="/consumer/shop" className="flex items-center justify-center gap-4 hover:scale-105 transition-transform duration-300">
+            <div className="flex items-center gap-4">
+              <span className="text-2xl font-bold uppercase tracking-wider animate-pulse">Not a business? - GO TO SHOP  </span>
+              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </div>
           </Link>
+          <p className="text-center text-sm mt-2 opacity-90">Exclusive K-Beauty Products Available Now - Free Shipping 🇪🇺🇬🇧</p>
         </Container>
       </div>
       
@@ -298,8 +328,8 @@ export const Landing: React.FC = () => {
               <p className="text-sm text-rose-gold mt-2 font-medium">Profitable Product</p>
             </div>
             <div className="group hover:scale-105 transition-transform duration-300">
-              <div className="text-5xl font-light text-rose-gold mb-3">128.4%</div>
-              <h3 className="text-lg font-medium text-deep-charcoal mb-2">Total Accumulated Growth</h3>
+              <div className="text-5xl font-light text-rose-gold mb-3">90%+</div>
+              <h3 className="text-lg font-medium text-deep-charcoal mb-2">Total PROJECTED growth</h3>
               <p className="text-text-secondary">Europe K-beauty market (2024-2032)</p>
               <p className="text-sm text-rose-gold mt-2 font-medium">Explosive Growth Ahead</p>
             </div>
@@ -353,61 +383,19 @@ export const Landing: React.FC = () => {
           </div>
           
           <div className="space-y-12 max-w-6xl mx-auto">
-            {/* Lalucell */}
-            {brands.lalucell && (
+            {exclusivePartners.map((brand) => (
               <PartnerCard 
+                key={brand.id}
                 brand={{
-                  name: typeof brands.lalucell.name === 'object' ? brands.lalucell.name.en : brands.lalucell.name || '',
-                  logo: brands.lalucell.logo,
-                  heroImage: brands.lalucell.heroImage,
-                  description: 'The trusted choice of Korean mothers. Safe, natural skincare with patented technology and zero irritation - perfect for pregnancy and sensitive skin.',
-                  highlights: brands.lalucell.featureTags
+                  name: brand.name,
+                  logo: brand.logo,
+                  heroImage: brand.heroImage,
+                  description: brand.description,
+                  highlights: brand.featureTags
                 }}
                 variant="side-by-side"
               />
-            )}
-
-            {/* Sunnicorn */}
-            {brands.sunnicorn && (
-              <PartnerCard 
-                brand={{
-                  name: typeof brands.sunnicorn.name === 'object' ? brands.sunnicorn.name.en : brands.sunnicorn.name || '',
-                  logo: brands.sunnicorn.logo,
-                  heroImage: brands.sunnicorn.heroImage,
-                  description: 'Sustainable K-beauty through upcycled "ugly food" ingredients. 100% vegan formulations that respect your skin and our planet.',
-                  highlights: brands.sunnicorn.featureTags
-                }}
-                variant="side-by-side"
-              />
-            )}
-
-            {/* BAO H. LAB */}
-            {brands.baohlab && (
-              <PartnerCard 
-                brand={{
-                  name: typeof brands.baohlab.name === 'object' ? brands.baohlab.name.en : brands.baohlab.name || '',
-                  logo: brands.baohlab.logo,
-                  heroImage: brands.baohlab.heroImage,
-                  description: 'Pioneering hair loss solutions through Biorenovation Technology. We combine eco-friendly microorganism technology with patented formulations to deliver effective hair growth and scalp care solutions.',
-                  highlights: brands.baohlab.featureTags
-                }}
-                variant="side-by-side"
-              />
-            )}
-
-            {/* THE CELL LAB */}
-            {brands.thecelllab && (
-              <PartnerCard 
-                brand={{
-                  name: typeof brands.thecelllab.name === 'object' ? brands.thecelllab.name.en : brands.thecelllab.name || '',
-                  logo: brands.thecelllab.logo,
-                  heroImage: brands.thecelllab.heroImage,
-                  description: 'Pioneering skincare innovation with BETA-SITOSTEROL #pine CICA and patented CELLTONE technology. The best combination surpassing proven science for fundamental skin concerns.',
-                  highlights: brands.thecelllab.featureTags
-                }}
-                variant="side-by-side"
-              />
-            )}
+            ))}
           </div>
         </Container>
       </Section>

@@ -4,7 +4,7 @@ import { Layout, Container, Section, Grid } from '../components/layout'
 import { Button, Select, Badge, Spinner, Card, CardContent } from '../components/ui'
 import { ProductCard } from '../components/features/ProductCard'
 import { HeroCarousel } from '../components/features/HeroCarousel'
-import { productService } from '../services'
+import { brandService, productService } from '../services'
 import { Brand, Product } from '../types'
 
 export const BrandDetail: React.FC = () => {
@@ -38,7 +38,7 @@ export const BrandDetail: React.FC = () => {
       setIsLoading(true)
       
       // Load brand details
-      const brands = await productService.getBrands()
+      const brands = await brandService.getBrands()
       const brandData = brands.find(b => b.id === brandId)
       
       if (!brandData) {
@@ -124,12 +124,12 @@ export const BrandDetail: React.FC = () => {
             {brand.logo && (
               <img 
                 src={brand.logo} 
-                alt={(typeof brand.name === 'string' ? brand.name : brand.name?.en) || 'Brand'}
+                alt={brand.name}
                 className="h-20 mx-auto mb-6 object-contain"
               />
             )}
             <p className="text-xl text-text-secondary mb-6">
-              {(typeof brand.description === 'string' ? brand.description : brand.description?.en) || ''}
+              {brand.description}
             </p>
             
             {/* Brand Stats */}
@@ -164,7 +164,7 @@ export const BrandDetail: React.FC = () => {
       {(brand.heroImages && brand.heroImages.length > 0) && (
         <HeroCarousel
           images={brand.heroImages}
-          alt={typeof brand.name === 'string' ? brand.name : brand.name?.en || 'Brand'}
+          alt={brand.name}
         />
       )}
       
@@ -176,7 +176,7 @@ export const BrandDetail: React.FC = () => {
               <CardContent>
                 <h2 className="text-2xl font-light text-deep-charcoal mb-4">Brand Story</h2>
                 <div className="text-text-secondary leading-relaxed">
-                  {(typeof brand.story === 'string' ? brand.story : brand.story?.en) || ''}
+                  {brand.story}
                 </div>
               </CardContent>
             </Card>
