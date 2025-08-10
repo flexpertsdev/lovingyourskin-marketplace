@@ -41,7 +41,12 @@ const BrandShowcase: React.FC<{ brands: Brand[] }> = ({ brands }) => {
   const [isPaused, setIsPaused] = useState(false)
   
   // Filter for exclusive partners only (isExclusivePartner is true or undefined)
-  const exclusiveBrands = brands.filter(b => b.isExclusivePartner !== false)
+  // Also ensure brand has required data
+  const exclusiveBrands = brands.filter(b => 
+    b.isExclusivePartner !== false && 
+    b.name && 
+    b.id
+  )
   
   // Duplicate brands for infinite scroll effect
   const duplicatedBrands = [...exclusiveBrands, ...exclusiveBrands, ...exclusiveBrands]
@@ -104,18 +109,18 @@ const BrandShowcase: React.FC<{ brands: Brand[] }> = ({ brands }) => {
               {brand.heroImage ? (
                 <img 
                   src={brand.heroImage} 
-                  alt={brand.name}
+                  alt={brand.name || 'Brand'}
                   className="w-full h-24 object-cover rounded mb-3 group-hover:scale-105 transition-transform"
                 />
               ) : (
                 <div className="w-full h-24 bg-gradient-to-br from-rose-gold/20 to-rose-gold/10 rounded mb-3 flex items-center justify-center">
                   <span className="text-2xl font-light text-rose-gold">
-                    {brand.name.charAt(0)}
+                    {brand.name ? brand.name.charAt(0) : 'B'}
                   </span>
                 </div>
               )}
               <h3 className="text-sm font-medium text-deep-charcoal text-center">
-                {brand.name}
+                {brand.name || 'Unknown Brand'}
               </h3>
             </Link>
           ))}

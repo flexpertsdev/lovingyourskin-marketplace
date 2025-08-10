@@ -1,0 +1,450 @@
+{
+  "brands": [
+    {
+      "id": "thecelllab",
+      "slug": "thecelllab",
+      "name": "THE CELL LAB",
+      "tagline": "New next generation CICA ingredient",
+      "description": "THE CELL LAB pioneers skincare innovation with BETA-SITOSTEROL Pine CICA and patented CELLTONE technology. The best combination surpassing clinical-level efficiency, delivering solutions when you need to solve fundamental skin concerns.",
+      "logo": "https://ecimg.cafe24img.com/pg1333b54691769079/thecelllab/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/bae4b4cdb9c0307a6fd07f6fbfa5ad99.png",
+      "heroImage": "/assets/thecelllab/blue_01.jpg",
+      "heroImages": [
+        "/assets/thecelllab/blue_01.jpg",
+        "/assets/thecelllab/blue_001.jpg",
+        "/assets/thecelllab/blue_05.jpg"
+      ],
+      "establishedYear": 2019,
+      "productCount": 14,
+      "certifications": [
+        "CPNP_EU",
+        "DERMATOLOGICALLY_TESTED",
+        "CLINICAL_TEST"
+      ],
+      "featureTags": [
+        "Beta-Sitosterol",
+        "Pine CICA",
+        "Patented CELLTONE",
+        "Clinical Proven"
+      ],
+      "technologies": [
+        {
+          "name": "BETA-SITOSTEROL Technology",
+          "description": "New next generation CICA ingredient from pine extract for superior skin calming"
+        },
+        {
+          "name": "Patented CELLTONE",
+          "description": "Proprietary complex for skin barrier improvement and deep moisture"
+        },
+        {
+          "name": "PDRN Complex",
+          "description": "Advanced skin regeneration technology for elasticity and anti-aging"
+        }
+      ],
+      "clinicalResults": {
+        "skinTemperatureReduction": {
+          "value": -7,
+          "unit": "°C",
+          "duration": "immediate"
+        },
+        "skinBarrierImprovement": {
+          "value": 85,
+          "duration": "2 weeks"
+        },
+        "deepMoisture": {
+          "value": 92,
+          "duration": "48 hours"
+        },
+        "liftingEffect": {
+          "value": 88,
+          "duration": "4 weeks"
+        }
+      },
+      "categories": [
+        {
+          "id": "cleansing",
+          "name": "Cleansing",
+          "productCount": 1
+        },
+        {
+          "id": "skincare",
+          "name": "Skincare",
+          "productCount": 5
+        },
+        {
+          "id": "mask-pack",
+          "name": "Mask Pack",
+          "productCount": 1
+        },
+        {
+          "id": "sun-care",
+          "name": "Sun Care",
+          "productCount": 1
+        }
+      ],
+      "stats": {
+        "yearsInBusiness": 6,
+        "productsSold": "80K+",
+        "customerSatisfaction": 94
+      },
+      "active": true,
+      "featured": true,
+      "logoStyle": {
+        "height": "40px",
+        "objectFit": "contain",
+        "backgroundColor": "transparent"
+      }
+    },
+    {
+      "id": "baohlab",
+      "slug": "baohlab",
+      "name": "BAO H. LAB",
+      "tagline": "We solved hair loss with Biorenovation - they combine eco-friendly microorganism technology with patented formulations",
+      "description": "Pioneering hair loss solutions through Biorenovation Technology since 2017. BAO H. LAB combines eco-friendly microorganism technology with patented formulations to deliver effective hair growth and scalp care solutions, opening infinite possibilities by blending nature and science. They combine nature's wisdom with cutting-edge biotechnology.",
+      "logo": "https://baohlab.com/clothic_studio/image/baohlab_logo.png",
+      "heroImage": "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/aca91dd8cca6ec2264880e26abe3f316.jpg",
+      "heroImages": [
+        "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/aca91dd8cca6ec2264880e26abe3f316.jpg",
+        "https://ecimg.cafe24img.com/pg1166b57472775036/baogen07/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/3295e621c8c81a6effba32f7db4cd672.jpg"
+
+      ],
+      "establishedYear": 2017,
+      "productCount": 1,
+      "certifications": [
+        "CPNP_UK",
+        "CPNP_EU",
+        "CPNP_CH"
+      ],
+      "featureTags": [
+        "Biorenovation Technology",
+        "Patented Formula",
+        "Hair Loss Solution",
+        "Scalp Nourishment"
+      ],
+      "technologies": [
+        {
+          "name": "Biorenovation Technology",
+          "description": "Proprietary microorganism technology derived from nature for biological revolution in hair care"
+        },
+        {
+          "name": "Patented Hair Growth Formula",
+          "description": "Special patented ingredients that stimulate and nourish the scalp"
+        },
+        {
+          "name": "Eco-Friendly Process",
+          "description": "Sustainable technology for a better future"
+        }
+      ],
+      "clinicalResults": {
+        "hairLossReduction": {
+          "value": 90,
+          "duration": "3 months"
+        },
+        "hairGrowthVisible": {
+          "value": 85,
+          "duration": "4 months"
+        },
+        "scalpHealth": {
+          "value": 95,
+          "duration": "2 months"
+        },
+        "customerSatisfaction": {
+          "value": 95,
+          "unit": "%"
+        }
+      },
+      "categories": [
+        {
+          "id": "hair-loss-care",
+          "name": "Hair Loss Care",
+          "productCount": 1
+        },
+        {
+          "id": "scalp-treatment",
+          "name": "Scalp Treatment",
+          "productCount": 1
+        }
+      ],
+      "stats": {
+        "yearsInBusiness": 8,
+        "productsSold": "100K+",
+        "customerSatisfaction": 95
+      },
+      "active": true,
+      "featured": true,
+      "logoStyle": {
+        "height": "40px",
+        "objectFit": "contain",
+        "backgroundColor": "transparent"
+      }
+    },
+    {
+      "id": "wismin",
+      "slug": "wismin",
+      "name": "WISMIN",
+      "tagline": "Wisdom in Every Drop - Nature's Anti-Aging Secret",
+      "description": "Pioneering plant-powered anti-aging with bakuchiol and cottonseed extract, WISMIN bridges ancient botanical wisdom with modern Korean skincare science. Our gentle yet effective formulations deliver retinol-like results without irritation, making advanced anti-aging accessible to all skin types, including the most sensitive.",
+      "logo": "https://cafe24.poxo.com/ec01/newglab01/EjglQcnyYl9oLKpqUS6wZj7l3BQ8UVIze0OCEPC9yP8yvptJW9uyGG+88Z9/l/V/z2Hpl9MvqmKtsVq7YHSMaw==/_/web/upload/wismin/logo_top.png",
+      "heroImage": "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/upload/24052/main_v01.jpg",
+      "heroImages": [
+        "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/upload/24052/main_v01.jpg",
+        "https://cafe24.poxo.com/ec01/newglab01/65uN764GExGfUPmYExKJkv8FaV4Q7nqZ+yenCbN3T2Oa8siQwa9WPdSzrh052QtLm1ZmnqHbC1fl5UDpftrZMg==/_/web/upload/24052/main_story.jpg"
+      ],
+      "establishedYear": 2018,
+      "productCount": 16,
+      "certifications": [
+        "CPNP_UK",
+        "CPNP_EU",
+        "CPNP_CH",
+        "EWG",
+        "VEGAN"
+      ],
+      "featureTags": [
+        "Plant-Based Retinol Alternative",
+        "Sensitive Skin Safe",
+        "Vegan & EWG Certified",
+        "Dermatologically Tested"
+      ],
+      "technologies": [
+        {
+          "name": "Bakuchiol Mastery",
+          "description": "Natural retinol alternative from babchi plant"
+        },
+        {
+          "name": "Cottonseed Innovation",
+          "description": "Powerful antioxidants from cotton plants"
+        },
+        {
+          "name": "Gentle Efficacy",
+          "description": "Proven results without irritation"
+        }
+      ],
+      "clinicalResults": {
+        "fineLineReduction": {
+          "value": 87,
+          "duration": "8 weeks"
+        },
+        "skinElasticity": {
+          "value": 92,
+          "duration": "6 weeks"
+        },
+        "gentlerThanRetinol": {
+          "value": 4,
+          "unit": "x"
+        },
+        "moistureRetention": {
+          "value": 24,
+          "unit": "hours"
+        }
+      },
+      "categories": [
+        {
+          "id": "bakuchiol-antiaging",
+          "name": "Bakuchiol Anti-Aging",
+          "productCount": 4
+        },
+        {
+          "id": "cottonseed-care",
+          "name": "Cottonseed Care",
+          "productCount": 4
+        },
+        {
+          "id": "wisoa-hair",
+          "name": "WISOA Hair Care",
+          "productCount": 4
+        },
+        {
+          "id": "masks",
+          "name": "All Day Young Masks",
+          "productCount": 4
+        }
+      ],
+      "stats": {
+        "yearsInBusiness": 6,
+        "productsSold": "2M+",
+        "customerSatisfaction": 96
+      },
+      "active": true,
+      "featured": true,
+      "logoStyle": {
+        "height": "45px",
+        "objectFit": "contain",
+        "backgroundColor": "transparent"
+      }
+    },
+    {
+      "id": "lalucell",
+      "slug": "lalucell",
+      "name": "LALUCELL",
+      "tagline": "Cotton Like Derma - Unceasing Beauty for All Women",
+      "description": "The trusted choice of Korean mothers, LALUCELL provides safe, natural skincare with scientific innovation. Strictly excluding ingredients prohibited for pregnant women, we deliver effective solutions without compromise, earning recognition from the most meticulous mothers in South Korea.",
+      "logo": "https://contents.sixshop.com/uploadedFiles/240215/default/image_1682403801204.png",
+      "heroImage": "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/default/image_1682583004318_2500.png",
+      "heroImages": [
+        "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/default/image_1682583004318_2500.png",
+        "https://contents.sixshop.com/thumbnails/uploadedFiles/240215/default/image_1682666986630_750.jpeg"
+      ],
+      "establishedYear": 2015,
+      "productCount": 12,
+      "certifications": [
+        "CPNP_UK",
+        "CPNP_EU",
+        "CPNP_CH",
+        "DERMATOLOGIST_TESTED"
+      ],
+      "featureTags": [
+        "Patented ELASOME® e TARAX III formulas",
+        "0.00 Irritation Score",
+        "Dermatologist Tested",
+        "CPNP Certified"
+      ],
+      "technologies": [
+        {
+          "name": "ELASOME®",
+          "patent": "10-1796822",
+          "description": "Proprietary liposome technology that increases skin absorption by at least 4 times"
+        },
+        {
+          "name": "TARAX III®",
+          "patent": "10-1376202",
+          "description": "Pharmaceutical composition combining dandelion and barley extracts"
+        },
+        {
+          "name": "E-Beam Hydrogel",
+          "patent": "10-2466953",
+          "description": "Revolutionary manufacturing technology using E-beam"
+        }
+      ],
+      "marketStats": {
+        "globalMarketSize": "£2.8B",
+        "annualGrowth": "18%",
+        "mothersSwitching": "73%",
+        "customerLifetimeValue": "4.2x"
+      },
+      "categories": [
+        {
+          "id": "cotton-like-derma",
+          "name": "Cotton Like Derma Collection",
+          "productCount": 6
+        },
+        {
+          "id": "pregnancy-care",
+          "name": "Pregnancy Care",
+          "productCount": 4
+        },
+        {
+          "id": "sensitive-skin",
+          "name": "Sensitive Skin Solutions",
+          "productCount": 2
+        }
+      ],
+      "stats": {
+        "yearsInBusiness": 9,
+        "productsSold": "5M+",
+        "customerSatisfaction": 98
+      },
+      "active": true,
+      "featured": true,
+      "logoStyle": {
+        "height": "40px",
+        "objectFit": "contain",
+        "backgroundColor": "transparent"
+      }
+    },
+    {
+      "id": "sunnicorn",
+      "slug": "sunnicorn",
+      "name": "SUNNICORN",
+      "tagline": "Have a sunnyday with sunnicorn",
+      "description": "Pioneering sustainable K-beauty through upcycled 'ugly food' ingredients and circular packaging. SUNNICORN transforms perfectly good produce rejected for cosmetic imperfections into powerful skincare actives, proving that true beauty comes from respecting our planet's resources while delivering sensitive skin solutions.",
+      "logo": "https://en.sunnicorn.com/web/upload/images/logo-color.png",
+      "heroImage": "https://en.sunnicorn.com/web/upload/images/press_img_02.jpg",
+      "heroImages": [
+        "https://en.sunnicorn.com/web/upload/images/press_img_02.jpg",
+        "https://en.sunnicorn.com/web/upload/images/sus-bg-img-01.jpg",
+        "https://en.sunnicorn.com/web/upload/images/brand-bg-img-03.jpg"
+      ],
+      "establishedYear": 2019,
+      "productCount": 16,
+      "certifications": [
+        "CPNP_UK",
+        "CPNP_EU",
+        "CPNP_CH",
+        "VEGAN",
+        "CRUELTY_FREE",
+        "CARBON_NEUTRAL"
+      ],
+      "featureTags": [
+        "100% Vegan",
+        "Upcycled Ingredients",
+        "Carbon Neutral",
+        "Cruelty Free"
+      ],
+      "sustainability": {
+        "uglyFoodHeroes": "Rescue produce rejected for cosmetic imperfections",
+        "trueUpcycling": "Processing excess plastics and glass for eco-friendly containers",
+        "sensitiveSkinFocus": "Vegan formulations for all skin types"
+      },
+      "uglyFoodIngredients": [
+        {
+          "name": "Wonky Carrots",
+          "benefit": "Beta-carotene for natural glow"
+        },
+        {
+          "name": "Spotted Apples",
+          "benefit": "Natural AHAs for gentle exfoliation"
+        },
+        {
+          "name": "Curved Cucumbers",
+          "benefit": "Hydration & soothing compounds"
+        },
+        {
+          "name": "Irregular Tomatoes",
+          "benefit": "Lycopene antioxidant protection"
+        },
+        {
+          "name": "Small Potatoes",
+          "benefit": "Vitamin C for brightening"
+        },
+        {
+          "name": "Misshapen Berries",
+          "benefit": "Powerful antioxidant defense"
+        }
+      ],
+      "impactStats": {
+        "uglyProduceRescued": "2.5M kg",
+        "plasticContainersUpcycled": "180K",
+        "customersSatisfied": "95%",
+        "wasteToLandfill": "Zero"
+      },
+      "categories": [
+        {
+          "id": "veagan-allinone",
+          "name": "Veagan All-in-One",
+          "productCount": 4
+        },
+        {
+          "id": "sun-protection",
+          "name": "Sun Protection",
+          "productCount": 4
+        },
+        {
+          "id": "eco-lifestyle",
+          "name": "Eco-Lifestyle",
+          "productCount": 4
+        }
+      ],
+      "stats": {
+        "yearsInBusiness": 5,
+        "productsSold": "1.5M+",
+        "customerSatisfaction": 95
+      },
+      "active": true,
+      "featured": true,
+      "logoStyle": {
+        "height": "35px",
+        "objectFit": "contain",
+        "backgroundColor": "transparent"
+      }
+    }
+  ]
+}

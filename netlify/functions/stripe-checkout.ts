@@ -30,7 +30,7 @@ export const handler: Handler = async (event) => {
     // Create line items for Stripe
     const lineItems = items.map((item: any) => ({
       price_data: {
-        currency: 'gbp',
+        currency: 'usd',
         product_data: {
           name: item.productName,
           description: item.productDescription || '',
@@ -91,7 +91,7 @@ export const handler: Handler = async (event) => {
             : Math.round(affiliateDiscount.value * 100), // Convert to pence for fixed amount
         duration: 'once',
         name: `Affiliate discount (${affiliateCode})`,
-        currency: affiliateDiscount.type === 'fixed' ? 'gbp' : undefined
+        currency: affiliateDiscount.type === 'fixed' ? 'usd' : undefined
       })
 
       sessionConfig.discounts = [{
@@ -107,7 +107,7 @@ export const handler: Handler = async (event) => {
             type: 'fixed_amount',
             fixed_amount: {
               amount: 0, // Free shipping
-              currency: 'gbp'
+              currency: 'usd'
             },
             display_name: 'Free Shipping',
             delivery_estimate: {
@@ -127,7 +127,7 @@ export const handler: Handler = async (event) => {
             type: 'fixed_amount',
             fixed_amount: {
               amount: 999, // £9.99
-              currency: 'gbp'
+              currency: 'usd'
             },
             display_name: 'Express Shipping',
             delivery_estimate: {

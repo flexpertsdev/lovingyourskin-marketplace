@@ -1,0 +1,48 @@
+{
+  "orderNumber": "ORD-2024-001",
+  "userType": "consumer",
+  "status": "delivered",
+  "customerEmail": "emma.wilson@email.com",
+  "shippingAddress": {
+    "name": "Emma Wilson",
+    "street": "123 Beauty Lane",
+    "city": "London",
+    "state": "England",
+    "zip": "SW1A 1AA",
+    "country": "United Kingdom",
+    "phone": "+44 20 1234 5678"
+  },
+  "items": [
+    {
+      "productId": "prod-001",
+      "productName": "Hydrating Face Serum",
+      "brandName": "Dewyface",
+      "quantity": 2,
+      "pricePerItem": 45.00,
+      "totalPrice": 90.00,
+      "variant": "30ml",
+      "product": { "isPreorder": false }
+    },
+    {
+      "productId": "prod-002",
+      "productName": "Rose Gold Cleanser",
+      "brandName": "Bellay Blom",
+      "quantity": 1,
+      "pricePerItem": 28.00,
+      "totalPrice": 28.00,
+      "variant": "150ml",
+      "product": { "isPreorder": false }
+    }
+  ],
+  "totalAmount": {
+    "items": 118.00,
+    "tax": 23.60,
+    "shipping": 5.99,
+    "total": 147.59
+  },
+  "paymentMethod": "card",
+  "createdAt": "2024-01-15T10:30:00",
+  "estimatedDelivery": "2024-01-20T12:00:00",
+  "trackingNumber": "GB123456789",
+  "notes": "Gift wrapping requested"
+}
