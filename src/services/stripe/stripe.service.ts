@@ -65,7 +65,7 @@ export class StripeService {
         return {
           productId: item.product.id,
           productName: item.product.name,
-          productDescription: item.product.description || '',
+          productDescription: item.product.description || undefined,
           brandId: item.product.brandId,
           images: imageUrl ? [imageUrl] : [],
           pricePerItem,

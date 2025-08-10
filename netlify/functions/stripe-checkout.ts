@@ -33,14 +33,16 @@ export const handler: Handler = async (event) => {
         currency: 'usd',
         product_data: {
           name: item.productName,
-          description: item.productDescription || '',
+          ...(item.productDescription && item.productDescription.trim() && { 
+            description: item.productDescription 
+          }),
           images: item.images ? [item.images[0]] : [],
           metadata: {
             productId: item.productId,
             brandId: item.brandId
           }
         },
-        unit_amount: Math.round(item.pricePerItem * 100) // Convert to pence
+        unit_amount: Math.round(item.pricePerItem * 100) // Convert to cents
       },
       quantity: item.quantity
     }))

@@ -75,15 +75,17 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
     
-    // Orders collection (B2B)
+    // Orders collection (B2B and B2C)
     match /orders/{orderId} {
-      // Users can read their own orders
+      // Users can read their own orders or admin can read all
       allow read: if isAdmin() || 
+        (isAuthenticated() && resource.data.customerEmail == request.auth.token.email) ||
         (isRetailer() && resource.data.retailerId == request.auth.uid) ||
-        (isBrandOwner(resource.data.brandId));
+        (isBrandOwner(resource.data.brandId)) ||
+        (isConsumer() && resource.data.userType == 'consumer');
       
-      // Retailers can create orders
-      allow create: if isRetailer() && request.resource.data.retailerId == request.auth.uid;
+      // Anyone authenticated can create orders
+      allow create: if isAuthenticated();
       
       // Order updates based on role and status
       allow update: if isAdmin() || 
@@ -184,6 +186,14 @@ service cloud.firestore {
     match /invites/{inviteId} {
       allow read: if isAuthenticated();
       allow create, update, delete: if isAdmin();
+    }
+    
+    // Affiliates collection
+    match /affiliates/{affiliateId} {
+      allow read: if isAuthenticated();
+      allow create: if isAdmin();
+      allow update: if isAdmin() || isOwner(resource.data.userId);
+      allow delete: if isAdmin();
     }
   }
 }
