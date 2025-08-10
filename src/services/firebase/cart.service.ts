@@ -6,7 +6,7 @@ import {
   Timestamp
 } from 'firebase/firestore'
 import { db } from '../../lib/firebase/config'
-import { Cart, CartItem } from '../../types'
+import { Cart, CartItem, MOQStatus } from '../../types'
 import type { Product } from '../../types'
 
 // Cart service with local storage and optional Firebase sync
@@ -354,35 +354,67 @@ class FirebaseCartService {
   }
 
   // Validate MOQ for a specific brand
-  async validateMOQ(brandId: string, userId?: string): Promise<any> {
+  async validateMOQ(brandId: string, userId?: string): Promise<MOQStatus> {
     const cart = await this.getCart(userId)
     const brandItems = cart.items.filter(item => item.product.brandId === brandId)
+    
+    // Try to get brand name from Firestore
+    let brandName = brandId // default fallback
+    try {
+      const brandDoc = await getDoc(doc(db, 'brands', brandId))
+      if (brandDoc.exists()) {
+        brandName = brandDoc.data().name || brandId
+      }
+    } catch (error) {
+      console.error('Error fetching brand name:', error)
+    }
     
     if (brandItems.length === 0) {
       return {
         brandId,
-        valid: true,
-        totalQuantity: 0,
-        requiredMOQ: 0,
-        message: 'No items from this brand'
+        brandName,
+        status: 'met',
+        met: true,
+        current: 0,
+        required: 0,
+        percentage: 100,
+        remainingItems: 0
       }
     }
     
-    const totalQuantity = brandItems.reduce((sum, item) => sum + item.quantity, 0)
-    const requiredMOQ = brandItems[0]?.product.moq || 1
-    const valid = totalQuantity >= requiredMOQ
+    // Calculate total value of items for this brand (quantity is in cartons)
+    const current = brandItems.reduce((sum, item) => {
+      const pricePerItem = item.product.variants?.[0]?.pricing?.b2b?.wholesalePrice || 
+                   item.product.price?.wholesale || 
+                   item.product.price?.retail ||
+                   item.product.retailPrice?.item || 0
+      const unitsPerCarton = item.product.variants?.[0]?.pricing?.b2b?.unitsPerCarton || 
+                             item.product.itemsPerCarton || 1
+      const pricePerCarton = pricePerItem * unitsPerCarton
+      return sum + (pricePerCarton * item.quantity)
+    }, 0)
+    
+    // Get MOQ requirement (using a monetary value, e.g., $500 minimum per brand)
+    const required = 500 // Default MOQ value in dollars
+    
+    const met = current >= required
+    const percentage = Math.min(100, (current / required) * 100)
+    const remainingItems = met ? 0 : required - current
     
     return {
       brandId,
-      valid,
-      totalQuantity,
-      requiredMOQ,
-      message: valid ? 'MOQ met' : `Need ${requiredMOQ - totalQuantity} more items to meet MOQ`
+      brandName,
+      status: met ? 'met' : current > required * 0.7 ? 'warning' : 'error',
+      met,
+      current,
+      required,
+      percentage,
+      remainingItems
     }
   }
 
   // Validate MOQ for all brands in cart
-  async validateAllMOQ(userId?: string): Promise<any[]> {
+  async validateAllMOQ(userId?: string): Promise<MOQStatus[]> {
     const cart = await this.getCart(userId)
     const brandIds = [...new Set(cart.items.map(item => item.product.brandId))]
     

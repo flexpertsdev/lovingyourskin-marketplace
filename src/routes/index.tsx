@@ -66,7 +66,7 @@ import { Wishlist } from '../pages/Wishlist'
 // Protected Route Component
 interface ProtectedRouteProps {
   children: React.ReactNode
-  allowedRoles?: Array<'admin' | 'retailer' | 'brand' | 'consumer'>
+  allowedRoles?: Array<'admin' | 'retailer' | 'brand' | 'consumer' | 'affiliate'>
   requireAuth?: boolean
 }
 

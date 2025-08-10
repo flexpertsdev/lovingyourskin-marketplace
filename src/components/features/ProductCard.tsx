@@ -13,7 +13,11 @@ interface ProductCardProps {
 export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) => {
   // Get prices from the unified price structure
   const getItemPrice = (): number => {
-    // For B2B, use wholesale price if available
+    // Check for variant-based B2B pricing first (new structure)
+    if (product.variants?.[0]?.pricing?.b2b?.wholesalePrice) {
+      return product.variants[0].pricing.b2b.wholesalePrice
+    }
+    // For B2B, use wholesale price if available (legacy)
     if (product.price?.wholesale !== undefined) {
       return product.price.wholesale
     }
@@ -30,7 +34,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
   
   const getCartonPrice = (): number => {
     const itemPrice = getItemPrice()
-    return itemPrice * (product.itemsPerCarton || 1)
+    // Check for variant-based units per carton first
+    const unitsPerCarton = product.variants?.[0]?.pricing?.b2b?.unitsPerCarton || 
+                          product.itemsPerCarton || 
+                          1
+    return itemPrice * unitsPerCarton
   }
   
   const getCurrency = (): string => {
@@ -95,14 +103,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
               {getCurrency()}{getItemPrice().toFixed(2)}/item
             </div>
             <div className="text-xs text-text-secondary">
-              {getCurrency()}{getCartonPrice().toFixed(2)}/carton ({product.itemsPerCarton || 1} items)
+              {getCurrency()}{getCartonPrice().toFixed(2)}/carton ({product.variants?.[0]?.pricing?.b2b?.unitsPerCarton || product.itemsPerCarton || 1} items)
             </div>
           </div>
           
           {/* MOQ Info */}
           <div className="mt-3 pt-3 border-t border-border-gray">
             <p className="text-xs text-text-secondary">
-              Min. order: {product.moq || 1} items
+              Min. order: {product.variants?.[0]?.pricing?.b2b?.minOrderQuantity || product.moq || 1} items
             </p>
           </div>
         </CardContent>

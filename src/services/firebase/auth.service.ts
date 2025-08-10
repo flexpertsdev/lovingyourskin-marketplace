@@ -283,11 +283,13 @@ class FirebaseAuthService {
   // Generate a new invite code
   async generateInviteCode(data: {
     email: string
-    role: 'admin' | 'retailer' | 'brand'
+    role: 'admin' | 'retailer' | 'brand' | 'affiliate'
     companyId?: string
     salesRepId?: string
     createdBy: string
     expiresInDays?: number
+    commissionPercent?: number
+    defaultDiscountPercent?: number
   }): Promise<InviteCode> {
     try {
       // Generate a unique code
@@ -304,7 +306,12 @@ class FirebaseAuthService {
         createdBy: data.createdBy,
         used: false,
         expiresAt: new Date(Date.now() + expiresInDays * 24 * 60 * 60 * 1000),
-        createdAt: new Date()
+        createdAt: new Date(),
+        // Add affiliate-specific fields if role is affiliate
+        ...(data.role === 'affiliate' && {
+          commissionPercent: data.commissionPercent,
+          defaultDiscountPercent: data.defaultDiscountPercent
+        })
       }
       
       // Save to Firestore

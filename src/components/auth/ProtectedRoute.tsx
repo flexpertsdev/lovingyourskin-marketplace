@@ -4,7 +4,7 @@ import { useAuthStore } from '../../stores/auth.store'
 
 interface ProtectedRouteProps {
   children: React.ReactNode
-  requiredRole?: 'admin' | 'retailer' | 'brand'
+  requiredRole?: 'admin' | 'retailer' | 'brand' | 'consumer' | 'affiliate'
   redirectTo?: string
 }
 

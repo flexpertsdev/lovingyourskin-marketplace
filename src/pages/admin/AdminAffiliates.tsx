@@ -143,6 +143,9 @@ export default function AdminAffiliates() {
       // First create an affiliate discount code if one doesn't exist
       let discountCodeId = newAffiliate.discountCodeId
       
+      // Get the customer discount value from the form (default 10% if not provided)
+      const customerDiscountPercent = (newAffiliate as any).customerDiscountPercent || 10
+      
       if (!discountCodeId && newAffiliate.discountCode) {
         // Create a new discount code for this affiliate
         const discountCode = await discountService.createDiscountCode({
@@ -151,7 +154,7 @@ export default function AdminAffiliates() {
           description: `Affiliate code for ${newAffiliate.name}`,
           type: 'affiliate',
           discountType: 'percentage',
-          discountValue: 10, // Default 10% discount
+          discountValue: customerDiscountPercent, // Use the customer discount percentage
           active: true,
           validFrom: new Date(),
           createdBy: user?.id || ''

@@ -122,8 +122,17 @@ service cloud.firestore {
       // Anyone can read to validate codes during registration
       allow read: if true;
       
-      // Only admins can manage invite codes
-      allow create, update, delete: if isAdmin();
+      // Allow updates in two cases:
+      // 1. Admins can update anything
+      // 2. Authenticated users can mark their own invite code as used (during registration)
+      allow update: if isAdmin() || 
+        (isAuthenticated() && 
+         request.resource.data.used == true &&
+         request.resource.data.usedBy == request.auth.uid &&
+         resource.data.used == false);
+      
+      // Only admins can create and delete invite codes
+      allow create, delete: if isAdmin();
     }
     
     // Affiliate codes collection

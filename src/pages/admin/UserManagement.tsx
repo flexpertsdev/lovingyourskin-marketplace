@@ -21,10 +21,12 @@ const UserManagement: React.FC = () => {
   // Form state
   const [formData, setFormData] = useState({
     email: '',
-    role: 'retailer' as 'retailer' | 'brand' | 'admin',
+    role: 'retailer' as 'retailer' | 'brand' | 'admin' | 'affiliate',
     companyId: '',
     salesRepId: '',
-    expiresInDays: 30
+    expiresInDays: 30,
+    commissionPercent: 10,
+    defaultDiscountPercent: 10
   })
 
   // Load invite codes and users on mount
@@ -61,13 +63,19 @@ const UserManagement: React.FC = () => {
     setLoading(true)
     
     try {
-      const inviteData = {
+      const inviteData: any = {
         email: formData.email,
         role: formData.role,
         companyId: formData.companyId || undefined,
         salesRepId: formData.salesRepId || undefined,
         createdBy: currentUser?.id || 'admin',
         expiresInDays: formData.expiresInDays
+      }
+      
+      // Add affiliate-specific fields
+      if (formData.role === 'affiliate') {
+        inviteData.commissionPercent = formData.commissionPercent
+        inviteData.defaultDiscountPercent = formData.defaultDiscountPercent
       }
       
       const result = await authService.generateInviteCode(inviteData)
@@ -80,7 +88,9 @@ const UserManagement: React.FC = () => {
           role: 'retailer',
           companyId: '',
           salesRepId: '',
-          expiresInDays: 30
+          expiresInDays: 30,
+          commissionPercent: 10,
+          defaultDiscountPercent: 10
         })
         setShowCreateInvite(false)
       }
@@ -189,6 +199,7 @@ const UserManagement: React.FC = () => {
                         options={[
                           { value: 'retailer', label: 'Retailer' },
                           { value: 'brand', label: 'Brand' },
+                          { value: 'affiliate', label: 'Affiliate' },
                           ...(currentUser?.role === 'admin' ? [{ value: 'admin', label: 'Admin' }] : [])
                         ]}
                       />
@@ -225,6 +236,34 @@ const UserManagement: React.FC = () => {
                         placeholder="sales-rep-id"
                       />
                     </div>
+                    
+                    {formData.role === 'affiliate' && (
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <Input
+                          label="Commission Rate (%)"
+                          type="number"
+                          value={formData.commissionPercent}
+                          onChange={(e) => setFormData({ ...formData, commissionPercent: parseFloat(e.target.value) })}
+                          min="0"
+                          max="100"
+                          step="0.5"
+                          required
+                          placeholder="10"
+                        />
+                        
+                        <Input
+                          label="Customer Discount Rate (%)"
+                          type="number"
+                          value={formData.defaultDiscountPercent}
+                          onChange={(e) => setFormData({ ...formData, defaultDiscountPercent: parseFloat(e.target.value) })}
+                          min="0"
+                          max="100"
+                          step="0.5"
+                          required
+                          placeholder="10"
+                        />
+                      </div>
+                    )}
                     
                     <Input
                       label="Expires In (Days)"

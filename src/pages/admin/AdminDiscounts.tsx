@@ -102,7 +102,6 @@ export default function AdminDiscounts() {
       if (newDiscount.maxUsesPerCustomer) discountData.maxUsesPerCustomer = newDiscount.maxUsesPerCustomer
       if (newDiscount.validUntil) discountData.validUntil = newDiscount.validUntil
       if (newDiscount.conditions) discountData.conditions = newDiscount.conditions
-      if (newDiscount.minOrderValue) discountData.minOrderValue = newDiscount.minOrderValue
       
       await discountService.createDiscountCode(discountData)
       toast.success('Discount code created successfully')

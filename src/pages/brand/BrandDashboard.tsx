@@ -6,7 +6,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, Button, Badg
 import { useAuthStore } from '../../stores/auth.store'
 import { orderService, brandService } from '../../services'
 import { Order, Brand } from '../../types'
-import { Package, TrendingUp, Clock, CheckCircle, Truck, CreditCard, Users, Eye } from 'lucide-react'
+import { Package, TrendingUp, Clock, Truck, CreditCard, Users, Eye } from 'lucide-react'
 
 interface BrandMetrics {
   totalOrders: number
@@ -83,15 +83,15 @@ export const BrandDashboard: React.FC = () => {
       const uniqueRetailers = new Set<string>()
       
       brandOrders.forEach(order => {
-        uniqueRetailers.add(order.retailerId)
-        const existing = retailerMap.get(order.retailerId) || {
+        if (order.retailerId) uniqueRetailers.add(order.retailerId)
+        const existing = retailerMap.get(order.retailerId || '') || {
           retailerName: order.retailerName || 'Unknown Retailer',
           orderCount: 0,
           totalSpent: 0
         }
         existing.orderCount++
         existing.totalSpent += order.totalAmount?.total || 0
-        retailerMap.set(order.retailerId, existing)
+        if (order.retailerId) retailerMap.set(order.retailerId, existing)
       })
       
       const topRetailers = Array.from(retailerMap.entries())
@@ -110,7 +110,7 @@ export const BrandDashboard: React.FC = () => {
             revenue: 0
           }
           existing.quantity += item.quantity
-          existing.revenue += item.quantity * item.price
+          existing.revenue += item.quantity * item.pricePerItem
           productMap.set(productId, existing)
         })
       })
@@ -194,10 +194,10 @@ export const BrandDashboard: React.FC = () => {
             <Button variant="secondary" onClick={() => navigate(`/brands/${user?.brandId || user?.companyId}`)}>
               View My Catalog
             </Button>
-            <Button variant="outline" onClick={() => navigate('/brand/products')}>
+            <Button variant="secondary" onClick={() => navigate('/brand/products')}>
               Manage Products
             </Button>
-            <Button variant="outline" onClick={() => navigate('/messages')}>
+            <Button variant="secondary" onClick={() => navigate('/messages')}>
               Messages
             </Button>
           </div>
@@ -434,7 +434,7 @@ export const BrandDashboard: React.FC = () => {
                     <p className="text-sm text-text-secondary mb-3">Certifications:</p>
                     <div className="flex flex-wrap gap-1">
                       {brand.certifications.map((cert, i) => (
-                        <Badge key={i} variant="secondary" className="text-xs">
+                        <Badge key={i} variant="default" className="text-xs">
                           {cert}
                         </Badge>
                       ))}

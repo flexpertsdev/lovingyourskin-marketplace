@@ -37,11 +37,11 @@ export const Cart: React.FC = () => {
   const tax = subtotal * taxRate
   const total = subtotal + tax
   
-  const handleQuantityChange = async (itemId: string, newQuantity: number) => {
+  const handleQuantityChange = async (productId: string, newQuantity: number) => {
     if (newQuantity <= 0) {
-      await removeFromCart(itemId)
+      await removeFromCart(productId)
     } else {
-      await updateQuantity(itemId, newQuantity)
+      await updateQuantity(productId, newQuantity)
     }
   }
   
@@ -75,7 +75,7 @@ export const Cart: React.FC = () => {
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="font-medium">{status.brandName}</h3>
                       <Badge variant={status.met ? 'success' : 'warning'}>
-                        {status.met ? 'MOQ Met' : `£${status.remainingItems.toFixed(2)} to MOQ`}
+                        {status.met ? 'MOQ Met' : `$${status.remainingItems.toFixed(2)} to MOQ`}
                       </Badge>
                     </div>
                     
@@ -83,14 +83,25 @@ export const Cart: React.FC = () => {
                       <div className="mb-4">
                         <div className="flex justify-between text-sm text-text-secondary mb-1">
                           <span>Progress to MOQ</span>
-                          <span>£{status.current.toFixed(2)} / £{status.required.toFixed(2)}</span>
+                          <span>${status.current.toFixed(2)} / ${status.required.toFixed(2)}</span>
                         </div>
                       </div>
                     )}
                     
                     {/* Brand items */}
                     {cart.items.filter(item => item.product.brandId === status.brandId).map((item, index) => {
-                      const price = item.product.price?.wholesale || 0
+                      // Get price from variant-based B2B pricing first, then fallback to legacy structure
+                      const pricePerItem = item.product.variants?.[0]?.pricing?.b2b?.wholesalePrice || 
+                                   item.product.price?.wholesale || 
+                                   item.product.price?.retail ||
+                                   item.product.retailPrice?.item || 0
+                      
+                      // Get units per carton from variant or fallback to legacy field
+                      const unitsPerCarton = item.product.variants?.[0]?.pricing?.b2b?.unitsPerCarton || 
+                                            item.product.itemsPerCarton || 1
+                      
+                      // Calculate price per carton
+                      const pricePerCarton = pricePerItem * unitsPerCarton
                       
                       return (
                         <div 
@@ -109,32 +120,43 @@ export const Cart: React.FC = () => {
                               {getProductName(item.product)}
                             </h4>
                             <p className="text-sm text-text-secondary">
-                              {item.product.volume} • {item.product.itemsPerCarton} items per carton
+                              {item.product.volume} • {unitsPerCarton} items per carton
                             </p>
                             <p className="text-sm text-text-secondary">
-                              £{price.toFixed(2)} per carton
+                              ${pricePerItem.toFixed(2)} per item • ${pricePerCarton.toFixed(2)} per carton
                             </p>
                           </div>
                           
                           <div className="flex items-center gap-2">
                             <button
-                              onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                              onClick={() => handleQuantityChange(item.product.id, item.quantity - 1)}
                               className="w-8 h-8 rounded-full border border-border-gray hover:bg-soft-pink-hover transition-colors"
                             >
                               -
                             </button>
                             <span className="w-12 text-center">{item.quantity}</span>
                             <button
-                              onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                              onClick={() => handleQuantityChange(item.product.id, item.quantity + 1)}
                               className="w-8 h-8 rounded-full border border-border-gray hover:bg-soft-pink-hover transition-colors"
                             >
                               +
                             </button>
                           </div>
                           
-                          <p className="text-rose-gold font-medium">
-                            £{(price * item.quantity).toFixed(2)}
-                          </p>
+                          <div className="text-right">
+                            <p className="text-rose-gold font-medium">
+                              ${(pricePerCarton * item.quantity).toFixed(2)}
+                            </p>
+                            <p className="text-xs text-text-secondary">
+                              {item.quantity} {item.quantity === 1 ? 'carton' : 'cartons'}
+                            </p>
+                            <button
+                              onClick={() => removeFromCart(item.product.id)}
+                              className="text-xs text-error-red hover:underline mt-1"
+                            >
+                              Remove
+                            </button>
+                          </div>
                         </div>
                       )
                     })}
@@ -164,11 +186,11 @@ export const Cart: React.FC = () => {
                   <div className="space-y-2 mb-4">
                     <div className="flex justify-between">
                       <span>Subtotal</span>
-                      <span>£{subtotal.toFixed(2)}</span>
+                      <span>${subtotal.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Tax (VAT 20%)</span>
-                      <span>£{tax.toFixed(2)}</span>
+                      <span>${tax.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Shipping</span>
@@ -180,7 +202,7 @@ export const Cart: React.FC = () => {
                     <div className="flex justify-between items-center">
                       <span className="text-lg font-medium">Total</span>
                       <span className="text-xl font-medium text-rose-gold">
-                        £{total.toFixed(2)}
+                        ${total.toFixed(2)}
                       </span>
                     </div>
                   </div>

@@ -165,10 +165,14 @@ export const useCartStore = create<CartState>()(
       getTotalPrice: () => {
         const { cart } = get()
         return cart.items.reduce((sum, item) => {
-          const price = item.product.variants?.[0]?.pricing?.b2b?.wholesalePrice || 
+          const pricePerItem = item.product.variants?.[0]?.pricing?.b2b?.wholesalePrice || 
                        item.product.variants?.[0]?.pricing?.b2c?.retailPrice || 
                        item.product.retailPrice?.item || 0
-          return sum + (price * item.quantity)
+          const unitsPerCarton = item.product.variants?.[0]?.pricing?.b2b?.unitsPerCarton || 
+                                 item.product.itemsPerCarton || 1
+          const pricePerCarton = pricePerItem * unitsPerCarton
+          // quantity represents number of cartons
+          return sum + (pricePerCarton * item.quantity)
         }, 0)
       },
     }),

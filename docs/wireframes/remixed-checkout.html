@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LYS Payment Terms & Contracts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-white: #FFFFFF;
+            --soft-pink: #FDF8F6;
+            --rose-gold: #D4A5A5;
+            --rose-gold-dark: #C48B8B;
+            --deep-charcoal: #1A1A1A;
+            --text-primary: #2D2D2D;
+            --text-secondary: #5A5A5A;
+            --light-gray: #F0F0F0;
+            --medium-gray: #8B8B8B;
+            --border-gray: #E0E0E0;
+            --success-green: #4CAF50;
+            --warning-amber: #FF9800;
+            --error-red: #F44336;
+            --soft-pink-hover: #F5E6E0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--light-gray);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .top-nav {
+            background: var(--primary-white);
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--deep-charcoal);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            background: var(--primary-white);
+            border-radius: 12px;
+            padding: 6px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-gray);
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .tab-button.active {
+            background: var(--rose-gold);
+            color: var(--primary-white);
+        }
+
+        .tab-button:hover:not(.active) {
+            background: var(--soft-pink);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--primary-white);
+            border-radius: 12px;
+            border: 1px solid var(--border-gray);
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            background: var(--soft-pink);
+            padding: 24px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        /* Step Cards */
+        .step-card {
+            border: 2px solid var(--border-gray);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+        }
+
+        .step-card:hover {
+            border-color: var(--rose-gold);
+        }
+
+        .step-card.accepted {
+            border-color: var(--success-green);
+            background: rgba(76, 175, 80, 0.05);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        .step-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-gray);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .step-checkbox.checked {
+            background: var(--success-green);
+            border-color: var(--success-green);
+            color: white;
+        }
+
+        .step-content {
+            padding: 0 20px 20px 52px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--rose-gold);
+            color: var(--primary-white);
+            padding: 16px 32px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .btn-primary:hover {
+            background: var(--rose-gold-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 165, 165, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Info Boxes */
+        .info-box {
+            background: var(--soft-pink);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--rose-gold);
+        }
+
+        .warning-box {
+            background: rgba(255, 152, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--warning-amber);
+        }
+
+        .success-box {
+            background: rgba(76, 175, 80, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--success-green);
+        }
+
+        /* Contract Terms Styles */
+        .contract-section {
+            margin-bottom: 30px;
+        }
+
+        .contract-section h3 {
+            color: var(--deep-charcoal);
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .contract-section p {
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .contract-list {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        .contract-list li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+            
+            .tab-nav {
+                flex-direction: column;
+            }
+            
+            .card-header, .card-body {
+                padding: 20px;
+            }
+            
+            .step-header {
+                padding: 16px;
+            }
+            
+            .step-content {
+                padding: 0 16px 16px 48px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .checkmark {
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <div class="nav-logo">LOVING YOUR SKIN</div>
+        <div style="color: var(--text-secondary);">Payment Terms & Contract Acceptance</div>
+    </nav>
+
+    <div class="container">
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+            <button class="tab-button active" onclick="showTab('retailer')">Retailer Process</button>
+            <button class="tab-button" onclick="showTab('brand')">Brand Process</button>
+            <button class="tab-button" onclick="showTab('contract')">Contract Terms</button>
+        </div>
+
+        <!-- Retailer Process Tab -->
+        <div id="retailer-tab" class="tab-content active">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Retailer Payment & Order Process</h2>
+                    <p style="color: var(--text-secondary); margin-top: 8px;">Please review and accept each step of our B2B ordering process</p>
+                </div>
+                <div class="card-body">
+                    <div class="info-box">
+                        <strong>Important:</strong> By proceeding, you acknowledge that all payments must be made before shipment, and you accept our liability structure as outlined below.
+                    </div>
+
+                    <div class="step-card" id="retailer-step-1">
+                        <div class="step-header" onclick="toggleStep('retailer', 1)">
+                            <div class="step-checkbox" id="retailer-check-1"></div>
+                            <div>
+                                <strong>Order Submission & Review</strong>
+                                <div style="font-size: 14px; color: var(--text-secondary); margin-top: 4px;">Your order enters our approval workflow</div>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <p><strong>What happens:</strong> You submit your order through our platform. We review all details for accuracy and compliance with minimum order quantities.</p>
+                            <p><strong>Timeline:</strong> 24 hours maximum for initial review</p>
+                            <p><strong>Your responsibility:</strong> Ensure all shipping addresses and company details are accurate</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card" id="retailer-step-2">
+                        <div class="step-header" onclick="toggleStep('retailer', 2)">
+                            <div class="step-checkbox" id="retailer-check-2"></div>
+                            <div>
+                                <strong>Brand Confirmation & Pricing Lock</strong>
+                                <div style="font-size: 14px; color: var(--text-secondary); margin-top: 4px;">Korean brand confirms availability and final terms</div>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <p><strong>What happens:</strong> The Korean brand confirms stock availability, shipping costs, and delivery timeline. Final invoice is generated with locked pricing.</p>
+                            <p><strong>Timeline:</strong> 24-72 hours for brand confirmation</p>
+                            <p><strong>Important:</strong> Once pricing is locked, no changes can be made without restarting the process</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card" id="retailer-step-3">
+                        <div class="step-header" onclick="toggleStep('retailer', 3)">
+                            <div class="step-checkbox" id="retailer-check-3"></div>
+                            <div>
+                                <strong>Invoice Payment (Bank Transfer Required)</strong>
+                                <div style="font-size: 14px; color: var(--text-secondary); margin-top: 4px;">Payment must be completed before shipment begins</div>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <p><strong>Payment method:</strong> Bank transfer only (SEPA/Faster Payments). Credit card payments not accepted for B2B orders.</p>
+                            <p><strong>Payment terms:</strong> Payment due within 30 days of invoice, but <strong>goods will not ship until payment is received and confirmed</strong>.</p>
+                            <p><strong>Currency:</strong> All invoices in USD, bank will handle conversion automatically</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card" id="retailer-step-4">
+                        <div class="step-header" onclick="toggleStep('retailer', 4)">
+                            <div class="step-checkbox" id="retailer-check-4"></div>
+                            <div>
+                                <strong>Shipment & Liability Transfer</strong>
+                                <div style="font-size: 14px; color: var(--text-secondary); margin-top: 4px;">Brand ships goods and assumes full product liability</div>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <p><strong>What happens:</strong> Once payment clears, brand arranges shipment (3-6 weeks transit time). You receive tracking information.</p>
+                            <p><strong>CRITICAL:</strong> Upon shipment confirmation, ALL product quality, delivery, and customer service issues become the direct responsibility of the Korean brand.</p>
+                            <p><strong>Your recourse:</strong> For post-shipment issues, contact brand directly. LYS facilitates communication but is not liable for product defects or delivery problems.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card" id="retailer-step-5">
+                        <div class="step-header" onclick="toggleStep('retailer', 5)">
+                            <div class="step-checkbox" id="retailer-check-5"></div>
+                            <div>
+                                <strong>Import Duties & Customs Compliance</strong>
+                                <div style="font-size: 14px; color: var(--text-secondary); margin-top: 4px;">You handle all import requirements and associated costs</div>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <p><strong>Your responsibility:</strong> All import duties, VAT, and customs clearance costs are your responsibility as the importer.</p>
+                            <p><strong>Documentation:</strong> Brand provides commercial invoices and certificates. You handle customs declarations and any additional documentation.</p>
+                            <p><strong>Delays:</strong> Customs delays are beyond our control and do not affect payment obligations</p>
+                        </div>
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Key Points to Remember:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>Payment required before shipment - no exceptions</li>
+                            <li>LYS is a payment facilitator only once goods ship</li>
+                            <li>All product issues post-shipment are brand responsibility</li>
+                            <li>You are responsible for import duties and customs compliance</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-top: 30px;">
+                        <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 16px;">
+                            <strong>Progress: <span id="retailer-progress">0/5</span> steps accepted</strong>
+                        </p>
+                        <button class="btn-primary" id="retailer-submit" disabled onclick="submitRetailerAcceptance()">
+                            Accept Terms & Continue with Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Brand Process Tab -->
+        <div id="brand-tab" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Brand Payment & Fulfillment Process</h2>
+                    <p style="color: var(--text-secondary); margin-top: 8px;">Your responsibilities and payment structure as a LYS brand partner</p>
+                </div>
+                <div class="card-body">
+                    <div class="info-box">
+                        <strong>Important:</strong> By joining LYS, you accept our payment escrow system and agree to ship orders promptly upon payment confirmation.
+                    </div>
+
+                    <div class="step-card" id="brand-step-1">
+                        <div class="step-header" onclick="toggleStep('brand', 1)">
+                            <div class="step-checkbox" id="brand-check-1"></div>
+                            <div>
+                                <strong>Stripe Connect Account Setup</strong>
+                                <div style="font-size: 14px; color: var(--text-secondary); margin-top: 4px;">Connect your Korean bank account for automatic payouts</div>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <p><strong>What you'll do:</strong> Complete Stripe onboarding with your Korean business documents and bank account details.</p>
+                            <p><strong>What you'll see:</strong> LYS-branded setup pages, but your own Stripe dashboard for viewing transactions</p>
+                            <p><strong>Bank transfers:</strong> Receive automatic USD transfers from Stripe (2-5 business days to Korean banks)</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card" id="brand-step-2">
+                        <div class="step-header" onclick="toggleStep('brand', 2)">
+                            <div class="step-checkbox" id="brand-check-2"></div>
+                            <div>
+                                <strong>Order Review & Confirmation</strong>
+                                <div style="font-size: 14px; color: var(--text-secondary); margin-top: 4px;">Confirm stock and pricing for each retailer order</div>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <p><strong>Timeline:</strong> You have 48 hours maximum to confirm or reject orders</p>
+                            <p><strong>Pricing:</strong> You set your product prices - LYS adds their service fee on top (retailers pay the combined total)</p>
+                            <p><strong>Stock confirmation:</strong> Only confirm orders you can fulfill within 2 weeks of payment receipt</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card" id="brand-step-3">
+                        <div class="step-header" onclick="toggleStep('brand', 3)">
+                            <div class="step-checkbox" id="brand-check-3"></div>
+                            <div>
+                                <strong>Payment Escrow System</strong>
+                                <div style="font-size: 14px; color: var(--text-secondary); margin-top: 4px;">Understand how and when you receive payment</div>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <p><strong>How it works:</strong> Retailer pays LYS → Funds held in escrow → Released to you upon shipment confirmation</p>
+                            <p><strong>No Stripe fees for you:</strong> LYS absorbs all payment processing costs</p>
+                            <p><strong>Your protection:</strong> Get paid immediately when you ship (not when retailer receives goods)</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card" id="brand-step-4">
+                        <div class="step-header" onclick="toggleStep('brand', 4)">
+                            <div class="step-checkbox" id="brand-check-4"></div>
+                            <div>
+                                <strong>Shipment & Liability Assumption</strong>
+                                <div style="font-size: 14px; color: var(--text-secondary); margin-top: 4px;">Ship orders and accept full product responsibility</div>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <p><strong>Shipment requirement:</strong> Provide valid tracking numbers and ship within 2 weeks of payment confirmation</p>
+                            <p><strong>Payment release:</strong> Your payment is released immediately upon valid tracking confirmation</p>
+                            <p><strong>CRITICAL LIABILITY:</strong> Once you ship, you assume full responsibility for product quality, delivery issues, and customer service</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card" id="brand-step-5">
+                        <div class="step-header" onclick="toggleStep('brand', 5)">
+                            <div class="step-checkbox" id="brand-check-5"></div>
+                            <div>
+                                <strong>Post-Shipment Customer Service</strong>
+                                <div style="font-size: 14px; color: var(--text-secondary); margin-top: 4px;">Handle all retailer issues directly after shipping</div>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <p><strong>Direct responsibility:</strong> All quality issues, delivery problems, or product defects become your direct responsibility with the retailer</p>
+                            <p><strong>Refund handling:</strong> Any refunds must be processed by you directly to the retailer (LYS cannot reverse payments post-shipment)</p>
+                            <p><strong>LYS role:</strong> We'll facilitate initial communication but the commercial relationship for problems is between you and the retailer</p>
+                        </div>
+                    </div>
+
+                    <div class="success-box">
+                        <strong>✅ Benefits for You:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>Get paid immediately when you ship (not on delivery)</li>
+                            <li>Zero payment processing fees</li>
+                            <li>Access to EU retail market without marketing costs</li>
+                            <li>Professional payment infrastructure via Stripe</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-top: 30px;">
+                        <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 16px;">
+                            <strong>Progress: <span id="brand-progress">0/5</span> steps accepted</strong>
+                        </p>
+                        <button class="btn-primary" id="brand-submit" disabled onclick="submitBrandAcceptance()">
+                            Accept Terms & Join LYS Platform
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contract Terms Tab -->
+        <div id="contract-tab" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2>LYS Platform Terms of Service</h2>
+                    <p style="color: var(--text-secondary); margin-top: 8px;">Clear, plain English terms governing all platform relationships</p>
+                </div>
+                <div class="card-body">
+                    <div class="contract-section">
+                        <h3>1. Platform Role & Services</h3>
+                        <p><strong>LYS Platform Limited</strong> ("LYS", "we", "us") operates as a B2B marketplace facilitating transactions between Korean beauty brands ("Brands") and European Union retailers ("Retailers").</p>
+                        <ul class="contract-list">
+                            <li><strong>Payment Facilitation:</strong> We process payments via Stripe Connect and hold funds in escrow until shipment confirmation</li>
+                            <li><strong>Communication Hub:</strong> We facilitate initial communication between Brands and Retailers</li>
+                            <li><strong>Order Management:</strong> We provide the platform infrastructure for order submission, tracking, and status updates</li>
+                            <li><strong>Compliance Support:</strong> We handle international payment compliance and documentation requirements</li>
+                        </ul>
+                    </div>
+
+                    <div class="contract-section">
+                        <h3>2. Payment Terms & Processing</h3>
+                        <p><strong>All financial transactions are processed in USD through our Stripe Connect integration.</strong></p>
+                        <ul class="contract-list">
+                            <li><strong>Retailer Payments:</strong> Must be made via bank transfer before any goods are shipped. Payment terms of up to 30 days may be offered, but shipment will not commence until payment is received and confirmed.</li>
+                            <li><strong>Escrow System:</strong> All payments are held in LYS's platform account until shipment confirmation is provided by the Brand.</li>
+                            <li><strong>Brand Payouts:</strong> Upon valid shipment confirmation (including tracking number), funds are automatically transferred to Brand's Stripe account within 24 hours.</li>
+                            <li><strong>Platform Fees:</strong> LYS charges a fixed fee per item (disclosed at time of order). All Stripe processing fees are absorbed by LYS.</li>
+                            <li><strong>Currency Risk:</strong> Each party bears their own currency conversion risk (EUR→USD for Retailers, USD→KRW for Brands).</li>
+                        </ul>
+                    </div>
+
+                    <div class="contract-section">
+                        <h3>3. Liability & Risk Allocation</h3>
+                        <p><strong>Liability is clearly allocated based on order stage:</strong></p>
+                        <ul class="contract-list">
+                            <li><strong>Pre-Shipment:</strong> LYS holds funds in escrow and may refund Retailers if Brands fail to ship confirmed orders.</li>
+                            <li><strong>Upon Shipment Confirmation:</strong> ALL liability for product quality, delivery, customer service, and commercial disputes transfers directly to the Brand.</li>
+                            <li><strong>Brand Indemnification:</strong> Upon providing shipment confirmation, Brands agree to indemnify LYS against any claims, damages, or losses arising from product defects, delivery failures, or commercial disputes.</li>
+                            <li><strong>LYS Limitation:</strong> After shipment confirmation, LYS's role is limited to facilitating communication. We are not liable for product quality, delivery issues, or commercial disputes.</li>
+                        </ul>
+                    </div>
+
+                    <div class="contract-section">
+                        <h3>4. Import Compliance & Customs</h3>
+                        <ul class="contract-list">
+                            <li><strong>Retailer Responsibility:</strong> Retailers are solely responsible for all import duties, VAT payments, customs compliance, and regulatory requirements in their jurisdiction.</li>
+                            <li><strong>Brand Documentation:</strong> Brands must provide accurate commercial invoices, certificates of origin, and other required export documentation.</li>
+                            <li><strong>Customs Delays:</strong> Neither LYS nor Brands are liable for customs delays, additional duties, or regulatory compliance issues in the destination country.</li>
+                        </ul>
+                    </div>
+
+                    <div class="contract-section">
+                        <h3>5. Dispute Resolution</h3>
+                        <ul class="contract-list">
+                            <li><strong>Pre-Shipment Disputes:</strong> LYS will mediate and may refund payments if Brands fail to meet confirmed obligations.</li>
+                            <li><strong>Post-Shipment Disputes:</strong> All quality, delivery, or commercial disputes become direct Brand-Retailer matters. LYS may facilitate initial communication but is not a party to the dispute.</li>
+                            <li><strong>Refund Authority:</strong> After shipment confirmation, only Brands can authorize refunds, which must be processed directly to Retailers through their own payment methods.</li>
+                            <li><strong>Governing Law:</strong> These terms are governed by English law. Any disputes involving LYS must be resolved in English courts.</li>
+                        </ul>
+                    </div>
+
+                    <div class="contract-section">
+                        <h3>6. Data & Communication</h3>
+                        <ul class="contract-list">
+                            <li><strong>Platform Communication:</strong> All initial order-related communication flows through LYS platform systems.</li>
+                            <li><strong>Direct Contact:</strong> After shipment confirmation, Brands and Retailers may communicate directly for ongoing commercial matters.</li>
+                            <li><strong>Data Privacy:</strong> LYS processes personal and business data in accordance with UK GDPR requirements.</li>
+                            <li><strong>Order Records:</strong> LYS maintains transaction records for legal and compliance purposes.</li>
+                        </ul>
+                    </div>
+
+                    <div class="contract-section">
+                        <h3>7. Termination & Exit</h3>
+                        <ul class="contract-list">
+                            <li><strong>Platform Exit:</strong> Brands or Retailers may cease using the platform at any time, subject to completing existing orders.</li>
+                            <li><strong>Ongoing Obligations:</strong> Liability and service obligations for shipped orders continue indefinitely regardless of platform participation.</li>
+                            <li><strong>Data Retention:</strong> LYS may retain transaction and communication records for legal compliance purposes.</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Key Legal Points:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>LYS is a payment facilitator, not a merchant or party to Brand-Retailer sales</li>
+                            <li>Shipment confirmation triggers immediate liability transfer to Brands</li>
+                            <li>Post-shipment disputes are direct Brand-Retailer commercial matters</li>
+                            <li>Each party bears their own currency and regulatory compliance risks</li>
+                        </ul>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 40px; padding: 20px; background: var(--soft-pink); border-radius: 8px;">
+                        <p><strong>Last Updated:</strong> December 2024</p>
+                        <p style="font-size: 14px; color: var(--text-secondary); margin-top: 8px;">
+                            These terms are incorporated into all Brand and Retailer agreements with LYS Platform Limited (UK Company No. [TBD])
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab and activate button
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Step toggle functionality
+        function toggleStep(type, stepNumber) {
+            const stepCard = document.getElementById(`${type}-step-${stepNumber}`);
+            const checkbox = document.getElementById(`${type}-check-${stepNumber}`);
+            
+            if (stepCard.classList.contains('accepted')) {
+                // Uncheck
+                stepCard.classList.remove('accepted');
+                checkbox.classList.remove('checked');
+                checkbox.innerHTML = '';
+            } else {
+                // Check
+                stepCard.classList.add('accepted');
+                checkbox.classList.add('checked');
+                checkbox.innerHTML = '<span class="checkmark">✓</span>';
+            }
+            
+            updateProgress(type);
+        }
+
+        // Update progress and enable/disable submit button
+        function updateProgress(type) {
+            const totalSteps = 5;
+            const acceptedSteps = document.querySelectorAll(`#${type}-step-1, #${type}-step-2, #${type}-step-3, #${type}-step-4, #${type}-step-5`).length;
+            const checkedSteps = document.querySelectorAll(`.step-card[id^="${type}-step-"].accepted`).length;
+            
+            document.getElementById(`${type}-progress`).textContent = `${checkedSteps}/${totalSteps}`;
+            
+            const submitButton = document.getElementById(`${type}-submit`);
+            if (checkedSteps === totalSteps) {
+                submitButton.disabled = false;
+            } else {
+                submitButton.disabled = true;
+            }
+        }
+
+        // Submit functions
+        function submitRetailerAcceptance() {
+            alert('✅ Retailer terms accepted! You can now proceed with your order. An email confirmation has been sent with these terms for your records.');
+        }
+
+        function submitBrandAcceptance() {
+            alert('✅ Brand terms accepted! Welcome to the LYS platform. Your Stripe Connect onboarding link will be sent to your email address.');
+        }
+
+        // Initialize progress counters
+        updateProgress('retailer');
+        updateProgress('brand');
+    </script>
+</body>
+</html>

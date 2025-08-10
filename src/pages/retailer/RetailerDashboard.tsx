@@ -6,7 +6,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, Button, Badg
 import { useAuthStore } from '../../stores/auth.store'
 import { orderService } from '../../services'
 import { Order } from '../../types'
-import { Package, TrendingUp, Clock, CheckCircle, Truck, CreditCard } from 'lucide-react'
+import { Package, Clock, Truck, CreditCard } from 'lucide-react'
 
 interface RetailerMetrics {
   totalOrders: number
@@ -147,7 +147,7 @@ export const RetailerDashboard: React.FC = () => {
             <Button variant="secondary" onClick={() => navigate('/retailer/orders')}>
               View All Orders
             </Button>
-            <Button variant="outline" onClick={() => navigate('/messages')}>
+            <Button variant="secondary" onClick={() => navigate('/messages')}>
               Messages
             </Button>
           </div>

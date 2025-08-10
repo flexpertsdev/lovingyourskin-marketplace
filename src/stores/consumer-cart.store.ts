@@ -193,9 +193,10 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
           const item = state.items.find(i => i.id === itemId)
           if (!item) return state
           
-          // Check stock limit - using B2C inventory from variants
-          const b2cStock = item.product.variants?.[0]?.inventory?.b2c?.available || 0
-          if (b2cStock > 0 && quantity > b2cStock) {
+          // Check stock limit - using B2C inventory from variants if available
+          // If variants don't exist (simplified cart items), allow reasonable quantity
+          const b2cStock = item.product.variants?.[0]?.inventory?.b2c?.available || 99
+          if (quantity > b2cStock) {
             toast.error(`Only ${b2cStock} units available`)
             return state
           }

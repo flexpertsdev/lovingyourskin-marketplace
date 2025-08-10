@@ -530,8 +530,8 @@ export interface UIState {
 // Re-export ContactMessage from message service
 export type { ContactMessage } from '../services/firebase/message.service'
 
-// Re-export affiliate types
-export type { AffiliateCode, AffiliateTracking, AffiliateStats } from './affiliate'
+// Re-export affiliate types (excluding AffiliateCode which is defined above)
+export type { AffiliateTracking, AffiliateStats } from './affiliate'
 
 // Re-export discount types
 export type { 

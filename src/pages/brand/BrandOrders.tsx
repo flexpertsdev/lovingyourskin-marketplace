@@ -269,7 +269,7 @@ export const BrandOrders: React.FC = () => {
                         <div className="mb-3">
                           <p className="text-lg font-medium">{order.retailerName || 'Unknown Retailer'}</p>
                           <p className="text-sm text-text-secondary">
-                            {order.customerEmail} • {order.customerPhone || 'No phone'}
+                            Retailer ID: {order.retailerId}
                           </p>
                         </div>
                         
@@ -325,7 +325,7 @@ export const BrandOrders: React.FC = () => {
                               {item.product?.name || 'Product'}
                             </span>
                             <span className="font-medium">
-                              {item.quantity} × £{item.price.toFixed(2)}
+                              {item.quantity} × £{item.pricePerItem.toFixed(2)}
                             </span>
                           </div>
                         ))}

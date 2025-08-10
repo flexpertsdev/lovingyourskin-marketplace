@@ -53,16 +53,19 @@ export const Register: React.FC = () => {
     
     try {
       // Pass invite code (can be empty string for consumer registration)
-      const result = await register(inviteCode, {
+      await register(inviteCode, {
         email: formData.email,
         password: formData.password,
         name: formData.name,
         language: formData.language
       })
       
+      // Get the user from the store after successful registration
+      const registeredUser = useAuthStore.getState().user
+      
       // Redirect based on user role
-      if (result?.user) {
-        switch (result.user.role) {
+      if (registeredUser) {
+        switch (registeredUser.role) {
           case 'consumer':
             navigate('/shop')
             break

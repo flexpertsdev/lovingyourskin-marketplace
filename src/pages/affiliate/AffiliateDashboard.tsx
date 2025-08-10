@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Layout } from '../../components/layout'
 import { Container, Section } from '../../components/layout'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, Button, Input, Badge } from '../../components/ui'
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, Button, Badge } from '../../components/ui'
 import { useAuthStore } from '../../stores/auth.store'
 import { firebaseAffiliateService } from '../../services/firebase/affiliate.service'
 import { AffiliateCode } from '../../types/affiliate'
@@ -95,7 +95,7 @@ export const AffiliateDashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <Layout mode="affiliate">
+      <Layout mode="b2b">
         <Section>
           <Container>
             <div className="text-center py-20">Loading affiliate dashboard...</div>
@@ -106,7 +106,7 @@ export const AffiliateDashboard: React.FC = () => {
   }
 
   return (
-    <Layout mode="affiliate">
+    <Layout mode="b2b">
       <Section>
         <Container>
           {/* Header */}
@@ -165,7 +165,7 @@ export const AffiliateDashboard: React.FC = () => {
                       </Button>
                       <Button 
                         onClick={shareCode}
-                        variant="outline"
+                        variant="secondary"
                         size="small"
                         className="flex items-center gap-2"
                       >
