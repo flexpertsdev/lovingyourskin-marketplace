@@ -152,6 +152,52 @@ class FirebaseAuthService {
         usedAt: new Date()
       }, { merge: true })
       
+      // If this is an affiliate, create their affiliate discount code
+      if (invite.role === 'affiliate') {
+        // Generate a unique affiliate code based on their name
+        const affiliateCode = userData.name
+          .toUpperCase()
+          .replace(/[^A-Z0-9]/g, '')
+          .substring(0, 10) + Math.random().toString(36).substring(2, 6).toUpperCase()
+        
+        // Create the affiliate record
+        const affiliateData = {
+          id: userCredential.user.uid,
+          userId: userCredential.user.uid,
+          name: userData.name,
+          email: userData.email,
+          code: affiliateCode,
+          commissionRate: invite.commissionPercent || 10, // Default 10% commission
+          totalSales: 0,
+          totalCommission: 0,
+          totalOrders: 0,
+          status: 'active' as const,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
+        
+        await setDoc(doc(db, 'affiliates', userCredential.user.uid), affiliateData)
+        
+        // Create the discount code for this affiliate
+        const discountData = {
+          id: affiliateCode,
+          code: affiliateCode,
+          type: 'affiliate' as const,
+          discountType: 'percentage' as const,
+          discountValue: invite.defaultDiscountPercent || 10, // Default 10% discount
+          affiliateId: userCredential.user.uid,
+          usageLimit: null, // Unlimited uses for affiliate codes
+          usageCount: 0,
+          validFrom: new Date(),
+          validUntil: null, // No expiration for affiliate codes
+          isActive: true,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
+        
+        await setDoc(doc(db, 'discountCodes', affiliateCode), discountData)
+      }
+      
       return {
         id: userCredential.user.uid,
         ...userDoc,
