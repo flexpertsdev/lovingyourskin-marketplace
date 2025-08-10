@@ -198,20 +198,13 @@ export interface ProductVariant {
   }
 }
 
-// Multi-language support type
-export interface MultiLangString {
-  en: string
-  ko: string
-  zh: string
-}
-
 // Brand types based on mock data
 export interface Brand {
   id: string
   slug: string
-  name: string | MultiLangString
-  tagline: string | MultiLangString
-  description: string | MultiLangString
+  name: string
+  tagline: string
+  description: string
   story?: string
   logo: string
   heroImage: string

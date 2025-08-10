@@ -16,7 +16,7 @@ import { Label } from '@/components/ui/label';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import toast from 'react-hot-toast';
 import { Loader2, Search, Plus, Edit, Trash2, X } from 'lucide-react';
-import { getProductName, getProductPrimaryImage, getProductImageGallery } from '@/utils/product-helpers';
+import { getProductName, getProductPrimaryImage } from '@/utils/product-helpers';
 
 export default function ProductManagement() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -29,7 +29,6 @@ export default function ProductManagement() {
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState<Product | null>(null);
-
 
   // Fetch products from Firestore
   const fetchProducts = async () => {
@@ -79,9 +78,7 @@ export default function ProductManagement() {
     fetchProducts();
   }, [selectedBrand, selectedCategory, searchTerm]);
 
-
-
-  // Update product - removed direct Firestore update from here
+  // Update product
   const handleUpdateProduct = async (productId: string, updates: Partial<Product>) => {
     try {
       await updateDoc(doc(db, 'products', productId), {
@@ -333,8 +330,6 @@ function ProductEditForm({
 }: {
   product: Product;
   onSave: (productId: string, updates: Partial<Product>) => void;
-  onImageUpload?: (file: File, productId: string) => Promise<string | null>;
-  uploading?: boolean;
 }) {
   const [formData, setFormData] = useState(product);
   const [isDirty, setIsDirty] = useState(false);
@@ -351,26 +346,18 @@ function ProductEditForm({
 
     // TODO: Implement image upload to Firebase Storage
     console.log('Files selected:', files);
-    toast.info('Image upload feature coming soon');
+    toast('Image upload feature coming soon', { icon: 'ℹ️' });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!isDirty) {
-      toast.info('No changes to save');
+      toast('No changes to save', { icon: 'ℹ️' });
       return;
     }
 
-    const updates = {
-      ...formData,
-      images: {
-        ...formData.images,
-        gallery: getProductImageGallery(formData),
-      },
-    };
-
-    onSave(product.id, updates);
+    onSave(product.id, formData);
     setIsDirty(false);
   };
 
@@ -389,222 +376,222 @@ function ProductEditForm({
           <div className="px-6 py-6 space-y-4">
             <div>
               <Label htmlFor="name">Product Name</Label>
-            <Input
-              id="name"
-              value={getProductName(formData)}
-              onChange={(e) => updateFormData({ name: e.target.value })}
-              required
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="description">Description</Label>
-            <Textarea
-              id="description"
-              value={formData.description}
-              onChange={(e) => updateFormData({ description: e.target.value })}
-              rows={4}
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="shortDescription">Short Description</Label>
-            <Input
-              id="shortDescription"
-              value={formData.shortDescription}
-              onChange={(e) => updateFormData({ shortDescription: e.target.value })}
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="category">Category</Label>
-              <Select
-                value={formData.category}
-                onChange={(e) => updateFormData({ category: e.target.value })}
-                options={['cleansers', 'toners', 'serums', 'moisturizers', 'masks', 'sun-care', 'hair-care', 'body-care', 'eye-care', 'lip-care', 'sets'].map((cat) => ({
-                  value: cat,
-                  label: cat
-                }))}
-                placeholder="Select category"
+              <Input
+                id="name"
+                value={getProductName(formData)}
+                onChange={(e) => updateFormData({ name: e.target.value })}
+                required
               />
             </div>
 
             <div>
-              <Label htmlFor="status">Status</Label>
-              <Select
-                value={formData.status}
-                onChange={(e) => updateFormData({ status: e.target.value as 'active' | 'presale' | 'discontinued' | 'out-of-stock' })}
-                options={[
-                  { value: 'active', label: 'Active' },
-                  { value: 'presale', label: 'Presale' },
-                  { value: 'discontinued', label: 'Discontinued' },
-                  { value: 'out-of-stock', label: 'Out of Stock' }
-                ]}
-                placeholder="Select status"
+              <Label htmlFor="description">Description</Label>
+              <Textarea
+                id="description"
+                value={formData.description}
+                onChange={(e) => updateFormData({ description: e.target.value })}
+                rows={4}
               />
             </div>
-          </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                id="featured"
-                checked={formData.featured}
-                onChange={(e) => updateFormData({ featured: e.target.checked })}
-                className="h-4 w-4 text-rose-gold"
+            <div>
+              <Label htmlFor="shortDescription">Short Description</Label>
+              <Input
+                id="shortDescription"
+                value={formData.shortDescription}
+                onChange={(e) => updateFormData({ shortDescription: e.target.value })}
               />
-              <Label htmlFor="featured">Featured Product</Label>
             </div>
 
-            <div className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                id="isPreorder"
-                checked={formData.isPreorder}
-                onChange={(e) => updateFormData({ isPreorder: e.target.checked })}
-                className="h-4 w-4 text-rose-gold"
-              />
-              <Label htmlFor="isPreorder">Pre-order Product</Label>
-            </div>
-          </div>
-
-          {formData.isPreorder && (
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="preorderDiscount">Pre-order Discount (%)</Label>
-                <Input
-                  id="preorderDiscount"
-                  type="number"
-                  min="0"
-                  max="100"
-                  value={formData.preorderDiscount || ''}
-                  onChange={(e) => updateFormData({ preorderDiscount: parseInt(e.target.value) || 0 })}
+                <Label htmlFor="category">Category</Label>
+                <Select
+                  value={formData.category}
+                  onChange={(e) => updateFormData({ category: e.target.value })}
+                  options={['cleansers', 'toners', 'serums', 'moisturizers', 'masks', 'sun-care', 'hair-care', 'body-care', 'eye-care', 'lip-care', 'sets'].map((cat) => ({
+                    value: cat,
+                    label: cat
+                  }))}
+                  placeholder="Select category"
                 />
               </div>
+
               <div>
-                <Label htmlFor="preorderEndDate">Pre-order End Date</Label>
-                <Input
-                  id="preorderEndDate"
-                  type="date"
-                  value={formData.preorderEndDate || ''}
-                  onChange={(e) => updateFormData({ preorderEndDate: e.target.value })}
+                <Label htmlFor="status">Status</Label>
+                <Select
+                  value={formData.status}
+                  onChange={(e) => updateFormData({ status: e.target.value as 'active' | 'presale' | 'discontinued' | 'out-of-stock' })}
+                  options={[
+                    { value: 'active', label: 'Active' },
+                    { value: 'presale', label: 'Presale' },
+                    { value: 'discontinued', label: 'Discontinued' },
+                    { value: 'out-of-stock', label: 'Out of Stock' }
+                  ]}
+                  placeholder="Select status"
                 />
               </div>
             </div>
-          )}
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="featured"
+                  checked={formData.featured}
+                  onChange={(e) => updateFormData({ featured: e.target.checked })}
+                  className="h-4 w-4 text-rose-gold"
+                />
+                <Label htmlFor="featured">Featured Product</Label>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="isPreorder"
+                  checked={formData.isPreorder}
+                  onChange={(e) => updateFormData({ isPreorder: e.target.checked })}
+                  className="h-4 w-4 text-rose-gold"
+                />
+                <Label htmlFor="isPreorder">Pre-order Product</Label>
+              </div>
+            </div>
+
+            {formData.isPreorder && (
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="preorderDiscount">Pre-order Discount (%)</Label>
+                  <Input
+                    id="preorderDiscount"
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={formData.preorderDiscount || ''}
+                    onChange={(e) => updateFormData({ preorderDiscount: parseInt(e.target.value) || 0 })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="preorderEndDate">Pre-order End Date</Label>
+                  <Input
+                    id="preorderEndDate"
+                    type="date"
+                    value={formData.preorderEndDate || ''}
+                    onChange={(e) => updateFormData({ preorderEndDate: e.target.value })}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </TabsContent>
 
         <TabsContent value="pricing" className="mt-6">
           <div className="px-6 py-6 space-y-4">
-          {formData.variants?.map((variant, index) => (
-            <Card key={variant.variantId}>
-              <CardHeader>
-                <CardTitle className="text-lg">
-                  Variant: {variant.sku || `Variant ${index + 1}`}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label>B2C Retail Price</Label>
-                    <Input
-                      type="number"
-                      step="0.01"
-                      value={variant.pricing?.b2c?.retailPrice || ''}
-                      onChange={(e) => {
-                        const newVariants = [...formData.variants];
-                        newVariants[index] = {
-                          ...variant,
-                          pricing: {
-                            ...variant.pricing,
-                            b2c: {
-                              ...variant.pricing.b2c,
-                              retailPrice: parseFloat(e.target.value),
+            {formData.variants?.map((variant, index) => (
+              <Card key={variant.variantId}>
+                <CardHeader>
+                  <CardTitle className="text-lg">
+                    Variant: {variant.sku || `Variant ${index + 1}`}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>B2C Retail Price</Label>
+                      <Input
+                        type="number"
+                        step="0.01"
+                        value={variant.pricing?.b2c?.retailPrice || ''}
+                        onChange={(e) => {
+                          const newVariants = [...formData.variants];
+                          newVariants[index] = {
+                            ...variant,
+                            pricing: {
+                              ...variant.pricing,
+                              b2c: {
+                                ...variant.pricing.b2c,
+                                retailPrice: parseFloat(e.target.value),
+                              },
                             },
-                          },
-                        };
-                        setFormData({ ...formData, variants: newVariants });
-                      }}
-                    />
+                          };
+                          updateFormData({ variants: newVariants });
+                        }}
+                      />
+                    </div>
+
+                    <div>
+                      <Label>B2B Wholesale Price</Label>
+                      <Input
+                        type="number"
+                        step="0.01"
+                        value={variant.pricing?.b2b?.wholesalePrice || ''}
+                        onChange={(e) => {
+                          const newVariants = [...formData.variants];
+                          newVariants[index] = {
+                            ...variant,
+                            pricing: {
+                              ...variant.pricing,
+                              b2b: {
+                                ...variant.pricing.b2b,
+                                wholesalePrice: parseFloat(e.target.value),
+                              },
+                            },
+                          };
+                          updateFormData({ variants: newVariants });
+                        }}
+                      />
+                    </div>
                   </div>
 
-                  <div>
-                    <Label>B2B Wholesale Price</Label>
-                    <Input
-                      type="number"
-                      step="0.01"
-                      value={variant.pricing?.b2b?.wholesalePrice || ''}
-                      onChange={(e) => {
-                        const newVariants = [...formData.variants];
-                        newVariants[index] = {
-                          ...variant,
-                          pricing: {
-                            ...variant.pricing,
-                            b2b: {
-                              ...variant.pricing.b2b,
-                              wholesalePrice: parseFloat(e.target.value),
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>B2C Stock</Label>
+                      <Input
+                        type="number"
+                        value={variant.inventory?.b2c?.stock || 0}
+                        onChange={(e) => {
+                          const newVariants = [...formData.variants];
+                          newVariants[index] = {
+                            ...variant,
+                            inventory: {
+                              ...variant.inventory,
+                              b2c: {
+                                ...variant.inventory.b2c,
+                                stock: parseInt(e.target.value),
+                                available: parseInt(e.target.value) - (variant.inventory?.b2c?.reserved || 0),
+                              },
                             },
-                          },
-                        };
-                        setFormData({ ...formData, variants: newVariants });
-                      }}
-                    />
-                  </div>
-                </div>
+                          };
+                          updateFormData({ variants: newVariants });
+                        }}
+                      />
+                    </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label>B2C Stock</Label>
-                    <Input
-                      type="number"
-                      value={variant.inventory?.b2c?.stock || 0}
-                      onChange={(e) => {
-                        const newVariants = [...formData.variants];
-                        newVariants[index] = {
-                          ...variant,
-                          inventory: {
-                            ...variant.inventory,
-                            b2c: {
-                              ...variant.inventory.b2c,
-                              stock: parseInt(e.target.value),
-                              available: parseInt(e.target.value) - (variant.inventory?.b2c?.reserved || 0),
+                    <div>
+                      <Label>B2B Stock</Label>
+                      <Input
+                        type="number"
+                        value={variant.inventory?.b2b?.stock || 0}
+                        onChange={(e) => {
+                          const newVariants = [...formData.variants];
+                          newVariants[index] = {
+                            ...variant,
+                            inventory: {
+                              ...variant.inventory,
+                              b2b: {
+                                ...variant.inventory.b2b,
+                                stock: parseInt(e.target.value),
+                                available: parseInt(e.target.value) - (variant.inventory?.b2b?.reserved || 0),
+                              },
                             },
-                          },
-                        };
-                        setFormData({ ...formData, variants: newVariants });
-                      }}
-                    />
+                          };
+                          updateFormData({ variants: newVariants });
+                        }}
+                      />
+                    </div>
                   </div>
-
-                  <div>
-                    <Label>B2B Stock</Label>
-                    <Input
-                      type="number"
-                      value={variant.inventory?.b2b?.stock || 0}
-                      onChange={(e) => {
-                        const newVariants = [...formData.variants];
-                        newVariants[index] = {
-                          ...variant,
-                          inventory: {
-                            ...variant.inventory,
-                            b2b: {
-                              ...variant.inventory.b2b,
-                              stock: parseInt(e.target.value),
-                              available: parseInt(e.target.value) - (variant.inventory?.b2b?.reserved || 0),
-                            },
-                          },
-                        };
-                        setFormData({ ...formData, variants: newVariants });
-                      }}
-                    />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </TabsContent>
 
@@ -612,41 +599,38 @@ function ProductEditForm({
           <div className="px-6 py-6 space-y-4">
             <div>
               <Label>Current Images</Label>
-            <div className="grid grid-cols-4 gap-4 mt-2">
-              {formData.images?.gallery?.map((img, index) => (
-                <div key={index} className="relative">
-                  <img src={img} alt="" className="w-full h-32 object-cover rounded" />
-                  <Button
-                    size="small"
-                    variant="secondary"
-                    className="absolute top-2 right-2 text-red-600"
-                    onClick={() => {
-                      const newGallery = formData.images.gallery.filter((_, i) => i !== index);
-                      setFormData({
-                        ...formData,
-                        images: { ...formData.images, gallery: newGallery },
-                      });
-                    }}
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
-                </div>
-              ))}
+              <div className="grid grid-cols-4 gap-4 mt-2">
+                {formData.images?.gallery?.map((img, index) => (
+                  <div key={index} className="relative">
+                    <img src={img} alt="" className="w-full h-32 object-cover rounded" />
+                    <Button
+                      size="small"
+                      variant="secondary"
+                      className="absolute top-2 right-2 text-red-600"
+                      onClick={() => {
+                        const newGallery = formData.images.gallery.filter((_, i) => i !== index);
+                        updateFormData({
+                          images: { ...formData.images, gallery: newGallery },
+                        });
+                      }}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div>
-            <Label htmlFor="images">Upload New Images</Label>
-            <Input
-              id="images"
-              type="file"
-              accept="image/*"
-              multiple
-              onChange={handleImageChange}
-            />
-          </div>
-
-
+            <div>
+              <Label htmlFor="images">Upload New Images</Label>
+              <Input
+                id="images"
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleImageChange}
+              />
+            </div>
           </div>
         </TabsContent>
 
@@ -654,66 +638,222 @@ function ProductEditForm({
           <div className="px-6 py-6 space-y-4">
             <div>
               <Label htmlFor="ingredients">Ingredients</Label>
-            <Textarea
-              id="ingredients"
-              value={formData.ingredients}
-              onChange={(e) => setFormData({ ...formData, ingredients: e.target.value })}
-              rows={4}
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="tags">Tags (comma-separated)</Label>
-            <Input
-              id="tags"
-              value={formData.tags?.join(', ') || ''}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  tags: e.target.value.split(',').map((tag) => tag.trim()),
-                })
-              }
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="origin">Origin</Label>
-              <Input
-                id="origin"
-                value={formData.specifications?.origin || ''}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    specifications: { ...formData.specifications, origin: e.target.value },
-                  })
-                }
+              <Textarea
+                id="ingredients"
+                value={formData.ingredients}
+                onChange={(e) => updateFormData({ ingredients: e.target.value })}
+                rows={4}
+                placeholder="Full ingredient list"
               />
             </div>
 
             <div>
-              <Label htmlFor="pao">PAO (Period After Opening)</Label>
+              <Label htmlFor="usage">Usage Instructions</Label>
+              <Textarea
+                id="usage"
+                value={formData.usage || ''}
+                onChange={(e) => updateFormData({ usage: e.target.value })}
+                rows={3}
+                placeholder="How to use this product"
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="tags">Tags (comma-separated)</Label>
               <Input
-                id="pao"
-                value={formData.specifications?.pao || ''}
+                id="tags"
+                value={formData.tags?.join(', ') || ''}
                 onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    specifications: { ...formData.specifications, pao: e.target.value },
+                  updateFormData({
+                    tags: e.target.value.split(',').map((tag) => tag.trim()).filter(Boolean)
                   })
                 }
+                placeholder="e.g., hydrating, anti-aging, brightening"
               />
             </div>
           </div>
+        </TabsContent>
+
+        {/* New Specifications Tab */}
+        <TabsContent value="specifications" className="mt-6">
+          <div className="px-6 py-6 space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="origin">Origin</Label>
+                <Input
+                  id="origin"
+                  value={formData.specifications?.origin || ''}
+                  onChange={(e) =>
+                    updateFormData({
+                      specifications: { ...formData.specifications, origin: e.target.value },
+                    })
+                  }
+                  placeholder="e.g., Korea"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="pao">PAO (Period After Opening)</Label>
+                <Input
+                  id="pao"
+                  value={formData.specifications?.pao || ''}
+                  onChange={(e) =>
+                    updateFormData({
+                      specifications: { ...formData.specifications, pao: e.target.value },
+                    })
+                  }
+                  placeholder="e.g., 6M, 12M"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="keyIngredient">Key Ingredient</Label>
+                <Input
+                  id="keyIngredient"
+                  value={formData.specifications?.keyIngredient || ''}
+                  onChange={(e) =>
+                    updateFormData({
+                      specifications: { ...formData.specifications, keyIngredient: e.target.value },
+                    })
+                  }
+                  placeholder="Main active ingredient"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="treatmentDuration">Treatment Duration</Label>
+                <Input
+                  id="treatmentDuration"
+                  value={formData.specifications?.treatmentDuration || ''}
+                  onChange={(e) =>
+                    updateFormData({
+                      specifications: { ...formData.specifications, treatmentDuration: e.target.value },
+                    })
+                  }
+                  placeholder="e.g., 4 weeks"
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="setContents">Set Contents (for product sets)</Label>
+              <Textarea
+                id="setContents"
+                value={formData.specifications?.setContents || ''}
+                onChange={(e) =>
+                  updateFormData({
+                    specifications: { ...formData.specifications, setContents: e.target.value },
+                  })
+                }
+                rows={2}
+                placeholder="List items in the set"
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="features">Features (one per line)</Label>
+              <Textarea
+                id="features"
+                value={formData.specifications?.features?.join('\n') || ''}
+                onChange={(e) =>
+                  updateFormData({
+                    specifications: { 
+                      ...formData.specifications, 
+                      features: e.target.value.split('\n').filter(Boolean)
+                    },
+                  })
+                }
+                rows={4}
+                placeholder="Key product features
+One per line"
+              />
+            </div>
+
+            <div className="grid grid-cols-3 gap-4">
+              <div>
+                <Label htmlFor="spf">SPF (for sunscreens)</Label>
+                <Input
+                  id="spf"
+                  value={formData.specifications?.spf || ''}
+                  onChange={(e) =>
+                    updateFormData({
+                      specifications: { ...formData.specifications, spf: e.target.value },
+                    })
+                  }
+                  placeholder="e.g., SPF50+"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="paRating">PA Rating</Label>
+                <Input
+                  id="paRating"
+                  value={formData.specifications?.paRating || ''}
+                  onChange={(e) =>
+                    updateFormData({
+                      specifications: { ...formData.specifications, paRating: e.target.value },
+                    })
+                  }
+                  placeholder="e.g., PA++++"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="volume">Volume/Size</Label>
+                <Input
+                  id="volume"
+                  value={formData.specifications?.volume || ''}
+                  onChange={(e) =>
+                    updateFormData({
+                      specifications: { ...formData.specifications, volume: e.target.value },
+                    })
+                  }
+                  placeholder="e.g., 50ml, 100g"
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label>Certifications</Label>
+              <div className="grid grid-cols-3 gap-2 mt-2">
+                {['CPNP', 'CPNP_UK', 'CPNP_EU', 'CPNP_CH', 'VEGAN', 'CRUELTY_FREE', 'EWG', 'DERMATOLOGIST_TESTED', 'CARBON_NEUTRAL'].map((cert) => (
+                  <div key={cert} className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      id={`cert-${cert}`}
+                      checked={formData.specifications?.certifications?.includes(cert) || false}
+                      onChange={(e) => {
+                        const currentCerts = formData.specifications?.certifications || [];
+                        const newCerts = e.target.checked
+                          ? [...currentCerts, cert]
+                          : currentCerts.filter(c => c !== cert);
+                        updateFormData({
+                          specifications: { ...formData.specifications, certifications: newCerts },
+                        });
+                      }}
+                      className="h-4 w-4 text-rose-gold"
+                    />
+                    <Label htmlFor={`cert-${cert}`} className="text-sm">{cert.replace(/_/g, ' ')}</Label>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </TabsContent>
       </Tabs>
 
       <div className="flex justify-end gap-4 px-6 pb-6 pt-4 border-t">
-        <Button type="button" variant="secondary" onClick={() => setFormData(product)}>
+        <Button type="button" variant="secondary" onClick={() => {
+          setFormData(product);
+          setIsDirty(false);
+        }}>
           Reset
         </Button>
-        <Button type="submit">Save Changes</Button>
+        <Button type="submit" disabled={!isDirty}>
+          {isDirty ? 'Save Changes' : 'No Changes'}
+        </Button>
       </div>
     </form>
   );
@@ -724,78 +864,103 @@ function ProductCreateForm({
   onSave,
 }: {
   onSave: (newProduct: Partial<Product>) => void;
-  onImageUpload?: (file: File, productId: string) => Promise<string | null>;
-  uploading?: boolean;
 }) {
   const [formData, setFormData] = useState<Partial<Product>>({
     name: '',
     description: '',
     shortDescription: '',
-    category: 'moisturizers',
+    category: 'serums',
     status: 'active',
     brandId: 'baohlab',
     brand: {
       id: 'baohlab',
-      name: 'Baohlab'
+      name: 'BAOH Lab'
+    },
+    slug: '',
+    featured: false,
+    isPreorder: false,
+    tags: [],
+    images: {
+      primary: '',
+      gallery: []
     },
     variants: [{
-      variantId: 'variant-1',
+      variantId: 'default',
       sku: '',
-      size: null,
-      sizeUnit: null,
       color: null,
       colorHex: null,
-      pricing: {
-        b2c: {
-          enabled: true,
-          retailPrice: 0,
-          salePrice: null,
-          currency: 'USD'
+      size: null,
+      sizeUnit: null,
+      isDefault: true,
+      status: 'active',
+      inventory: {
+        b2b: {
+          stock: 0,
+          available: 0,
+          reserved: 0
         },
+        b2c: {
+          stock: 0,
+          available: 0,
+          reserved: 0
+        }
+      },
+      pricing: {
         b2b: {
           enabled: true,
           wholesalePrice: 0,
           minOrderQuantity: 1,
           unitsPerCarton: null,
-          currency: 'USD'
-        }
-      },
-      inventory: {
-        b2c: {
-          stock: 0,
-          reserved: 0,
-          available: 0
+          currency: 'GBP'
         },
-        b2b: {
-          stock: 0,
-          reserved: 0,
-          available: 0
+        b2c: {
+          enabled: true,
+          retailPrice: 0,
+          salePrice: null,
+          currency: 'GBP'
         }
-      },
-      status: 'active',
-      isDefault: true
+      }
     }],
-    images: {
-      primary: '',
-      gallery: []
-    },
-    tags: [],
-    ingredients: '',
     specifications: {
-      origin: 'Korea',
-      pao: '6M',
-      certifications: []
+      certifications: [],
+      features: []
     }
   });
+  const [isDirty, setIsDirty] = useState(false);
+
+  // Track changes for save-on-submit pattern
+  const updateFormData = (updates: Partial<Product>) => {
+    setFormData(prev => ({ ...prev, ...updates }));
+    setIsDirty(true);
+  };
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) return;
+
+    // TODO: Implement image upload to Firebase Storage
+    console.log('Files selected:', files);
+    toast('Image upload feature coming soon', { icon: 'ℹ️' });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSave(formData);
+    
+    if (!formData.name || !formData.brandId) {
+      toast.error('Please fill in all required fields');
+      return;
+    }
+
+    // Generate slug from name
+    const slug = formData.name.toLowerCase().replace(/\s+/g, '-');
+    
+    onSave({ ...formData, slug });
+    setIsDirty(false);
   };
 
   const brands = [
-    { id: 'baohlab', name: 'Baohlab' },
-    { id: 'lalucell', name: 'Lalucell' },
+    { id: 'baohlab', name: 'BAOH Lab' },
+    { id: 'lalucell', name: 'LaLucell' },
     { id: 'sunnicorn', name: 'Sunnicorn' },
     { id: 'the-cell-lab', name: 'The Cell Lab' },
     { id: 'wismin', name: 'Wismin' }
@@ -804,227 +969,267 @@ function ProductCreateForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <Tabs defaultValue="basic" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="basic">Basic Info</TabsTrigger>
           <TabsTrigger value="pricing">Pricing & Inventory</TabsTrigger>
           <TabsTrigger value="images">Images</TabsTrigger>
           <TabsTrigger value="details">Details</TabsTrigger>
+          <TabsTrigger value="specifications">Specifications</TabsTrigger>
         </TabsList>
 
         <TabsContent value="basic" className="mt-6">
           <div className="px-6 py-6 space-y-4">
             <div>
-              <Label htmlFor="brand">Brand</Label>
-            <Select
-              value={formData.brandId}
-              onChange={(e) => {
-                const value = e.target.value;
-                const brand = brands.find(b => b.id === value);
-                setFormData({ 
-                  ...formData, 
-                  brandId: value,
-                  brand: brand ? { id: brand.id, name: brand.name } : undefined
-                });
-              }}
-              options={brands.map((brand) => ({
-                value: brand.id,
-                label: typeof brand.name === 'string' ? brand.name : (brand.name as any)?.en || brand.id
-              }))}
-              placeholder="Select brand"
-            />
-          </div>
+              <Label htmlFor="brandId">Brand *</Label>
+              <Select
+                value={formData.brandId}
+                onChange={(e) => {
+                  const brand = brands.find(b => b.id === e.target.value);
+                  updateFormData({ 
+                    brandId: e.target.value,
+                    brand: brand ? { id: brand.id, name: brand.name } : undefined
+                  });
+                }}
+                options={brands.map((brand) => ({
+                  value: brand.id,
+                  label: brand.name
+                }))}
+                placeholder="Select brand"
+                required
+              />
+            </div>
 
-          <div>
-            <Label htmlFor="name">Product Name</Label>
-            <Input
-              id="name"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              required
-            />
-          </div>
+            <div>
+              <Label htmlFor="name">Product Name *</Label>
+              <Input
+                id="name"
+                value={formData.name || ''}
+                onChange={(e) => updateFormData({ name: e.target.value })}
+                required
+              />
+            </div>
 
-          <div>
-            <Label htmlFor="description">Description</Label>
-            <Textarea
-              id="description"
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              rows={4}
-            />
-          </div>
+            <div>
+              <Label htmlFor="description">Description</Label>
+              <Textarea
+                id="description"
+                value={formData.description || ''}
+                onChange={(e) => updateFormData({ description: e.target.value })}
+                rows={4}
+              />
+            </div>
 
-          <div>
-            <Label htmlFor="shortDescription">Short Description</Label>
-            <Input
-              id="shortDescription"
-              value={formData.shortDescription}
-              onChange={(e) => setFormData({ ...formData, shortDescription: e.target.value })}
-            />
-          </div>
+            <div>
+              <Label htmlFor="shortDescription">Short Description</Label>
+              <Input
+                id="shortDescription"
+                value={formData.shortDescription || ''}
+                onChange={(e) => updateFormData({ shortDescription: e.target.value })}
+              />
+            </div>
 
-          <div>
-            <Label htmlFor="category">Category</Label>
-            <Select
-              value={formData.category}
-              onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-              options={['cleansers', 'toners', 'serums', 'moisturizers', 'masks', 'sun-care', 'hair-care', 'body-care', 'eye-care', 'lip-care', 'sets'].map((cat) => ({
-                value: cat,
-                label: cat
-              }))}
-              placeholder="Select category"
-            />
-          </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="category">Category</Label>
+                <Select
+                  value={formData.category}
+                  onChange={(e) => updateFormData({ category: e.target.value })}
+                  options={['cleansers', 'toners', 'serums', 'moisturizers', 'masks', 'sun-care', 'hair-care', 'body-care', 'eye-care', 'lip-care', 'sets'].map((cat) => ({
+                    value: cat,
+                    label: cat
+                  }))}
+                  placeholder="Select category"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="status">Status</Label>
+                <Select
+                  value={formData.status}
+                  onChange={(e) => updateFormData({ status: e.target.value as 'active' | 'presale' | 'discontinued' | 'out-of-stock' })}
+                  options={[
+                    { value: 'active', label: 'Active' },
+                    { value: 'presale', label: 'Presale' },
+                    { value: 'discontinued', label: 'Discontinued' },
+                    { value: 'out-of-stock', label: 'Out of Stock' }
+                  ]}
+                  placeholder="Select status"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="featured"
+                  checked={formData.featured}
+                  onChange={(e) => updateFormData({ featured: e.target.checked })}
+                  className="h-4 w-4 text-rose-gold"
+                />
+                <Label htmlFor="featured">Featured Product</Label>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="isPreorder"
+                  checked={formData.isPreorder}
+                  onChange={(e) => updateFormData({ isPreorder: e.target.checked })}
+                  className="h-4 w-4 text-rose-gold"
+                />
+                <Label htmlFor="isPreorder">Pre-order Product</Label>
+              </div>
+            </div>
+
+            {formData.isPreorder && (
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="preorderDiscount">Pre-order Discount (%)</Label>
+                  <Input
+                    id="preorderDiscount"
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={formData.preorderDiscount || ''}
+                    onChange={(e) => updateFormData({ preorderDiscount: parseInt(e.target.value) || 0 })}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="preorderEndDate">Pre-order End Date</Label>
+                  <Input
+                    id="preorderEndDate"
+                    type="date"
+                    value={formData.preorderEndDate || ''}
+                    onChange={(e) => updateFormData({ preorderEndDate: e.target.value })}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </TabsContent>
 
         <TabsContent value="pricing" className="mt-6">
           <div className="px-6 py-6 space-y-4">
-          {formData.variants?.map((variant, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <CardTitle className="text-lg">
-                  Default Variant
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <Label>SKU</Label>
-                  <Input
-                    value={variant.sku || ''}
-                    onChange={(e) => {
-                      const newVariants = [...(formData.variants || [])];
-                      newVariants[index] = {
-                        ...variant,
-                        sku: e.target.value
-                      };
-                      setFormData({ ...formData, variants: newVariants });
-                    }}
-                  />
-                </div>
+            <h3 className="text-lg font-medium">Default Variant</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label>SKU</Label>
+                <Input
+                  value={formData.variants?.[0]?.sku || ''}
+                  onChange={(e) => {
+                    const newVariants = [...(formData.variants || [])];
+                    if (newVariants[0]) {
+                      newVariants[0].sku = e.target.value;
+                      updateFormData({ variants: newVariants });
+                    }
+                  }}
+                  placeholder="e.g., BAOH-SERUM-001"
+                />
+              </div>
+            </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label>B2C Retail Price</Label>
-                    <Input
-                      type="number"
-                      step="0.01"
-                      value={variant.pricing?.b2c?.retailPrice || ''}
-                      onChange={(e) => {
-                        const newVariants = [...(formData.variants || [])];
-                        newVariants[index] = {
-                          ...variant,
-                          pricing: {
-                            ...variant.pricing,
-                            b2c: {
-                              ...variant.pricing.b2c,
-                              retailPrice: parseFloat(e.target.value),
-                            },
-                          },
-                        };
-                        setFormData({ ...formData, variants: newVariants });
-                      }}
-                    />
-                  </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label>B2C Retail Price</Label>
+                <Input
+                  type="number"
+                  step="0.01"
+                  value={formData.variants?.[0]?.pricing?.b2c?.retailPrice || ''}
+                  onChange={(e) => {
+                    const newVariants = [...(formData.variants || [])];
+                    if (newVariants[0]) {
+                      newVariants[0].pricing.b2c.retailPrice = parseFloat(e.target.value) || 0;
+                      updateFormData({ variants: newVariants });
+                    }
+                  }}
+                />
+              </div>
 
-                  <div>
-                    <Label>B2B Wholesale Price</Label>
-                    <Input
-                      type="number"
-                      step="0.01"
-                      value={variant.pricing?.b2b?.wholesalePrice || ''}
-                      onChange={(e) => {
-                        const newVariants = [...(formData.variants || [])];
-                        newVariants[index] = {
-                          ...variant,
-                          pricing: {
-                            ...variant.pricing,
-                            b2b: {
-                              ...variant.pricing.b2b,
-                              wholesalePrice: parseFloat(e.target.value),
-                            },
-                          },
-                        };
-                        setFormData({ ...formData, variants: newVariants });
-                      }}
-                    />
-                  </div>
-                </div>
+              <div>
+                <Label>B2B Wholesale Price</Label>
+                <Input
+                  type="number"
+                  step="0.01"
+                  value={formData.variants?.[0]?.pricing?.b2b?.wholesalePrice || ''}
+                  onChange={(e) => {
+                    const newVariants = [...(formData.variants || [])];
+                    if (newVariants[0]) {
+                      newVariants[0].pricing.b2b.wholesalePrice = parseFloat(e.target.value) || 0;
+                      updateFormData({ variants: newVariants });
+                    }
+                  }}
+                />
+              </div>
+            </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label>B2C Stock</Label>
-                    <Input
-                      type="number"
-                      value={variant.inventory?.b2c?.stock || 0}
-                      onChange={(e) => {
-                        const stock = parseInt(e.target.value);
-                        const newVariants = [...(formData.variants || [])];
-                        newVariants[index] = {
-                          ...variant,
-                          inventory: {
-                            ...variant.inventory,
-                            b2c: {
-                              ...variant.inventory.b2c,
-                              stock: stock,
-                              available: stock,
-                            },
-                          },
-                        };
-                        setFormData({ ...formData, variants: newVariants });
-                      }}
-                    />
-                  </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label>B2C Stock</Label>
+                <Input
+                  type="number"
+                  value={formData.variants?.[0]?.inventory?.b2c?.stock || 0}
+                  onChange={(e) => {
+                    const newVariants = [...(formData.variants || [])];
+                    if (newVariants[0]) {
+                      const stock = parseInt(e.target.value) || 0;
+                      newVariants[0].inventory.b2c.stock = stock;
+                      newVariants[0].inventory.b2c.available = stock;
+                      updateFormData({ variants: newVariants });
+                    }
+                  }}
+                />
+              </div>
 
-                  <div>
-                    <Label>B2B Stock</Label>
-                    <Input
-                      type="number"
-                      value={variant.inventory?.b2b?.stock || 0}
-                      onChange={(e) => {
-                        const stock = parseInt(e.target.value);
-                        const newVariants = [...(formData.variants || [])];
-                        newVariants[index] = {
-                          ...variant,
-                          inventory: {
-                            ...variant.inventory,
-                            b2b: {
-                              ...variant.inventory.b2b,
-                              stock: stock,
-                              available: stock,
-                            },
-                          },
-                        };
-                        setFormData({ ...formData, variants: newVariants });
-                      }}
-                    />
-                  </div>
-                </div>
+              <div>
+                <Label>B2B Stock</Label>
+                <Input
+                  type="number"
+                  value={formData.variants?.[0]?.inventory?.b2b?.stock || 0}
+                  onChange={(e) => {
+                    const newVariants = [...(formData.variants || [])];
+                    if (newVariants[0]) {
+                      const stock = parseInt(e.target.value) || 0;
+                      newVariants[0].inventory.b2b.stock = stock;
+                      newVariants[0].inventory.b2b.available = stock;
+                      updateFormData({ variants: newVariants });
+                    }
+                  }}
+                />
+              </div>
+            </div>
 
-                <div>
-                  <Label>Minimum Order Quantity (B2B)</Label>
-                  <Input
-                    type="number"
-                    value={variant.pricing?.b2b?.minOrderQuantity || 1}
-                    onChange={(e) => {
-                      const newVariants = [...(formData.variants || [])];
-                      newVariants[index] = {
-                        ...variant,
-                        pricing: {
-                          ...variant.pricing,
-                          b2b: {
-                            ...variant.pricing.b2b,
-                            minOrderQuantity: parseInt(e.target.value),
-                          },
-                        },
-                      };
-                      setFormData({ ...formData, variants: newVariants });
-                    }}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label>B2B Min Order Quantity</Label>
+                <Input
+                  type="number"
+                  value={formData.variants?.[0]?.pricing?.b2b?.minOrderQuantity || 1}
+                  onChange={(e) => {
+                    const newVariants = [...(formData.variants || [])];
+                    if (newVariants[0]) {
+                      newVariants[0].pricing.b2b.minOrderQuantity = parseInt(e.target.value) || 1;
+                      updateFormData({ variants: newVariants });
+                    }
+                  }}
+                />
+              </div>
+
+              <div>
+                <Label>Units per Carton</Label>
+                <Input
+                  type="number"
+                  value={formData.variants?.[0]?.pricing?.b2b?.unitsPerCarton || ''}
+                  onChange={(e) => {
+                    const newVariants = [...(formData.variants || [])];
+                    if (newVariants[0]) {
+                      newVariants[0].pricing.b2b.unitsPerCarton = e.target.value ? parseInt(e.target.value) : null;
+                      updateFormData({ variants: newVariants });
+                    }
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </TabsContent>
 
@@ -1032,16 +1237,27 @@ function ProductCreateForm({
           <div className="px-6 py-6 space-y-4">
             <div>
               <Label htmlFor="primaryImage">Primary Image URL</Label>
-            <Input
-              id="primaryImage"
-              value={formData.images?.primary || ''}
-              onChange={(e) => setFormData({
-                ...formData,
-                images: { primary: e.target.value, gallery: formData.images?.gallery || [] }
-              })}
-              placeholder="https://example.com/image.jpg"
-            />
-          </div>
+              <Input
+                id="primaryImage"
+                value={formData.images?.primary || ''}
+                onChange={(e) => updateFormData({
+                  images: { ...formData.images, primary: e.target.value, gallery: formData.images?.gallery || [] }
+                })}
+                placeholder="https://..."
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="images">Upload Images</Label>
+              <Input
+                id="images"
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleImageChange}
+              />
+              <p className="text-sm text-gray-500 mt-1">Image upload to Firebase Storage coming soon</p>
+            </div>
           </div>
         </TabsContent>
 
@@ -1049,66 +1265,281 @@ function ProductCreateForm({
           <div className="px-6 py-6 space-y-4">
             <div>
               <Label htmlFor="ingredients">Ingredients</Label>
-            <Textarea
-              id="ingredients"
-              value={formData.ingredients}
-              onChange={(e) => setFormData({ ...formData, ingredients: e.target.value })}
-              rows={4}
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="tags">Tags (comma-separated)</Label>
-            <Input
-              id="tags"
-              value={formData.tags?.join(', ') || ''}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  tags: e.target.value.split(',').map((tag) => tag.trim()),
-                })
-              }
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="origin">Origin</Label>
-              <Input
-                id="origin"
-                value={formData.specifications?.origin || ''}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    specifications: { ...formData.specifications, origin: e.target.value },
-                  })
-                }
+              <Textarea
+                id="ingredients"
+                value={formData.ingredients || ''}
+                onChange={(e) => updateFormData({ ingredients: e.target.value })}
+                rows={4}
+                placeholder="Full ingredient list"
               />
             </div>
 
             <div>
-              <Label htmlFor="pao">PAO (Period After Opening)</Label>
+              <Label htmlFor="usage">Usage Instructions</Label>
+              <Textarea
+                id="usage"
+                value={formData.usage || ''}
+                onChange={(e) => updateFormData({ usage: e.target.value })}
+                rows={3}
+                placeholder="How to use this product"
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="tags">Tags (comma-separated)</Label>
               <Input
-                id="pao"
-                value={formData.specifications?.pao || ''}
+                id="tags"
+                value={formData.tags?.join(', ') || ''}
                 onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    specifications: { ...formData.specifications, pao: e.target.value },
+                  updateFormData({
+                    tags: e.target.value.split(',').map((tag) => tag.trim()).filter(Boolean)
                   })
                 }
+                placeholder="e.g., hydrating, anti-aging, brightening"
               />
             </div>
           </div>
+        </TabsContent>
+
+        <TabsContent value="specifications" className="mt-6">
+          <div className="px-6 py-6 space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="origin">Origin</Label>
+                <Input
+                  id="origin"
+                  value={formData.specifications?.origin || ''}
+                  onChange={(e) =>
+                    updateFormData({
+                      specifications: { ...formData.specifications, origin: e.target.value },
+                    })
+                  }
+                  placeholder="e.g., Korea"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="pao">PAO (Period After Opening)</Label>
+                <Input
+                  id="pao"
+                  value={formData.specifications?.pao || ''}
+                  onChange={(e) =>
+                    updateFormData({
+                      specifications: { ...formData.specifications, pao: e.target.value },
+                    })
+                  }
+                  placeholder="e.g., 6M, 12M"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="keyIngredient">Key Ingredient</Label>
+                <Input
+                  id="keyIngredient"
+                  value={formData.specifications?.keyIngredient || ''}
+                  onChange={(e) =>
+                    updateFormData({
+                      specifications: { ...formData.specifications, keyIngredient: e.target.value },
+                    })
+                  }
+                  placeholder="Main active ingredient"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="treatmentDuration">Treatment Duration</Label>
+                <Input
+                  id="treatmentDuration"
+                  value={formData.specifications?.treatmentDuration || ''}
+                  onChange={(e) =>
+                    updateFormData({
+                      specifications: { ...formData.specifications, treatmentDuration: e.target.value },
+                    })
+                  }
+                  placeholder="e.g., 4 weeks"
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="setContents">Set Contents (for product sets)</Label>
+              <Textarea
+                id="setContents"
+                value={formData.specifications?.setContents || ''}
+                onChange={(e) =>
+                  updateFormData({
+                    specifications: { ...formData.specifications, setContents: e.target.value },
+                  })
+                }
+                rows={2}
+                placeholder="List items in the set"
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="features">Features (one per line)</Label>
+              <Textarea
+                id="features"
+                value={formData.specifications?.features?.join('\n') || ''}
+                onChange={(e) =>
+                  updateFormData({
+                    specifications: { 
+                      ...formData.specifications, 
+                      features: e.target.value.split('\n').filter(Boolean)
+                    },
+                  })
+                }
+                rows={4}
+                placeholder="Key product features
+One per line"
+              />
+            </div>
+
+            <div className="grid grid-cols-3 gap-4">
+              <div>
+                <Label htmlFor="spf">SPF (for sunscreens)</Label>
+                <Input
+                  id="spf"
+                  value={formData.specifications?.spf || ''}
+                  onChange={(e) =>
+                    updateFormData({
+                      specifications: { ...formData.specifications, spf: e.target.value },
+                    })
+                  }
+                  placeholder="e.g., SPF50+"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="paRating">PA Rating</Label>
+                <Input
+                  id="paRating"
+                  value={formData.specifications?.paRating || ''}
+                  onChange={(e) =>
+                    updateFormData({
+                      specifications: { ...formData.specifications, paRating: e.target.value },
+                    })
+                  }
+                  placeholder="e.g., PA++++"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="volume">Volume/Size</Label>
+                <Input
+                  id="volume"
+                  value={formData.specifications?.volume || ''}
+                  onChange={(e) =>
+                    updateFormData({
+                      specifications: { ...formData.specifications, volume: e.target.value },
+                    })
+                  }
+                  placeholder="e.g., 50ml, 100g"
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label>Certifications</Label>
+              <div className="grid grid-cols-3 gap-2 mt-2">
+                {['CPNP', 'CPNP_UK', 'CPNP_EU', 'CPNP_CH', 'VEGAN', 'CRUELTY_FREE', 'EWG', 'DERMATOLOGIST_TESTED', 'CARBON_NEUTRAL'].map((cert) => (
+                  <div key={cert} className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      id={`cert-${cert}`}
+                      checked={formData.specifications?.certifications?.includes(cert) || false}
+                      onChange={(e) => {
+                        const currentCerts = formData.specifications?.certifications || [];
+                        const newCerts = e.target.checked
+                          ? [...currentCerts, cert]
+                          : currentCerts.filter(c => c !== cert);
+                        updateFormData({
+                          specifications: { ...formData.specifications, certifications: newCerts },
+                        });
+                      }}
+                      className="h-4 w-4 text-rose-gold"
+                    />
+                    <Label htmlFor={`cert-${cert}`} className="text-sm">{cert.replace(/_/g, ' ')}</Label>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </TabsContent>
       </Tabs>
 
       <div className="flex justify-end gap-4 px-6 pb-6 pt-4 border-t">
-        <Button type="button" variant="secondary" onClick={() => setFormData({})}>
-          Cancel
+        <Button type="button" variant="secondary" onClick={() => {
+          setFormData({
+            name: '',
+            description: '',
+            shortDescription: '',
+            category: 'serums',
+            status: 'active',
+            brandId: 'baohlab',
+            brand: {
+              id: 'baohlab',
+              name: 'BAOH Lab'
+            },
+            slug: '',
+            featured: false,
+            isPreorder: false,
+            tags: [],
+            images: {
+              primary: '',
+              gallery: []
+            },
+            variants: [{
+              variantId: 'default',
+              sku: '',
+              color: null,
+              colorHex: null,
+              size: null,
+              sizeUnit: null,
+              isDefault: true,
+              status: 'active',
+              inventory: {
+                b2b: {
+                  stock: 0,
+                  available: 0,
+                  reserved: 0
+                },
+                b2c: {
+                  stock: 0,
+                  available: 0,
+                  reserved: 0
+                }
+              },
+              pricing: {
+                b2b: {
+                  enabled: true,
+                  wholesalePrice: 0,
+                  minOrderQuantity: 1,
+                  unitsPerCarton: null,
+                  currency: 'GBP'
+                },
+                b2c: {
+                  enabled: true,
+                  retailPrice: 0,
+                  salePrice: null,
+                  currency: 'GBP'
+                }
+              }
+            }],
+            specifications: {
+              certifications: [],
+              features: []
+            }
+          });
+          setIsDirty(false);
+        }}>
+          Reset
         </Button>
-        <Button type="submit">Create Product</Button>
+        <Button type="submit" disabled={!isDirty || !formData.name || !formData.brandId}>
+          Create Product
+        </Button>
       </div>
     </form>
   );

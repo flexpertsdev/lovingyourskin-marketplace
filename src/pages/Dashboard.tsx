@@ -7,7 +7,6 @@ import { dashboardService } from '../services'
 import { useAuthStore } from '../stores/auth.store'
 import { BrandDashboard } from '../components/dashboard'
 import type { DashboardMetrics } from '../services/firebase/dashboard.service'
-import { getLocalizedString } from '../lib/utils/cn'
 
 export const Dashboard: React.FC = () => {
   const navigate = useNavigate()
@@ -171,10 +170,10 @@ export const Dashboard: React.FC = () => {
                   onClick={() => navigate(`/brands/${brand.id}`)}
                 >
                   <div className="h-48 bg-soft-pink flex items-center justify-center text-2xl font-light text-text-secondary">
-                    {getLocalizedString(brand.name)}
+                    {brand.name}
                   </div>
                   <CardContent>
-                    <h3 className="font-medium mb-2">{getLocalizedString(brand.name)}</h3>
+                    <h3 className="font-medium mb-2">{brand.name}</h3>
                     <p className="text-sm text-text-secondary line-clamp-2">
                       {brand.tagline}
                     </p>

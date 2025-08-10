@@ -6,7 +6,6 @@ import { Layout } from '../components/layout'
 import { TestimonialCard, PartnerCard } from '../components/features'
 import { brandService } from '../services'
 import type { Brand } from '../types'
-import { getLocalizedString } from '../lib/utils/cn'
 
 interface Feature {
   icon: React.ReactNode
@@ -174,7 +173,7 @@ export const Landing: React.FC = () => {
               >
                 <img
                   src={brand.heroImage || brand.logo}
-                  alt={`${getLocalizedString(brand.name)} products`}
+                  alt={`${brand.name} products`}
                   className="max-w-2xl max-h-96 object-contain"
                   style={{
                     filter: 'blur(1px)',
@@ -388,7 +387,7 @@ export const Landing: React.FC = () => {
               <PartnerCard 
                 key={brand.id}
                 brand={{
-                  name: getLocalizedString(brand.name),
+                  name: brand.name,
                   logo: brand.logo,
                   heroImage: brand.heroImage,
                   description: brand.description,

@@ -9,7 +9,6 @@ import { Brand, Product } from '../types'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
 import toast from 'react-hot-toast'
 import { getProductName, getProductDescription, getProductPrimaryImage, getB2CVariant, getProductPrice } from '../utils/product-helpers'
-import { getLocalizedString } from '../lib/utils/cn'
 
 // Consumer Product Card Component
 const ConsumerProductCard: React.FC<{ product: Product }> = ({ product }) => {
@@ -242,8 +241,8 @@ export const ConsumerBrandDetail: React.FC = () => {
     return null
   }
   
-  const brandName = getLocalizedString(brand.name)
-  const brandDescription = getLocalizedString(brand.description)
+  const brandName = brand.name
+  const brandDescription = brand.description
   const brandStory = brand.story
   
   return (
