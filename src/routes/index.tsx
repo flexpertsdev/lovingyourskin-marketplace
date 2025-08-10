@@ -43,6 +43,14 @@ import AdminDiscounts from '../pages/admin/AdminDiscounts'
 // Affiliate Pages
 import { AffiliateDashboard } from '../pages/affiliate/AffiliateDashboard'
 
+// Retailer Pages
+import { RetailerDashboard } from '../pages/retailer/RetailerDashboard'
+import { RetailerOrders } from '../pages/retailer/RetailerOrders'
+
+// Brand Pages  
+import { BrandDashboard } from '../pages/brand/BrandDashboard'
+import { BrandOrders } from '../pages/brand/BrandOrders'
+
 // Consumer Pages
 import { ConsumerShop } from '../pages/ConsumerShop'
 import { ConsumerCart } from '../pages/ConsumerCart'
@@ -304,6 +312,40 @@ export const AppRoutes: React.FC = () => {
       <Route path="/affiliate/dashboard" element={
         <ProtectedRoute allowedRoles={['affiliate']}>
           <AffiliateDashboard />
+        </ProtectedRoute>
+      } />
+      
+      {/* Retailer Routes */}
+      <Route path="/retailer/dashboard" element={
+        <ProtectedRoute allowedRoles={['retailer']}>
+          <RetailerDashboard />
+        </ProtectedRoute>
+      } />
+      <Route path="/retailer/orders" element={
+        <ProtectedRoute allowedRoles={['retailer']}>
+          <RetailerOrders />
+        </ProtectedRoute>
+      } />
+      <Route path="/retailer/orders/:orderId" element={
+        <ProtectedRoute allowedRoles={['retailer']}>
+          <OrderDetail />
+        </ProtectedRoute>
+      } />
+      
+      {/* Brand Routes */}
+      <Route path="/brand/dashboard" element={
+        <ProtectedRoute allowedRoles={['brand']}>
+          <BrandDashboard />
+        </ProtectedRoute>
+      } />
+      <Route path="/brand/orders" element={
+        <ProtectedRoute allowedRoles={['brand']}>
+          <BrandOrders />
+        </ProtectedRoute>
+      } />
+      <Route path="/brand/orders/:orderId" element={
+        <ProtectedRoute allowedRoles={['brand']}>
+          <OrderDetail />
         </ProtectedRoute>
       } />
       

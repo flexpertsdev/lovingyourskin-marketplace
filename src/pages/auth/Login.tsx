@@ -33,10 +33,10 @@ export const Login: React.FC = () => {
             navigate('/affiliate/dashboard')
             break
           case 'admin':
-            navigate('/admin')
+            navigate('/admin/dashboard')
             break
           case 'retailer':
-            navigate('/brands')
+            navigate('/retailer/dashboard')
             break
           case 'brand':
             navigate('/brand/dashboard')
