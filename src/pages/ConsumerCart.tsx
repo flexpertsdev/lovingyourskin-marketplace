@@ -32,6 +32,7 @@ const ShoppingBagIcon = () => (
 )
 import { useAuthStore } from '../stores/auth.store'
 import { formatCurrency } from '../utils/currency'
+import { AffiliateCodeAutoApply } from '../components/cart/AffiliateCodeAutoApply'
 
 export const ConsumerCart: React.FC = () => {
   const navigate = useNavigate()
@@ -88,6 +89,7 @@ export const ConsumerCart: React.FC = () => {
 
   return (
     <Layout mode="consumer">
+      <AffiliateCodeAutoApply />
       <Container className="py-8">
         <h1 className="text-3xl font-light mb-8">Shopping Cart</h1>
 

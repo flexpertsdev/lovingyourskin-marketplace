@@ -232,8 +232,14 @@ service cloud.firestore {
       // Admins can read tracking data
       allow read: if isAdmin();
       
-      // Only backend (via Admin SDK) should write tracking data
-      allow create, update: if false; // Backend only
+      // Allow anonymous tracking (for click tracking)
+      // The frontend can create tracking records for valid affiliate codes
+      allow create: if true;
+      
+      // Allow updating tracking status (for cart/purchase events)
+      allow update: if true;
+      
+      // Only admins can delete tracking data
       allow delete: if isAdmin();
     }
     

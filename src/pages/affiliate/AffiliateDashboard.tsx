@@ -64,7 +64,17 @@ export const AffiliateDashboard: React.FC = () => {
 
   const shareCode = () => {
     if (affiliateCode) {
-      const shareUrl = `${window.location.origin}/shop?ref=${affiliateCode.code}`
+      // Build URL with UTM parameters for better tracking
+      const baseUrl = `${window.location.origin}/shop`
+      const utmParams = new URLSearchParams({
+        ref: affiliateCode.code,
+        utm_source: 'affiliate',
+        utm_medium: 'referral',
+        utm_campaign: affiliateCode.campaign || 'affiliate_share',
+        utm_content: user?.name?.replace(/\s+/g, '_').toLowerCase() || 'affiliate'
+      })
+      const shareUrl = `${baseUrl}?${utmParams.toString()}`
+      
       const discountText = affiliateCode.discountType === 'percentage' 
         ? `${affiliateCode.discountValue}%`
         : `£${affiliateCode.discountValue}`
@@ -244,6 +254,101 @@ export const AffiliateDashboard: React.FC = () => {
               </CardContent>
             </Card>
           </div>
+
+          {/* Shareable Links Section */}
+          {affiliateCode && (
+            <Card className="mb-8">
+              <CardHeader>
+                <CardTitle>Your Shareable Links</CardTitle>
+                <CardDescription>Copy these links for different platforms</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {/* Main Shop Link */}
+                  <div>
+                    <p className="text-sm font-medium mb-2">Main Shop Link</p>
+                    <div className="flex gap-2">
+                      <input 
+                        type="text" 
+                        readOnly 
+                        value={`${window.location.origin}/shop?ref=${affiliateCode.code}`}
+                        className="flex-1 px-3 py-2 bg-gray-50 border rounded-md text-sm"
+                      />
+                      <Button 
+                        onClick={() => {
+                          navigator.clipboard.writeText(`${window.location.origin}/shop?ref=${affiliateCode.code}`)
+                          setCopied(true)
+                          setTimeout(() => setCopied(false), 2000)
+                        }}
+                        variant="secondary"
+                        size="small"
+                      >
+                        {copied ? 'Copied!' : 'Copy'}
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Social Media Link with UTM */}
+                  <div>
+                    <p className="text-sm font-medium mb-2">Social Media Link (with tracking)</p>
+                    <div className="flex gap-2">
+                      <input 
+                        type="text" 
+                        readOnly 
+                        value={`${window.location.origin}/shop?ref=${affiliateCode.code}&utm_source=social&utm_medium=post&utm_campaign=${affiliateCode.campaign || 'affiliate'}`}
+                        className="flex-1 px-3 py-2 bg-gray-50 border rounded-md text-sm"
+                      />
+                      <Button 
+                        onClick={() => {
+                          navigator.clipboard.writeText(`${window.location.origin}/shop?ref=${affiliateCode.code}&utm_source=social&utm_medium=post&utm_campaign=${affiliateCode.campaign || 'affiliate'}`)
+                          setCopied(true)
+                          setTimeout(() => setCopied(false), 2000)
+                        }}
+                        variant="secondary"
+                        size="small"
+                      >
+                        Copy
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Email Link */}
+                  <div>
+                    <p className="text-sm font-medium mb-2">Email Newsletter Link</p>
+                    <div className="flex gap-2">
+                      <input 
+                        type="text" 
+                        readOnly 
+                        value={`${window.location.origin}/shop?ref=${affiliateCode.code}&utm_source=email&utm_medium=newsletter&utm_campaign=${affiliateCode.campaign || 'affiliate'}`}
+                        className="flex-1 px-3 py-2 bg-gray-50 border rounded-md text-sm"
+                      />
+                      <Button 
+                        onClick={() => {
+                          navigator.clipboard.writeText(`${window.location.origin}/shop?ref=${affiliateCode.code}&utm_source=email&utm_medium=newsletter&utm_campaign=${affiliateCode.campaign || 'affiliate'}`)
+                          setCopied(true)
+                          setTimeout(() => setCopied(false), 2000)
+                        }}
+                        variant="secondary"
+                        size="small"
+                      >
+                        Copy
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 text-xs text-text-secondary">
+                    <p className="font-medium mb-1">How it works:</p>
+                    <ul className="space-y-1">
+                      <li>• Your code is automatically applied when customers visit these links</li>
+                      <li>• Tracking persists for 30 days, even if they close the browser</li>
+                      <li>• You earn commission on all purchases made with your code</li>
+                      <li>• UTM parameters help you track which channels work best</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Commission Breakdown */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
