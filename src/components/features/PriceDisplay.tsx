@@ -1,6 +1,7 @@
 import React from 'react'
 import { useCurrencyStore } from '../../stores/currency.store'
 import { formatConvertedPrice, getCurrencySymbol } from '../../utils/currency'
+import { CurrencyService } from '../../services/currency.service'
 
 interface PriceDisplayProps {
   amountUSD: number

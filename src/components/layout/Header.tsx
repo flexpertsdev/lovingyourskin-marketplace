@@ -5,7 +5,9 @@ import { useCartStore } from '../../stores/cart.store'
 import { useConsumerCartStore } from '../../stores/consumer-cart.store'
 import { usePreorderStore } from '../../stores/preorder.store'
 import { Button } from '../ui'
+import { CurrencySelector } from '../features/CurrencySelector'
 import { cn } from '../../lib/utils/cn'
+
 // Icon components
 const LogOutIcon = () => (
   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -195,6 +197,11 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
           
           {/* User Actions */}
           <div className="flex items-center gap-3">
+            {/* Currency Selector */}
+            <div className="mr-2">
+              <CurrencySelector size="small" />
+            </div>
+            
             {/* Unified Cart Icon for consumer users */}
             {mode === 'consumer' && !isAuthenticated && (
               <Link
@@ -310,6 +317,12 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
             {/* Mobile Navigation */}
             <div className="flex-1 overflow-y-auto">
               <div className="px-6 py-8">
+                {/* Currency Selector - Mobile */}
+                <div className="mb-6 pb-6 border-b border-border-gray">
+                  <div className="text-sm text-text-secondary mb-2">Currency</div>
+                  <CurrencySelector className="w-full" />
+                </div>
+                
                 {/* User Info */}
                 {isAuthenticated && (
                   <div className="mb-8 pb-8 border-b border-border-gray">

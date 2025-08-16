@@ -406,7 +406,7 @@ export const ConsumerPreorderCheckout: React.FC = () => {
 
                     <Button
                       className="w-full mt-6"
-                      size="lg"
+                      size="large"
                       onClick={handleCheckout}
                       disabled={processing}
                     >

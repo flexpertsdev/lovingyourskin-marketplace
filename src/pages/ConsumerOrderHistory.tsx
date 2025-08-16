@@ -373,14 +373,14 @@ export const ConsumerOrderHistory: React.FC = () => {
               <div className="flex gap-4 justify-center">
                 <Button 
                   variant="primary" 
-                  size="lg"
+                  size="large"
                   onClick={() => navigate('/shop')}
                 >
                   Shop Now
                 </Button>
                 <Button 
                   variant="secondary" 
-                  size="lg"
+                  size="large"
                   onClick={() => navigate('/shop/preorders')}
                 >
                   View Pre-order Campaigns

@@ -90,7 +90,7 @@ export const ConsumerPreorderHistory: React.FC = () => {
               </p>
               <Button 
                 variant="primary" 
-                size="lg"
+                size="large"
                 onClick={() => navigate('/shop/preorders')}
               >
                 View Pre-order Campaigns
@@ -234,7 +234,7 @@ export const ConsumerPreorderHistory: React.FC = () => {
                           </p>
                           <Button
                             variant="secondary"
-                            size="sm"
+                            size="small"
                             onClick={() => {
                               if (confirm('Are you sure you want to cancel this pre-order?')) {
                                 // Handle cancellation

@@ -166,7 +166,7 @@ export const ConsumerPreorders: React.FC = () => {
                 Check back soon for exclusive early access to new products!
               </p>
               <Link to="/shop">
-                <Button variant="primary" size="lg">
+                <Button variant="primary" size="large">
                   Shop Available Products
                 </Button>
               </Link>
@@ -406,7 +406,7 @@ export const ConsumerPreorders: React.FC = () => {
                         </p>
                       </div>
                       <Button
-                        size="lg"
+                        size="large"
                         onClick={() => navigate('/shop/preorder-checkout')}
                       >
                         Proceed to Checkout
