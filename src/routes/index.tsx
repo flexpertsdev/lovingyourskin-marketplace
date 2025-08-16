@@ -39,7 +39,7 @@ import AdminBrands from '../pages/admin/AdminBrands'
 import AdminOrders from '../pages/admin/AdminOrders'
 import MigrateImages from '../pages/admin/MigrateImages'
 import AdminDiscounts from '../pages/admin/AdminDiscounts'
-import { PreorderManagement } from '../pages/admin/PreorderManagement'
+import { PreorderCampaignManager } from '../pages/admin/PreorderCampaignManager'
 import { AdminPreorders } from '../pages/admin/AdminPreorders'
 
 // Affiliate Pages
@@ -55,7 +55,6 @@ import { BrandOrders } from '../pages/brand/BrandOrders'
 
 // Consumer Pages
 import { ConsumerShop } from '../pages/ConsumerShop'
-import { ConsumerCart } from '../pages/ConsumerCart'
 import { ConsumerCheckout } from '../pages/ConsumerCheckout'
 import { ConsumerPreorderCheckout } from '../pages/ConsumerPreorderCheckout'
 import { ConsumerPreorderCart } from '../pages/ConsumerPreorderCart'
@@ -65,7 +64,6 @@ import { ConsumerLogin } from '../pages/ConsumerLogin'
 import { ConsumerProductDetail } from '../pages/ConsumerProductDetail'
 import { ConsumerBrands } from '../pages/ConsumerBrands'
 import { ConsumerPreorders } from '../pages/ConsumerPreorders'
-import { ConsumerPreorderHistory } from '../pages/ConsumerPreorderHistory'
 import { ConsumerOrderHistory } from '../pages/ConsumerOrderHistory'
 import { ConsumerBrandDetail } from '../pages/ConsumerBrandDetail'
 import { Wishlist } from '../pages/Wishlist'
@@ -290,7 +288,7 @@ export const AppRoutes: React.FC = () => {
       } />
       <Route path="/admin/preorders/manage" element={
         <AdminRoute>
-          <PreorderManagement />
+          <PreorderCampaignManager />
         </AdminRoute>
       } />
       <Route path="/admin/preorders/:campaignId" element={

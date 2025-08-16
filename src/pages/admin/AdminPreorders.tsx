@@ -169,7 +169,7 @@ export const AdminPreorders: React.FC = () => {
                       </div>
 
                       <Button
-                        size="sm"
+                        size="small"
                         onClick={() => setSelectedOrder(order)}
                       >
                         View Details

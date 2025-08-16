@@ -271,7 +271,7 @@ export const PreorderManagement: React.FC = () => {
 
                         <div className="flex gap-2 ml-4">
                           <Button
-                            size="sm"
+                            size="small"
                             variant="secondary"
                             onClick={() => setSelectedCampaign(campaign)}
                           >
@@ -280,21 +280,21 @@ export const PreorderManagement: React.FC = () => {
                           {campaign.status === 'draft' && (
                             <>
                               <Button
-                                size="sm"
+                                size="small"
                                 variant="primary"
                                 onClick={() => handleActivateCampaign(campaign)}
                               >
                                 Activate
                               </Button>
                               <Button
-                                size="sm"
+                                size="small"
                                 variant="secondary"
                                 onClick={() => handleEditCampaign(campaign)}
                               >
                                 Edit
                               </Button>
                               <Button
-                                size="sm"
+                                size="small"
                                 variant="secondary"
                                 className="text-error-red"
                                 onClick={() => handleDeleteCampaign(campaign.id)}

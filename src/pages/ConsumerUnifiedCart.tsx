@@ -191,7 +191,7 @@ export const ConsumerUnifiedCart: React.FC = () => {
 
                     <Button 
                       className="w-full mt-6" 
-                      size="lg"
+                      size="large"
                       onClick={() => navigate('/shop/checkout')}
                     >
                       Checkout Regular Items
@@ -307,7 +307,7 @@ export const ConsumerUnifiedCart: React.FC = () => {
 
                     <Button 
                       className="w-full mt-6" 
-                      size="lg"
+                      size="large"
                       variant="primary"
                       onClick={() => navigate('/shop/preorder-checkout')}
                     >

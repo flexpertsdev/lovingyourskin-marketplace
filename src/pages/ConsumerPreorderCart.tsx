@@ -76,7 +76,7 @@ export const ConsumerPreorderCart: React.FC = () => {
                 Browse our pre-order campaign to add items at exclusive discounted prices.
               </p>
               <Link to="/shop/preorders">
-                <Button variant="primary" size="lg">
+                <Button variant="primary" size="large">
                   View Pre-order Campaign
                 </Button>
               </Link>
@@ -127,7 +127,7 @@ export const ConsumerPreorderCart: React.FC = () => {
                       </div>
                     </div>
                     <Link to="/shop/preorders">
-                      <Button variant="secondary" size="sm">
+                      <Button variant="secondary" size="small">
                         Continue Shopping
                       </Button>
                     </Link>
@@ -288,7 +288,7 @@ export const ConsumerPreorderCart: React.FC = () => {
 
                     <Button
                       className="w-full mb-3"
-                      size="lg"
+                      size="large"
                       onClick={() => navigate('/shop/preorder-checkout')}
                     >
                       Proceed to Checkout
