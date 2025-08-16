@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../stores/auth.store'
 import { useCartStore } from '../../stores/cart.store'
 import { useConsumerCartStore } from '../../stores/consumer-cart.store'
+import { usePreorderStore } from '../../stores/preorder.store'
 import { Button } from '../ui'
 import { cn } from '../../lib/utils/cn'
 // Icon components
@@ -41,6 +42,7 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
   const { user, logout, isAuthenticated } = useAuthStore()
   const { getTotalItems: getB2BCartItems } = useCartStore()
   const { getTotalItems: getConsumerCartItems } = useConsumerCartStore()
+  const { getItemCount: getPreorderItems, activeCampaign } = usePreorderStore()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
   
@@ -48,6 +50,13 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
   const CartIcon = () => (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+    </svg>
+  )
+  
+  // Pre-order icon component  
+  const PreorderIcon = () => (
+    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   )
   
@@ -66,9 +75,9 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
       { label: 'Cart', href: '/shop/cart' }
     ]
     
-    // Add My Orders for authenticated users
+    // Add Order History for authenticated users
     if (isAuthenticated) {
-      navItems.push({ label: 'My Orders', href: '/shop/orders', requiresAuth: true })
+      navItems.push({ label: 'Order History', href: '/shop/order-history', requiresAuth: true })
     }
   } else {
     // B2B mode navigation
@@ -186,18 +195,22 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
           
           {/* User Actions */}
           <div className="flex items-center gap-3">
-            {/* Cart Icon for non-logged in consumer users */}
-            {!isAuthenticated && mode === 'consumer' && (
+            {/* Unified Cart Icon for consumer users */}
+            {mode === 'consumer' && !isAuthenticated && (
               <Link
                 to="/shop/cart"
-                className="relative p-2"
+                className="relative p-2 group"
+                title="Shopping Cart"
               >
                 <CartIcon />
-                {cartItemsCount > 0 && (
+                {(cartItemsCount + getPreorderItems()) > 0 && (
                   <span className="absolute -top-1 -right-1 bg-rose-gold text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {cartItemsCount}
+                    {cartItemsCount + getPreorderItems()}
                   </span>
                 )}
+                <span className="absolute top-full mt-1 left-1/2 -translate-x-1/2 bg-deep-charcoal text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                  Shopping Cart
+                </span>
               </Link>
             )}
             
@@ -308,17 +321,15 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
                 
                 {/* Navigation Links */}
                 <div className="space-y-4">
-                  {/* Cart Link for non-authenticated consumer users */}
-                  {!isAuthenticated && mode === 'consumer' && (
+                  {/* Unified Cart Link for consumer users */}
+                  {!isAuthenticated && mode === 'consumer' && (cartItemsCount + getPreorderItems() > 0) && (
                     <Link
                       to="/shop/cart"
                       className="block px-4 py-3 rounded-lg text-lg transition-colors text-text-primary hover:bg-soft-pink-hover"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       Cart
-                      {cartItemsCount > 0 && (
-                        <span className="ml-2 text-rose-gold">({cartItemsCount})</span>
-                      )}
+                      <span className="ml-2 text-rose-gold">({cartItemsCount + getPreorderItems()})</span>
                     </Link>
                   )}
                   

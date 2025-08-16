@@ -24,7 +24,8 @@ export const handler: Handler = async (event) => {
       successUrl,
       cancelUrl,
       affiliateCode,
-      affiliateDiscount
+      affiliateDiscount,
+      metadata
     } = JSON.parse(event.body || '{}')
 
     // Create line items for Stripe
@@ -62,7 +63,8 @@ export const handler: Handler = async (event) => {
       metadata: {
         customerId: customerId || 'guest',
         customerName: customerName || '',
-        affiliateCode: affiliateCode || ''
+        affiliateCode: affiliateCode || '',
+        ...(metadata || {})
       },
       invoice_creation: {
         enabled: true,
@@ -72,12 +74,13 @@ export const handler: Handler = async (event) => {
           custom_fields: [
             {
               name: 'Order Type',
-              value: 'B2C'
+              value: metadata?.orderType === 'preorder' ? 'Pre-order' : 'B2C'
             }
           ],
           metadata: {
-            orderType: 'b2c',
-            affiliateCode: affiliateCode || ''
+            orderType: metadata?.orderType || 'b2c',
+            affiliateCode: affiliateCode || '',
+            ...(metadata || {})
           }
         }
       }

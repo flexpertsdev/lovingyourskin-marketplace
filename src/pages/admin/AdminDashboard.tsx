@@ -127,7 +127,7 @@ export const AdminDashboard: React.FC = () => {
           {/* Quick Actions */}
           <div className="mb-10">
             <h2 className="text-xl font-light mb-4">Quick Actions</h2>
-            <Grid cols={5} gap="md">
+            <Grid cols={6} gap="md">
               <Card 
                 className="hover:shadow-lg transition-shadow cursor-pointer"
                 onClick={() => navigate('/admin/orders')}
@@ -193,6 +193,19 @@ export const AdminDashboard: React.FC = () => {
                   <p className="font-medium">Product Management</p>
                   <Badge className="bg-rose-gold text-white mt-2">
                     Manage Products
+                  </Badge>
+                </CardContent>
+              </Card>
+              
+              <Card 
+                className="hover:shadow-lg transition-shadow cursor-pointer"
+                onClick={() => navigate('/admin/preorders/manage')}
+              >
+                <CardContent className="text-center py-6">
+                  <div className="text-3xl mb-2">🎯</div>
+                  <p className="font-medium">Pre-order Campaigns</p>
+                  <Badge className="bg-purple-500 text-white mt-2">
+                    Manage Pre-orders
                   </Badge>
                 </CardContent>
               </Card>

@@ -19,6 +19,61 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
   apiVersion: '2024-12-18.acacia'
 })
 
+// Helper function to handle affiliate commission
+async function handleAffiliateCommission(data: {
+  affiliateCode: string
+  orderId: string
+  orderType: string
+  orderValue: number
+  customerEmail: string
+  customerId: string
+}) {
+  const { affiliateCode, orderId, orderType, orderValue, customerEmail, customerId } = data
+  
+  // Find the affiliate code
+  const affiliateSnapshot = await db.collection('affiliateCodes')
+    .where('code', '==', affiliateCode.toUpperCase())
+    .limit(1)
+    .get()
+  
+  if (!affiliateSnapshot.empty) {
+    const affiliateDoc = affiliateSnapshot.docs[0]
+    const affiliateData = affiliateDoc.data()
+    
+    // Calculate commission
+    const commissionType = affiliateData.commissionType || 'percentage'
+    const commissionValue = affiliateData.commissionValue || 10
+    const commission = commissionType === 'percentage' 
+      ? orderValue * (commissionValue / 100)
+      : commissionValue
+    
+    // Update affiliate stats
+    await affiliateDoc.ref.update({
+      currentUses: (affiliateData.currentUses || 0) + 1,
+      totalRevenue: (affiliateData.totalRevenue || 0) + orderValue,
+      totalOrders: (affiliateData.totalOrders || 0) + 1,
+      updatedAt: Timestamp.now()
+    })
+    
+    // Create commission record
+    await db.collection('affiliateCommissions').add({
+      affiliateCodeId: affiliateDoc.id,
+      affiliateCode: affiliateCode,
+      affiliateUserId: affiliateData.userId || null,
+      orderId: orderId,
+      orderType: orderType,
+      orderValue: orderValue,
+      commissionType: commissionType,
+      commissionValue: commissionValue,
+      commissionAmount: commission,
+      status: 'pending',
+      createdAt: Timestamp.now()
+    })
+    
+    console.log(`Affiliate commission created for ${orderType}:`, commission)
+  }
+}
+
 export const handler: Handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return {
@@ -67,9 +122,39 @@ export const handler: Handler = async (event) => {
         const customerId = fullSession.metadata?.customerId || 'guest'
         const customerName = fullSession.metadata?.customerName || 'Guest Customer'
         const affiliateCode = fullSession.metadata?.affiliateCode
+        const orderType = fullSession.metadata?.orderType || 'b2c'
+        const preorderId = fullSession.metadata?.preorderId
 
-        // Create order in Firestore
-        const orderData = {
+        // Handle pre-order vs regular order
+        if (orderType === 'preorder' && preorderId) {
+          // Update existing pre-order with payment information
+          const preorderRef = db.collection('preorders').doc(preorderId)
+          await preorderRef.update({
+            stripeSessionId: fullSession.id,
+            stripePaymentIntentId: fullSession.payment_intent,
+            paymentStatus: 'paid',
+            status: 'confirmed',
+            userId: customerId !== 'guest' ? customerId : '',
+            userEmail: fullSession.customer_email || '',
+            confirmedAt: Timestamp.now(),
+            updatedAt: Timestamp.now()
+          })
+          console.log('Pre-order payment confirmed:', preorderId)
+
+          // Create commission record for pre-orders with affiliate codes
+          if (affiliateCode) {
+            await handleAffiliateCommission({
+              affiliateCode,
+              orderId: preorderId,
+              orderType: 'preorder',
+              orderValue: (fullSession.amount_total || 0) / 100,
+              customerEmail: fullSession.customer_email || '',
+              customerId
+            })
+          }
+        } else {
+          // Create regular order in Firestore
+          const orderData = {
           // Order identifiers
           stripeSessionId: fullSession.id,
           stripePaymentIntentId: fullSession.payment_intent,
@@ -157,13 +242,13 @@ export const handler: Handler = async (event) => {
           updatedAt: Timestamp.now()
         }
 
-        // Save order to Firestore
-        const orderRef = await db.collection('orders').add(orderData)
-        console.log('Order created:', orderRef.id)
+          // Save order to Firestore
+          const orderRef = await db.collection('orders').add(orderData)
+          console.log('Order created:', orderRef.id)
 
-        // Update product stock
-        console.log('Updating product stock...')
-        for (const item of orderData.items) {
+          // Update product stock (only for regular orders, not pre-orders)
+          console.log('Updating product stock...')
+          for (const item of orderData.items) {
           if (item.productId) {
             try {
               // Get the product document
@@ -184,14 +269,14 @@ export const handler: Handler = async (event) => {
                 console.log(`Updated stock for product ${item.productId}: ${currentStock} -> ${newStock}`)
               }
             } catch (stockError) {
-              console.error(`Error updating stock for product ${item.productId}:`, stockError)
-              // Continue processing even if stock update fails
+                console.error(`Error updating stock for product ${item.productId}:`, stockError)
+                // Continue processing even if stock update fails
+              }
             }
           }
-        }
 
-        // Update affiliate tracking if applicable
-        if (affiliateCode) {
+          // Update affiliate tracking if applicable
+          if (affiliateCode) {
           // Find the affiliate code (supporting both old and new structure)
           let affiliateSnapshot = await db.collection('affiliateCodes')
             .where('code', '==', affiliateCode.toUpperCase())
@@ -262,7 +347,8 @@ export const handler: Handler = async (event) => {
                 status: 'purchased',
                 clickedAt: Timestamp.now(),
                 purchasedAt: Timestamp.now()
-              })
+                })
+              }
             }
           }
         }

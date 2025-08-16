@@ -11,6 +11,7 @@ import { firebaseMessageService } from './firebase/message.service'
 import { firebaseStorageService } from './firebase/storageService'
 import { firebaseDiscountService } from './firebase/discount.service'
 import { firebaseAffiliateService } from './firebase/affiliate.service'
+import { firebasePreorderService } from './firebase/preorder.service'
 
 // Export Firebase services
 export const authService = firebaseAuthService
@@ -23,3 +24,4 @@ export const messageService = firebaseMessageService
 export const storageService = firebaseStorageService
 export const discountService = firebaseDiscountService
 export const affiliateService = firebaseAffiliateService
+export const preorderService = firebasePreorderService

@@ -39,6 +39,8 @@ import AdminBrands from '../pages/admin/AdminBrands'
 import AdminOrders from '../pages/admin/AdminOrders'
 import MigrateImages from '../pages/admin/MigrateImages'
 import AdminDiscounts from '../pages/admin/AdminDiscounts'
+import { PreorderManagement } from '../pages/admin/PreorderManagement'
+import { AdminPreorders } from '../pages/admin/AdminPreorders'
 
 // Affiliate Pages
 import { AffiliateDashboard } from '../pages/affiliate/AffiliateDashboard'
@@ -55,11 +57,16 @@ import { BrandOrders } from '../pages/brand/BrandOrders'
 import { ConsumerShop } from '../pages/ConsumerShop'
 import { ConsumerCart } from '../pages/ConsumerCart'
 import { ConsumerCheckout } from '../pages/ConsumerCheckout'
+import { ConsumerPreorderCheckout } from '../pages/ConsumerPreorderCheckout'
+import { ConsumerPreorderCart } from '../pages/ConsumerPreorderCart'
+import { ConsumerUnifiedCart } from '../pages/ConsumerUnifiedCart'
 import { CheckoutSuccess } from '../pages/CheckoutSuccess'
 import { ConsumerLogin } from '../pages/ConsumerLogin'
 import { ConsumerProductDetail } from '../pages/ConsumerProductDetail'
 import { ConsumerBrands } from '../pages/ConsumerBrands'
 import { ConsumerPreorders } from '../pages/ConsumerPreorders'
+import { ConsumerPreorderHistory } from '../pages/ConsumerPreorderHistory'
+import { ConsumerOrderHistory } from '../pages/ConsumerOrderHistory'
 import { ConsumerBrandDetail } from '../pages/ConsumerBrandDetail'
 import { Wishlist } from '../pages/Wishlist'
 
@@ -281,6 +288,16 @@ export const AppRoutes: React.FC = () => {
           <AdminDiscounts />
         </AdminRoute>
       } />
+      <Route path="/admin/preorders/manage" element={
+        <AdminRoute>
+          <PreorderManagement />
+        </AdminRoute>
+      } />
+      <Route path="/admin/preorders/:campaignId" element={
+        <AdminRoute>
+          <AdminPreorders />
+        </AdminRoute>
+      } />
       <Route path="/admin/products" element={
         <AdminRoute>
           <ProductManagement />
@@ -354,8 +371,9 @@ export const AppRoutes: React.FC = () => {
       <Route path="/shop/brands" element={<ConsumerBrands />} />
       <Route path="/shop/brands/:brandId" element={<ConsumerBrandDetail />} />
       <Route path="/shop/preorders" element={<ConsumerPreorders />} />
+      <Route path="/shop/preorder-cart" element={<ConsumerPreorderCart />} />
       <Route path="/shop/products/:productId" element={<ConsumerProductDetail />} />
-      <Route path="/shop/cart" element={<ConsumerCart />} />
+      <Route path="/shop/cart" element={<ConsumerUnifiedCart />} />
       <Route path="/shop/login" element={<ConsumerLogin />} />
       <Route path="/shop/register" element={<ConsumerRegister />} />
       
@@ -365,15 +383,31 @@ export const AppRoutes: React.FC = () => {
           <ConsumerCheckout />
         </ConsumerRoute>
       } />
+      <Route path="/shop/preorder-checkout" element={
+        <ConsumerRoute>
+          <ConsumerPreorderCheckout />
+        </ConsumerRoute>
+      } />
       <Route path="/shop/checkout/success" element={<CheckoutSuccess />} />
       <Route path="/shop/account" element={
         <ConsumerRoute>
           <Profile />
         </ConsumerRoute>
       } />
+      <Route path="/shop/order-history" element={
+        <ConsumerRoute>
+          <ConsumerOrderHistory />
+        </ConsumerRoute>
+      } />
+      {/* Legacy routes - redirect to unified order history */}
       <Route path="/shop/orders" element={
         <ConsumerRoute>
-          <Orders />
+          <ConsumerOrderHistory />
+        </ConsumerRoute>
+      } />
+      <Route path="/shop/preorder-history" element={
+        <ConsumerRoute>
+          <ConsumerOrderHistory />
         </ConsumerRoute>
       } />
       <Route path="/shop/wishlist" element={

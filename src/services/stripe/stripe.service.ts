@@ -39,6 +39,7 @@ export class StripeService {
       type: 'percentage' | 'fixed'
       value: number
     }
+    metadata?: Record<string, string>
   }): Promise<{
     sessionId: string
     sessionUrl: string
@@ -87,7 +88,8 @@ export class StripeService {
           successUrl: data.successUrl,
           cancelUrl: data.cancelUrl,
           affiliateCode: data.affiliateCode,
-          affiliateDiscount: data.affiliateDiscount
+          affiliateDiscount: data.affiliateDiscount,
+          metadata: data.metadata
         })
       })
 
