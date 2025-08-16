@@ -6,6 +6,7 @@ import { useConsumerCartStore } from '../stores/consumer-cart.store'
 import { usePreorderStore } from '../stores/preorder.store'
 import { ShoppingCart, Package, Trash2, Plus, Minus, ChevronRight, AlertCircle } from 'lucide-react'
 import { getProductPrice } from '../lib/utils/pricing'
+import { AffiliateCodeAutoApply } from '../components/cart/AffiliateCodeAutoApply'
 
 export const ConsumerUnifiedCart: React.FC = () => {
   const navigate = useNavigate()
@@ -101,6 +102,7 @@ export const ConsumerUnifiedCart: React.FC = () => {
 
   return (
     <Layout mode="consumer">
+      <AffiliateCodeAutoApply />
       <Section>
         <Container>
           <div className="max-w-6xl mx-auto">

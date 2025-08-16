@@ -4,6 +4,8 @@ import { Product } from '../../types'
 import { Card, CardContent, Badge } from '../ui'
 import { cn } from '../../lib/utils/cn'
 import { getProductName, getProductPrimaryImage } from '../../utils/product-helpers'
+import { formatConvertedPrice } from '../../utils/currency'
+import { useCurrencyStore } from '../../stores/currency.store'
 
 interface ProductCardProps {
   product: Product
@@ -11,6 +13,8 @@ interface ProductCardProps {
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) => {
+  const { currentCurrency } = useCurrencyStore()
+  
   // Get prices from the unified price structure
   const getItemPrice = (): number => {
     // Check for variant-based B2B pricing first (new structure)
@@ -39,11 +43,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
                           product.itemsPerCarton || 
                           1
     return itemPrice * unitsPerCarton
-  }
-  
-  const getCurrency = (): string => {
-    // Always use USD for now as all prices are stored in USD
-    return '$'
   }
   
   return (
@@ -97,13 +96,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
             {product.volume}
           </p>
           
-          {/* Pricing */}
+          {/* Pricing - Now with currency conversion */}
           <div className="space-y-1">
             <div className="text-rose-gold font-medium">
-              {getCurrency()}{getItemPrice().toFixed(2)}/item
+              {formatConvertedPrice(getItemPrice(), currentCurrency)}/item
             </div>
             <div className="text-xs text-text-secondary">
-              {getCurrency()}{getCartonPrice().toFixed(2)}/carton ({product.variants?.[0]?.pricing?.b2b?.unitsPerCarton || product.itemsPerCarton || 1} items)
+              {formatConvertedPrice(getCartonPrice(), currentCurrency)}/carton ({product.variants?.[0]?.pricing?.b2b?.unitsPerCarton || product.itemsPerCarton || 1} items)
             </div>
           </div>
           

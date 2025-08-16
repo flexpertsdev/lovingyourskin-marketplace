@@ -226,12 +226,13 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
       },
       
       clearCart: () => {
-        set({
+        set((state) => ({
           items: [],
           lastUpdated: new Date(),
-          affiliateCode: undefined,
-          affiliateDiscount: undefined
-        })
+          // Keep affiliate code when clearing cart
+          affiliateCode: state.affiliateCode,
+          affiliateDiscount: state.affiliateDiscount
+        }))
         toast.success('Cart cleared')
       },
       
@@ -345,7 +346,9 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
       name: 'consumer-cart-storage',
       partialize: (state) => ({
         items: state.items,
-        lastUpdated: state.lastUpdated
+        lastUpdated: state.lastUpdated,
+        affiliateCode: state.affiliateCode,
+        affiliateDiscount: state.affiliateDiscount
       })
     }
   )

@@ -6,6 +6,7 @@ import { ScrollToTop } from './components/utils/ScrollToTop'
 import { AuthProvider } from './components/auth'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { useAffiliateTracking } from './hooks/useAffiliateTracking'
+import { useCurrencyRates } from './hooks/useCurrencyRates'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,6 +23,12 @@ function AffiliateTracker() {
   return null
 }
 
+// Component to handle currency rates initialization
+function CurrencyInitializer() {
+  useCurrencyRates()
+  return null
+}
+
 function App() {
   return (
     <ErrorBoundary>
@@ -29,6 +36,7 @@ function App() {
         <BrowserRouter>
           <AuthProvider>
             <AffiliateTracker />
+            <CurrencyInitializer />
             <ScrollToTop />
             <AppRoutes />
             <Toaster 

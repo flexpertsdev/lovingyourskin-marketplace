@@ -59,7 +59,7 @@ export const PreorderCampaignManager: React.FC = () => {
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [editingCampaign, setEditingCampaign] = useState<PreorderCampaign | null>(null)
-  const [activeTab, setActiveTab] = useState('overview')
+  const [activeTab, setActiveTab] = useState('basic')
   const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set())
   const [searchTerm, setSearchTerm] = useState('')
   
@@ -189,7 +189,7 @@ export const PreorderCampaignManager: React.FC = () => {
     setSelectedProducts(new Set(campaign.availableProducts))
     setFormData({
       name: campaign.name,
-      description: (campaign as any).description || ''
+      description: (campaign as any).description || '',
       discountPercentage: campaign.discountPercentage,
       startDate: campaign.startDate.toDate().toISOString().split('T')[0],
       endDate: campaign.endDate.toDate().toISOString().split('T')[0],
@@ -222,7 +222,7 @@ export const PreorderCampaignManager: React.FC = () => {
     setSelectedProducts(new Set(campaign.availableProducts))
     setFormData({
       name: `${campaign.name} (Copy)`,
-      description: (campaign as any).description || ''
+      description: (campaign as any).description || '',
       discountPercentage: campaign.discountPercentage,
       startDate: '',
       endDate: '',
