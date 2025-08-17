@@ -157,7 +157,7 @@ export const OrderDetailEnhanced: React.FC = () => {
     if (!order) return
     
     try {
-      const invoice = await invoiceService.generateInvoice(order.id)
+      const invoice = await invoiceService.generateInvoice(order)
       if (invoice.pdfUrl) {
         window.open(invoice.pdfUrl, '_blank')
       }
@@ -185,9 +185,9 @@ export const OrderDetailEnhanced: React.FC = () => {
     if (!order || user?.role !== 'admin') return []
     
     const statusFlow: Record<OrderStatus, OrderStatus[]> = {
-      'pending': ['confirmed', 'cancelled'],
-      'confirmed': ['processing', 'cancelled'],
-      'processing': ['invoiced', 'cancelled'],
+      'pending': ['confirmed'],
+      'confirmed': ['processing'],
+      'processing': ['invoiced'],
       'invoiced': ['paid'],
       'paid': ['preparing'],
       'preparing': ['shipped'],
@@ -280,7 +280,7 @@ export const OrderDetailEnhanced: React.FC = () => {
                     )}
                   >
                     {tab}
-                    {tab === 'messages' && thread?.unreadCount > 0 && (
+                    {tab === 'messages' && thread?.unreadCount && thread.unreadCount > 0 && (
                       <span className="ml-2 bg-rose-gold text-white text-xs px-2 py-1 rounded-full">
                         {thread.unreadCount}
                       </span>

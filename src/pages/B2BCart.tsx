@@ -10,7 +10,7 @@ import { getProductName, getProductPrimaryImage } from '../utils/product-helpers
 
 // Retailer cart with MOQ requirements
 
-export const Cart: React.FC = () => {
+export const B2BCart: React.FC = () => {
   const navigate = useNavigate()
   const { currentCurrency } = useCurrencyStore()
   const { 
