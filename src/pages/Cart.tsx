@@ -4,12 +4,15 @@ import { Layout } from '../components/layout'
 import { Container, Section } from '../components/layout'
 import { Button, Card, CardContent, Badge } from '../components/ui'
 import { useCartStore } from '../stores/cart.store'
+import { useCurrencyStore } from '../stores/currency.store'
+import { formatConvertedPrice } from '../utils/currency'
 import { getProductName, getProductPrimaryImage } from '../utils/product-helpers'
 
 // Retailer cart with MOQ requirements
 
 export const Cart: React.FC = () => {
   const navigate = useNavigate()
+  const { currentCurrency } = useCurrencyStore()
   const { 
     cart, 
     moqStatuses,
@@ -75,7 +78,7 @@ export const Cart: React.FC = () => {
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="font-medium">{status.brandName}</h3>
                       <Badge variant={status.met ? 'success' : 'warning'}>
-                        {status.met ? 'MOQ Met' : `$${status.remainingItems.toFixed(2)} to MOQ`}
+                        {status.met ? 'MOQ Met' : `${formatConvertedPrice(status.remainingItems, currentCurrency)} to MOQ`}
                       </Badge>
                     </div>
                     
@@ -83,7 +86,7 @@ export const Cart: React.FC = () => {
                       <div className="mb-4">
                         <div className="flex justify-between text-sm text-text-secondary mb-1">
                           <span>Progress to MOQ</span>
-                          <span>${status.current.toFixed(2)} / ${status.required.toFixed(2)}</span>
+                          <span>{formatConvertedPrice(status.current, currentCurrency)} / {formatConvertedPrice(status.required, currentCurrency)}</span>
                         </div>
                       </div>
                     )}
@@ -123,7 +126,7 @@ export const Cart: React.FC = () => {
                               {item.product.volume} • {unitsPerCarton} items per carton
                             </p>
                             <p className="text-sm text-text-secondary">
-                              ${pricePerItem.toFixed(2)} per item • ${pricePerCarton.toFixed(2)} per carton
+                              {formatConvertedPrice(pricePerItem, currentCurrency)} per item • {formatConvertedPrice(pricePerCarton, currentCurrency)} per carton
                             </p>
                           </div>
                           
@@ -145,7 +148,7 @@ export const Cart: React.FC = () => {
                           
                           <div className="text-right">
                             <p className="text-rose-gold font-medium">
-                              ${(pricePerCarton * item.quantity).toFixed(2)}
+                              {formatConvertedPrice(pricePerCarton * item.quantity, currentCurrency)}
                             </p>
                             <p className="text-xs text-text-secondary">
                               {item.quantity} {item.quantity === 1 ? 'carton' : 'cartons'}
@@ -186,11 +189,11 @@ export const Cart: React.FC = () => {
                   <div className="space-y-2 mb-4">
                     <div className="flex justify-between">
                       <span>Subtotal</span>
-                      <span>${subtotal.toFixed(2)}</span>
+                      <span>{formatConvertedPrice(subtotal, currentCurrency)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Tax (VAT 20%)</span>
-                      <span>${tax.toFixed(2)}</span>
+                      <span>{formatConvertedPrice(tax, currentCurrency)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Shipping</span>
@@ -202,7 +205,7 @@ export const Cart: React.FC = () => {
                     <div className="flex justify-between items-center">
                       <span className="text-lg font-medium">Total</span>
                       <span className="text-xl font-medium text-rose-gold">
-                        ${total.toFixed(2)}
+                        {formatConvertedPrice(total, currentCurrency)}
                       </span>
                     </div>
                   </div>
@@ -223,6 +226,10 @@ export const Cart: React.FC = () => {
                   >
                     Proceed to Checkout
                   </Button>
+                  
+                  <p className="text-xs text-text-secondary text-center mt-4">
+                    Prices shown in {currentCurrency}. Payment will be processed in USD.
+                  </p>
                 </CardContent>
               </Card>
             </div>

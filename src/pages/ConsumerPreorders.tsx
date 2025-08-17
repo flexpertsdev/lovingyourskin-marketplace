@@ -7,7 +7,8 @@ import { productService, preorderService } from '../services'
 import { Product } from '../types'
 import { PreorderCampaign } from '../types/preorder'
 import { usePreorderStore } from '../stores/preorder.store'
-import { getProductPrice, calculateDiscountedPrice as calculateDiscount, formatPrice, calculateSavings } from '../lib/utils/pricing'
+import { getProductPrice, calculateDiscountedPrice as calculateDiscount, calculateSavings } from '../lib/utils/pricing'
+import { PriceDisplay } from '../components/features/PriceDisplay'
 import toast from 'react-hot-toast'
 
 // Countdown Timer Component
@@ -115,7 +116,7 @@ export const ConsumerPreorders: React.FC = () => {
       }
     } catch (error) {
       console.error('Failed to load pre-order data:', error)
-      toast.error('Failed to load pre-order campaign')
+      // Silently fail - no campaign message will be shown
     } finally {
       setLoading(false)
     }
@@ -123,7 +124,7 @@ export const ConsumerPreorders: React.FC = () => {
 
   const handlePreorder = (product: Product) => {
     if (!campaign) {
-      toast.error('No active pre-order campaign')
+      // Silently fail if no campaign
       return
     }
     
@@ -214,7 +215,7 @@ export const ConsumerPreorders: React.FC = () => {
                   onClick={() => navigate('/shop/preorder-checkout')}
                   className="bg-white text-rose-gold hover:bg-white/90"
                 >
-                  Go to Pre-order Checkout (${getTotalWithDiscount().toFixed(2)})
+                  Go to Pre-order Checkout (<PriceDisplay amountUSD={getTotalWithDiscount()} size="small" />)
                 </Button>
               </div>
             )}
@@ -331,14 +332,14 @@ export const ConsumerPreorders: React.FC = () => {
                           <>
                             <div className="flex items-center gap-2">
                               <span className="text-xl font-light text-rose-gold">
-                                {formatPrice(discountedPrice)}
+                                <PriceDisplay amountUSD={discountedPrice} size="large" />
                               </span>
                               <span className="text-sm text-text-secondary line-through">
-                                {formatPrice(price)}
+                                <PriceDisplay amountUSD={price} size="small" />
                               </span>
                             </div>
                             <p className="text-xs text-success-green mt-1">
-                              Save {formatPrice(calculateSavings(price, discountedPrice))}
+                              Save <PriceDisplay amountUSD={calculateSavings(price, discountedPrice)} size="small" />
                             </p>
                           </>
                         ) : (
@@ -390,19 +391,19 @@ export const ConsumerPreorders: React.FC = () => {
                     <div>
                       <h3 className="text-lg font-medium mb-2">Pre-order Cart Summary</h3>
                       <p className="text-text-secondary">
-                        {getItemCount()} items • Total savings: ${' '}
-                        {preorderItems.reduce((total, item) => {
+                        {getItemCount()} items • Total savings: {' '}
+                        <PriceDisplay amountUSD={preorderItems.reduce((total, item) => {
                           const originalPrice = item.pricePerItem * item.quantity
                           const discountedTotal = item.discountedPrice * item.quantity
                           return total + (originalPrice - discountedTotal)
-                        }, 0).toFixed(2)}
+                        }, 0)} size="small" />
                       </p>
                     </div>
                     <div className="flex items-center gap-4">
                       <div className="text-right">
                         <p className="text-sm text-text-secondary">Total with discount</p>
                         <p className="text-2xl font-light text-rose-gold">
-                          ${getTotalWithDiscount().toFixed(2)}
+                          <PriceDisplay amountUSD={getTotalWithDiscount()} size="large" />
                         </p>
                       </div>
                       <Button

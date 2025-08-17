@@ -1,11 +1,16 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
+import { useCurrencyStore } from '../stores/currency.store'
 import { Layout, Container } from '../components/layout'
 import { Button } from '../components/ui/Button'
 import { Card, CardContent } from '../components/ui/Card'
 import { DiscountCodeInput } from '../components/features/DiscountCodeInput'
 import { useAffiliateTracking } from '../hooks/useAffiliateTracking'
+import { useAuthStore } from '../stores/auth.store'
+import { formatConvertedPrice } from '../utils/currency'
+import { AffiliateCodeAutoApply } from '../components/cart/AffiliateCodeAutoApply'
+
 // Icon components
 const Trash2Icon = () => (
   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -30,13 +35,11 @@ const ShoppingBagIcon = () => (
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
   </svg>
 )
-import { useAuthStore } from '../stores/auth.store'
-import { formatCurrency } from '../utils/currency'
-import { AffiliateCodeAutoApply } from '../components/cart/AffiliateCodeAutoApply'
 
 export const ConsumerCart: React.FC = () => {
   const navigate = useNavigate()
   const { user } = useAuthStore()
+  const { currentCurrency } = useCurrencyStore()
   const {
     items,
     updateQuantity,
@@ -178,11 +181,11 @@ export const ConsumerCart: React.FC = () => {
                       {/* Price */}
                       <div className="text-right">
                         <p className="font-medium">
-                          {formatCurrency((item.product.retailPrice?.item || 0) * item.quantity)}
+                          {formatConvertedPrice((item.product.retailPrice?.item || 0) * item.quantity, currentCurrency)}
                         </p>
                         {item.preOrderDiscount && (
                           <p className="text-sm text-green-600">
-                            -{formatCurrency((item.product.retailPrice?.item || 0) * item.quantity * item.preOrderDiscount / 100)}
+                            -{formatConvertedPrice((item.product.retailPrice?.item || 0) * item.quantity * item.preOrderDiscount / 100, currentCurrency)}
                           </p>
                         )}
                       </div>
@@ -203,20 +206,20 @@ export const ConsumerCart: React.FC = () => {
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between">
                   <span>Subtotal ({getTotalItems()} items)</span>
-                  <span>{formatCurrency(subtotal)}</span>
+                  <span>{formatConvertedPrice(subtotal, currentCurrency)}</span>
                 </div>
                 
                 {preOrderDiscount > 0 && (
                   <div className="flex justify-between text-green-600">
                     <span>Pre-order Discount</span>
-                    <span>-{formatCurrency(preOrderDiscount)}</span>
+                    <span>-{formatConvertedPrice(preOrderDiscount, currentCurrency)}</span>
                   </div>
                 )}
                 
                 {affiliateDiscount > 0 && (
                   <div className="flex justify-between text-green-600">
                     <span>Discount Code</span>
-                    <span>-{formatCurrency(affiliateDiscount)}</span>
+                    <span>-{formatConvertedPrice(affiliateDiscount, currentCurrency)}</span>
                   </div>
                 )}
                 
@@ -227,13 +230,13 @@ export const ConsumerCart: React.FC = () => {
                 
                 <div className="flex justify-between text-sm text-gray-600">
                   <span>VAT included</span>
-                  <span>{formatCurrency(tax)}</span>
+                  <span>{formatConvertedPrice(tax, currentCurrency)}</span>
                 </div>
                 
                 <div className="border-t pt-3">
                   <div className="flex justify-between font-medium text-lg">
                     <span>Total</span>
-                    <span>{formatCurrency(total)}</span>
+                    <span>{formatConvertedPrice(total, currentCurrency)}</span>
                   </div>
                 </div>
               </div>
@@ -260,6 +263,10 @@ export const ConsumerCart: React.FC = () => {
                   Continue Shopping
                 </Link>
               </div>
+              
+              <p className="text-xs text-text-secondary text-center mt-4">
+                Prices shown in {currentCurrency}. Payment will be processed in USD.
+              </p>
             </CardContent>
           </Card>
         </div>

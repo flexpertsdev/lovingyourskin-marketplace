@@ -8,6 +8,8 @@ import { collection, query, where, getDocs } from 'firebase/firestore'
 import { db } from '../lib/firebase/config'
 import { Product, Brand } from '../types'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
+import { useCurrencyStore } from '../stores/currency.store'
+import { formatConvertedPrice } from '../utils/currency'
 import toast from 'react-hot-toast'
 
 // Icon components
@@ -205,6 +207,7 @@ const ShopFilters: React.FC<{
 // Main Shop Component
 export const ConsumerShop: React.FC = () => {
   const { addItem } = useConsumerCartStore()
+  const { currentCurrency } = useCurrencyStore()
   const [products, setProducts] = useState<Product[]>([])
   const [brands, setBrands] = useState<Brand[]>([])
   const [loading, setLoading] = useState(true)
@@ -250,7 +253,7 @@ export const ConsumerShop: React.FC = () => {
       setBrands(fetchedBrands)
     } catch (error) {
       console.error('Failed to load data:', error)
-      toast.error('Failed to load products')
+      // Silently fail - error state will be shown in UI
     } finally {
       setLoading(false)
     }
@@ -515,7 +518,7 @@ export const ConsumerShop: React.FC = () => {
                         {/* Price and Size */}
                         <div className="flex items-center justify-between">
                           <span className="text-xl font-light text-deep-charcoal">
-                            ${price.toFixed(2)}
+                            {formatConvertedPrice(price, currentCurrency)}
                           </span>
                           {b2cVariant?.size && (
                             <span className="text-sm text-text-secondary">

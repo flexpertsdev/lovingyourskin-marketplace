@@ -168,11 +168,11 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
                     <span className="text-rose-gold">({getB2BCartItems()})</span>
                   </>
                 )}
-                {/* B2C Cart Badge */}
-                {item.href === '/shop/cart' && mode === 'consumer' && getConsumerCartItems() > 0 && (
+                {/* B2C Cart Badge - Include preorder items */}
+                {item.href === '/shop/cart' && mode === 'consumer' && (getConsumerCartItems() + getPreorderItems()) > 0 && (
                   <>
                     <span className="mx-1">·</span>
-                    <span className="text-rose-gold">({getConsumerCartItems()})</span>
+                    <span className="text-rose-gold">({getConsumerCartItems() + getPreorderItems()})</span>
                   </>
                 )}
               </Link>
@@ -191,6 +191,24 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
               >
                 <ShieldIcon />
                 Admin
+              </Link>
+            )}
+            
+            {/* Affiliate Dashboard Link */}
+            {user?.role === 'affiliate' && (
+              <Link
+                to="/affiliate/dashboard"
+                className={cn(
+                  'px-4 py-2 text-sm rounded-full transition-all duration-200 flex items-center gap-2',
+                  location.pathname.startsWith('/affiliate')
+                    ? 'bg-rose-gold text-white'
+                    : 'text-rose-gold hover:bg-soft-pink-hover'
+                )}
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Dashboard
               </Link>
             )}
           </div>

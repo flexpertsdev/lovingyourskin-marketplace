@@ -49,20 +49,20 @@ export const usePreorderStore = create<PreorderState>()(
         const { preorderItems, activeCampaign } = get()
         
         if (!activeCampaign) {
-          toast.error('No active pre-order campaign')
+          // Silently fail if no campaign
           return
         }
 
         // Check if product is available for pre-order
         if (activeCampaign.availableProducts.length > 0 && !activeCampaign.availableProducts.includes(productId)) {
-          toast.error('This product is not available for pre-order')
+          // Silently fail if product not available
           return
         }
 
         // Check if product has valid pricing
         const originalPrice = getProductPrice(product)
         if (originalPrice <= 0) {
-          toast.error('This product cannot be added - price information is not available')
+          // Silently fail if no valid price
           return
         }
 
@@ -136,7 +136,7 @@ export const usePreorderStore = create<PreorderState>()(
         const { preorderItems, activeCampaign } = get()
         
         if (!activeCampaign || preorderItems.length === 0) {
-          toast.error('No items in pre-order cart')
+          // Silently return null if no items
           return null
         }
 
@@ -155,7 +155,7 @@ export const usePreorderStore = create<PreorderState>()(
           return preorder
         } catch (error) {
           console.error('Failed to create pre-order:', error)
-          toast.error('Failed to create pre-order')
+          // Return null on error, let calling component handle it
           return null
         }
       }

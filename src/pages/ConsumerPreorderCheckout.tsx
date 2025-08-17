@@ -7,6 +7,7 @@ import { usePreorderStore } from '../stores/preorder.store'
 import { useAuthStore } from '../stores/auth.store'
 import { preorderService } from '../services'
 import { stripeService } from '../services/stripe/stripe.service'
+import { PriceDisplay } from '../components/features/PriceDisplay'
 import toast from 'react-hot-toast'
 
 interface ShippingAddress {
@@ -33,7 +34,7 @@ export const ConsumerPreorderCheckout: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [processing, setProcessing] = useState(false)
   const [shippingAddress, setShippingAddress] = useState<ShippingAddress>({
-    name: user?.displayName || '',
+    name: user?.name || '',
     email: user?.email || '',
     phone: '',
     street: '',
@@ -118,7 +119,8 @@ export const ConsumerPreorderCheckout: React.FC = () => {
           productDescription: item.product.description || '',
           brandId: item.product.brandId,
           pricePerItem: item.discountedPrice, // Use discounted price
-          images: item.product.images?.primary ? [item.product.images.primary] : []
+          images: item.product.images?.primary ? [item.product.images.primary] : [],
+          addedAt: new Date()
         })),
         customer: {
           email: shippingAddress.email,
@@ -370,14 +372,14 @@ export const ConsumerPreorderCheckout: React.FC = () => {
                               {item.product.name}
                             </p>
                             <p className="text-xs text-text-secondary">
-                              Qty: {item.quantity} × ${item.discountedPrice.toFixed(2)}
+                              Qty: {item.quantity} × <PriceDisplay amountUSD={item.discountedPrice} size="small" />
                             </p>
                             <p className="text-xs text-success-green">
                               {item.discountPercentage}% off applied
                             </p>
                           </div>
                           <p className="text-sm font-medium">
-                            ${(item.discountedPrice * item.quantity).toFixed(2)}
+                            <PriceDisplay amountUSD={item.discountedPrice * item.quantity} size="small" />
                           </p>
                         </div>
                       ))}
@@ -386,11 +388,11 @@ export const ConsumerPreorderCheckout: React.FC = () => {
                     <div className="border-t pt-4 space-y-2">
                       <div className="flex justify-between text-sm">
                         <span>Subtotal</span>
-                        <span>${subtotal.toFixed(2)}</span>
+                        <PriceDisplay amountUSD={subtotal} size="small" />
                       </div>
                       <div className="flex justify-between text-sm text-success-green">
                         <span>Pre-order Discount</span>
-                        <span>-${discount.toFixed(2)}</span>
+                        <span>-<PriceDisplay amountUSD={discount} size="small" /></span>
                       </div>
                       <div className="flex justify-between text-sm">
                         <span>Shipping</span>
@@ -399,7 +401,7 @@ export const ConsumerPreorderCheckout: React.FC = () => {
                       <div className="border-t pt-2 flex justify-between">
                         <span className="font-medium">Total</span>
                         <span className="text-xl font-medium text-rose-gold">
-                          ${total.toFixed(2)}
+                          <PriceDisplay amountUSD={total} size="large" />
                         </span>
                       </div>
                     </div>
@@ -416,7 +418,7 @@ export const ConsumerPreorderCheckout: React.FC = () => {
                           Processing...
                         </span>
                       ) : (
-                        `Place Pre-order • $${total.toFixed(2)}`
+                        <>Place Pre-order • <PriceDisplay amountUSD={total} /></>
                       )}
                     </Button>
 

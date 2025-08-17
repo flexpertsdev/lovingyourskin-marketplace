@@ -40,23 +40,38 @@ function App() {
             <ScrollToTop />
             <AppRoutes />
             <Toaster 
-              position="top-right"
+              position="top-center"
               toastOptions={{
-                duration: 4000,
+                duration: 3000,
                 style: {
-                  background: '#333',
-                  color: '#fff',
+                  background: '#FFFFFF',
+                  color: '#1A1A1A',
+                  border: '1px solid #F5E6E6',
+                  padding: '12px 16px',
+                  fontSize: '14px',
+                  borderRadius: '12px',
+                  boxShadow: '0 4px 12px rgba(212, 165, 165, 0.15)',
                 },
                 success: {
                   iconTheme: {
-                    primary: '#10B981',
-                    secondary: '#fff',
+                    primary: '#D4A5A5',
+                    secondary: '#FFFFFF',
+                  },
+                  style: {
+                    background: '#FDF8F6',
+                    color: '#1A1A1A',
+                    border: '1px solid #D4A5A5',
                   },
                 },
                 error: {
                   iconTheme: {
                     primary: '#EF4444',
-                    secondary: '#fff',
+                    secondary: '#FFFFFF',
+                  },
+                  style: {
+                    background: '#FEF2F2',
+                    color: '#1A1A1A',
+                    border: '1px solid #FCA5A5',
                   },
                 },
               }}

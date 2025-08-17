@@ -128,15 +128,15 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
           const product = productOrData as Product
           
           if (!product.retailPrice) {
-            toast.error('This product is not available for retail purchase')
+            // Silently fail if product not available for retail
             return
           }
           
           // Check stock availability
           const b2cStock = product.variants?.[0]?.inventory?.b2c?.available || 0
         if (b2cStock > 0 && b2cStock < quantity) {
-          toast.error(`Only ${b2cStock} units available`)
-            return
+          // Adjust quantity to available stock instead of showing error
+          quantity = b2cStock
           }
           
           set((state) => {
@@ -148,9 +148,9 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
               
               // Check stock limit - using B2C inventory from variants
               const b2cStock = product.variants?.[0]?.inventory?.b2c?.available || 0
-              if (b2cStock > 0 && quantity > b2cStock) {
-                toast.error(`Cannot add more. Only ${b2cStock} units available`)
-                return state
+              if (b2cStock > 0 && newQuantity > b2cStock) {
+                // Cap at available stock instead of showing error
+                newQuantity = b2cStock
               }
               
               return {
@@ -197,8 +197,8 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
           // If variants don't exist (simplified cart items), allow reasonable quantity
           const b2cStock = item.product.variants?.[0]?.inventory?.b2c?.available || 99
           if (quantity > b2cStock) {
-            toast.error(`Only ${b2cStock} units available`)
-            return state
+            // Cap at available stock instead of showing error
+            quantity = b2cStock
           }
           
           return {

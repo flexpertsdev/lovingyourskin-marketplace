@@ -20,9 +20,9 @@ export const getProductPrice = (product: Product): number => {
     return product.price.item
   }
   
-  // For B2B products, use B2B price as fallback
-  if (product.variants?.[0]?.pricing?.b2b?.pricePerItem) {
-    return product.variants[0].pricing.b2b.pricePerItem
+  // For B2B products, use B2B wholesale price as fallback
+  if (product.variants?.[0]?.pricing?.b2b?.wholesalePrice) {
+    return product.variants[0].pricing.b2b.wholesalePrice
   }
   
   return 0

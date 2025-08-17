@@ -6,9 +6,8 @@ import { Button, Card, CardContent, Input, Select } from '../components/ui'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
 import { useAuthStore } from '../stores/auth.store'
 import { stripeService } from '../services/stripe/stripe.service'
-import { useAffiliateTracking } from '../hooks/useAffiliateTracking'
-import { formatCurrency } from '../utils/currency'
 import { DiscountCodeInput } from '../components/features/DiscountCodeInput'
+import { PriceDisplay } from '../components/features/PriceDisplay'
 import toast from 'react-hot-toast'
 
 export const ConsumerCheckout: React.FC = () => {
@@ -22,7 +21,6 @@ export const ConsumerCheckout: React.FC = () => {
     affiliateCode,
     affiliateDiscount 
   } = useConsumerCartStore()
-  const { trackPurchase } = useAffiliateTracking()
   
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
@@ -149,12 +147,6 @@ export const ConsumerCheckout: React.FC = () => {
         affiliateCode: affiliateCode,
         affiliateDiscount: affiliateDiscount
       })
-
-      // Track affiliate conversion if applicable
-      if (affiliateCode) {
-        const orderValue = getTotalAmount()
-        await trackPurchase(`stripe-${Date.now()}`, orderValue)
-      }
 
       // Redirect to Stripe Checkout
       window.location.href = sessionUrl
@@ -303,7 +295,7 @@ export const ConsumerCheckout: React.FC = () => {
                                 <p className="text-success-green text-xs">Pre-order: {item.product.preorderDiscount}% off</p>
                               )}
                             </div>
-                            <p>{formatCurrency(price * item.quantity)}</p>
+                            <PriceDisplay amountUSD={price * item.quantity} />
                           </div>
                         )
                       })}
@@ -318,12 +310,12 @@ export const ConsumerCheckout: React.FC = () => {
                     <div className="border-t border-border-gray pt-4 space-y-2">
                       <div className="flex justify-between text-sm">
                         <span>Subtotal</span>
-                        <span>{formatCurrency(subtotal)}</span>
+                        <PriceDisplay amountUSD={subtotal} size="small" />
                       </div>
                       {discount > 0 && (
                         <div className="flex justify-between text-sm text-green-600">
                           <span>Discount</span>
-                          <span>-{formatCurrency(discount)}</span>
+                          <span className="text-green-600">-<PriceDisplay amountUSD={discount} size="small" /></span>
                         </div>
                       )}
                       <div className="flex justify-between text-sm text-green-600">
@@ -332,16 +324,14 @@ export const ConsumerCheckout: React.FC = () => {
                       </div>
                       <div className="flex justify-between text-sm text-gray-600">
                         <span>VAT included</span>
-                        <span>{formatCurrency(vatIncluded)}</span>
+                        <PriceDisplay amountUSD={vatIncluded} size="small" />
                       </div>
                     </div>
                     
                     <div className="border-t border-border-gray pt-4 mt-4">
                       <div className="flex justify-between items-center mb-6">
                         <span className="text-lg font-medium">Total</span>
-                        <span className="text-2xl font-medium text-rose-gold">
-                          {formatCurrency(total)}
-                        </span>
+                        <PriceDisplay amountUSD={total} size="large" />
                       </div>
                       
                       <Button 

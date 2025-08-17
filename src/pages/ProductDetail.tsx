@@ -5,6 +5,7 @@ import { Button, Badge, Spinner, Card, CardContent, CardHeader, CardTitle } from
 import { brandService, productService, cartService } from '../services'
 import { useCartStore } from '../stores/cart.store'
 import { Product, Brand } from '../types'
+import { PriceDisplay } from '../components/features/PriceDisplay'
 
 export const ProductDetail: React.FC = () => {
   const { productId } = useParams<{ productId: string }>()
@@ -67,13 +68,6 @@ export const ProductDetail: React.FC = () => {
     }
   }
   
-  const formatPrice = (price: number) => {
-    // Always use USD as all prices are stored in USD
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(price)
-  }
   
   // Helper to get item price from different structures
   const getItemPrice = () => {
@@ -294,13 +288,13 @@ export const ProductDetail: React.FC = () => {
                   <div>
                     <p className="text-sm text-text-secondary mb-1">Price per Item</p>
                     <p className="text-2xl font-medium text-rose-gold">
-                      {formatPrice(getItemPrice())}
+                      <PriceDisplay amountUSD={getItemPrice()} size="large" />
                     </p>
                   </div>
                   <div>
                     <p className="text-sm text-text-secondary mb-1">Price per Carton</p>
                     <p className="text-2xl font-medium text-deep-charcoal">
-                      {formatPrice(getCartonPrice())}
+                      <PriceDisplay amountUSD={getCartonPrice()} size="large" />
                     </p>
                   </div>
                 </div>
@@ -310,7 +304,7 @@ export const ProductDetail: React.FC = () => {
                   <div className="pt-4 border-t border-border-gray">
                     <p className="text-sm text-text-secondary mb-1">Recommended Retail Price</p>
                     <p className="text-lg font-medium text-medium-gray">
-                      {formatPrice(getRetailPrice()!)} per item
+                      <PriceDisplay amountUSD={getRetailPrice()!} size="medium" /> per item
                     </p>
                   </div>
                 )}
@@ -458,7 +452,7 @@ export const ProductDetail: React.FC = () => {
                   <div>
                     <p className="text-sm text-text-secondary">Total Price</p>
                     <p className="text-2xl font-medium text-deep-charcoal">
-                      {formatPrice(quantity * getCartonPrice())}
+                      <PriceDisplay amountUSD={quantity * getCartonPrice()} size="large" />
                     </p>
                   </div>
                   <Button

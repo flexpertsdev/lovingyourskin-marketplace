@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Layout, Container, Section } from '../components/layout'
 import { Card, CardContent, Button, Badge } from '../components/ui'
 import { usePreorderStore } from '../stores/preorder.store'
-import { formatPrice } from '../lib/utils/pricing'
+import { PriceDisplay } from '../components/features/PriceDisplay'
 import toast from 'react-hot-toast'
 
 export const ConsumerPreorderCart: React.FC = () => {
@@ -197,10 +197,10 @@ export const ConsumerPreorderCart: React.FC = () => {
                               {item.pricePerItem > 0 ? (
                                 <>
                                   <span className="text-lg font-light text-rose-gold">
-                                    {formatPrice(item.discountedPrice)}
+                                    <PriceDisplay amountUSD={item.discountedPrice} />
                                   </span>
                                   <span className="text-sm text-text-secondary line-through">
-                                    {formatPrice(item.pricePerItem)}
+                                    <PriceDisplay amountUSD={item.pricePerItem} size="small" />
                                   </span>
                                   <Badge variant="success" className="text-xs">
                                     {item.discountPercentage}% OFF
@@ -232,10 +232,10 @@ export const ConsumerPreorderCart: React.FC = () => {
                                 {item.pricePerItem > 0 ? (
                                   <>
                                     <p className="font-medium">
-                                      {formatPrice(item.discountedPrice * item.quantity)}
+                                      <PriceDisplay amountUSD={item.discountedPrice * item.quantity} />
                                     </p>
                                     <p className="text-xs text-success-green">
-                                      Save {formatPrice((item.pricePerItem - item.discountedPrice) * item.quantity)}
+                                      Save <PriceDisplay amountUSD={(item.pricePerItem - item.discountedPrice) * item.quantity} size="small" />
                                     </p>
                                   </>
                                 ) : (
@@ -260,11 +260,11 @@ export const ConsumerPreorderCart: React.FC = () => {
                     <div className="space-y-3 mb-4">
                       <div className="flex justify-between text-sm">
                         <span>Subtotal ({getItemCount()} items)</span>
-                        <span>{formatPrice(subtotal)}</span>
+                        <PriceDisplay amountUSD={subtotal} size="small" />
                       </div>
                       <div className="flex justify-between text-sm text-success-green">
                         <span>Pre-order Discount</span>
-                        <span>-{formatPrice(discount)}</span>
+                        <span>-<PriceDisplay amountUSD={discount} size="small" /></span>
                       </div>
                       <div className="flex justify-between text-sm">
                         <span>Shipping</span>
@@ -277,10 +277,10 @@ export const ConsumerPreorderCart: React.FC = () => {
                         <span className="font-medium">Total</span>
                         <div className="text-right">
                           <p className="text-2xl font-light text-rose-gold">
-                            {formatPrice(total)}
+                            <PriceDisplay amountUSD={total} size="large" />
                           </p>
                           <p className="text-xs text-success-green">
-                            You save {formatPrice(discount)}
+                            You save <PriceDisplay amountUSD={discount} size="small" />
                           </p>
                         </div>
                       </div>

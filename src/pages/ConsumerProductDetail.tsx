@@ -5,13 +5,13 @@ import { db } from '../lib/firebase/config'
 import { Product } from '../types'
 import { Layout, Container } from '../components/layout'
 import { Button } from '../components/ui/Button'
-
 import { Badge } from '../components/ui/Badge'
 import { Spinner } from '../components/ui/Spinner'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
+import { useCurrencyStore } from '../stores/currency.store'
 import toast from 'react-hot-toast'
 import { getProductPrimaryImage, getProductImageGallery } from '../utils/product-helpers'
-import { formatCurrency } from '../utils/currency'
+import { formatConvertedPrice } from '../utils/currency'
 
 // Icon components
 const ChevronLeftIcon = () => (
@@ -62,13 +62,11 @@ const RefreshIcon = () => (
   </svg>
 )
 
-// Helper function to format currency
-// formatCurrency is now imported from utils/currency
-
 export const ConsumerProductDetail: React.FC = () => {
   const { productId } = useParams<{ productId: string }>()
   const navigate = useNavigate()
   const { addItem } = useConsumerCartStore()
+  const { currentCurrency } = useCurrencyStore()
   
   const [product, setProduct] = useState<Product | null>(null)
   const [loading, setLoading] = useState(true)
@@ -123,7 +121,7 @@ export const ConsumerProductDetail: React.FC = () => {
     
     const selectedVariant = product.variants[selectedVariantIndex]
     if (!selectedVariant || !selectedVariant.pricing?.b2c?.enabled) {
-      toast.error('This variant is not available for retail purchase')
+      // Silently fail if variant not available for retail
       return
     }
     
@@ -154,11 +152,6 @@ export const ConsumerProductDetail: React.FC = () => {
       setQuantity(newQuantity)
     }
   }
-  
-  // const handleWishlistToggle = async () => {
-  //   // Wishlist feature not implemented yet
-  //   toast.info('Wishlist feature coming soon!')
-  // }
   
   const handleShare = async () => {
     if (navigator.share && product) {
@@ -222,7 +215,6 @@ export const ConsumerProductDetail: React.FC = () => {
   // Get product name and description safely
   const productName = product.name || 'Product'
   const productDescription = product.description || ''
-  const productNameKo = undefined // Remove Korean name support
   
   return (
     <Layout mode="consumer">
@@ -279,13 +271,9 @@ export const ConsumerProductDetail: React.FC = () => {
           <div className="mb-4">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-sm text-gray-500">Brand: {product.brandId}</span>
-
               {product.isPreorder && <Badge variant="warning">Pre-order</Badge>}
             </div>
             <h1 className="text-3xl font-light mb-2">{productName}</h1>
-            {productNameKo && (
-              <p className="text-lg text-gray-600 mb-4">{productNameKo}</p>
-            )}
           </div>
           
           {/* Variant Selection */}
@@ -331,20 +319,19 @@ export const ConsumerProductDetail: React.FC = () => {
             {isPreOrder && product.preorderDiscount ? (
               <div className="flex items-baseline gap-2">
                 <span className="text-3xl font-medium text-rose-gold">
-                  {formatCurrency(discountedPrice)}
+                  {formatConvertedPrice(discountedPrice, currentCurrency)}
                 </span>
                 <span className="text-xl text-gray-400 line-through">
-                  {formatCurrency(effectivePrice)}
+                  {formatConvertedPrice(effectivePrice, currentCurrency)}
                 </span>
                 <Badge variant="success">{product.preorderDiscount}% OFF</Badge>
               </div>
             ) : (
               <span className="text-3xl font-medium text-rose-gold">
-                {formatCurrency(effectivePrice)}
+                {formatConvertedPrice(effectivePrice, currentCurrency)}
               </span>
             )}
             <p className="text-sm text-gray-500 mt-1">VAT included</p>
-
           </div>
           
           {/* Short Description */}
@@ -415,8 +402,6 @@ export const ConsumerProductDetail: React.FC = () => {
             </Button>
           </div>
           
-
-          
           {/* Certifications */}
           {product.certifications && product.certifications.length > 0 && (
             <div className="flex flex-wrap gap-2">
@@ -478,7 +463,6 @@ export const ConsumerProductDetail: React.FC = () => {
               <p className="text-sm text-text-secondary">
                 {product.ingredients || 'Ingredients information not available'}
               </p>
-
             </div>
           )}
           
@@ -507,6 +491,11 @@ export const ConsumerProductDetail: React.FC = () => {
           <RefreshIcon />
           <p className="text-sm mt-2">30-Day Returns</p>
         </div>
+      </div>
+      
+      {/* Currency Note */}
+      <div className="mt-6 text-center text-sm text-text-secondary">
+        <p>Prices shown in {currentCurrency}. Payment will be processed in USD.</p>
       </div>
       </Container>
     </Layout>

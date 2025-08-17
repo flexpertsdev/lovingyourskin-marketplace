@@ -7,6 +7,7 @@ import { usePreorderStore } from '../stores/preorder.store'
 import { ShoppingCart, Package, Trash2, Plus, Minus, ChevronRight, AlertCircle } from 'lucide-react'
 import { getProductPrice } from '../lib/utils/pricing'
 import { AffiliateCodeAutoApply } from '../components/cart/AffiliateCodeAutoApply'
+import { PriceDisplay } from '../components/features/PriceDisplay'
 
 export const ConsumerUnifiedCart: React.FC = () => {
   const navigate = useNavigate()
@@ -32,12 +33,6 @@ export const ConsumerUnifiedCart: React.FC = () => {
     getItemCount: getPreorderCount
   } = usePreorderStore()
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(price)
-  }
 
   const formatDate = (timestamp: any) => {
     if (!timestamp) return 'N/A'
@@ -138,7 +133,7 @@ export const ConsumerUnifiedCart: React.FC = () => {
                             <div className="flex-1">
                               <h3 className="font-medium">{item.product.name}</h3>
                               <p className="text-sm text-text-secondary">
-                                {formatPrice(price)} each
+                                <PriceDisplay amountUSD={price} size="small" /> each
                               </p>
                             </div>
                             <div className="flex items-center gap-2">
@@ -157,7 +152,7 @@ export const ConsumerUnifiedCart: React.FC = () => {
                               </button>
                             </div>
                             <div className="text-right">
-                              <p className="font-medium">{formatPrice(price * item.quantity)}</p>
+                              <p className="font-medium"><PriceDisplay amountUSD={price * item.quantity} /></p>
                               <button
                                 onClick={() => removeRegularItem(item.id)}
                                 className="text-red-500 hover:text-red-600 text-sm mt-1"
@@ -173,12 +168,12 @@ export const ConsumerUnifiedCart: React.FC = () => {
                     <div className="border-t pt-4 space-y-2">
                       <div className="flex justify-between text-sm">
                         <span>Subtotal</span>
-                        <span>{formatPrice(regularSubtotal)}</span>
+                        <PriceDisplay amountUSD={regularSubtotal} size="small" />
                       </div>
                       {affiliateDiscount > 0 && (
                         <div className="flex justify-between text-sm text-success-green">
                           <span>Affiliate Discount ({affiliateCode})</span>
-                          <span>-{formatPrice(affiliateDiscount)}</span>
+                          <span>-<PriceDisplay amountUSD={affiliateDiscount} size="small" /></span>
                         </div>
                       )}
                       <div className="flex justify-between text-sm">
@@ -187,7 +182,7 @@ export const ConsumerUnifiedCart: React.FC = () => {
                       </div>
                       <div className="flex justify-between font-medium text-lg pt-2 border-t">
                         <span>Total</span>
-                        <span className="text-rose-gold">{formatPrice(regularTotal)}</span>
+                        <PriceDisplay amountUSD={regularTotal} />
                       </div>
                     </div>
 
@@ -248,10 +243,10 @@ export const ConsumerUnifiedCart: React.FC = () => {
                             <h3 className="font-medium">{item.product.name}</h3>
                             <div className="flex items-center gap-2 mt-1">
                               <span className="text-sm text-rose-gold">
-                                {formatPrice(item.discountedPrice)} each
+                                <PriceDisplay amountUSD={item.discountedPrice} size="small" /> each
                               </span>
                               <span className="text-xs text-text-secondary line-through">
-                                {formatPrice(item.pricePerItem)}
+                                <PriceDisplay amountUSD={item.pricePerItem} size="small" />
                               </span>
                               <Badge variant="success" className="text-xs">
                                 {item.discountPercentage}% off
@@ -275,7 +270,7 @@ export const ConsumerUnifiedCart: React.FC = () => {
                           </div>
                           <div className="text-right">
                             <p className="font-medium">
-                              {formatPrice(item.discountedPrice * item.quantity)}
+                              <PriceDisplay amountUSD={item.discountedPrice * item.quantity} />
                             </p>
                             <button
                               onClick={() => removeFromPreorderCart(item.productId)}
@@ -291,11 +286,11 @@ export const ConsumerUnifiedCart: React.FC = () => {
                     <div className="border-t pt-4 space-y-2">
                       <div className="flex justify-between text-sm">
                         <span>Subtotal</span>
-                        <span>{formatPrice(preorderSubtotal)}</span>
+                        <PriceDisplay amountUSD={preorderSubtotal} size="small" />
                       </div>
                       <div className="flex justify-between text-sm text-success-green">
                         <span>Pre-order Discount</span>
-                        <span>-{formatPrice(preorderDiscount)}</span>
+                        <span>-<PriceDisplay amountUSD={preorderDiscount} size="small" /></span>
                       </div>
                       <div className="flex justify-between text-sm">
                         <span>Shipping</span>
@@ -303,7 +298,7 @@ export const ConsumerUnifiedCart: React.FC = () => {
                       </div>
                       <div className="flex justify-between font-medium text-lg pt-2 border-t">
                         <span>Total</span>
-                        <span className="text-rose-gold">{formatPrice(preorderTotal)}</span>
+                        <PriceDisplay amountUSD={preorderTotal} />
                       </div>
                     </div>
 
