@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Layout } from '../../components/layout'
 import { Container, Section, Grid } from '../../components/layout'
-import { Card, CardContent, Button, Badge, Input, Select } from '../../components/ui'
+import { Card, CardContent, Button, Badge, Input } from '../../components/ui'
 import { preorderService, productService } from '../../services'
 import { useAuthStore } from '../../stores/auth.store'
 import { PreorderCampaign, PreorderStats } from '../../types/preorder'
@@ -87,7 +87,7 @@ export const PreorderManagement: React.FC = () => {
         endDate: Timestamp.fromDate(new Date(formData.endDate)),
         preorderDate: Timestamp.fromDate(new Date(formData.preorderDate)),
         status: 'draft' as const,
-        createdBy: user?.uid || '',
+        createdBy: user?.id || '',
         totalOrders: 0,
         totalRevenue: 0
       }

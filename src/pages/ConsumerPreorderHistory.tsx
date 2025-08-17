@@ -6,7 +6,6 @@ import { Spinner } from '../components/ui/Spinner'
 import { useAuthStore } from '../stores/auth.store'
 import { preorderService } from '../services'
 import { Preorder } from '../types/preorder'
-import toast from 'react-hot-toast'
 
 export const ConsumerPreorderHistory: React.FC = () => {
   const navigate = useNavigate()
@@ -29,7 +28,7 @@ export const ConsumerPreorderHistory: React.FC = () => {
       setPreorders(userPreorders)
     } catch (error) {
       console.error('Failed to load pre-orders:', error)
-      toast.error('Failed to load your pre-orders')
+      console.error('Failed to load your pre-orders')
     } finally {
       setLoading(false)
     }
@@ -131,18 +130,13 @@ export const ConsumerPreorderHistory: React.FC = () => {
                             {getStatusBadge(preorder.status)}
                           </div>
                           <p className="text-sm text-text-secondary">
-                            Placed on {formatDate(preorder.createdAt)}
+                            Placed on {formatDate(preorder.placedAt)}
                           </p>
                         </div>
                         <div className="text-right">
                           <p className="text-2xl font-light text-rose-gold">
                             ${preorder.totalAmount.toFixed(2)}
                           </p>
-                          {preorder.campaignDiscount && (
-                            <p className="text-sm text-success-green">
-                              {preorder.campaignDiscount}% discount applied
-                            </p>
-                          )}
                         </div>
                       </div>
                     </div>
@@ -198,16 +192,6 @@ export const ConsumerPreorderHistory: React.FC = () => {
                               {preorder.estimatedDelivery || 'TBD'}
                             </p>
                           </div>
-                          {preorder.trackingNumber && (
-                            <div className="md:col-span-2">
-                              <p className="text-sm font-medium text-text-secondary mb-1">
-                                Tracking Number
-                              </p>
-                              <p className="text-sm font-mono">
-                                {preorder.trackingNumber}
-                              </p>
-                            </div>
-                          )}
                         </div>
                       </div>
 
@@ -238,7 +222,7 @@ export const ConsumerPreorderHistory: React.FC = () => {
                             onClick={() => {
                               if (confirm('Are you sure you want to cancel this pre-order?')) {
                                 // Handle cancellation
-                                toast.error('Cancellation feature coming soon')
+                                console.log('Cancellation feature coming soon')
                               }
                             }}
                           >

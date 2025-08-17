@@ -7,7 +7,7 @@ import { useAuthStore } from '../stores/auth.store'
 import { orderService, preorderService } from '../services'
 import { Order } from '../types'
 import { Preorder } from '../types/preorder'
-import { Package, Clock, CheckCircle, Truck, AlertCircle, Calendar } from 'lucide-react'
+import { Package, Clock, CheckCircle, Truck, Calendar } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 type CombinedOrder = {
@@ -163,7 +163,7 @@ export const ConsumerOrderHistory: React.FC = () => {
                     {getOrderStatusBadge(preorder.status, 'preorder')}
                   </div>
                   <p className="text-sm text-text-secondary">
-                    Placed on {formatDate(preorder.placedAt || preorder.createdAt)}
+                    Placed on {formatDate(preorder.placedAt)}
                   </p>
                   {preorder.campaignName && (
                     <p className="text-sm text-rose-gold mt-1">

@@ -29,8 +29,7 @@ export const ConsumerUnifiedCart: React.FC = () => {
     activeCampaign,
     updatePreorderQuantity,
     removeFromPreorderCart,
-    getTotalWithDiscount: getPreorderTotal,
-    getItemCount: getPreorderCount
+    getTotalWithDiscount: getPreorderTotal
   } = usePreorderStore()
 
 

@@ -31,7 +31,7 @@ export const ConsumerPreorderCheckout: React.FC = () => {
     activeCampaign 
   } = usePreorderStore()
   
-  const [loading, setLoading] = useState(false)
+  const [loading] = useState(false)
   const [processing, setProcessing] = useState(false)
   const [shippingAddress, setShippingAddress] = useState<ShippingAddress>({
     name: user?.name || '',

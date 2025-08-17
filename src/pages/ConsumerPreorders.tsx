@@ -72,8 +72,7 @@ export const ConsumerPreorders: React.FC = () => {
     preorderItems, 
     getTotalWithDiscount, 
     getItemCount,
-    fetchActiveCampaign,
-    activeCampaign 
+    fetchActiveCampaign
   } = usePreorderStore()
 
   useEffect(() => {

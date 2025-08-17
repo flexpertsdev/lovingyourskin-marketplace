@@ -144,7 +144,7 @@ export const useConsumerCartStore = create<ConsumerCartStore>()(
             
             if (existingItem) {
               // Update quantity if item already exists
-              const newQuantity = existingItem.quantity + quantity
+              let newQuantity = existingItem.quantity + quantity
               
               // Check stock limit - using B2C inventory from variants
               const b2cStock = product.variants?.[0]?.inventory?.b2c?.available || 0

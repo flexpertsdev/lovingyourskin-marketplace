@@ -4,7 +4,6 @@ import { useAuthStore } from '../stores/auth.store'
 
 // Pages
 import { Landing } from '../pages/Landing'
-import { CurrencyDemo } from '../pages/CurrencyDemo'
 import { Login, Register, ConsumerRegister } from '../pages/auth'
 import { Brands } from '../pages/Brands'
 import { BrandDetail } from '../pages/BrandDetail'
@@ -168,7 +167,6 @@ export const AppRoutes: React.FC = () => {
    
       {/* Public Routes */}
       <Route path="/" element={<Landing />} />
-      <Route path="/currency-demo" element={<CurrencyDemo />} />
       
       {/* Auth Routes */}
       <Route path="/login" element={<Login />} />
