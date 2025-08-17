@@ -9,7 +9,6 @@ import { PreorderCampaign } from '../types/preorder'
 import { usePreorderStore } from '../stores/preorder.store'
 import { getProductPrice, calculateDiscountedPrice as calculateDiscount, calculateSavings } from '../lib/utils/pricing'
 import { PriceDisplay } from '../components/features/PriceDisplay'
-import toast from 'react-hot-toast'
 
 // Countdown Timer Component
 const CountdownTimer: React.FC<{ endDate: any }> = ({ endDate }) => {

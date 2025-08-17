@@ -32,6 +32,8 @@ interface NavItem {
   href: string
   requiresAuth?: boolean
   roles?: Array<'admin' | 'retailer' | 'brand' | 'consumer'>
+  icon?: React.ReactNode
+  showBadge?: boolean
 }
 
 interface HeaderProps {
@@ -44,7 +46,7 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
   const { user, logout, isAuthenticated } = useAuthStore()
   const { getTotalItems: getB2BCartItems } = useCartStore()
   const { getTotalItems: getConsumerCartItems } = useConsumerCartStore()
-  const { getItemCount: getPreorderItems, activeCampaign } = usePreorderStore()
+  const { getItemCount: getPreorderItems } = usePreorderStore()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
   
@@ -55,16 +57,6 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
     </svg>
   )
   
-  // Pre-order icon component  
-  const PreorderIcon = () => (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  )
-  
-  // Get cart items count
-  const cartItemsCount = mode === 'consumer' ? getConsumerCartItems() : getB2BCartItems()
-  
   // Simplified navigation logic based on mode
   let navItems: NavItem[] = []
   
@@ -73,14 +65,21 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
     navItems = [
       { label: 'Shop', href: '/shop' },
       { label: 'Brands', href: '/shop/brands' },
-      { label: 'Pre-orders', href: '/shop/preorders' },
-      { label: 'Cart', href: '/shop/cart' }
+      { label: 'Pre-orders', href: '/shop/preorders' }
     ]
     
     // Add Order History for authenticated users
     if (isAuthenticated) {
       navItems.push({ label: 'Order History', href: '/shop/order-history', requiresAuth: true })
     }
+    
+    // Cart always last with icon
+    navItems.push({ 
+      label: 'Cart', 
+      href: '/shop/cart',
+      icon: <CartIcon />,
+      showBadge: true
+    })
   } else {
     // B2B mode navigation
     if (isAuthenticated) {
@@ -88,11 +87,11 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
       switch (user?.role) {
         case 'retailer':
           navItems = [
-            { label: 'Brands', href: '/brands', requiresAuth: true },
-            { label: 'Cart', href: '/cart', requiresAuth: true },
             { label: 'Dashboard', href: '/dashboard', requiresAuth: true },
+            { label: 'Brands', href: '/brands', requiresAuth: true },
             { label: 'Orders', href: '/orders', requiresAuth: true },
-            { label: 'Messages', href: '/messages', requiresAuth: true }
+            { label: 'Messages', href: '/messages', requiresAuth: true },
+            { label: 'Cart', href: '/cart', requiresAuth: true, icon: <CartIcon />, showBadge: true }
           ]
           break
         case 'brand':
@@ -154,26 +153,35 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
                 key={item.href}
                 to={item.href}
                 className={cn(
-                  'px-4 py-2 text-sm rounded-full transition-all duration-200 relative',
+                  'text-sm rounded-full transition-all duration-200 relative flex items-center gap-2',
+                  item.icon ? 'p-2' : 'px-4 py-2',
                   isActive(item.href)
                     ? 'bg-soft-pink-hover text-deep-charcoal'
                     : 'text-text-primary hover:bg-soft-pink-hover hover:text-deep-charcoal'
                 )}
+                title={item.icon ? item.label : undefined}
               >
-                <span>{item.label}</span>
-                {/* B2B Cart Badge */}
-                {item.href === '/cart' && mode === 'b2b' && getB2BCartItems() > 0 && (
+                {item.icon ? (
                   <>
-                    <span className="mx-1">·</span>
-                    <span className="text-rose-gold">({getB2BCartItems()})</span>
+                    {item.icon}
+                    {/* Cart Badge */}
+                    {item.showBadge && (
+                      <>
+                        {mode === 'b2b' && getB2BCartItems() > 0 && (
+                          <span className="absolute -top-1 -right-1 bg-rose-gold text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                            {getB2BCartItems()}
+                          </span>
+                        )}
+                        {mode === 'consumer' && (getConsumerCartItems() + getPreorderItems()) > 0 && (
+                          <span className="absolute -top-1 -right-1 bg-rose-gold text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                            {getConsumerCartItems() + getPreorderItems()}
+                          </span>
+                        )}
+                      </>
+                    )}
                   </>
-                )}
-                {/* B2C Cart Badge - Include preorder items */}
-                {item.href === '/shop/cart' && mode === 'consumer' && (getConsumerCartItems() + getPreorderItems()) > 0 && (
-                  <>
-                    <span className="mx-1">·</span>
-                    <span className="text-rose-gold">({getConsumerCartItems() + getPreorderItems()})</span>
-                  </>
+                ) : (
+                  <span>{item.label}</span>
                 )}
               </Link>
             ))}
@@ -219,25 +227,6 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
             <div className="mr-2">
               <CurrencySelector size="small" />
             </div>
-            
-            {/* Unified Cart Icon for consumer users */}
-            {mode === 'consumer' && !isAuthenticated && (
-              <Link
-                to="/shop/cart"
-                className="relative p-2 group"
-                title="Shopping Cart"
-              >
-                <CartIcon />
-                {(cartItemsCount + getPreorderItems()) > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-rose-gold text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {cartItemsCount + getPreorderItems()}
-                  </span>
-                )}
-                <span className="absolute top-full mt-1 left-1/2 -translate-x-1/2 bg-deep-charcoal text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
-                  Shopping Cart
-                </span>
-              </Link>
-            )}
             
             {/* Auth Buttons */}
             {isAuthenticated ? (
@@ -352,36 +341,29 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'b2b' }) => {
                 
                 {/* Navigation Links */}
                 <div className="space-y-4">
-                  {/* Unified Cart Link for consumer users */}
-                  {!isAuthenticated && mode === 'consumer' && (cartItemsCount + getPreorderItems() > 0) && (
-                    <Link
-                      to="/shop/cart"
-                      className="block px-4 py-3 rounded-lg text-lg transition-colors text-text-primary hover:bg-soft-pink-hover"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      Cart
-                      <span className="ml-2 text-rose-gold">({cartItemsCount + getPreorderItems()})</span>
-                    </Link>
-                  )}
-                  
                   {navItems.map((item) => (
                     <Link
                       key={item.href}
                       to={item.href}
                       className={cn(
-                        'block px-4 py-3 rounded-lg text-lg transition-colors',
+                        'flex items-center gap-3 px-4 py-3 rounded-lg text-lg transition-colors',
                         isActive(item.href)
                           ? 'bg-soft-pink text-deep-charcoal'
                           : 'text-text-primary hover:bg-soft-pink-hover'
                       )}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
-                      {item.label}
-                      {item.href === '/cart' && getB2BCartItems() > 0 && (
-                        <span className="ml-2 text-rose-gold">({getB2BCartItems()})</span>
-                      )}
-                      {item.href === '/shop/cart' && getConsumerCartItems() > 0 && (
-                        <span className="ml-2 text-rose-gold">({getConsumerCartItems()})</span>
+                      {item.icon && <span className="w-6 h-6">{item.icon}</span>}
+                      <span>{item.label}</span>
+                      {item.showBadge && (
+                        <>
+                          {mode === 'b2b' && getB2BCartItems() > 0 && (
+                            <span className="ml-auto text-rose-gold">({getB2BCartItems()})</span>
+                          )}
+                          {mode === 'consumer' && (getConsumerCartItems() + getPreorderItems()) > 0 && (
+                            <span className="ml-auto text-rose-gold">({getConsumerCartItems() + getPreorderItems()})</span>
+                          )}
+                        </>
                       )}
                     </Link>
                   ))}
