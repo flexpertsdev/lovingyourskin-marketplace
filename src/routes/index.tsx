@@ -8,10 +8,10 @@ import { Login, Register, ConsumerRegister } from '../pages/auth'
 import { Brands } from '../pages/Brands'
 import { BrandDetail } from '../pages/BrandDetail'
 import { ProductDetail } from '../pages/ProductDetail'
-import { Cart } from '../pages/Cart'
+import { B2BCart } from '../pages/B2BCart'
 import { Checkout } from '../pages/Checkout'
 import { Orders } from '../pages/Orders'
-import { OrderDetail } from '../pages/OrderDetail'
+import { OrderDetailEnhanced } from '../pages/OrderDetailEnhanced'
 import { Dashboard } from '../pages/Dashboard'
 import { AdminDashboard } from '../pages/admin/AdminDashboard'
 import { HowItWorks } from '../pages/HowItWorks'
@@ -226,7 +226,7 @@ export const AppRoutes: React.FC = () => {
       {/* B2B Commerce Routes */}
       <Route path="/cart" element={
         <B2BRoute>
-          <Cart />
+          <B2BCart />
         </B2BRoute>
       } />
       <Route path="/checkout" element={
@@ -241,7 +241,7 @@ export const AppRoutes: React.FC = () => {
       } />
       <Route path="/orders/:orderId" element={
         <B2BRoute>
-          <OrderDetail />
+          <OrderDetailEnhanced />
         </B2BRoute>
       } />
       <Route path="/preorder" element={
@@ -343,7 +343,7 @@ export const AppRoutes: React.FC = () => {
       } />
       <Route path="/retailer/orders/:orderId" element={
         <ProtectedRoute allowedRoles={['retailer']}>
-          <OrderDetail />
+          <OrderDetailEnhanced />
         </ProtectedRoute>
       } />
       
@@ -360,7 +360,7 @@ export const AppRoutes: React.FC = () => {
       } />
       <Route path="/brand/orders/:orderId" element={
         <ProtectedRoute allowedRoles={['brand']}>
-          <OrderDetail />
+          <OrderDetailEnhanced />
         </ProtectedRoute>
       } />
       

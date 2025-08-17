@@ -20,6 +20,9 @@ interface ThreadWithOrder extends MessageThread {
 export const Messages: React.FC = () => {
   const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null)
   const [messageInput, setMessageInput] = useState('')
+  const [showNewMessage, setShowNewMessage] = useState(false)
+  const [newMessageSubject, setNewMessageSubject] = useState('')
+  const [newMessageContent, setNewMessageContent] = useState('')
   const { user } = useAuthStore()
   const queryClient = useQueryClient()
   
@@ -125,19 +128,114 @@ export const Messages: React.FC = () => {
   
   const selectedThread = threads.find(t => t.id === selectedThreadId)
   
+  const handleStartNewMessage = async () => {
+    if (!newMessageSubject.trim() || !newMessageContent.trim() || !user) return
+    
+    try {
+      // Create a support thread (not tied to a specific order)
+      const supportThreadId = `support-${user.id}-${Date.now()}`
+      
+      await orderService.sendMessage(supportThreadId, {
+        content: `[Support Request] ${newMessageSubject}: ${newMessageContent}`,
+        senderId: user.id,
+        senderName: user.name,
+        senderRole: user.role === 'admin' ? 'lys_team' : user.role === 'retailer' ? 'buyer' : 'brand' as any,
+        threadId: supportThreadId
+      })
+      
+      toast.success('Message sent to admin team')
+      setShowNewMessage(false)
+      setNewMessageSubject('')
+      setNewMessageContent('')
+      queryClient.invalidateQueries({ queryKey: ['messageThreads'] })
+    } catch (error) {
+      console.error('Failed to send support message:', error)
+      toast.error('Failed to send message')
+    }
+  }
+  
   return (
     <Layout>
       <div className="min-h-screen bg-background-gray">
         <div className="container mx-auto px-6 py-8">
-          <h1 className="text-3xl font-light mb-8">Messages</h1>
+          <div className="flex justify-between items-center mb-8">
+            <div>
+              <h1 className="text-3xl font-light">Messages</h1>
+              <p className="text-text-secondary mt-1">Communicate with brands and support team</p>
+            </div>
+            <button
+              onClick={() => setShowNewMessage(true)}
+              className="px-6 py-2 bg-rose-gold text-white rounded-lg hover:bg-rose-gold-dark transition-colors"
+            >
+              + New Message
+            </button>
+          </div>
           
           {threadsLoading ? (
-            <div className="text-center py-8">Loading conversations...</div>
-          ) : threads.length === 0 ? (
-            <div className="bg-white rounded-lg shadow-sm p-8 text-center text-text-secondary">
-              No conversations yet
+            <div className="bg-white rounded-lg shadow-sm p-8 text-center">
+              <div className="animate-pulse">
+                <div className="h-4 bg-gray-200 rounded w-1/4 mx-auto mb-4"></div>
+                <div className="h-3 bg-gray-100 rounded w-1/3 mx-auto"></div>
+              </div>
             </div>
-          ) : (
+          ) : threads.length === 0 && !showNewMessage ? (
+            <div className="bg-white rounded-lg shadow-sm p-12 text-center">
+              <div className="max-w-md mx-auto">
+                <div className="text-6xl mb-4">💬</div>
+                <h3 className="text-xl font-medium mb-2">No conversations yet</h3>
+                <p className="text-text-secondary mb-6">
+                  Start a conversation with our support team or view messages related to your orders
+                </p>
+                <button
+                  onClick={() => setShowNewMessage(true)}
+                  className="px-6 py-3 bg-rose-gold text-white rounded-lg hover:bg-rose-gold-dark transition-colors"
+                >
+                  Start New Conversation
+                </button>
+              </div>
+            </div>
+          ) : showNewMessage ? (
+            <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+              <h3 className="text-lg font-medium mb-4">New Support Message</h3>
+              <div className="space-y-4">
+                <input
+                  type="text"
+                  placeholder="Subject"
+                  value={newMessageSubject}
+                  onChange={(e) => setNewMessageSubject(e.target.value)}
+                  className="w-full px-4 py-2 border border-border-gray rounded-lg focus:outline-none focus:border-rose-gold"
+                />
+                <textarea
+                  placeholder="Describe your question or issue..."
+                  value={newMessageContent}
+                  onChange={(e) => setNewMessageContent(e.target.value)}
+                  rows={5}
+                  className="w-full px-4 py-2 border border-border-gray rounded-lg focus:outline-none focus:border-rose-gold"
+                />
+                <div className="flex gap-3">
+                  <button
+                    onClick={handleStartNewMessage}
+                    disabled={!newMessageSubject.trim() || !newMessageContent.trim()}
+                    className="px-6 py-2 bg-rose-gold text-white rounded-lg hover:bg-rose-gold-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Send Message
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowNewMessage(false)
+                      setNewMessageSubject('')
+                      setNewMessageContent('')
+                    }}
+                    className="px-6 py-2 border border-border-gray rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : null}
+          
+          {threads.length > 0 && !showNewMessage && (
             <div className="grid md:grid-cols-3 gap-6 h-[calc(100vh-200px)]">
               {/* Thread List */}
               <div className="bg-white rounded-lg shadow-sm overflow-hidden">
