@@ -1,33 +1,57 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Layout } from '../components/layout'
 import { Container, Section } from '../components/layout'
-import { Button, Card, CardContent, Input, Select } from '../components/ui'
+import { Button, Card, CardContent, Input, Select, Badge } from '../components/ui'
 import { useConsumerCartStore } from '../stores/consumer-cart.store'
+import { usePreorderStore } from '../stores/preorder.store'
 import { useAuthStore } from '../stores/auth.store'
 import { stripeService } from '../services/stripe/stripe.service'
+import { preorderService } from '../services'
 import { DiscountCodeInput } from '../components/features/DiscountCodeInput'
 import { PriceDisplay } from '../components/features/PriceDisplay'
+import { ConsumerCartItem } from '../types'
 import toast from 'react-hot-toast'
 
 export const ConsumerCheckout: React.FC = () => {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const { user } = useAuthStore()
+  
+  // Check if this is a preorder checkout
+  const isPreorderCheckout = searchParams.get('mode') === 'preorder'
+  
+  // Regular cart store
   const { 
-    items, 
-    getSubtotal, 
-    getTotalAmount, 
+    items: regularItems, 
+    getSubtotal: getRegularSubtotal, 
+    getTotalAmount: getRegularTotal, 
     getAffiliateDiscount,
     affiliateCode,
     affiliateDiscount 
   } = useConsumerCartStore()
+  
+  // Preorder store
+  const {
+    preorderItems,
+    getTotalWithDiscount: getPreorderTotal,
+    activeCampaign,
+    clearPreorderCart
+  } = usePreorderStore()
+  
+  // Use appropriate items based on checkout mode
+  const items = isPreorderCheckout ? preorderItems : regularItems
+  const getSubtotal = isPreorderCheckout 
+    ? () => preorderItems.reduce((total, item) => total + (item.pricePerItem * item.quantity), 0)
+    : getRegularSubtotal
+  const getTotalAmount = isPreorderCheckout ? getPreorderTotal : getRegularTotal
   
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     // Shipping information
     name: user?.name || '',
     email: user?.email || '',
-    phone: '',
+    phone: user?.phoneNumber || '',
     address: {
       street: '',
       city: '',
@@ -41,9 +65,9 @@ export const ConsumerCheckout: React.FC = () => {
   useEffect(() => {
     // Redirect if cart is empty
     if (items.length === 0) {
-      navigate('/shop')
+      navigate(isPreorderCheckout ? '/shop/preorders' : '/shop')
     }
-  }, [items, navigate])
+  }, [items, navigate, isPreorderCheckout])
   
   useEffect(() => {
     // Pre-fill with user data if available
@@ -111,6 +135,39 @@ export const ConsumerCheckout: React.FC = () => {
     
     setLoading(true)
     try {
+      // For preorders, create draft preorder first
+      let preorderId = undefined
+      if (isPreorderCheckout && activeCampaign) {
+        const draftPreorder = await preorderService.createPreorder({
+          campaignId: activeCampaign.id,
+          items: preorderItems.map(item => ({
+            ...item,
+            product: {
+              id: item.productId,
+              name: item.product.name,
+              brandId: item.product.brandId,
+              images: item.product.images
+            }
+          })),
+          shippingAddress: {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            street: formData.address.street,
+            city: formData.address.city,
+            postalCode: formData.address.postalCode,
+            country: formData.address.country
+          },
+          paymentMethod: 'stripe',
+          totalAmount: getTotalAmount()
+        })
+        
+        if (!draftPreorder) {
+          throw new Error('Failed to create pre-order')
+        }
+        preorderId = draftPreorder.id
+      }
+      
       // Create or update Stripe customer
       let stripeCustomerId = undefined
       if (user) {
@@ -125,9 +182,42 @@ export const ConsumerCheckout: React.FC = () => {
         stripeCustomerId = customer.customerId
       }
 
+      // Transform items for Stripe (handle both regular and preorder items)
+      const stripeItems = isPreorderCheckout 
+        ? preorderItems.map(item => ({
+            id: item.productId,
+            product: item.product,
+            quantity: item.quantity,
+            productId: item.productId,
+            productName: item.product.name,
+            productDescription: item.product.description || '',
+            brandId: item.product.brandId,
+            pricePerItem: item.discountedPrice,
+            images: item.product.images?.primary ? [item.product.images.primary] : [],
+            addedAt: new Date(),
+            preOrderDiscount: item.discountPercentage
+          } as ConsumerCartItem))
+        : items
+
+      // Build metadata for Stripe
+      const metadata: Record<string, string> = {
+        orderType: isPreorderCheckout ? 'preorder' : 'b2c'
+      }
+      
+      if (isPreorderCheckout && activeCampaign && preorderId) {
+        metadata.preorderId = preorderId
+        metadata.campaignId = activeCampaign.id
+        metadata.campaignName = activeCampaign.name
+        metadata.preorderDate = activeCampaign.preorderDate.toDate ? 
+          activeCampaign.preorderDate.toDate().toISOString() : 
+          activeCampaign.preorderDate
+        metadata.deliveryTimeframe = activeCampaign.deliveryTimeframe
+        metadata.discountPercentage = activeCampaign.discountPercentage.toString()
+      }
+
       // Create Stripe checkout session
       const { sessionUrl } = await stripeService.createB2CCheckoutSession({
-        items,
+        items: stripeItems as ConsumerCartItem[],
         customer: {
           email: formData.email,
           name: formData.name,
@@ -142,11 +232,21 @@ export const ConsumerCheckout: React.FC = () => {
           country: formData.address.country,
           phone: formData.phone
         },
-        successUrl: `${window.location.origin}/shop/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancelUrl: `${window.location.origin}/shop/cart`,
-        affiliateCode: affiliateCode,
-        affiliateDiscount: affiliateDiscount
+        successUrl: isPreorderCheckout && preorderId
+          ? `${window.location.origin}/shop/checkout-success?session_id={CHECKOUT_SESSION_ID}&preorder_id=${preorderId}`
+          : `${window.location.origin}/shop/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancelUrl: isPreorderCheckout 
+          ? `${window.location.origin}/shop/preorder-cart`
+          : `${window.location.origin}/shop/cart`,
+        affiliateCode: !isPreorderCheckout ? affiliateCode : undefined,
+        affiliateDiscount: !isPreorderCheckout ? affiliateDiscount : undefined,
+        metadata
       })
+
+      // Clear appropriate cart before redirecting
+      if (isPreorderCheckout) {
+        clearPreorderCart()
+      }
 
       // Redirect to Stripe Checkout
       window.location.href = sessionUrl
@@ -160,21 +260,67 @@ export const ConsumerCheckout: React.FC = () => {
   
   // Calculate totals
   const subtotal = getSubtotal()
-  const discount = getAffiliateDiscount()
+  const discount = isPreorderCheckout 
+    ? subtotal - getTotalAmount() // Preorder discount
+    : getAffiliateDiscount() // Affiliate discount
   const total = getTotalAmount()
   // VAT is included in prices - calculate the VAT portion for display
-  const vatIncluded = (subtotal - discount) - ((subtotal - discount) / 1.2)
+  const vatIncluded = total - (total / 1.2)
+  
+  const formatDate = (timestamp: any) => {
+    if (!timestamp) return 'N/A'
+    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp)
+    return date.toLocaleDateString('en-GB', { 
+      day: 'numeric',
+      month: 'long', 
+      year: 'numeric' 
+    })
+  }
   
   return (
     <Layout>
       <Section>
         <Container>
-          <h1 className="text-3xl font-light mb-8">Checkout</h1>
+          <div className="mb-8">
+            <h1 className="text-3xl font-light mb-2">
+              {isPreorderCheckout ? 'Pre-order Checkout' : 'Checkout'}
+            </h1>
+            {isPreorderCheckout && activeCampaign && (
+              <div className="flex items-center gap-4">
+                <Badge variant="info" className="bg-rose-gold text-white">
+                  {activeCampaign.name}
+                </Badge>
+                <span className="text-sm text-text-secondary">
+                  {activeCampaign.discountPercentage}% discount applied
+                </span>
+              </div>
+            )}
+          </div>
           
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Left Column - Contact & Shipping */}
               <div className="lg:col-span-2 space-y-6">
+                {/* Campaign Info for Preorders */}
+                {isPreorderCheckout && activeCampaign && (
+                  <Card className="bg-soft-pink/50 border-rose-gold">
+                    <CardContent className="p-4">
+                      <div className="flex items-start gap-3">
+                        <span className="text-2xl">🎯</span>
+                        <div className="flex-1">
+                          <h3 className="font-medium mb-1">Pre-order Campaign Details</h3>
+                          <p className="text-sm text-text-secondary">
+                            Processing date: {formatDate(activeCampaign.preorderDate)}
+                          </p>
+                          <p className="text-sm text-text-secondary">
+                            Estimated delivery: {activeCampaign.deliveryTimeframe} after processing
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+                
                 {/* Contact Information */}
                 <Card>
                   <CardContent>
@@ -240,7 +386,22 @@ export const ConsumerCheckout: React.FC = () => {
                             { value: 'France', label: 'France' },
                             { value: 'Germany', label: 'Germany' },
                             { value: 'Italy', label: 'Italy' },
-                            { value: 'Spain', label: 'Spain' }
+                            { value: 'Spain', label: 'Spain' },
+                            { value: 'Netherlands', label: 'Netherlands' },
+                            { value: 'Belgium', label: 'Belgium' },
+                            { value: 'Austria', label: 'Austria' },
+                            { value: 'Ireland', label: 'Ireland' },
+                            { value: 'Portugal', label: 'Portugal' },
+                            { value: 'Poland', label: 'Poland' },
+                            { value: 'Sweden', label: 'Sweden' },
+                            { value: 'Denmark', label: 'Denmark' },
+                            { value: 'Finland', label: 'Finland' },
+                            { value: 'Norway', label: 'Norway' },
+                            { value: 'Switzerland', label: 'Switzerland' },
+                            { value: 'Czech Republic', label: 'Czech Republic' },
+                            { value: 'Greece', label: 'Greece' },
+                            { value: 'Hungary', label: 'Hungary' },
+                            { value: 'Romania', label: 'Romania' }
                           ]}
                         />
                       </div>
@@ -280,31 +441,50 @@ export const ConsumerCheckout: React.FC = () => {
                     
                     {/* Items */}
                     <div className="space-y-3 mb-6">
-                      {items.map((item) => {
-                        const basePrice = item.product.retailPrice?.item || item.product.price?.retail || 0
-                        const price = item.product.isPreorder && item.product.preorderDiscount
-                          ? basePrice * (1 - item.product.preorderDiscount / 100)
-                          : basePrice
-                        
-                        return (
-                          <div key={`${item.product.id}-${item.id}`} className="flex justify-between text-sm">
+                      {isPreorderCheckout ? (
+                        // Preorder items display
+                        preorderItems.map((item) => (
+                          <div key={item.productId} className="flex justify-between text-sm">
                             <div>
                               <p>{item.product.name}</p>
                               <p className="text-text-secondary">Qty: {item.quantity}</p>
-                              {item.product.isPreorder && item.product.preorderDiscount && (
-                                <p className="text-success-green text-xs">Pre-order: {item.product.preorderDiscount}% off</p>
-                              )}
+                              <p className="text-success-green text-xs">
+                                Pre-order: {item.discountPercentage}% off
+                              </p>
                             </div>
-                            <PriceDisplay amountUSD={price * item.quantity} />
+                            <PriceDisplay amountUSD={item.discountedPrice * item.quantity} />
                           </div>
-                        )
-                      })}
+                        ))
+                      ) : (
+                        // Regular items display
+                        regularItems.map((item) => {
+                          const basePrice = item.product.retailPrice?.item || item.product.price?.retail || 0
+                          const price = item.product.isPreorder && item.product.preorderDiscount
+                            ? basePrice * (1 - item.product.preorderDiscount / 100)
+                            : basePrice
+                          
+                          return (
+                            <div key={`${item.product.id}-${item.id}`} className="flex justify-between text-sm">
+                              <div>
+                                <p>{item.product.name}</p>
+                                <p className="text-text-secondary">Qty: {item.quantity}</p>
+                                {item.product.isPreorder && item.product.preorderDiscount && (
+                                  <p className="text-success-green text-xs">Pre-order: {item.product.preorderDiscount}% off</p>
+                                )}
+                              </div>
+                              <PriceDisplay amountUSD={price * item.quantity} />
+                            </div>
+                          )
+                        })
+                      )}
                     </div>
                     
-                    {/* Discount Code Input */}
-                    <div className="mb-4">
-                      <DiscountCodeInput />
-                    </div>
+                    {/* Discount Code Input - only for regular checkout */}
+                    {!isPreorderCheckout && (
+                      <div className="mb-4">
+                        <DiscountCodeInput />
+                      </div>
+                    )}
                     
                     {/* Totals */}
                     <div className="border-t border-border-gray pt-4 space-y-2">
@@ -314,7 +494,7 @@ export const ConsumerCheckout: React.FC = () => {
                       </div>
                       {discount > 0 && (
                         <div className="flex justify-between text-sm text-green-600">
-                          <span>Discount</span>
+                          <span>{isPreorderCheckout ? 'Pre-order Discount' : 'Discount'}</span>
                           <span className="text-green-600">-<PriceDisplay amountUSD={discount} size="small" /></span>
                         </div>
                       )}
@@ -339,11 +519,13 @@ export const ConsumerCheckout: React.FC = () => {
                         fullWidth
                         disabled={loading}
                       >
-                        {loading ? 'Processing...' : 'Continue to Payment'}
+                        {loading ? 'Processing...' : isPreorderCheckout ? 'Place Pre-order' : 'Continue to Payment'}
                       </Button>
                       
                       <p className="text-xs text-text-secondary text-center mt-4">
-                        By placing this order, you agree to our terms and conditions
+                        {isPreorderCheckout 
+                          ? 'By placing this pre-order, you agree to our pre-order terms. Your card will be charged immediately to secure your discount.'
+                          : 'By placing this order, you agree to our terms and conditions'}
                       </p>
                     </div>
                   </CardContent>

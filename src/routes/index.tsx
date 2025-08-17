@@ -56,7 +56,7 @@ import { BrandOrders } from '../pages/brand/BrandOrders'
 // Consumer Pages
 import { ConsumerShop } from '../pages/ConsumerShop'
 import { ConsumerCheckout } from '../pages/ConsumerCheckout'
-import { ConsumerPreorderCheckout } from '../pages/ConsumerPreorderCheckout'
+// import { ConsumerPreorderCheckout } from '../pages/ConsumerPreorderCheckout' - Using unified checkout now
 import { ConsumerPreorderCart } from '../pages/ConsumerPreorderCart'
 import { ConsumerUnifiedCart } from '../pages/ConsumerUnifiedCart'
 import { CheckoutSuccess } from '../pages/CheckoutSuccess'
@@ -382,9 +382,7 @@ export const AppRoutes: React.FC = () => {
         </ConsumerRoute>
       } />
       <Route path="/shop/preorder-checkout" element={
-        <ConsumerRoute>
-          <ConsumerPreorderCheckout />
-        </ConsumerRoute>
+        <Navigate to="/shop/checkout?mode=preorder" replace />
       } />
       <Route path="/shop/checkout/success" element={<CheckoutSuccess />} />
       <Route path="/shop/account" element={
