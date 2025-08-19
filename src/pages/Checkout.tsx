@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Layout, Container, Section } from '../components/layout'
-import { Button, Card, CardContent, CardHeader, CardTitle } from '../components/ui'
+import { Button, Card, CardContent, CardHeader, CardTitle, Input } from '../components/ui'
 import { useCartStore } from '../stores/cart.store'
 import { useAuthStore } from '../stores/auth.store'
-import { orderService } from '../services'
+import { orderService, discountService } from '../services'
 import { getProductName } from '../utils/product-helpers'
+import { DiscountValidationResult } from '../types/discount'
+import toast from 'react-hot-toast'
 
 export const Checkout: React.FC = () => {
   const navigate = useNavigate()
@@ -24,6 +26,11 @@ export const Checkout: React.FC = () => {
     step6: false
   })
   const [orderIds, setOrderIds] = useState<string[]>([])
+  
+  // Discount code state
+  const [discountCode, setDiscountCode] = useState('')
+  const [discountValidation, setDiscountValidation] = useState<DiscountValidationResult | null>(null)
+  const [isValidatingDiscount, setIsValidatingDiscount] = useState(false)
   
   // Company information
   const [companyInfo, setCompanyInfo] = useState({
@@ -59,8 +66,56 @@ export const Checkout: React.FC = () => {
   
   const subtotal = getTotalPrice()
   const taxRate = 0.2 // 20% VAT
-  const tax = subtotal * taxRate
-  const total = subtotal + tax
+  
+  // Calculate discount
+  const discountAmount = discountValidation?.valid ? (discountValidation.discountAmount || 0) : 0
+  const discountedSubtotal = subtotal - discountAmount
+  const tax = discountedSubtotal * taxRate
+  const total = discountedSubtotal + tax
+  
+  // Validate discount code
+  const validateDiscountCode = async () => {
+    if (!discountCode.trim()) {
+      setDiscountValidation(null)
+      return
+    }
+    
+    setIsValidatingDiscount(true)
+    try {
+      // Get unique brand IDs from cart
+      const brandIds = Object.keys(brandGroups)
+      
+      // Check if this is a new customer (simplified check - you might want to improve this)
+      const isNewCustomer = !user?.createdAt || 
+        (new Date().getTime() - new Date(user.createdAt).getTime()) < 24 * 60 * 60 * 1000 // Less than 24 hours old
+      
+      const validation = await discountService.validateDiscountCode(discountCode, {
+        customerId: user?.id,
+        orderValue: subtotal,
+        brandIds: brandIds,
+        isNewCustomer: isNewCustomer
+      })
+      
+      setDiscountValidation(validation)
+      
+      if (validation.valid) {
+        toast.success('Discount code applied successfully!')
+      } else {
+        toast.error(validation.error || 'Invalid discount code')
+      }
+    } catch (error) {
+      console.error('Error validating discount code:', error)
+      toast.error('Failed to validate discount code')
+      setDiscountValidation(null)
+    } finally {
+      setIsValidatingDiscount(false)
+    }
+  }
+  
+  const removeDiscountCode = () => {
+    setDiscountCode('')
+    setDiscountValidation(null)
+  }
   
   const canProceed = () => {
     if (currentStep === 1) {
@@ -111,8 +166,14 @@ export const Checkout: React.FC = () => {
           return sum + (pricePerCarton * item.quantity)
         }, 0)
         
-        const brandTax = brandSubtotal * taxRate
-        const brandTotal = brandSubtotal + brandTax
+        // Calculate proportional discount for this brand
+        const brandDiscountAmount = discountAmount > 0 
+          ? (brandSubtotal / subtotal) * discountAmount 
+          : 0
+        
+        const discountedBrandSubtotal = brandSubtotal - brandDiscountAmount
+        const brandTax = discountedBrandSubtotal * taxRate
+        const brandTotal = discountedBrandSubtotal + brandTax
         
         const orderData = {
           userId: user?.id || '',
@@ -144,6 +205,7 @@ export const Checkout: React.FC = () => {
             items: brandSubtotal,
             shipping: 0,
             tax: brandTax,
+            discount: brandDiscountAmount,
             total: brandTotal,
             currency: 'GBP' as const
           },
@@ -166,6 +228,13 @@ export const Checkout: React.FC = () => {
           documents: [],
           messageThreadId: `order-${Date.now()}-${brandGroup.brandId}`,
           notes: additionalNotes,
+          // Include discount information if applicable
+          ...(discountValidation?.valid && discountValidation.discountCode && {
+            discountCode: discountValidation.discountCode.code,
+            discountCodeId: discountValidation.discountCode.id,
+            affiliateCode: discountValidation.affiliate ? discountValidation.discountCode.code : undefined,
+            affiliateUserId: discountValidation.affiliate?.id
+          }),
           createdAt: new Date(),
           updatedAt: new Date()
         }
@@ -175,6 +244,24 @@ export const Checkout: React.FC = () => {
         
         // Clear items from this brand from cart
         await clearBrandItems(brandGroup.brandId)
+      }
+      
+      // Record discount usage if applicable
+      if (discountValidation?.valid && discountValidation.discountCode) {
+        try {
+          await discountService.recordDiscountUsage({
+            discountCodeId: discountValidation.discountCode.id,
+            discountCode: discountValidation.discountCode.code,
+            customerId: user?.id,
+            customerEmail: user?.email || '',
+            orderId: createdOrderIds.join(','), // Join all order IDs
+            orderValue: subtotal,
+            discountAmount: discountAmount
+          })
+        } catch (error) {
+          console.error('Error recording discount usage:', error)
+          // Don't fail the order if recording discount usage fails
+        }
       }
       
       setOrderIds(createdOrderIds)
@@ -392,6 +479,49 @@ export const Checkout: React.FC = () => {
                   />
                 </div>
                 
+                {/* Discount Code Section */}
+                <div className="bg-soft-pink p-4 rounded-lg">
+                  <h3 className="font-medium mb-3">Discount Code</h3>
+                  {!discountValidation?.valid ? (
+                    <div className="flex gap-3">
+                      <Input
+                        value={discountCode}
+                        onChange={(e) => setDiscountCode(e.target.value.toUpperCase())}
+                        placeholder="Enter discount code"
+                        disabled={isValidatingDiscount}
+                      />
+                      <Button
+                        onClick={validateDiscountCode}
+                        disabled={!discountCode.trim() || isValidatingDiscount}
+                        loading={isValidatingDiscount}
+                      >
+                        Apply
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium text-success-green">
+                          ✓ {discountValidation.discountCode?.name}
+                        </p>
+                        <p className="text-sm text-text-secondary">
+                          {discountValidation.discountCode?.discountType === 'percentage' 
+                            ? `${discountValidation.discountCode.discountValue}% off`
+                            : `$${discountValidation.discountCode?.discountValue} off`
+                          }
+                        </p>
+                      </div>
+                      <Button
+                        variant="secondary"
+                        size="small"
+                        onClick={removeDiscountCode}
+                      >
+                        Remove
+                      </Button>
+                    </div>
+                  )}
+                </div>
+                
                 {/* Order Summary by Brand */}
                 {Object.values(brandGroups).map(brandGroup => {
                   const brandSubtotal = brandGroup.items.reduce((sum, item) => {
@@ -446,6 +576,12 @@ export const Checkout: React.FC = () => {
                       <span>Subtotal</span>
                       <span>${subtotal.toFixed(2)}</span>
                     </div>
+                    {discountAmount > 0 && (
+                      <div className="flex justify-between text-success-green">
+                        <span>Discount</span>
+                        <span>-${discountAmount.toFixed(2)}</span>
+                      </div>
+                    )}
                     <div className="flex justify-between">
                       <span>VAT (20%)</span>
                       <span>${tax.toFixed(2)}</span>
@@ -614,6 +750,17 @@ export const Checkout: React.FC = () => {
                 <p className="text-text-secondary mb-8">
                   Your orders have been submitted to the respective brands for processing.
                 </p>
+                
+                {discountValidation?.valid && (
+                  <div className="bg-soft-pink p-4 rounded-lg mb-6">
+                    <p className="text-sm font-medium text-success-green">
+                      ✓ Discount code "{discountValidation.discountCode?.code}" applied successfully
+                    </p>
+                    <p className="text-sm text-text-secondary">
+                      You saved ${discountAmount.toFixed(2)} on this order
+                    </p>
+                  </div>
+                )}
                 
                 {orderIds.length > 0 && (
                   <div className="space-y-3 mb-8">
