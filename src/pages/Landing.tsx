@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom'
 import { Container, Section, Grid } from '../components/layout'
 import { Button, Input, Textarea, Card, CardContent } from '../components/ui'
 import { Layout } from '../components/layout'
-import { TestimonialCard, PartnerCard } from '../components/features'
+import { TestimonialCard } from '../components/features'
+import { BrandHeroCarousel } from '../components/features/BrandHeroCarousel'
+import { ExclusivePartnersCarousel } from '../components/features/ExclusivePartnersCarousel'
 import { brandService } from '../services'
 import type { Brand } from '../types'
 
@@ -114,7 +116,6 @@ export const Landing: React.FC = () => {
     message: ''
   })
   const [exclusivePartners, setExclusivePartners] = useState<Brand[]>([])
-  const [currentBrandIndex, setCurrentBrandIndex] = useState(0)
   
   useEffect(() => {
     const loadExclusivePartners = async () => {
@@ -129,16 +130,6 @@ export const Landing: React.FC = () => {
     loadExclusivePartners()
   }, [])
 
-  // Brand carousel effect
-  useEffect(() => {
-    if (exclusivePartners.length === 0) return
-    
-    const interval = setInterval(() => {
-      setCurrentBrandIndex((prev) => (prev + 1) % exclusivePartners.length)
-    }, 5000) // Change every 5 seconds
-    
-    return () => clearInterval(interval)
-  }, [exclusivePartners.length])
   
   const handleSubmit = (_e: React.FormEvent) => {
     // Let Netlify handle the form submission
@@ -151,44 +142,21 @@ export const Landing: React.FC = () => {
       <Section className="relative text-center bg-gradient-to-br from-soft-pink to-white py-20 overflow-hidden">
         {/* Background with reduced opacity */}
         <div 
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-35"
           style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1920)',
+            backgroundImage: 'url(https://firebasestorage.googleapis.com/v0/b/lovingyourskinshop.firebasestorage.app/o/wisminslider4.jpg?alt=media&token=f918e934-f933-4821-accd-c2cc2f14061e)',
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}
         />
         
         {/* Brand Carousel Overlay */}
-        {exclusivePartners.length > 0 && (
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            {exclusivePartners.map((brand, index) => (
-              <div
-                key={brand.id}
-                className={`absolute inset-0 flex items-center justify-center transition-all duration-1000 ease-in-out ${
-                  index === currentBrandIndex 
-                    ? 'opacity-20 scale-100' 
-                    : 'opacity-0 scale-95'
-                }`}
-              >
-                <img
-                  src={brand.heroImage || brand.logo}
-                  alt={`${brand.name} products`}
-                  className="max-w-2xl max-h-96 object-contain"
-                  style={{
-                    filter: 'blur(1px)',
-                    mixBlendMode: 'multiply'
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-        )}
+       
         
-        <Container className="relative z-10">
+        <Container className="relative z-10 max-w-4xl">
           <div className="mb-8">
             <img 
-              src="https://firebasestorage.googleapis.com/v0/b/lovingyourskinshop.firebasestorage.app/o/WhatsApp_Image_2025-06-22_at_11.43.11-removebg-preview.png?alt=media&token=237442fd-02cb-48ee-9628-1c68fd45add5" 
+              src="https://firebasestorage.googleapis.com/v0/b/lovingyourskinshop.firebasestorage.app/o/a9f8c811-8f84-4bd6-b9b0-be6bdfc7fce7-removebg-preview-3.png?alt=media&token=b4e7b642-62e9-43b5-9343-8bf670c169e8" 
               alt="Loving Your Skin Logo" 
               className="h-24 md:h-32 mx-auto object-contain"
             />
@@ -211,6 +179,7 @@ export const Landing: React.FC = () => {
         </Container>
       </Section>
       
+
       {/* Retail Shop Banner - More Prominent */}
       <div className="bg-gradient-to-r from-rose-gold via-pink-500 to-rose-gold text-white py-6 shadow-lg relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
@@ -251,8 +220,25 @@ export const Landing: React.FC = () => {
         </Container>
       </Section>
 
-      {/* Benefits by User Type */}
+      {/* Exclusive Partners Section - Moved Up */}
       <Section background="gray">
+        <Container>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-light text-deep-charcoal mb-6">
+              Our Exclusive Partners
+            </h2>
+            <p className="text-xl text-text-secondary max-w-3xl mx-auto">
+              The brands we sell are the products we use. We love them, our customers love them, 
+              and most of all we trust them and their products.
+            </p>
+          </div>
+          
+          <ExclusivePartnersCarousel partners={exclusivePartners} />
+        </Container>
+      </Section>
+
+      {/* Benefits by User Type */}
+      <Section background="white">
         <Container>
           <div className="grid md:grid-cols-2 gap-12">
             {/* For Retailers */}
@@ -363,37 +349,6 @@ export const Landing: React.FC = () => {
                 author={testimonial.author}
                 companyDetails={testimonial.companyDetails}
                 rating={testimonial.rating}
-              />
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      {/* Exclusive Partners Section */}
-      <Section background="white">
-        <Container>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-light text-deep-charcoal mb-6">
-              Our Exclusive Partners
-            </h2>
-            <p className="text-xl text-text-secondary max-w-3xl mx-auto">
-              The brands we sell are the products we use. We love them, our customers love them, 
-              and most of all we trust them and their products.
-            </p>
-          </div>
-          
-          <div className="space-y-12 max-w-6xl mx-auto">
-            {exclusivePartners.map((brand) => (
-              <PartnerCard 
-                key={brand.id}
-                brand={{
-                  name: brand.name,
-                  logo: brand.logo,
-                  heroImage: brand.heroImage,
-                  description: brand.description,
-                  highlights: brand.featureTags
-                }}
-                variant="side-by-side"
               />
             ))}
           </div>

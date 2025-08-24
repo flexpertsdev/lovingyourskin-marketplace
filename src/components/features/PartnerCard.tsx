@@ -114,9 +114,9 @@ export const PartnerCard: React.FC<PartnerCardProps> = ({
         className
       )}
     >
-      <div className="flex flex-col lg:flex-row">
-        {/* Image Section */}
-        <div className="lg:w-1/2 h-64 lg:h-[400px] relative overflow-hidden bg-gradient-to-br from-soft-pink/20 to-white">
+      <div className="flex flex-col lg:flex-row h-full">
+        {/* Image Section - Full height */}
+        <div className="lg:w-1/2 h-64 lg:h-auto relative overflow-hidden bg-gradient-to-br from-soft-pink/20 to-white">
           <img 
             src={brand.heroImage}
             alt={`${brand.name} products`}
@@ -125,27 +125,25 @@ export const PartnerCard: React.FC<PartnerCardProps> = ({
         </div>
         
         {/* Content Section */}
-        <div className="lg:w-1/2 p-8 lg:p-10 flex flex-col justify-center bg-white">
+        <div className="lg:w-1/2 p-6 lg:p-8 flex flex-col bg-white">
           <img 
             src={brand.logo}
             alt={brand.name}
-            className="h-14 mb-6 object-contain"
+            className="h-12 mb-4 object-contain"
           />
-          <h3 className="text-2xl font-medium text-deep-charcoal mb-4">
+          <h3 className="text-xl font-medium text-deep-charcoal mb-3">
             {brand.name}
           </h3>
-          <p className="text-text-secondary leading-relaxed mb-6">
+          <p className="text-sm text-text-secondary leading-relaxed mb-5">
             {brand.description}
           </p>
           
           {brand.highlights && brand.highlights.length > 0 && (
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2">
               {brand.highlights.map((highlight, index) => (
-                <div key={index} className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-rose-gold/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <div className="w-2 h-2 rounded-full bg-rose-gold" />
-                  </div>
-                  <span className="text-sm text-text-secondary">{highlight}</span>
+                <div key={index} className="flex items-start gap-2">
+                  <span className="text-rose-gold mt-0.5 text-sm">•</span>
+                  <span className="text-xs text-text-secondary leading-tight">{highlight}</span>
                 </div>
               ))}
             </div>
