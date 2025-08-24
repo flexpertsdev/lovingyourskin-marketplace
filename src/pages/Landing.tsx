@@ -179,6 +179,8 @@ export const Landing: React.FC = () => {
         </Container>
       </Section>
       
+      {/* Brand Hero Carousel Section */}
+      <BrandHeroCarousel />
 
       {/* Retail Shop Banner - More Prominent */}
       <div className="bg-gradient-to-r from-rose-gold via-pink-500 to-rose-gold text-white py-6 shadow-lg relative overflow-hidden">
