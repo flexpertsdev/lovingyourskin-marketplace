@@ -4,7 +4,6 @@ import { Container, Section, Grid } from '../components/layout'
 import { Button, Input, Textarea, Card, CardContent } from '../components/ui'
 import { Layout } from '../components/layout'
 import { TestimonialCard } from '../components/features'
-import { BrandHeroCarousel } from '../components/features/BrandHeroCarousel'
 import { ExclusivePartnersCarousel } from '../components/features/ExclusivePartnersCarousel'
 import { brandService } from '../services'
 import type { Brand } from '../types'
@@ -180,7 +179,6 @@ export const Landing: React.FC = () => {
       </Section>
       
       {/* Brand Hero Carousel Section */}
-      <BrandHeroCarousel />
 
       {/* Retail Shop Banner - More Prominent */}
       <div className="bg-gradient-to-r from-rose-gold via-pink-500 to-rose-gold text-white py-6 shadow-lg relative overflow-hidden">
