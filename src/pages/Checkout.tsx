@@ -1,18 +1,37 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { Layout, Container, Section } from '../components/layout'
-import { Button, Card, CardContent, CardHeader, CardTitle, Input } from '../components/ui'
+import { Button, Card, CardContent, CardHeader, CardTitle, Input, Badge } from '../components/ui'
 import { useCartStore } from '../stores/cart.store'
 import { useAuthStore } from '../stores/auth.store'
-import { orderService, discountService } from '../services'
+import { useCurrencyStore } from '../stores/currency.store'
+import { orderService, discountService, brandService } from '../services'
 import { getProductName } from '../utils/product-helpers'
+import { formatConvertedPrice } from '../utils/currency'
 import { DiscountValidationResult } from '../types/discount'
+import { Brand, BrandCartSummary } from '../types'
 import toast from 'react-hot-toast'
+import { AlertTriangle } from 'lucide-react'
 
 export const Checkout: React.FC = () => {
   const navigate = useNavigate()
+  const location = useLocation()
   const { user } = useAuthStore()
-  const { cart, moqStatuses, getTotalPrice, clearBrandItems } = useCartStore()
+  const { currentCurrency } = useCurrencyStore()
+  const {
+    cart,
+    brands,
+    setBrands,
+    appliedDiscounts,
+    applyDiscountCode,
+    removeDiscountCode,
+    clearDiscountCodes,
+    getAllBrandCartSummaries,
+    getCheckoutEligibility,
+    getFilteredCartItems,
+    getTotalWithDiscounts,
+    clearBrandItems
+  } = useCartStore()
   
   const [currentStep, setCurrentStep] = useState(1)
   const [isProcessing, setIsProcessing] = useState(false)
@@ -26,10 +45,10 @@ export const Checkout: React.FC = () => {
     step6: false
   })
   const [orderIds, setOrderIds] = useState<string[]>([])
+  const [filteredBrandIds, setFilteredBrandIds] = useState<string[] | null>(null)
   
   // Discount code state
   const [discountCode, setDiscountCode] = useState('')
-  const [discountValidation, setDiscountValidation] = useState<DiscountValidationResult | null>(null)
   const [isValidatingDiscount, setIsValidatingDiscount] = useState(false)
   
   // Company information
@@ -50,81 +69,118 @@ export const Checkout: React.FC = () => {
     phone: ''
   })
   
-  // Group cart items by brand
-  const brandGroups = cart.items.reduce((acc, item) => {
-    const brandId = item.product.brandId
-    if (!acc[brandId]) {
-      acc[brandId] = {
-        brandId,
-        brandName: moqStatuses.find(s => s.brandId === brandId)?.brandName || brandId,
-        items: []
+  // Parse URL parameters for brand filtering
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search)
+    const brandParam = searchParams.get('brand')
+    const brandsParam = searchParams.get('brands')
+    
+    if (brandParam) {
+      setFilteredBrandIds([brandParam])
+    } else if (brandsParam) {
+      setFilteredBrandIds(brandsParam.split(','))
+    } else {
+      setFilteredBrandIds(null) // All brands
+    }
+  }, [location.search])
+  
+  // Load brand data
+  useEffect(() => {
+    const loadBrandData = async () => {
+      try {
+        const allBrands = await brandService.getBrands()
+        setBrands(allBrands)
+      } catch (error) {
+        console.error('Failed to load brand data:', error)
+        toast.error('Failed to load brand information')
       }
     }
-    acc[brandId].items.push(item)
-    return acc
-  }, {} as Record<string, { brandId: string; brandName: string; items: typeof cart.items }>)
+    
+    if (brands.length === 0) {
+      loadBrandData()
+    }
+  }, [brands.length, setBrands])
   
-  const subtotal = getTotalPrice()
+  // Get eligible items for checkout (filtered by URL params if provided)
+  const checkoutItems = getFilteredCartItems(filteredBrandIds || undefined)
+  const brandSummaries = getAllBrandCartSummaries()
+    .filter(summary => {
+      if (!filteredBrandIds) return summary.canCheckout
+      return filteredBrandIds.includes(summary.brandId) && summary.canCheckout
+    })
+  
+  const excludedBrandSummaries = getAllBrandCartSummaries()
+    .filter(summary => {
+      if (!filteredBrandIds) return false
+      return !filteredBrandIds.includes(summary.brandId) || !summary.canCheckout
+    })
+  
+  const checkoutEligibility = getCheckoutEligibility()
+  const subtotal = brandSummaries.reduce((sum, summary) => sum + summary.subtotal, 0)
+  const totalDiscounts = brandSummaries.reduce((sum, summary) => {
+    const volumeDiscountSavings = summary.volumeDiscount?.savings || 0
+    const codeDiscountSavings = summary.appliedDiscountCodes.reduce(
+      (codeSum, discount) => codeSum + (discount.discountAmount || 0), 0
+    )
+    return sum + volumeDiscountSavings + codeDiscountSavings
+  }, 0)
   const taxRate = 0.2 // 20% VAT
-  
-  // Calculate discount
-  const discountAmount = discountValidation?.valid ? (discountValidation.discountAmount || 0) : 0
-  const discountedSubtotal = subtotal - discountAmount
+  const discountedSubtotal = subtotal - totalDiscounts
   const tax = discountedSubtotal * taxRate
   const total = discountedSubtotal + tax
   
   // Validate discount code
   const validateDiscountCode = async () => {
-    if (!discountCode.trim()) {
-      setDiscountValidation(null)
-      return
-    }
+    if (!discountCode.trim()) return
     
     setIsValidatingDiscount(true)
     try {
-      // Get unique brand IDs from cart
-      const brandIds = Object.keys(brandGroups)
+      // Get brand IDs from eligible items
+      const brandIds = [...new Set(checkoutItems.map(item => item.product.brandId))]
       
-      // Check if this is a new customer (simplified check - you might want to improve this)
-      const isNewCustomer = !user?.createdAt || 
-        (new Date().getTime() - new Date(user.createdAt).getTime()) < 24 * 60 * 60 * 1000 // Less than 24 hours old
+      // Check if this is a new customer
+      const isNewCustomer = !user?.createdAt ||
+        (new Date().getTime() - new Date(user.createdAt).getTime()) < 24 * 60 * 60 * 1000
       
       const validation = await discountService.validateDiscountCode(discountCode, {
         customerId: user?.id,
         orderValue: subtotal,
         brandIds: brandIds,
-        isNewCustomer: isNewCustomer
+        isNewCustomer: isNewCustomer,
+        cartItems: checkoutItems,
+        isB2BOrder: true
       })
       
-      setDiscountValidation(validation)
-      
       if (validation.valid) {
-        toast.success('Discount code applied successfully!')
+        applyDiscountCode(validation)
+        setDiscountCode('')
+        toast.success(`Discount code "${validation.discountCode?.code}" applied successfully!`)
       } else {
         toast.error(validation.error || 'Invalid discount code')
       }
     } catch (error) {
       console.error('Error validating discount code:', error)
       toast.error('Failed to validate discount code')
-      setDiscountValidation(null)
     } finally {
       setIsValidatingDiscount(false)
     }
   }
   
-  const removeDiscountCode = () => {
-    setDiscountCode('')
-    setDiscountValidation(null)
+  const handleRemoveDiscountCode = (discountCodeId: string) => {
+    removeDiscountCode(discountCodeId)
+    toast.success('Discount code removed')
   }
   
   const canProceed = () => {
     if (currentStep === 1) {
-      // Validate company info and shipping address
-      return companyInfo.companyName.trim().length > 0 &&
-             companyInfo.companyRegistrationNumber.trim().length > 0 &&
-             shippingAddress.street.trim().length > 0 &&
-             shippingAddress.city.trim().length > 0 &&
-             shippingAddress.postalCode.trim().length > 0
+      return (
+        companyInfo.companyName.trim().length > 0 &&
+        companyInfo.companyRegistrationNumber.trim().length > 0 &&
+        shippingAddress.street.trim().length > 0 &&
+        shippingAddress.city.trim().length > 0 &&
+        shippingAddress.postalCode.trim().length > 0 &&
+        brandSummaries.length > 0
+      )
     }
     if (currentStep === 2) {
       return Object.values(processSteps).every(step => step)
@@ -141,7 +197,6 @@ export const Checkout: React.FC = () => {
   const handleProcessStep2 = () => {
     if (canProceed()) {
       setCurrentStep(3)
-      // Submit orders
       submitOrders()
     }
   }
@@ -153,27 +208,9 @@ export const Checkout: React.FC = () => {
       const createdOrderIds: string[] = []
       
       // Create separate order for each brand
-      for (const brandGroup of Object.values(brandGroups)) {
-        const brandItems = brandGroup.items
-        const brandSubtotal = brandItems.reduce((sum, item) => {
-          const pricePerItem = item.product.variants?.[0]?.pricing?.b2b?.wholesalePrice || 
-                       item.product.price?.wholesale || 
-                       item.product.price?.retail ||
-                       item.product.retailPrice?.item || 0
-          const unitsPerCarton = item.product.variants?.[0]?.pricing?.b2b?.unitsPerCarton || 
-                                item.product.itemsPerCarton || 1
-          const pricePerCarton = pricePerItem * unitsPerCarton
-          return sum + (pricePerCarton * item.quantity)
-        }, 0)
-        
-        // Calculate proportional discount for this brand
-        const brandDiscountAmount = discountAmount > 0 
-          ? (brandSubtotal / subtotal) * discountAmount 
-          : 0
-        
-        const discountedBrandSubtotal = brandSubtotal - brandDiscountAmount
-        const brandTax = discountedBrandSubtotal * taxRate
-        const brandTotal = discountedBrandSubtotal + brandTax
+      for (const brandSummary of brandSummaries) {
+        const brand = brands.find(b => b.id === brandSummary.brandId)
+        if (!brand) continue
         
         const orderData = {
           userId: user?.id || '',
@@ -181,20 +218,20 @@ export const Checkout: React.FC = () => {
           retailerId: user?.id || '',
           retailerName: companyInfo.companyName,
           retailerCompanyId: companyInfo.companyRegistrationNumber,
-          brandId: brandGroup.brandId,
-          brandName: brandGroup.brandName,
-          items: brandItems.map(item => {
-            const pricePerItem = item.product.variants?.[0]?.pricing?.b2b?.wholesalePrice || 
-                               item.product.price?.wholesale || 
-                               item.product.price?.retail ||
-                               item.product.retailPrice?.item || 0
-            const unitsPerCarton = item.product.variants?.[0]?.pricing?.b2b?.unitsPerCarton || 
-                                 item.product.itemsPerCarton || 1
+          brandId: brandSummary.brandId,
+          brandName: brandSummary.brandName,
+          items: brandSummary.items.map(item => {
+            const pricePerItem = item.product.variants?.[0]?.pricing?.b2b?.wholesalePrice ||
+              item.product.price?.wholesale ||
+              item.product.price?.retail ||
+              item.product.retailPrice?.item || 0
+            const unitsPerCarton = item.product.variants?.[0]?.pricing?.b2b?.unitsPerCarton ||
+              item.product.itemsPerCarton || 1
             const pricePerCarton = pricePerItem * unitsPerCarton
             return {
               productId: item.product.id,
               productName: getProductName(item.product),
-              quantity: item.quantity, // This is in cartons
+              quantity: item.quantity,
               pricePerItem,
               pricePerCarton,
               totalPrice: pricePerCarton * item.quantity
@@ -202,11 +239,11 @@ export const Checkout: React.FC = () => {
           }),
           status: 'pending' as const,
           totalAmount: {
-            items: brandSubtotal,
+            items: brandSummary.subtotal,
             shipping: 0,
-            tax: brandTax,
-            discount: brandDiscountAmount,
-            total: brandTotal,
+            tax: (brandSummary.total - brandSummary.subtotal) * taxRate, // Calculate tax portion
+            discount: brandSummary.subtotal - brandSummary.total + ((brandSummary.total - brandSummary.subtotal) * taxRate),
+            total: brandSummary.total,
             currency: 'GBP' as const
           },
           shippingAddress: {
@@ -226,14 +263,16 @@ export const Checkout: React.FC = () => {
             description: 'Order created'
           }],
           documents: [],
-          messageThreadId: `order-${Date.now()}-${brandGroup.brandId}`,
+          messageThreadId: `order-${Date.now()}-${brandSummary.brandId}`,
           notes: additionalNotes,
           // Include discount information if applicable
-          ...(discountValidation?.valid && discountValidation.discountCode && {
-            discountCode: discountValidation.discountCode.code,
-            discountCodeId: discountValidation.discountCode.id,
-            affiliateCode: discountValidation.affiliate ? discountValidation.discountCode.code : undefined,
-            affiliateUserId: discountValidation.affiliate?.id
+          ...(brandSummary.appliedDiscountCodes.length > 0 && {
+            discountCodes: brandSummary.appliedDiscountCodes.map(discount => ({
+              code: discount.discountCode?.code || '',
+              id: discount.discountCode?.id || '',
+              amount: discount.discountAmount || 0,
+              type: discount.discountCode?.discountType || 'percentage'
+            }))
           }),
           createdAt: new Date(),
           updatedAt: new Date()
@@ -243,31 +282,35 @@ export const Checkout: React.FC = () => {
         createdOrderIds.push(order.id)
         
         // Clear items from this brand from cart
-        await clearBrandItems(brandGroup.brandId)
+        await clearBrandItems(brandSummary.brandId)
       }
       
       // Record discount usage if applicable
-      if (discountValidation?.valid && discountValidation.discountCode) {
-        try {
-          await discountService.recordDiscountUsage({
-            discountCodeId: discountValidation.discountCode.id,
-            discountCode: discountValidation.discountCode.code,
-            customerId: user?.id,
-            customerEmail: user?.email || '',
-            orderId: createdOrderIds.join(','), // Join all order IDs
-            orderValue: subtotal,
-            discountAmount: discountAmount
-          })
-        } catch (error) {
-          console.error('Error recording discount usage:', error)
-          // Don't fail the order if recording discount usage fails
+      for (const discount of appliedDiscounts) {
+        if (discount.valid && discount.discountCode) {
+          try {
+            await discountService.recordDiscountUsage({
+              discountCodeId: discount.discountCode.id,
+              discountCode: discount.discountCode.code,
+              customerId: user?.id,
+              customerEmail: user?.email || '',
+              orderId: createdOrderIds.join(','),
+              orderValue: subtotal,
+              discountAmount: discount.discountAmount || 0
+            })
+          } catch (error) {
+            console.error('Error recording discount usage:', error)
+          }
         }
       }
+      
+      // Clear applied discount codes
+      clearDiscountCodes()
       
       setOrderIds(createdOrderIds)
     } catch (error) {
       console.error('Failed to submit orders:', error)
-      alert('Failed to submit orders. Please try again.')
+      toast.error('Failed to submit orders. Please try again.')
       setCurrentStep(2)
     } finally {
       setIsProcessing(false)
@@ -302,7 +345,8 @@ export const Checkout: React.FC = () => {
     </div>
   )
   
-  if (cart.items.length === 0 && currentStep !== 3) {
+  // Redirect if no eligible items
+  if (checkoutItems.length === 0 && currentStep !== 3) {
     navigate('/cart')
     return null
   }
@@ -315,504 +359,503 @@ export const Checkout: React.FC = () => {
           
           <StepIndicator />
           
-          {/* Step 1: Order Details Confirmation */}
           {currentStep === 1 && (
-            <Card>
-              <CardHeader>
-                <CardTitle>Step 1: Confirm Your Order Details</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="lg:col-span-2 space-y-6">
+                {/* Filtered checkout warning */}
+                {filteredBrandIds && excludedBrandSummaries.length > 0 && (
+                  <Card className="border-orange-200 bg-orange-50">
+                    <CardContent>
+                      <div className="flex items-start gap-3">
+                        <AlertTriangle className="text-orange-600 mt-1" size={20} />
+                        <div>
+                          <h3 className="font-medium text-orange-800 mb-2">
+                            Partial Checkout
+                          </h3>
+                          <p className="text-sm text-orange-700 mb-3">
+                            Some brands in your cart don't meet checkout requirements and have been excluded.
+                          </p>
+                          {excludedBrandSummaries.map(summary => (
+                            <div key={summary.brandId} className="text-sm text-orange-600 mb-1">
+                              • {summary.brandName} - {!summary.canCheckout ? 'MOQ not met' : 'Not selected'}
+                            </div>
+                          ))}
+                          <p className="text-xs text-orange-600 mt-2">
+                            You can complete these orders separately or add more items to meet requirements.
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Order Items by Brand */}
+                {brandSummaries.map(brandSummary => (
+                  <Card key={brandSummary.brandId}>
+                    <CardHeader>
+                      <CardTitle className="flex items-center justify-between">
+                        <span>{brandSummary.brandName}</span>
+                        <div className="flex items-center gap-2">
+                          <Badge variant="success">Ready for Checkout</Badge>
+                          {brandSummary.moqStatus.moaExceeded && (
+                            <Badge variant="info">MOA Exceeded</Badge>
+                          )}
+                        </div>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      {/* Volume Discount Applied */}
+                      {brandSummary.volumeDiscount?.discount && (
+                        <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+                          <p className="text-green-800 text-sm font-medium">
+                            Volume Discount Applied: {brandSummary.volumeDiscount.discount.discountPercentage}% off!
+                            Save {formatConvertedPrice(brandSummary.volumeDiscount.savings, currentCurrency)}
+                          </p>
+                        </div>
+                      )}
+
+                      {/* Applied Discount Codes */}
+                      {brandSummary.appliedDiscountCodes.length > 0 && (
+                        <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                          <p className="text-blue-800 text-sm font-medium mb-2">Discount Codes Applied:</p>
+                          {brandSummary.appliedDiscountCodes.map((discount, index) => (
+                            <div key={index} className="flex items-center justify-between">
+                              <span className="text-blue-700 text-sm">
+                                {discount.discountCode?.code} - {formatConvertedPrice(discount.discountAmount || 0, currentCurrency)} off
+                              </span>
+                              <button
+                                onClick={() => handleRemoveDiscountCode(discount.discountCode?.id || '')}
+                                className="text-red-600 hover:underline text-xs"
+                              >
+                                Remove
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Brand Items */}
+                      <div className="space-y-3">
+                        {brandSummary.items.map(item => {
+                          const pricePerItem = item.product.variants?.[0]?.pricing?.b2b?.wholesalePrice ||
+                            item.product.price?.wholesale ||
+                            item.product.price?.retail ||
+                            item.product.retailPrice?.item || 0
+                          const unitsPerCarton = item.product.variants?.[0]?.pricing?.b2b?.unitsPerCarton ||
+                            item.product.itemsPerCarton || 1
+                          const pricePerCarton = pricePerItem * unitsPerCarton
+
+                          return (
+                            <div key={item.id} className="flex items-center gap-4 py-3 border-b border-gray-100 last:border-0">
+                              <div className="flex-1">
+                                <h4 className="font-medium">{getProductName(item.product)}</h4>
+                                <p className="text-sm text-gray-600">
+                                  {item.product.volume} • {unitsPerCarton} items per carton
+                                </p>
+                                <p className="text-sm text-gray-500">
+                                  {formatConvertedPrice(pricePerItem, currentCurrency)} per item
+                                </p>
+                              </div>
+                              <div className="text-right">
+                                <p className="font-medium">
+                                  {item.quantity} carton{item.quantity !== 1 ? 's' : ''}
+                                </p>
+                                <p className="text-rose-gold font-medium">
+                                  {formatConvertedPrice(pricePerCarton * item.quantity, currentCurrency)}
+                                </p>
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+
+                {/* Discount Code Section */}
+                <Card>
+                  <CardContent>
+                    <h3 className="font-medium mb-4">Discount Code</h3>
+                    <div className="flex gap-3">
+                      <Input
+                        placeholder="Enter discount code"
+                        value={discountCode}
+                        onChange={(e) => setDiscountCode(e.target.value.toUpperCase())}
+                        onKeyPress={(e) => e.key === 'Enter' && validateDiscountCode()}
+                      />
+                      <Button
+                        variant="secondary"
+                        onClick={validateDiscountCode}
+                        disabled={!discountCode.trim() || isValidatingDiscount}
+                      >
+                        {isValidatingDiscount ? 'Applying...' : 'Apply'}
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+
                 {/* Company Information */}
-                <div className="space-y-4">
-                  <h3 className="font-medium">Company Information</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Company Information</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Company Name <span className="text-error-red">*</span>
-                      </label>
-                      <input
-                        type="text"
+                      <label className="block text-sm font-medium mb-1">Company Name *</label>
+                      <Input
                         value={companyInfo.companyName}
-                        onChange={(e) => setCompanyInfo({...companyInfo, companyName: e.target.value})}
-                        className="w-full p-3 border border-border-gray rounded-lg"
+                        onChange={(e) => setCompanyInfo(prev => ({ ...prev, companyName: e.target.value }))}
                         placeholder="Your company name"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Company Registration Number <span className="text-error-red">*</span>
-                      </label>
-                      <input
-                        type="text"
+                      <label className="block text-sm font-medium mb-1">Company Registration Number *</label>
+                      <Input
                         value={companyInfo.companyRegistrationNumber}
-                        onChange={(e) => setCompanyInfo({...companyInfo, companyRegistrationNumber: e.target.value})}
-                        className="w-full p-3 border border-border-gray rounded-lg"
-                        placeholder="Company registration number"
+                        onChange={(e) => setCompanyInfo(prev => ({ ...prev, companyRegistrationNumber: e.target.value }))}
+                        placeholder="Registration number"
                         required
                       />
                     </div>
-                    <div className="md:col-span-2">
-                      <label className="block text-sm font-medium mb-2">
-                        VAT Number (Optional)
-                      </label>
-                      <input
-                        type="text"
+                    <div>
+                      <label className="block text-sm font-medium mb-1">VAT Number (optional)</label>
+                      <Input
                         value={companyInfo.vatNumber}
-                        onChange={(e) => setCompanyInfo({...companyInfo, vatNumber: e.target.value})}
-                        className="w-full p-3 border border-border-gray rounded-lg"
-                        placeholder="VAT number (if applicable)"
+                        onChange={(e) => setCompanyInfo(prev => ({ ...prev, vatNumber: e.target.value }))}
+                        placeholder="VAT number"
                       />
                     </div>
-                  </div>
-                </div>
-                
+                  </CardContent>
+                </Card>
+
                 {/* Shipping Address */}
-                <div className="space-y-4">
-                  <h3 className="font-medium">Shipping Address</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Contact Name
-                      </label>
-                      <input
-                        type="text"
-                        value={shippingAddress.name}
-                        onChange={(e) => setShippingAddress({...shippingAddress, name: e.target.value})}
-                        className="w-full p-3 border border-border-gray rounded-lg"
-                        placeholder="Contact person name"
-                      />
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Shipping Address</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium mb-1">Contact Name *</label>
+                        <Input
+                          value={shippingAddress.name}
+                          onChange={(e) => setShippingAddress(prev => ({ ...prev, name: e.target.value }))}
+                          placeholder="Contact person name"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-1">Company</label>
+                        <Input
+                          value={shippingAddress.company}
+                          onChange={(e) => setShippingAddress(prev => ({ ...prev, company: e.target.value }))}
+                          placeholder="Company name (if different)"
+                        />
+                      </div>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Company Name (if different)
-                      </label>
-                      <input
-                        type="text"
-                        value={shippingAddress.company}
-                        onChange={(e) => setShippingAddress({...shippingAddress, company: e.target.value})}
-                        className="w-full p-3 border border-border-gray rounded-lg"
-                        placeholder="Shipping company name"
-                      />
-                    </div>
-                    <div className="md:col-span-2">
-                      <label className="block text-sm font-medium mb-2">
-                        Street Address <span className="text-error-red">*</span>
-                      </label>
-                      <input
-                        type="text"
+                      <label className="block text-sm font-medium mb-1">Street Address *</label>
+                      <Input
                         value={shippingAddress.street}
-                        onChange={(e) => setShippingAddress({...shippingAddress, street: e.target.value})}
-                        className="w-full p-3 border border-border-gray rounded-lg"
+                        onChange={(e) => setShippingAddress(prev => ({ ...prev, street: e.target.value }))}
                         placeholder="Street address"
                         required
                       />
                     </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        City <span className="text-error-red">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        value={shippingAddress.city}
-                        onChange={(e) => setShippingAddress({...shippingAddress, city: e.target.value})}
-                        className="w-full p-3 border border-border-gray rounded-lg"
-                        placeholder="City"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Postal Code <span className="text-error-red">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        value={shippingAddress.postalCode}
-                        onChange={(e) => setShippingAddress({...shippingAddress, postalCode: e.target.value})}
-                        className="w-full p-3 border border-border-gray rounded-lg"
-                        placeholder="Postal code"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Country
-                      </label>
-                      <select
-                        value={shippingAddress.country}
-                        onChange={(e) => setShippingAddress({...shippingAddress, country: e.target.value})}
-                        className="w-full p-3 border border-border-gray rounded-lg"
-                      >
-                        <option value="UK">United Kingdom</option>
-                        <option value="FR">France</option>
-                        <option value="DE">Germany</option>
-                        <option value="IT">Italy</option>
-                        <option value="ES">Spain</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Phone Number
-                      </label>
-                      <input
-                        type="tel"
-                        value={shippingAddress.phone}
-                        onChange={(e) => setShippingAddress({...shippingAddress, phone: e.target.value})}
-                        className="w-full p-3 border border-border-gray rounded-lg"
-                        placeholder="Contact phone number"
-                      />
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Additional Notes */}
-                <div>
-                  <label className="block text-sm font-medium mb-2">
-                    Additional Notes (Optional)
-                  </label>
-                  <textarea
-                    value={additionalNotes}
-                    onChange={(e) => setAdditionalNotes(e.target.value)}
-                    className="w-full p-3 border border-border-gray rounded-lg"
-                    rows={3}
-                    placeholder="Any special delivery instructions or requirements..."
-                  />
-                </div>
-                
-                {/* Discount Code Section */}
-                <div className="bg-soft-pink p-4 rounded-lg">
-                  <h3 className="font-medium mb-3">Discount Code</h3>
-                  {!discountValidation?.valid ? (
-                    <div className="flex gap-3">
-                      <Input
-                        value={discountCode}
-                        onChange={(e) => setDiscountCode(e.target.value.toUpperCase())}
-                        placeholder="Enter discount code"
-                        disabled={isValidatingDiscount}
-                      />
-                      <Button
-                        onClick={validateDiscountCode}
-                        disabled={!discountCode.trim() || isValidatingDiscount}
-                        loading={isValidatingDiscount}
-                      >
-                        Apply
-                      </Button>
-                    </div>
-                  ) : (
-                    <div className="flex items-center justify-between">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div>
-                        <p className="font-medium text-success-green">
-                          ✓ {discountValidation.discountCode?.name}
-                        </p>
-                        <p className="text-sm text-text-secondary">
-                          {discountValidation.discountCode?.discountType === 'percentage' 
-                            ? `${discountValidation.discountCode.discountValue}% off`
-                            : `$${discountValidation.discountCode?.discountValue} off`
-                          }
-                        </p>
+                        <label className="block text-sm font-medium mb-1">City *</label>
+                        <Input
+                          value={shippingAddress.city}
+                          onChange={(e) => setShippingAddress(prev => ({ ...prev, city: e.target.value }))}
+                          placeholder="City"
+                          required
+                        />
                       </div>
-                      <Button
-                        variant="secondary"
-                        size="small"
-                        onClick={removeDiscountCode}
-                      >
-                        Remove
-                      </Button>
+                      <div>
+                        <label className="block text-sm font-medium mb-1">Postal Code *</label>
+                        <Input
+                          value={shippingAddress.postalCode}
+                          onChange={(e) => setShippingAddress(prev => ({ ...prev, postalCode: e.target.value }))}
+                          placeholder="Postal code"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-1">Country</label>
+                        <select
+                          value={shippingAddress.country}
+                          onChange={(e) => setShippingAddress(prev => ({ ...prev, country: e.target.value }))}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-gold"
+                        >
+                          <option value="UK">United Kingdom</option>
+                          <option value="US">United States</option>
+                          <option value="CA">Canada</option>
+                          <option value="AU">Australia</option>
+                          <option value="DE">Germany</option>
+                          <option value="FR">France</option>
+                          <option value="IT">Italy</option>
+                          <option value="ES">Spain</option>
+                        </select>
+                      </div>
                     </div>
-                  )}
-                </div>
-                
-                {/* Order Summary by Brand */}
-                {Object.values(brandGroups).map(brandGroup => {
-                  const brandSubtotal = brandGroup.items.reduce((sum, item) => {
-                    const pricePerItem = item.product.variants?.[0]?.pricing?.b2b?.wholesalePrice || 
-                                 item.product.price?.wholesale || 
-                                 item.product.price?.retail ||
-                                 item.product.retailPrice?.item || 0
-                    const unitsPerCarton = item.product.variants?.[0]?.pricing?.b2b?.unitsPerCarton || 
-                                          item.product.itemsPerCarton || 1
-                    const pricePerCarton = pricePerItem * unitsPerCarton
-                    return sum + (pricePerCarton * item.quantity)
-                  }, 0)
-                  
-                  return (
-                    <div key={brandGroup.brandId} className="bg-light-gray p-4 rounded-lg">
-                      <h4 className="font-medium mb-3">{brandGroup.brandName} Order</h4>
-                      {brandGroup.items.map(item => {
-                        const pricePerItem = item.product.variants?.[0]?.pricing?.b2b?.wholesalePrice || 
-                                     item.product.price?.wholesale || 
-                                     item.product.price?.retail ||
-                                     item.product.retailPrice?.item || 0
-                        const unitsPerCarton = item.product.variants?.[0]?.pricing?.b2b?.unitsPerCarton || 
-                                              item.product.itemsPerCarton || 1
-                        const pricePerCarton = pricePerItem * unitsPerCarton
-                        const totalItems = item.quantity * unitsPerCarton
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Phone</label>
+                      <Input
+                        value={shippingAddress.phone}
+                        onChange={(e) => setShippingAddress(prev => ({ ...prev, phone: e.target.value }))}
+                        placeholder="Phone number"
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Additional Notes */}
+                <Card>
+                  <CardContent>
+                    <label className="block text-sm font-medium mb-2">Additional Notes (Optional)</label>
+                    <textarea
+                      value={additionalNotes}
+                      onChange={(e) => setAdditionalNotes(e.target.value)}
+                      placeholder="Any special instructions or notes for your order..."
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-gold"
+                      rows={3}
+                    />
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Order Summary Sidebar */}
+              <div>
+                <Card className="sticky top-4">
+                  <CardHeader>
+                    <CardTitle>Order Summary</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {/* Brand Summaries */}
+                    {brandSummaries.map(summary => (
+                      <div key={summary.brandId} className="pb-3 border-b border-gray-200 last:border-0">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="font-medium">{summary.brandName}</span>
+                          <span className="text-sm text-gray-600">({summary.items.length} products)</span>
+                        </div>
                         
-                        return (
-                          <div key={item.id} className="flex justify-between mb-2">
-                            <span className="text-sm">
-                              {getProductName(item.product)} ({totalItems} items)
-                            </span>
-                            <span className="text-sm font-medium">
-                              ${(pricePerCarton * item.quantity).toFixed(2)}
-                            </span>
+                        <div className="space-y-1 text-sm">
+                          <div className="flex justify-between">
+                            <span>Subtotal</span>
+                            <span>{formatConvertedPrice(summary.subtotal, currentCurrency)}</span>
                           </div>
-                        )
-                      })}
-                      <div className="border-t pt-2 mt-2">
-                        <div className="flex justify-between font-medium">
-                          <span>Brand Total</span>
-                          <span>${brandSubtotal.toFixed(2)}</span>
+                          
+                          {summary.volumeDiscount?.savings > 0 && (
+                            <div className="flex justify-between text-green-600">
+                              <span>Volume Discount ({summary.volumeDiscount.discount?.discountPercentage}%)</span>
+                              <span>-{formatConvertedPrice(summary.volumeDiscount.savings, currentCurrency)}</span>
+                            </div>
+                          )}
+                          
+                          {summary.appliedDiscountCodes.map((discount, index) => (
+                            <div key={index} className="flex justify-between text-blue-600">
+                              <span>{discount.discountCode?.code}</span>
+                              <span>-{formatConvertedPrice(discount.discountAmount || 0, currentCurrency)}</span>
+                            </div>
+                          ))}
+                          
+                          <div className="flex justify-between font-medium">
+                            <span>Brand Total</span>
+                            <span>{formatConvertedPrice(summary.total, currentCurrency)}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+
+                    {/* Overall Totals */}
+                    <div className="space-y-2 pt-3 border-t border-gray-200">
+                      <div className="flex justify-between">
+                        <span>Subtotal</span>
+                        <span>{formatConvertedPrice(subtotal, currentCurrency)}</span>
+                      </div>
+                      
+                      {totalDiscounts > 0 && (
+                        <div className="flex justify-between text-green-600">
+                          <span>Total Discounts</span>
+                          <span>-{formatConvertedPrice(totalDiscounts, currentCurrency)}</span>
+                        </div>
+                      )}
+                      
+                      <div className="flex justify-between">
+                        <span>VAT (20%)</span>
+                        <span>{formatConvertedPrice(tax, currentCurrency)}</span>
+                      </div>
+                      
+                      <div className="flex justify-between">
+                        <span>Shipping</span>
+                        <span className="text-green-600">FREE</span>
+                      </div>
+                      
+                      <div className="border-t pt-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-lg font-bold">Total</span>
+                          <span className="text-xl font-bold text-rose-gold">
+                            {formatConvertedPrice(total, currentCurrency)}
+                          </span>
                         </div>
                       </div>
                     </div>
-                  )
-                })}
-                
-                {/* Total Summary */}
-                <div className="border-t pt-4">
-                  <div className="space-y-2">
-                    <div className="flex justify-between">
-                      <span>Subtotal</span>
-                      <span>${subtotal.toFixed(2)}</span>
-                    </div>
-                    {discountAmount > 0 && (
-                      <div className="flex justify-between text-success-green">
-                        <span>Discount</span>
-                        <span>-${discountAmount.toFixed(2)}</span>
-                      </div>
-                    )}
-                    <div className="flex justify-between">
-                      <span>VAT (20%)</span>
-                      <span>${tax.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between text-lg font-medium">
-                      <span>Total</span>
-                      <span className="text-rose-gold">${total.toFixed(2)}</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <Button
-                  fullWidth
-                  onClick={handleProcessStep1}
-                  disabled={!canProceed()}
-                >
-                  Confirm and Continue
-                </Button>
-              </CardContent>
-            </Card>
+
+                    <Button
+                      fullWidth
+                      onClick={handleProcessStep1}
+                      disabled={!canProceed()}
+                    >
+                      Continue to Review
+                    </Button>
+
+                    <p className="text-xs text-gray-500 text-center">
+                      Prices shown in {currentCurrency}. Final invoicing in GBP.
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           )}
-          
-          {/* Step 2: Understanding the Process */}
+
           {currentStep === 2 && (
-            <Card>
-              <CardHeader>
-                <CardTitle>Step 2: Understanding Your Order Process</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-text-secondary mb-6">
-                  Please review and acknowledge each step of the order process:
-                </p>
-                
-                {/* Process Steps */}
-                <div className="space-y-3">
-                  <label className="flex items-start gap-3 p-4 bg-soft-pink rounded-lg cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={processSteps.step1}
-                      onChange={(e) => setProcessSteps({...processSteps, step1: e.target.checked})}
-                      className="mt-1"
-                    />
-                    <div>
-                      <p className="font-medium">1. Order Confirmation (Now)</p>
-                      <p className="text-sm text-text-secondary mt-1">
-                        Your order details will be sent to each brand for processing.
-                      </p>
-                    </div>
-                  </label>
-                  
-                  <label className="flex items-start gap-3 p-4 bg-soft-pink rounded-lg cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={processSteps.step2}
-                      onChange={(e) => setProcessSteps({...processSteps, step2: e.target.checked})}
-                      className="mt-1"
-                    />
-                    <div>
-                      <p className="font-medium">2. Manufacturer Confirmation (24-48 hours)</p>
-                      <p className="text-sm text-text-secondary mt-1">
-                        Each brand will confirm stock availability and prepare your order.
-                      </p>
-                    </div>
-                  </label>
-                  
-                  <label className="flex items-start gap-3 p-4 bg-soft-pink rounded-lg cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={processSteps.step3}
-                      onChange={(e) => setProcessSteps({...processSteps, step3: e.target.checked})}
-                      className="mt-1"
-                    />
-                    <div>
-                      <p className="font-medium">3. Final Invoice Generation</p>
-                      <p className="text-sm text-text-secondary mt-1">
-                        We'll generate your final invoice including all shipping costs and documentation. 
-                        Any changes to shipping details may require invoice updates.
-                      </p>
-                    </div>
-                  </label>
-                  
-                  <label className="flex items-start gap-3 p-4 bg-soft-pink rounded-lg cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={processSteps.step4}
-                      onChange={(e) => setProcessSteps({...processSteps, step4: e.target.checked})}
-                      className="mt-1"
-                    />
-                    <div>
-                      <p className="font-medium">4. Document Signing & Payment</p>
-                      <p className="text-sm text-text-secondary mt-1">
-                        You'll receive an email to sign documents and pay the final invoice 
-                        (inclusive of all costs).
-                      </p>
-                    </div>
-                  </label>
-                  
-                  <label className="flex items-start gap-3 p-4 bg-soft-pink rounded-lg cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={processSteps.step5}
-                      onChange={(e) => setProcessSteps({...processSteps, step5: e.target.checked})}
-                      className="mt-1"
-                    />
-                    <div>
-                      <p className="font-medium">5. Shipment Arrangement</p>
-                      <p className="text-sm text-text-secondary mt-1">
-                        Once payment is received, we'll arrange shipment with each brand.
-                      </p>
-                    </div>
-                  </label>
-                  
-                  <label className="flex items-start gap-3 p-4 bg-soft-pink rounded-lg cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={processSteps.step6}
-                      onChange={(e) => setProcessSteps({...processSteps, step6: e.target.checked})}
-                      className="mt-1"
-                    />
-                    <div>
-                      <p className="font-medium">6. Order Tracking</p>
-                      <p className="text-sm text-text-secondary mt-1">
-                        Track your order status through the LYS platform and receive updates 
-                        via the order messaging system.
-                      </p>
-                    </div>
-                  </label>
-                </div>
-                
-                {!canProceed() && (
-                  <div className="p-4 bg-warning-light rounded-lg">
-                    <p className="text-sm font-medium">All checkboxes must be checked to proceed</p>
-                  </div>
-                )}
-                
-                <div className="flex gap-3">
-                  <Button
-                    variant="secondary"
-                    onClick={() => setCurrentStep(1)}
-                  >
-                    Back
-                  </Button>
-                  <Button
-                    fullWidth
-                    onClick={handleProcessStep2}
-                    disabled={!canProceed() || isProcessing}
-                    loading={isProcessing}
-                  >
-                    I Understand - Submit Orders
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-          
-          {/* Step 3: Order Submitted */}
-          {currentStep === 3 && (
-            <Card>
-              <CardContent className="text-center py-8">
-                <div className="w-20 h-20 bg-success-green rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="text-white text-3xl">✓</span>
-                </div>
-                
-                <h2 className="text-2xl font-light mb-4">Orders Submitted Successfully!</h2>
-                
-                <p className="text-text-secondary mb-8">
-                  Your orders have been submitted to the respective brands for processing.
-                </p>
-                
-                {discountValidation?.valid && (
-                  <div className="bg-soft-pink p-4 rounded-lg mb-6">
-                    <p className="text-sm font-medium text-success-green">
-                      ✓ Discount code "{discountValidation.discountCode?.code}" applied successfully
-                    </p>
-                    <p className="text-sm text-text-secondary">
-                      You saved ${discountAmount.toFixed(2)} on this order
-                    </p>
-                  </div>
-                )}
-                
-                {orderIds.length > 0 && (
-                  <div className="space-y-3 mb-8">
-                    {orderIds.map((orderId, index) => {
-                      const brandGroup = Object.values(brandGroups)[index]
-                      return (
-                        <div key={orderId} className="bg-soft-pink p-4 rounded-lg text-left">
-                          <h4 className="font-medium mb-2">
-                            Order #{orderId.slice(-8).toUpperCase()}
-                          </h4>
-                          <p className="text-sm text-text-secondary">
-                            Brand: {brandGroup?.brandName}
-                          </p>
-                          <p className="text-sm text-text-secondary">
-                            Total Items: {brandGroup?.items.reduce((sum, item) => {
-                              const units = item.product.variants?.[0]?.pricing?.b2b?.unitsPerCarton || 
-                                           item.product.itemsPerCarton || 1
-                              return sum + (item.quantity * units)
-                            }, 0)}
-                          </p>
+            <div className="max-w-2xl mx-auto">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Review and Confirm Order</CardTitle>
+                  <p className="text-gray-600">Please review your order details before submitting</p>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {/* Order Processing Steps */}
+                  <div className="space-y-3">
+                    <h3 className="font-medium text-lg mb-3">Order Processing Timeline</h3>
+                    
+                    {[
+                      { key: 'step1', label: 'Order submitted and confirmed', time: 'Immediate' },
+                      { key: 'step2', label: 'Invoice generated and sent', time: 'Within 24 hours' },
+                      { key: 'step3', label: 'Payment processed', time: '3-5 business days' },
+                      { key: 'step4', label: 'Order prepared for shipping', time: '1-2 business days after payment' },
+                      { key: 'step5', label: 'Shipped to your address', time: '5-7 business days' },
+                      { key: 'step6', label: 'Order delivered', time: '1-2 business days after shipping' }
+                    ].map((step, index) => (
+                      <div key={step.key} className="flex items-center gap-3">
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium ${
+                          processSteps[step.key as keyof typeof processSteps]
+                            ? 'bg-green-500 text-white'
+                            : 'bg-gray-200 text-gray-600'
+                        }`}>
+                          {processSteps[step.key as keyof typeof processSteps] ? '✓' : index + 1}
                         </div>
-                      )
-                    })}
+                        <div className="flex-1 flex justify-between items-center">
+                          <span className={processSteps[step.key as keyof typeof processSteps] ? 'text-green-700 font-medium' : 'text-gray-700'}>
+                            {step.label}
+                          </span>
+                          <span className="text-sm text-gray-500">{step.time}</span>
+                        </div>
+                        <button
+                          onClick={() => setProcessSteps(prev => ({ ...prev, [step.key]: !prev[step.key as keyof typeof prev] }))}
+                          className={`px-3 py-1 text-xs rounded transition-colors ${
+                            processSteps[step.key as keyof typeof processSteps]
+                              ? 'bg-green-100 text-green-700 hover:bg-green-200'
+                              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                          }`}
+                        >
+                          {processSteps[step.key as keyof typeof processSteps] ? 'Confirmed' : 'Confirm'}
+                        </button>
+                      </div>
+                    ))}
                   </div>
-                )}
-                
-                <div className="bg-light-gray p-6 rounded-lg mb-8 text-left">
-                  <h4 className="font-medium mb-3">What Happens Next?</h4>
-                  <ol className="space-y-2 text-sm">
-                    <li>1. You'll receive email confirmation within minutes</li>
-                    <li>2. Each brand will confirm within 24-48 hours</li>
-                    <li>3. Final invoices will be sent for payment</li>
-                    <li>4. Track all updates in the order messages</li>
-                  </ol>
-                </div>
-                
-                <div className="flex gap-3">
-                  <Button
-                    variant="secondary"
-                    onClick={() => navigate('/cart')}
-                  >
-                    Back to Cart
-                  </Button>
-                  <Button
-                    fullWidth
-                    onClick={() => navigate('/orders')}
-                  >
-                    View Orders
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+
+                  {/* Order Summary */}
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <h4 className="font-medium mb-2">Order Summary</h4>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>Company:</span>
+                        <span>{companyInfo.companyName}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Total Brands:</span>
+                        <span>{brandSummaries.length}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Total Items:</span>
+                        <span>{brandSummaries.reduce((sum, s) => sum + s.items.length, 0)} products</span>
+                      </div>
+                      <div className="flex justify-between font-medium border-t pt-2">
+                        <span>Total Amount:</span>
+                        <span className="text-rose-gold">{formatConvertedPrice(total, currentCurrency)}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3">
+                    <Button
+                      variant="secondary"
+                      onClick={() => setCurrentStep(1)}
+                      className="flex-1"
+                    >
+                      Back to Details
+                    </Button>
+                    <Button
+                      onClick={handleProcessStep2}
+                      disabled={!canProceed() || isProcessing}
+                      className="flex-1"
+                    >
+                      {isProcessing ? 'Processing...' : 'Submit Orders'}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {currentStep === 3 && (
+            <div className="max-w-2xl mx-auto text-center">
+              <Card>
+                <CardContent className="py-12">
+                  <div className="text-green-500 mb-4">
+                    <svg className="w-16 h-16 mx-auto" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  
+                  <h2 className="text-2xl font-bold mb-4 text-green-700">Orders Submitted Successfully!</h2>
+                  
+                  <p className="text-gray-600 mb-6">
+                    Thank you for your order. We've created {orderIds.length} separate {orderIds.length === 1 ? 'order' : 'orders'} for your brands.
+                  </p>
+
+                  <div className="bg-green-50 p-4 rounded-lg mb-6">
+                    <h3 className="font-medium mb-2">What happens next?</h3>
+                    <ul className="text-sm text-green-800 space-y-1">
+                      <li>• You'll receive email confirmation for each order</li>
+                      <li>• Invoices will be generated within 24 hours</li>
+                      <li>• Our team will contact you for payment arrangements</li>
+                      <li>• Orders will be prepared once payment is confirmed</li>
+                    </ul>
+                  </div>
+
+                  <div className="flex gap-3">
+                    <Button
+                      variant="secondary"
+                      onClick={() => navigate('/orders')}
+                      className="flex-1"
+                    >
+                      View Orders
+                    </Button>
+                    <Button
+                      onClick={() => navigate('/brands')}
+                      className="flex-1"
+                    >
+                      Continue Shopping
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           )}
         </Container>
       </Section>

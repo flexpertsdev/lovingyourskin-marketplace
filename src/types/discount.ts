@@ -5,7 +5,7 @@ export interface DiscountCode {
   description?: string
   
   // Type of discount
-  type: 'general' | 'affiliate' | 'seasonal' | 'vip' | 'promotional'
+  type: 'general' | 'affiliate' | 'seasonal' | 'vip' | 'promotional' | 'no-moq'
   
   // Discount details
   discountType: 'percentage' | 'fixed'
@@ -22,6 +22,9 @@ export interface DiscountCode {
   
   // Status
   active: boolean
+  
+  // Special functionality
+  removesMOQ?: boolean // For 'no-moq' type codes - removes MOQ requirements
   
   // Conditions
   conditions?: {
@@ -131,6 +134,7 @@ export interface DiscountValidationResult {
   affiliate?: Affiliate
   applicableAmount?: number // Amount the discount applies to
   discountAmount?: number // Actual discount amount
+  removesMOQ?: boolean // Whether this discount removes MOQ requirements
 }
 
 export interface DiscountUsage {

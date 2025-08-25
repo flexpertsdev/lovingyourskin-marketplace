@@ -68,13 +68,22 @@ export const BrandDetail: React.FC = () => {
       filtered = filtered.filter(product => product.category === filterCategory)
     }
     
-    // Sort
+    // Sort with featured products always first
     switch (sortBy) {
       case 'popular':
-        // In a real app, this would be sorted by sales/popularity
+        filtered.sort((a, b) => {
+          // Featured products first
+          if (a.featured && !b.featured) return -1
+          if (!a.featured && b.featured) return 1
+          return 0
+        })
         break
       case 'price-low':
         filtered.sort((a, b) => {
+          // Featured products first
+          if (a.featured && !b.featured) return -1
+          if (!a.featured && b.featured) return 1
+          // Then sort by price
           const aPrice = a.price?.wholesale ?? a.price?.retail ?? a.retailPrice?.item ?? 0
           const bPrice = b.price?.wholesale ?? b.price?.retail ?? b.retailPrice?.item ?? 0
           return aPrice - bPrice
@@ -82,14 +91,26 @@ export const BrandDetail: React.FC = () => {
         break
       case 'price-high':
         filtered.sort((a, b) => {
+          // Featured products first
+          if (a.featured && !b.featured) return -1
+          if (!a.featured && b.featured) return 1
+          // Then sort by price
           const aPrice = a.price?.wholesale ?? a.price?.retail ?? a.retailPrice?.item ?? 0
           const bPrice = b.price?.wholesale ?? b.price?.retail ?? b.retailPrice?.item ?? 0
           return bPrice - aPrice
         })
         break
       case 'newest':
-        // In a real app, this would use creation date
-        filtered.reverse()
+        filtered.sort((a, b) => {
+          // Featured products first
+          if (a.featured && !b.featured) return -1
+          if (!a.featured && b.featured) return 1
+          return 0
+        })
+        // Reverse only the non-featured products
+        const featuredProducts = filtered.filter(p => p.featured)
+        const nonFeaturedProducts = filtered.filter(p => !p.featured).reverse()
+        filtered = [...featuredProducts, ...nonFeaturedProducts]
         break
     }
     

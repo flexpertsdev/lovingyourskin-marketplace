@@ -1,13 +1,41 @@
-// Zustand store for shopping cart with MOQ validation
+// Zustand store for shopping cart with MOQ validation and discount support
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { Cart, CartItem, Product, MOQStatus } from '../types'
+import { Cart, CartItem, Product, MOQStatus, Brand } from '../types'
+import { DiscountValidationResult } from '../types/discount'
 import { cartService } from '../services'
+import { 
+  calculateVolumeDiscount, 
+  calculateMOQStatus, 
+  generateUpsellMessage,
+  applyDiscountCodes,
+  canProceedToCheckout
+} from '../utils/discount-helpers'
+
+interface BrandCartSummary {
+  brandId: string
+  brandName: string
+  items: CartItem[]
+  subtotal: number
+  moqStatus: ReturnType<typeof calculateMOQStatus>
+  volumeDiscount?: {
+    discount: { threshold: number; discountPercentage: number } | null
+    discountAmount: number
+    savings: number
+    nextTier?: { threshold: number; discountPercentage: number; amountNeeded: number }
+  }
+  appliedDiscountCodes: DiscountValidationResult[]
+  total: number // After all discounts
+  canCheckout: boolean
+  upsellMessage?: string
+}
 
 interface CartState {
   cart: Cart
   isLoading: boolean
   moqStatuses: MOQStatus[]
+  appliedDiscounts: DiscountValidationResult[]
+  brands: Brand[] // Cached brand data for calculations
   
   // Actions
   loadCart: () => Promise<void>
@@ -18,15 +46,33 @@ interface CartState {
   clearCart: () => Promise<void>
   clearBrandItems: (brandId: string) => Promise<void>
   
+  // Brand data management
+  loadBrandData: () => Promise<void>
+  setBrands: (brands: Brand[]) => void
+  
+  // Discount management
+  applyDiscountCode: (discountValidation: DiscountValidationResult) => void
+  removeDiscountCode: (discountCodeId: string) => void
+  clearDiscountCodes: () => void
+  
   // MOQ validation
   validateMOQ: (brandId: string) => Promise<MOQStatus>
   validateAllMOQ: () => Promise<void>
   canCheckout: () => Promise<boolean>
   
-  // Computed values
+  // Enhanced computed values
   getItemsByBrand: (brandId: string) => CartItem[]
+  getBrandCartSummary: (brandId: string) => BrandCartSummary | null
+  getAllBrandCartSummaries: () => BrandCartSummary[]
   getTotalItems: () => number
   getTotalPrice: () => number
+  getTotalWithDiscounts: () => number
+  getCheckoutEligibility: () => ReturnType<typeof canProceedToCheckout>
+  getFilteredCartItems: (brandIds?: string[]) => CartItem[]
+  getBrandSubtotal: (brandId: string) => number
+  
+  // Upsell and messaging
+  getUpsellMessage: (brandId: string) => string | null
 }
 
 export const useCartStore = create<CartState>()(
@@ -38,6 +84,8 @@ export const useCartStore = create<CartState>()(
       },
       isLoading: false,
       moqStatuses: [],
+      appliedDiscounts: [],
+      brands: [],
       
       loadCart: async () => {
         set({ isLoading: true })
@@ -100,7 +148,12 @@ export const useCartStore = create<CartState>()(
         set({ isLoading: true })
         try {
           const cart = await cartService.clearCart()
-          set({ cart, isLoading: false, moqStatuses: [] })
+          set({ 
+            cart, 
+            isLoading: false, 
+            moqStatuses: [], 
+            appliedDiscounts: [] 
+          })
         } catch (error) {
           set({ isLoading: false })
           console.error('Failed to clear cart:', error)
@@ -111,7 +164,12 @@ export const useCartStore = create<CartState>()(
         set({ isLoading: true })
         try {
           const cart = await cartService.clearBrandItems(brandId)
-          set({ cart, isLoading: false })
+          // Remove applied discounts for this brand
+          const { appliedDiscounts } = get()
+          const filteredDiscounts = appliedDiscounts.filter(discount => {
+            return !discount.discountCode?.conditions?.specificBrands?.includes(brandId)
+          })
+          set({ cart, appliedDiscounts: filteredDiscounts, isLoading: false })
           // Re-validate remaining MOQ
           await get().validateAllMOQ()
         } catch (error) {
@@ -162,6 +220,115 @@ export const useCartStore = create<CartState>()(
         return cart.items.reduce((sum, item) => sum + item.quantity, 0)
       },
       
+      // Brand data management
+      loadBrandData: async () => {
+        // This would be implemented to load brand data from the service
+        // For now, it's a placeholder since we're using mock data
+        console.log('Brand data loading would be implemented here')
+      },
+      
+      setBrands: (brands) => {
+        set({ brands })
+      },
+      
+      // Discount management
+      applyDiscountCode: (discountValidation) => {
+        const { appliedDiscounts } = get()
+        
+        // Check if discount already applied
+        const alreadyApplied = appliedDiscounts.some(d => 
+          d.discountCode?.id === discountValidation.discountCode?.id
+        )
+        
+        if (!alreadyApplied) {
+          set({ appliedDiscounts: [...appliedDiscounts, discountValidation] })
+        }
+      },
+      
+      removeDiscountCode: (discountCodeId) => {
+        const { appliedDiscounts } = get()
+        const filtered = appliedDiscounts.filter(d => d.discountCode?.id !== discountCodeId)
+        set({ appliedDiscounts: filtered })
+      },
+      
+      clearDiscountCodes: () => {
+        set({ appliedDiscounts: [] })
+      },
+      
+      // Enhanced computed values
+      getBrandSubtotal: (brandId) => {
+        const { cart } = get()
+        return cart.items
+          .filter(item => item.product.brandId === brandId)
+          .reduce((sum, item) => {
+            const pricePerItem = item.product.variants?.[0]?.pricing?.b2b?.wholesalePrice || 
+                         item.product.price?.wholesale || 
+                         item.product.price?.retail ||
+                         item.product.retailPrice?.item || 0
+            const unitsPerCarton = item.product.variants?.[0]?.pricing?.b2b?.unitsPerCarton || 
+                                   item.product.itemsPerCarton || 1
+            const pricePerCarton = pricePerItem * unitsPerCarton
+            return sum + (pricePerCarton * item.quantity)
+          }, 0)
+      },
+      
+      getBrandCartSummary: (brandId) => {
+        const { cart, brands, appliedDiscounts } = get()
+        const brand = brands.find(b => b.id === brandId)
+        
+        if (!brand) return null
+        
+        const items = cart.items.filter(item => item.product.brandId === brandId)
+        if (items.length === 0) return null
+        
+        const subtotal = get().getBrandSubtotal(brandId)
+        const moqStatus = calculateMOQStatus(brand, items, appliedDiscounts)
+        const volumeDiscount = calculateVolumeDiscount(brand, subtotal)
+        const upsellMessage = generateUpsellMessage(brand, subtotal)
+        
+        // Filter applicable discount codes
+        const brandDiscountCodes = appliedDiscounts.filter(discount => {
+          if (!discount.valid || !discount.discountCode) return false
+          const conditions = discount.discountCode.conditions
+          if (conditions?.specificBrands?.length) {
+            return conditions.specificBrands.includes(brandId)
+          }
+          return true // General discounts apply to all brands
+        })
+        
+        // Apply discount codes to get total
+        const discountApplication = applyDiscountCodes(items, brandDiscountCodes)
+        let total = subtotal - volumeDiscount.savings - discountApplication.totalDiscount
+        
+        return {
+          brandId,
+          brandName: brand.name,
+          items,
+          subtotal,
+          moqStatus,
+          volumeDiscount,
+          appliedDiscountCodes: brandDiscountCodes,
+          total,
+          canCheckout: moqStatus.canCheckout,
+          upsellMessage: upsellMessage || undefined
+        }
+      },
+      
+      getAllBrandCartSummaries: () => {
+        const { cart } = get()
+        const brandIds = [...new Set(cart.items.map(item => item.product.brandId))]
+        
+        return brandIds
+          .map(brandId => get().getBrandCartSummary(brandId))
+          .filter(summary => summary !== null) as BrandCartSummary[]
+      },
+      
+      getFilteredCartItems: (brandIds) => {
+        const { cart } = get()
+        if (!brandIds || brandIds.length === 0) return cart.items
+        return cart.items.filter(item => brandIds.includes(item.product.brandId))
+      },
+      
       getTotalPrice: () => {
         const { cart } = get()
         return cart.items.reduce((sum, item) => {
@@ -171,14 +338,35 @@ export const useCartStore = create<CartState>()(
           const unitsPerCarton = item.product.variants?.[0]?.pricing?.b2b?.unitsPerCarton || 
                                  item.product.itemsPerCarton || 1
           const pricePerCarton = pricePerItem * unitsPerCarton
-          // quantity represents number of cartons
           return sum + (pricePerCarton * item.quantity)
         }, 0)
+      },
+      
+      getTotalWithDiscounts: () => {
+        const summaries = get().getAllBrandCartSummaries()
+        return summaries.reduce((sum, summary) => sum + summary.total, 0)
+      },
+      
+      getCheckoutEligibility: () => {
+        const { cart, brands, appliedDiscounts } = get()
+        return canProceedToCheckout(cart.items, brands, appliedDiscounts)
+      },
+      
+      getUpsellMessage: (brandId) => {
+        const { brands } = get()
+        const brand = brands.find(b => b.id === brandId)
+        if (!brand) return null
+        
+        const subtotal = get().getBrandSubtotal(brandId)
+        return generateUpsellMessage(brand, subtotal)
       },
     }),
     {
       name: 'cart-storage',
-      partialize: (state) => ({ cart: state.cart }), // Only persist cart data
+      partialize: (state) => ({ 
+        cart: state.cart,
+        appliedDiscounts: state.appliedDiscounts 
+      }), // Persist cart data and applied discounts
     }
   )
 )

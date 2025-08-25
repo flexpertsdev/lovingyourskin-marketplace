@@ -358,15 +358,18 @@ class FirebaseCartService {
     const cart = await this.getCart(userId)
     const brandItems = cart.items.filter(item => item.product.brandId === brandId)
     
-    // Try to get brand name from Firestore
+    // Try to get brand data from Firestore
     let brandName = brandId // default fallback
+    let brandMOA = 3000 // default MOA
     try {
       const brandDoc = await getDoc(doc(db, 'brands', brandId))
       if (brandDoc.exists()) {
-        brandName = brandDoc.data().name || brandId
+        const brandData = brandDoc.data()
+        brandName = brandData.name || brandId
+        brandMOA = brandData.MOA || 3000
       }
     } catch (error) {
-      console.error('Error fetching brand name:', error)
+      console.error('Error fetching brand data:', error)
     }
     
     if (brandItems.length === 0) {
@@ -382,8 +385,8 @@ class FirebaseCartService {
       }
     }
     
-    // Calculate total value of items for this brand (quantity is in cartons)
-    const current = brandItems.reduce((sum, item) => {
+    // Calculate total order value for MOA check
+    const orderTotal = brandItems.reduce((sum, item) => {
       const pricePerItem = item.product.variants?.[0]?.pricing?.b2b?.wholesalePrice || 
                    item.product.price?.wholesale || 
                    item.product.price?.retail ||
@@ -394,22 +397,75 @@ class FirebaseCartService {
       return sum + (pricePerCarton * item.quantity)
     }, 0)
     
-    // Get MOQ requirement (using a monetary value, e.g., $500 minimum per brand)
-    const required = 500 // Default MOQ value in dollars
+    // Check MOA override first - if order total exceeds MOA, MOQ is waived
+    const moaExceeded = orderTotal >= brandMOA
+    if (moaExceeded) {
+      return {
+        brandId,
+        brandName,
+        status: 'met',
+        met: true,
+        current: orderTotal,
+        required: brandMOA,
+        percentage: 100,
+        remainingItems: 0
+      }
+    }
     
-    const met = current >= required
-    const percentage = Math.min(100, (current / required) * 100)
-    const remainingItems = met ? 0 : required - current
+    // Check per-product MOQ requirements
+    let totalMOQViolations = 0
+    let totalMOQRequirements = 0
+    const violatingProducts: string[] = []
+    
+    for (const item of brandItems) {
+      // Get MOQ from multiple possible locations in order of preference
+      const productMOQ = item.product.variants?.[0]?.pricing?.b2b?.minOrderQuantity || 
+                        item.product.MOQ || 
+                        item.product.moq || 
+                        0
+      
+      if (productMOQ > 0) {
+        // Calculate total units ordered (cartons * units per carton)
+        const unitsPerCarton = item.product.variants?.[0]?.pricing?.b2b?.unitsPerCarton || 
+                               item.product.itemsPerCarton || 1
+        const totalUnits = item.quantity * unitsPerCarton
+        
+        totalMOQRequirements += productMOQ
+        if (totalUnits < productMOQ) {
+          totalMOQViolations += (productMOQ - totalUnits)
+          violatingProducts.push(item.product.name || item.product.id)
+        }
+      }
+    }
+    
+    // If no MOQ requirements are set on any products, consider it met
+    if (totalMOQRequirements === 0) {
+      return {
+        brandId,
+        brandName,
+        status: 'met',
+        met: true,
+        current: orderTotal,
+        required: 0,
+        percentage: 100,
+        remainingItems: 0
+      }
+    }
+    
+    const met = totalMOQViolations === 0
+    const percentage = totalMOQRequirements > 0 
+      ? Math.min(100, ((totalMOQRequirements - totalMOQViolations) / totalMOQRequirements) * 100)
+      : 100
     
     return {
       brandId,
       brandName,
-      status: met ? 'met' : current > required * 0.7 ? 'warning' : 'error',
+      status: met ? 'met' : totalMOQViolations > totalMOQRequirements * 0.3 ? 'error' : 'warning',
       met,
-      current,
-      required,
+      current: totalMOQRequirements - totalMOQViolations, // Units that meet MOQ
+      required: totalMOQRequirements, // Total units required
       percentage,
-      remainingItems
+      remainingItems: totalMOQViolations // Units still needed
     }
   }
 

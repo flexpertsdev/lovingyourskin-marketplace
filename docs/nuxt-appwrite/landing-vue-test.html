@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loving Your Skin - Vue Test</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Vue 3 via CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom Tailwind Config */
+        :root {
+            --primary-white: #FFFFFF;
+            --soft-pink: #FDF8F6;
+            --rose-gold: #D4A5A5;
+            --rose-gold-dark: #C48B8B;
+            --deep-charcoal: #1A1A1A;
+            --text-primary: #2D2D2D;
+            --text-secondary: #5A5A5A;
+            --light-gray: #F0F0F0;
+            --medium-gray: #8B8B8B;
+            --border-gray: #E0E0E0;
+            --soft-pink-hover: #F5E6E0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        /* Custom animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to { 
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        .slide-up {
+            animation: slideUp 0.3s ease-out;
+        }
+        
+        /* Button hover effects */
+        .btn-hover-lift:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Custom utility classes */
+        .bg-soft-pink { background-color: var(--soft-pink); }
+        .bg-rose-gold { background-color: var(--rose-gold); }
+        .bg-rose-gold-dark { background-color: var(--rose-gold-dark); }
+        .bg-deep-charcoal { background-color: var(--deep-charcoal); }
+        .bg-soft-pink-hover { background-color: var(--soft-pink-hover); }
+        
+        .text-rose-gold { color: var(--rose-gold); }
+        .text-deep-charcoal { color: var(--deep-charcoal); }
+        .text-text-primary { color: var(--text-primary); }
+        .text-text-secondary { color: var(--text-secondary); }
+        
+        .border-border-gray { border-color: var(--border-gray); }
+        .border-rose-gold { border-color: var(--rose-gold); }
+        
+        /* Gradient backgrounds */
+        .gradient-soft {
+            background: linear-gradient(to bottom right, var(--soft-pink), white);
+        }
+        
+        /* Card hover effects */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Focus styles */
+        .focus-ring:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--rose-gold);
+        }
+    </style>
+    
+    <script>
+        // Tailwind config extension
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-white': '#FFFFFF',
+                        'soft-pink': '#FDF8F6',
+                        'rose-gold': '#D4A5A5',
+                        'rose-gold-dark': '#C48B8B',
+                        'deep-charcoal': '#1A1A1A',
+                        'text-primary': '#2D2D2D',
+                        'text-secondary': '#5A5A5A',
+                        'light-gray': '#F0F0F0',
+                        'medium-gray': '#8B8B8B',
+                        'border-gray': '#E0E0E0',
+                        'soft-pink-hover': '#F5E6E0',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="sticky top-0 z-50 bg-white border-b border-border-gray">
+            <nav class="flex items-center justify-between px-6 py-4">
+                <!-- Logo -->
+                <a href="/" class="text-2xl font-light tracking-widest text-deep-charcoal hover:text-rose-gold transition-colors">
+                    LOVING YOUR SKIN
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center gap-8">
+                    <!-- Nav Items -->
+                    <div class="flex items-center gap-2">
+                        <a v-for="item in navItems" :key="item.href" :href="item.href"
+                           :class="['px-4 py-2 text-sm rounded-full transition-all duration-200',
+                                    currentPath === item.href ? 'bg-soft-pink-hover text-deep-charcoal' : 'text-text-primary hover:bg-soft-pink-hover hover:text-deep-charcoal']">
+                            {{ item.label }}
+                        </a>
+                    </div>
+                    
+                    <!-- Auth Buttons -->
+                    <div class="flex items-center gap-2">
+                        <a href="/login">
+                            <button class="px-4 py-2 text-sm rounded-2xl min-h-[36px] bg-white text-text-primary border border-border-gray hover:bg-soft-pink-hover hover:border-rose-gold transition-all duration-300">
+                                Login
+                            </button>
+                        </a>
+                        <a href="/register">
+                            <button class="px-4 py-2 text-sm rounded-2xl min-h-[36px] bg-rose-gold text-white hover:bg-rose-gold-dark btn-hover-lift transition-all duration-300">
+                                Register
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2">
+                    <svg v-if="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <svg v-else class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </nav>
+        </header>
+        
+        <!-- Main Content -->
+        <main>
+            <!-- Hero Section -->
+            <section class="relative text-center gradient-soft py-20">
+                <div class="absolute inset-0 opacity-10"
+                     style="background-image: url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1920');
+                            background-size: cover;
+                            background-position: center;">
+                </div>
+                <div class="max-w-7xl mx-auto px-6 relative z-10">
+                    <div class="mb-8">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/lovingyourskinshop.firebasestorage.app/o/WhatsApp_Image_2025-06-22_at_11.43.11-removebg-preview.png?alt=media&token=237442fd-02cb-48ee-9628-1c68fd45add5" 
+                             alt="Loving Your Skin Logo" 
+                             class="h-24 md:h-32 mx-auto object-contain">
+                    </div>
+                    <h1 class="text-5xl md:text-6xl font-light text-deep-charcoal tracking-wide mb-6">
+                        Your Curated K-Beauty B2B Wholesale Marketplace
+                    </h1>
+                    <p class="text-xl text-text-secondary mb-10 max-w-3xl mx-auto">
+                        Loving Your Skin connects verified Korean beauty brands with established international retailers. 
+                        Built on years of retail experience and proven market demand.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="/for-retailers">
+                            <button class="px-10 py-4 text-base rounded-[30px] min-h-[48px] bg-rose-gold text-white hover:bg-rose-gold-dark btn-hover-lift transition-all duration-300">
+                                For Retailers
+                            </button>
+                        </a>
+                        <a href="/for-brands">
+                            <button class="px-10 py-4 text-base rounded-[30px] min-h-[48px] bg-white text-text-primary border border-border-gray hover:bg-soft-pink-hover hover:border-rose-gold transition-all duration-300">
+                                For Brands
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Value Proposition -->
+            <section class="bg-white py-16">
+                <div class="max-w-7xl mx-auto px-6">
+                    <h2 class="text-3xl md:text-4xl font-light text-center text-deep-charcoal mb-16">
+                        Why Choose Loving Your Skin
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div v-for="feature in features" :key="feature.title" 
+                             class="bg-white border border-border-gray rounded-lg p-8 text-center card-hover">
+                            <div class="text-rose-gold mb-4 flex justify-center" v-html="feature.icon"></div>
+                            <h3 class="text-xl font-medium text-deep-charcoal mb-3">
+                                {{ feature.title }}
+                            </h3>
+                            <p class="text-text-secondary">
+                                {{ feature.description }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Benefits by User Type -->
+            <section class="bg-gray-50 py-16">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="grid md:grid-cols-2 gap-12">
+                        <!-- For Retailers -->
+                        <div>
+                            <h3 class="text-2xl font-medium text-deep-charcoal mb-6">For Retailers</h3>
+                            <p class="text-text-secondary mb-8">
+                                Join a growing network of successful retailers already sourcing authentic K-beauty products. 
+                                Our established relationships and proven processes eliminate the traditional barriers to importing.
+                            </p>
+                            <div class="space-y-4">
+                                <div v-for="benefit in benefits.retailers" :key="benefit.title" class="flex gap-4">
+                                    <svg class="w-6 h-6 text-rose-gold flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <div>
+                                        <h4 class="font-medium text-deep-charcoal">{{ benefit.title }}</h4>
+                                        <p class="text-sm text-text-secondary">{{ benefit.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="/for-retailers" class="inline-block mt-6">
+                                <button class="px-6 py-3 text-base rounded-3xl min-h-[44px] bg-white text-text-primary border border-border-gray hover:bg-soft-pink-hover hover:border-rose-gold transition-all duration-300">
+                                    Learn More
+                                </button>
+                            </a>
+                        </div>
+                        
+                        <!-- For Brands -->
+                        <div>
+                            <h3 class="text-2xl font-medium text-deep-charcoal mb-6">For Brands</h3>
+                            <p class="text-text-secondary mb-8">
+                                Expand internationally without the complexity. We've already built the retailer network and 
+                                infrastructure - you just need to supply the products.
+                            </p>
+                            <div class="space-y-4">
+                                <div v-for="benefit in benefits.brands" :key="benefit.title" class="flex gap-4">
+                                    <svg class="w-6 h-6 text-rose-gold flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <div>
+                                        <h4 class="font-medium text-deep-charcoal">{{ benefit.title }}</h4>
+                                        <p class="text-sm text-text-secondary">{{ benefit.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="/for-brands" class="inline-block mt-6">
+                                <button class="px-6 py-3 text-base rounded-3xl min-h-[44px] bg-white text-text-primary border border-border-gray hover:bg-soft-pink-hover hover:border-rose-gold transition-all duration-300">
+                                    Learn More
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Success Metrics -->
+            <section class="bg-white py-16 text-center">
+                <div class="max-w-7xl mx-auto px-6">
+                    <h2 class="text-3xl md:text-4xl font-light text-deep-charcoal mb-16">
+                        Enter Europe's Explosive K-Beauty Growth
+                    </h2>
+                    <div class="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto">
+                        <div class="group card-hover">
+                            <div class="text-5xl font-light text-rose-gold mb-3">$32.5B</div>
+                            <h3 class="text-lg font-medium text-deep-charcoal mb-2">Massive Market Opportunity</h3>
+                            <p class="text-text-secondary">Europe K-beauty market projected by 2030</p>
+                            <p class="text-sm text-rose-gold mt-2 font-medium">Proven Demand</p>
+                        </div>
+                        <div class="group card-hover">
+                            <div class="text-5xl font-light text-rose-gold mb-3">80%</div>
+                            <h3 class="text-lg font-medium text-deep-charcoal mb-2">Exceptional Profitability</h3>
+                            <p class="text-text-secondary">Gross profit margins for premium K-beauty products</p>
+                            <p class="text-sm text-rose-gold mt-2 font-medium">Profitable Product</p>
+                        </div>
+                        <div class="group card-hover">
+                            <div class="text-5xl font-light text-rose-gold mb-3">128.4%</div>
+                            <h3 class="text-lg font-medium text-deep-charcoal mb-2">Total Accumulated Growth</h3>
+                            <p class="text-text-secondary">Europe K-beauty market (2024-2032)</p>
+                            <p class="text-sm text-rose-gold mt-2 font-medium">Explosive Growth Ahead</p>
+                        </div>
+                    </div>
+                    <p class="text-lg text-text-secondary mt-12 max-w-3xl mx-auto">
+                        The European K-beauty market is experiencing unprecedented growth. Partner with Loving Your Skin to capitalize on this 
+                        high-margin opportunity before your competitors do.
+                    </p>
+                </div>
+            </section>
+            
+            <!-- Testimonials Section -->
+            <section class="bg-gray-50 py-16">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-light text-deep-charcoal mb-6">
+                            Trusted by Leading European Retailers
+                        </h2>
+                        <p class="text-xl text-text-secondary max-w-3xl mx-auto">
+                            Don't just take our word for it. See what our partners have to say about working with Loving Your Skin.
+                        </p>
+                    </div>
+                    
+                    <div class="max-w-4xl mx-auto">
+                        <div class="bg-white rounded-xl shadow-sm p-8">
+                            <div class="flex items-center gap-6 mb-6">
+                                <img src="https://media.licdn.com/dms/image/v2/C4E0BAQG82zVO9g8uyw/company-logo_200_200/company-logo_200_200/0/1672739255113/beauteprivee_logo?e=2147483647&v=beta&t=5cBvLIlKpRh4E8Uyrwp0nz3V9cmNn8Gv6kz0hnsB6L4"
+                                     alt="Beauté Privée"
+                                     class="w-20 h-20 object-contain rounded-lg">
+                                <div>
+                                    <h3 class="text-xl font-medium text-deep-charcoal">Beauté Privée</h3>
+                                    <p class="text-text-secondary">5 million members across France, Belgium, Luxembourg</p>
+                                </div>
+                            </div>
+                            <blockquote class="text-lg text-text-primary mb-4">
+                                "Very clear and complete communication with excellent responsiveness. They fully met our specific needs for products, lead times, and exclusivities with no difficulties throughout our collaboration."
+                            </blockquote>
+                            <div class="flex items-center justify-between">
+                                <cite class="text-text-secondary not-italic">- Camille</cite>
+                                <div class="flex gap-1">
+                                    <svg v-for="i in 5" :key="i" class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Contact Section -->
+            <section id="contact" class="bg-gray-50 py-16">
+                <div class="max-w-2xl mx-auto px-6">
+                    <h2 class="text-3xl md:text-4xl font-light text-center text-deep-charcoal mb-10">
+                        Join the LYS Network
+                    </h2>
+                    <p class="text-center text-text-secondary mb-10">
+                        Ready to grow your K-beauty business? Get in touch to learn more about our invite-only platform.
+                    </p>
+                    
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <form @submit.prevent="handleSubmit" class="space-y-6">
+                            <!-- User Type -->
+                            <div>
+                                <label class="block text-sm font-medium text-text-primary mb-3">
+                                    I am a...
+                                </label>
+                                <div class="flex flex-wrap gap-4">
+                                    <label v-for="type in ['retailer', 'brand', 'other']" :key="type" 
+                                           class="flex items-center gap-2 cursor-pointer">
+                                        <input type="radio" name="userType" :value="type" v-model="formData.userType"
+                                               class="w-4 h-4 text-rose-gold focus:ring-rose-gold">
+                                        <span class="text-text-primary capitalize">{{ type }}</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Name -->
+                            <div>
+                                <label class="block text-sm font-medium text-text-secondary mb-2">Name</label>
+                                <input type="text" v-model="formData.name" placeholder="Your name" required
+                                       class="w-full px-4 py-2 border border-border-gray rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-gold">
+                            </div>
+                            
+                            <!-- Email -->
+                            <div>
+                                <label class="block text-sm font-medium text-text-secondary mb-2">Email</label>
+                                <input type="email" v-model="formData.email" placeholder="your@email.com" required
+                                       class="w-full px-4 py-2 border border-border-gray rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-gold">
+                            </div>
+                            
+                            <!-- Message -->
+                            <div>
+                                <label class="block text-sm font-medium text-text-secondary mb-2">Message</label>
+                                <textarea v-model="formData.message" placeholder="Tell us about your business..." rows="4" required
+                                          class="w-full px-4 py-2 border border-border-gray rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-gold resize-none"></textarea>
+                            </div>
+                            
+                            <!-- Submit Button -->
+                            <button type="submit" class="w-full px-10 py-4 text-base rounded-[30px] min-h-[48px] bg-rose-gold text-white hover:bg-rose-gold-dark btn-hover-lift transition-all duration-300">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="bg-deep-charcoal text-white">
+            <div class="max-w-7xl mx-auto px-6 py-12">
+                <!-- Footer Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
+                    <!-- Brand Column -->
+                    <div class="md:col-span-2">
+                        <h3 class="text-2xl font-light tracking-widest mb-4">
+                            LOVING YOUR SKIN
+                        </h3>
+                        <p class="text-sm text-gray-400 mb-6 max-w-sm">
+                            Simplifying Korean beauty wholesale for retailers worldwide. 
+                            Connect directly with authentic K-beauty brands.
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="https://www.instagram.com/lys_ltd/" target="_blank" rel="noopener noreferrer"
+                               class="text-gray-400 hover:text-rose-gold transition-colors">
+                                Instagram
+                            </a>
+                            <a href="https://www.linkedin.com/company/loving-your-skin/" target="_blank" rel="noopener noreferrer"
+                               class="text-gray-400 hover:text-rose-gold transition-colors">
+                                LinkedIn
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Links Columns -->
+                    <div>
+                        <h4 class="font-medium mb-4">Company</h4>
+                        <ul class="space-y-2">
+                            <li v-for="link in footerLinks.company" :key="link.href">
+                                <a :href="link.href" class="text-sm text-gray-400 hover:text-rose-gold transition-colors">
+                                    {{ link.label }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium mb-4">Services</h4>
+                        <ul class="space-y-2">
+                            <li v-for="link in footerLinks.services" :key="link.href">
+                                <a :href="link.href" class="text-sm text-gray-400 hover:text-rose-gold transition-colors">
+                                    {{ link.label }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium mb-4">Legal</h4>
+                        <ul class="space-y-2">
+                            <li v-for="link in footerLinks.legal" :key="link.href">
+                                <a :href="link.href" class="text-sm text-gray-400 hover:text-rose-gold transition-colors">
+                                    {{ link.label }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Bottom Bar -->
+                <div class="pt-8 border-t border-gray-800">
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                        <p class="text-sm text-gray-400">
+                            © {{ new Date().getFullYear() }} Loving Your Skin. All rights reserved.
+                        </p>
+                        <div class="flex items-center gap-6 text-sm text-gray-400">
+                            <span>🇬🇧 London, UK</span>
+                            <span>🇰🇷 Seoul, South Korea</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    currentPath: '/',
+                    mobileMenuOpen: false,
+                    navItems: [
+                        { label: 'Shop', href: '/shop' },
+                        { label: 'How It Works', href: '/how-it-works' },
+                        { label: 'For Brands', href: '/for-brands' },
+                        { label: 'For Retailers', href: '/for-retailers' },
+                    ],
+                    features: [
+                        {
+                            icon: '<svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
+                            title: 'Proven Market Expertise',
+                            description: 'Years of experience in the K-beauty industry, connecting the right brands with the right retailers'
+                        },
+                        {
+                            icon: '<svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>',
+                            title: 'Curated Selection',
+                            description: 'Hand selected & tested brands certified for your market, ensuring quality and compliance every time'
+                        },
+                        {
+                            icon: '<svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>',
+                            title: 'Seamless Experience',
+                            description: 'A smooth, frictionless process from discovery to delivery - we make international trade simple'
+                        },
+                        {
+                            icon: '<svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>',
+                            title: 'Better Margins',
+                            description: 'Direct partnerships and transparent pricing structure designed to maximize your profitability'
+                        }
+                    ],
+                    benefits: {
+                        retailers: [
+                            {
+                                title: 'Efficient Sourcing',
+                                description: 'Streamlined process that saves you time and resources'
+                            },
+                            {
+                                title: 'No Barriers',
+                                description: 'Hassle-free international trade with full support at every step'
+                            },
+                            {
+                                title: 'Flexible Terms',
+                                description: 'Order quantities designed to work for businesses of all sizes'
+                            },
+                            {
+                                title: 'Expert Guidance',
+                                description: 'Dedicated support from K-beauty specialists who understand your needs'
+                            }
+                        ],
+                        brands: [
+                            {
+                                title: 'Market Access',
+                                description: 'Connect with established retailers across premium European markets'
+                            },
+                            {
+                                title: 'Simplified Process',
+                                description: 'We make international expansion smooth and manageable'
+                            },
+                            {
+                                title: 'Secure Partnerships',
+                                description: 'Work with trusted retailers through our vetted network'
+                            },
+                            {
+                                title: 'Growth Support',
+                                description: 'Strategic guidance to help your brand succeed internationally'
+                            }
+                        ]
+                    },
+                    footerLinks: {
+                        company: [
+                            { label: 'About Us', href: '/about' },
+                            { label: 'How It Works', href: '/how-it-works' },
+                            { label: 'Contact', href: '/contact' },
+                            { label: 'Careers', href: '/careers' },
+                        ],
+                        services: [
+                            { label: 'For Brands', href: '/for-brands' },
+                            { label: 'For Retailers', href: '/for-retailers' },
+                            { label: 'FAQ', href: '/faq' },
+                        ],
+                        legal: [
+                            { label: 'Terms of Service', href: '/terms' },
+                            { label: 'Privacy Policy', href: '/privacy' },
+                            { label: 'Cookie Policy', href: '/cookies' },
+                            { label: 'Refund Policy', href: '/refunds' },
+                        ]
+                    },
+                    formData: {
+                        userType: 'retailer',
+                        name: '',
+                        email: '',
+                        message: ''
+                    }
+                }
+            },
+            methods: {
+                handleSubmit() {
+                    alert('Form submitted! (This is a test page)');
+                    console.log('Form data:', this.formData);
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

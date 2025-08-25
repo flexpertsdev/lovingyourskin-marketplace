@@ -112,6 +112,9 @@ export interface Product {
   ingredients?: string
   usage?: string
   
+  // MOQ (Minimum Order Quantity) for all variants
+  MOQ?: number // Default: 100 units
+  
   // Status and flags
   status: 'active' | 'presale' | 'discontinued' | 'out-of-stock'
   featured: boolean
@@ -236,6 +239,11 @@ export interface Brand {
   establishedYear: number
   productCount: number
   minimumOrder: number
+  MOA?: number // Minimum Order Amount - if order total exceeds this, MOQ requirements are waived (default: 3000)
+  volumeDiscounts?: Array<{
+    threshold: number // Dollar amount threshold
+    discountPercentage: number // Percentage discount to apply
+  }> // Automatic discounts based on order value
   country: string
   certifications: CertificationType[]
   featureTags: string[]
@@ -322,10 +330,15 @@ export interface MOQStatus {
   brandName: string
   status: 'met' | 'warning' | 'error'
   met: boolean
-  current: number
-  required: number
+  current: number // Units that currently meet MOQ
+  required: number // Total units required to meet all MOQs
   percentage: number
-  remainingItems: number
+  remainingItems: number // Units still needed to meet MOQ
+  // Additional context for MOQ logic
+  moaExceeded?: boolean // If order total exceeds MOA threshold
+  hasNoMOQDiscount?: boolean // If a No-MOQ discount code is applied
+  orderTotal?: number // Total monetary value of the order
+  violatingProducts?: string[] // Product names/IDs that don't meet MOQ
 }
 
 // Order types with 9 statuses (lines 88-91)
@@ -526,6 +539,46 @@ export interface UIState {
   theme: 'light' | 'dark'
   sidebarOpen: boolean
   activeModal: string | null
+}
+
+// Brand cart summary for enhanced cart functionality
+export interface BrandCartSummary {
+  brandId: string
+  brandName: string
+  items: CartItem[]
+  subtotal: number
+  moqStatus: {
+    brandId: string
+    brandName: string
+    status: 'met' | 'warning' | 'error'
+    met: boolean
+    current: number
+    required: number
+    percentage: number
+    remainingItems: number
+    moaExceeded: boolean
+    hasNoMOQDiscount: boolean
+    canCheckout: boolean
+    orderTotal: number
+  }
+  volumeDiscount?: {
+    discount: { threshold: number; discountPercentage: number } | null
+    discountAmount: number
+    savings: number
+    nextTier?: { threshold: number; discountPercentage: number; amountNeeded: number }
+  }
+  appliedDiscountCodes: Array<{
+    valid: boolean
+    error?: string
+    discountCode?: any
+    affiliate?: any
+    applicableAmount?: number
+    discountAmount?: number
+    removesMOQ?: boolean
+  }>
+  total: number // After all discounts
+  canCheckout: boolean
+  upsellMessage?: string
 }
 // Re-export ContactMessage from message service
 export type { ContactMessage } from '../services/firebase/message.service'

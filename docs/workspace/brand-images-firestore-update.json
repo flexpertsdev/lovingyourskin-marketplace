@@ -1,0 +1,32 @@
+{
+  "baohlab": {
+    "heroImage": "/assets/baohlab/baohlab-hero-1.jpg",
+    "heroImages": [
+      "/assets/baohlab/baohlab-hero-1.jpg",
+      "/assets/baohlab/baohlab-hero-2.jpg"
+    ]
+  },
+  "lalucell": {
+    "heroImage": "/assets/lalucell/lalucell-hero-1.png",
+    "heroImages": [
+      "/assets/lalucell/lalucell-hero-1.png",
+      "/assets/lalucell/lalucell-hero-2.jpg"
+    ]
+  },
+  "sunnicorn": {
+    "heroImage": "/assets/sunnicorn/sunnicorn-hero-1.jpg",
+    "heroImages": [
+      "/assets/sunnicorn/sunnicorn-hero-1.jpg",
+      "/assets/sunnicorn/sunnicorn-hero-2.jpg",
+      "/assets/sunnicorn/sunnicorn-hero-3.jpg"
+    ]
+  },
+  "thecelllab": {
+    "heroImage": "/assets/thecelllab/thecelllab-hero-1.jpg",
+    "heroImages": [
+      "/assets/thecelllab/thecelllab-hero-1.jpg",
+      "/assets/thecelllab/thecelllab-hero-2.jpg",
+      "/assets/thecelllab/thecelllab-hero-3.jpg"
+    ]
+  }
+}

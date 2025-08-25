@@ -144,6 +144,8 @@ class FirebaseDiscountService {
       productIds?: string[]
       brandIds?: string[]
       isNewCustomer?: boolean
+      cartItems?: any[] // Cart items for MOQ validation
+      isB2BOrder?: boolean // Whether this is a B2B order
     }
   ): Promise<DiscountValidationResult> {
     try {
@@ -192,6 +194,13 @@ class FirebaseDiscountService {
         }
       }
       
+      // Validate No-MOQ codes - only for B2B orders
+      if (discountCode.removesMOQ && discountCode.type === 'no-moq') {
+        if (!orderDetails?.isB2BOrder) {
+          return { valid: false, error: 'No-MOQ codes are only valid for B2B orders' }
+        }
+      }
+      
       // Check conditions
       if (discountCode.conditions && orderDetails) {
         const conditions = discountCode.conditions
@@ -201,7 +210,7 @@ class FirebaseDiscountService {
           if (orderDetails.orderValue < conditions.minOrderValue) {
             return { 
               valid: false, 
-              error: `Minimum order value of $${conditions.minOrderValue} required` 
+              error: `Minimum order value of ${conditions.minOrderValue} required` 
             }
           }
         }
@@ -251,7 +260,8 @@ class FirebaseDiscountService {
         discountCode,
         affiliate,
         applicableAmount,
-        discountAmount
+        discountAmount,
+        removesMOQ: discountCode.removesMOQ || false
       }
     } catch (error) {
       console.error('Error validating discount code:', error)

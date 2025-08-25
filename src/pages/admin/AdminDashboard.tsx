@@ -127,7 +127,7 @@ export const AdminDashboard: React.FC = () => {
           {/* Quick Actions */}
           <div className="mb-10">
             <h2 className="text-xl font-light mb-4">Quick Actions</h2>
-            <Grid cols={6} gap="md">
+            <Grid cols={4} gap="md">
               <Card 
                 className="hover:shadow-lg transition-shadow cursor-pointer"
                 onClick={() => navigate('/admin/orders')}
@@ -160,19 +160,6 @@ export const AdminDashboard: React.FC = () => {
               
               <Card 
                 className="hover:shadow-lg transition-shadow cursor-pointer"
-                onClick={() => navigate('/admin/users')}
-              >
-                <CardContent className="text-center py-6">
-                  <div className="text-3xl mb-2">👤</div>
-                  <p className="font-medium">User Management</p>
-                  <Badge className="bg-blue-500 text-white mt-2">
-                    Manage Users
-                  </Badge>
-                </CardContent>
-              </Card>
-              
-              <Card 
-                className="hover:shadow-lg transition-shadow cursor-pointer"
                 onClick={() => navigate('/admin/brands')}
               >
                 <CardContent className="text-center py-6">
@@ -186,153 +173,78 @@ export const AdminDashboard: React.FC = () => {
               
               <Card 
                 className="hover:shadow-lg transition-shadow cursor-pointer"
-                onClick={() => navigate('/admin/products')}
+                onClick={() => navigate('/admin/affiliates')}
               >
                 <CardContent className="text-center py-6">
-                  <div className="text-3xl mb-2">📦</div>
-                  <p className="font-medium">Product Management</p>
-                  <Badge className="bg-rose-gold text-white mt-2">
-                    Manage Products
-                  </Badge>
-                </CardContent>
-              </Card>
-              
-              <Card 
-                className="hover:shadow-lg transition-shadow cursor-pointer"
-                onClick={() => navigate('/admin/preorders/manage')}
-              >
-                <CardContent className="text-center py-6">
-                  <div className="text-3xl mb-2">🎯</div>
-                  <p className="font-medium">Pre-order Campaigns</p>
-                  <Badge className="bg-purple-500 text-white mt-2">
-                    Manage Pre-orders
+                  <div className="text-3xl mb-2">💰</div>
+                  <p className="font-medium">Affiliate Management</p>
+                  <Badge className="bg-green-500 text-white mt-2">
+                    Manage Affiliates
                   </Badge>
                 </CardContent>
               </Card>
             </Grid>
           </div>
           
+          {/* Admin Actions */}
+          <div className="mb-10">
+            <h2 className="text-xl font-light mb-4">Admin Actions</h2>
+            <Grid cols={3} gap="md">
+              <Button 
+                variant="secondary" 
+                className="h-16 text-left justify-start"
+                onClick={() => navigate('/admin/users')}
+              >
+                👤 Manage Users & Invites
+              </Button>
+              <Button 
+                variant="secondary" 
+                className="h-16 text-left justify-start"
+                onClick={() => navigate('/admin/products')}
+              >
+                📦 Product Management
+              </Button>
+              <Button 
+                variant="secondary" 
+                className="h-16 text-left justify-start"
+                onClick={() => navigate('/admin/preorders/manage')}
+              >
+                🎯 Pre-order Campaigns
+              </Button>
+              <Button 
+                variant="secondary" 
+                className="h-16 text-left justify-start"
+                onClick={() => navigate('/admin/discounts')}
+              >
+                🎫 Manage Discount Codes
+              </Button>
+            </Grid>
+          </div>
+          
           {/* Recent Activity */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div>
-              <h2 className="text-xl font-light mb-4">Recent Activity</h2>
-              <Card>
-                <CardContent className="p-0">
-                  {metrics.recentActivity.map((activity, index) => (
-                    <div 
-                      key={activity.id} 
-                      className={`p-4 flex items-start gap-3 hover:bg-soft-pink-hover cursor-pointer ${
-                        index < metrics.recentActivity.length - 1 ? 'border-b border-border-gray' : ''
-                      }`}
-                    >
-                      <div className="text-2xl">{activityIcons[activity.type]}</div>
-                      <div className="flex-1">
-                        <p className="font-medium">{activity.title}</p>
-                        <p className="text-sm text-text-secondary">{activity.description}</p>
-                        <p className="text-xs text-text-secondary mt-1">
-                          {formatActivityTime(activity.timestamp)}
-                        </p>
-                      </div>
-
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
-            </div>
-            
-            {/* System Health */}
-            <div>
-              <h2 className="text-xl font-light mb-4">System Health</h2>
-              <Card>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div>
-                      <div className="flex justify-between mb-2">
-                        <span className="text-sm">Order Processing</span>
-                        <span className="text-sm font-medium text-success-green">Healthy</span>
-                      </div>
-                      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div className="h-full bg-success-green" style={{ width: '92%' }} />
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <div className="flex justify-between mb-2">
-                        <span className="text-sm">Message Response Time</span>
-                        <span className="text-sm font-medium text-warning-amber">Delayed</span>
-                      </div>
-                      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div className="h-full bg-warning-amber" style={{ width: '65%' }} />
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <div className="flex justify-between mb-2">
-                        <span className="text-sm">Platform Uptime</span>
-                        <span className="text-sm font-medium text-success-green">99.9%</span>
-                      </div>
-                      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div className="h-full bg-success-green" style={{ width: '99.9%' }} />
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <div className="flex justify-between mb-2">
-                        <span className="text-sm">Payment Processing</span>
-                        <span className="text-sm font-medium text-success-green">Operational</span>
-                      </div>
-                      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div className="h-full bg-success-green" style={{ width: '100%' }} />
-                      </div>
+          <div>
+            <h2 className="text-xl font-light mb-4">Recent Activity</h2>
+            <Card>
+              <CardContent className="p-0">
+                {metrics.recentActivity.map((activity, index) => (
+                  <div 
+                    key={activity.id} 
+                    className={`p-4 flex items-start gap-3 hover:bg-soft-pink-hover cursor-pointer ${
+                      index < metrics.recentActivity.length - 1 ? 'border-b border-border-gray' : ''
+                    }`}
+                  >
+                    <div className="text-2xl">{activityIcons[activity.type]}</div>
+                    <div className="flex-1">
+                      <p className="font-medium">{activity.title}</p>
+                      <p className="text-sm text-text-secondary">{activity.description}</p>
+                      <p className="text-xs text-text-secondary mt-1">
+                        {formatActivityTime(activity.timestamp)}
+                      </p>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-              
-              {/* Admin Actions */}
-              <Card className="mt-4">
-                <CardContent>
-                  <h3 className="font-medium mb-4">Admin Actions</h3>
-                  <div className="space-y-3">
-                    <Button 
-                      variant="secondary" 
-                      fullWidth
-                      onClick={() => navigate('/admin/analytics')}
-                    >
-                      📊 View Full Analytics
-                    </Button>
-                    <Button 
-                      variant="secondary" 
-                      fullWidth
-                      onClick={() => navigate('/admin/users')}
-                    >
-                      👤 Manage Users & Invites
-                    </Button>
-                    <Button 
-                      variant="secondary" 
-                      fullWidth
-                      onClick={() => navigate('/admin/settings')}
-                    >
-                      🔧 System Settings
-                    </Button>
-                    <Button 
-                      variant="secondary" 
-                      fullWidth
-                      onClick={() => navigate('/admin/affiliates')}
-                    >
-                      💰 Manage Affiliates
-                    </Button>
-                    <Button 
-                      variant="secondary" 
-                      fullWidth
-                      onClick={() => navigate('/admin/migrate-images')}
-                    >
-                      🖼️ Migrate External Images
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+                ))}
+              </CardContent>
+            </Card>
           </div>
         </Container>
       </Section>

@@ -405,11 +405,12 @@ function BrandEditForm({
   return (
     <form onSubmit={handleSubmit}>
       <Tabs defaultValue="basic" className="w-full">
-        <TabsList className="grid w-full grid-cols-5">
+        <TabsList className="grid w-full grid-cols-6">
           <TabsTrigger value="basic">Basic Info</TabsTrigger>
           <TabsTrigger value="branding">Branding</TabsTrigger>
           <TabsTrigger value="technical">Technical</TabsTrigger>
           <TabsTrigger value="contact">Contact</TabsTrigger>
+          <TabsTrigger value="discounts">Discounts</TabsTrigger>
           <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
 
@@ -505,15 +506,29 @@ function BrandEditForm({
             </div>
           </div>
 
-          <div>
-            <Label htmlFor="minimumOrder">Minimum Order Amount (£)</Label>
-            <Input
-              id="minimumOrder"
-              type="number"
-              value={formData.minimumOrder || ''}
-              onChange={(e) => setFormData({ ...formData, minimumOrder: parseInt(e.target.value) })}
-              placeholder="100"
-            />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="minimumOrder">Minimum Order Quantity (units)</Label>
+              <Input
+                id="minimumOrder"
+                type="number"
+                value={formData.minimumOrder || ''}
+                onChange={(e) => setFormData({ ...formData, minimumOrder: parseInt(e.target.value) })}
+                placeholder="100"
+              />
+            </div>
+            <div>
+              <Label htmlFor="moa">MOA - Minimum Order Amount (£)</Label>
+              <Input
+                id="moa"
+                type="number"
+                value={formData.MOA || ''}
+                onChange={(e) => setFormData({ ...formData, MOA: parseFloat(e.target.value) })}
+                placeholder="3000"
+                title="If order total exceeds this amount, MOQ requirements are waived"
+              />
+              <p className="text-xs text-gray-500 mt-1">MOQ waived if order exceeds this amount</p>
+            </div>
           </div>
           </div>
         </TabsContent>
@@ -785,6 +800,13 @@ function BrandEditForm({
           </div>
         </TabsContent>
 
+        <TabsContent value="discounts" className="mt-6">
+          <VolumeDiscountManager
+            volumeDiscounts={formData.volumeDiscounts || []}
+            onChange={(discounts) => setFormData({ ...formData, volumeDiscounts: discounts })}
+          />
+        </TabsContent>
+
         <TabsContent value="settings" className="mt-6">
           <div className="space-y-4">
             <div>
@@ -983,5 +1005,239 @@ function BrandCreateForm({
         <Button type="submit">Create Brand</Button>
       </div>
     </form>
+  )
+}
+
+// Volume Discount Manager Component
+function VolumeDiscountManager({
+  volumeDiscounts,
+  onChange
+}: {
+  volumeDiscounts: Array<{ threshold: number; discountPercentage: number }>
+  onChange: (discounts: Array<{ threshold: number; discountPercentage: number }>) => void
+}) {
+  const [previewAmount, setPreviewAmount] = useState('')
+
+  const addDiscountTier = () => {
+    const newDiscounts = [...volumeDiscounts, { threshold: 0, discountPercentage: 0 }]
+    onChange(newDiscounts)
+  }
+
+  const removeDiscountTier = (index: number) => {
+    const newDiscounts = volumeDiscounts.filter((_, i) => i !== index)
+    onChange(newDiscounts)
+  }
+
+  const updateDiscountTier = (index: number, field: 'threshold' | 'discountPercentage', value: number) => {
+    const newDiscounts = [...volumeDiscounts]
+    newDiscounts[index] = { ...newDiscounts[index], [field]: value }
+    onChange(newDiscounts)
+  }
+
+  const getApplicableDiscount = (amount: number) => {
+    if (!volumeDiscounts.length) return null
+    
+    const applicable = volumeDiscounts
+      .filter(tier => amount >= tier.threshold)
+      .sort((a, b) => b.discountPercentage - a.discountPercentage)
+    
+    return applicable.length > 0 ? applicable[0] : null
+  }
+
+  const previewDiscount = previewAmount ? getApplicableDiscount(parseFloat(previewAmount)) : null
+
+  // Validation
+  const hasErrors = volumeDiscounts.some((tier, index) => {
+    if (tier.threshold <= 0 || tier.discountPercentage <= 0 || tier.discountPercentage > 100) {
+      return true
+    }
+    
+    // Check for duplicate thresholds
+    const duplicateThreshold = volumeDiscounts.some((otherTier, otherIndex) => 
+      index !== otherIndex && tier.threshold === otherTier.threshold
+    )
+    
+    return duplicateThreshold
+  })
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <div className="flex justify-between items-center mb-4">
+          <div>
+            <h3 className="text-lg font-medium">Volume Discounts</h3>
+            <p className="text-sm text-gray-500">
+              Set automatic discounts based on order total. Higher order amounts get better discounts.
+            </p>
+          </div>
+          <Button type="button" onClick={addDiscountTier} variant="secondary">
+            <Plus className="h-4 w-4 mr-2" />
+            Add Tier
+          </Button>
+        </div>
+
+        {volumeDiscounts.length === 0 ? (
+          <div className="text-center py-8 border-2 border-dashed border-gray-300 rounded-lg">
+            <p className="text-gray-500">No volume discounts configured</p>
+            <p className="text-sm text-gray-400 mt-1">
+              Add discount tiers to offer automatic discounts on larger orders
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {volumeDiscounts
+              .map((tier, index) => ({ ...tier, originalIndex: index }))
+              .sort((a, b) => a.threshold - b.threshold)
+              .map(({ threshold, discountPercentage, originalIndex }) => {
+                const hasThresholdError = threshold <= 0
+                const hasPercentageError = discountPercentage <= 0 || discountPercentage > 100
+                const hasDuplicateThreshold = volumeDiscounts.some((otherTier, otherIndex) => 
+                  originalIndex !== otherIndex && threshold === otherTier.threshold && threshold > 0
+                )
+                
+                return (
+                  <div key={originalIndex} className={`p-4 border rounded-lg ${
+                    hasThresholdError || hasPercentageError || hasDuplicateThreshold 
+                      ? 'border-red-300 bg-red-50' 
+                      : 'border-gray-200'
+                  }`}>
+                    <div className="grid grid-cols-3 gap-4 items-end">
+                      <div>
+                        <Label htmlFor={`threshold-${originalIndex}`}>Minimum Order (£)</Label>
+                        <Input
+                          id={`threshold-${originalIndex}`}
+                          type="number"
+                          step="0.01"
+                          min="0.01"
+                          value={threshold || ''}
+                          onChange={(e) => updateDiscountTier(originalIndex, 'threshold', parseFloat(e.target.value) || 0)}
+                          className={hasThresholdError || hasDuplicateThreshold ? 'border-red-300' : ''}
+                          placeholder="1000"
+                        />
+                        {hasThresholdError && (
+                          <p className="text-xs text-red-600 mt-1">Must be greater than 0</p>
+                        )}
+                        {hasDuplicateThreshold && (
+                          <p className="text-xs text-red-600 mt-1">Duplicate threshold</p>
+                        )}
+                      </div>
+                      
+                      <div>
+                        <Label htmlFor={`percentage-${originalIndex}`}>Discount (%)</Label>
+                        <Input
+                          id={`percentage-${originalIndex}`}
+                          type="number"
+                          step="0.1"
+                          min="0.1"
+                          max="100"
+                          value={discountPercentage || ''}
+                          onChange={(e) => updateDiscountTier(originalIndex, 'discountPercentage', parseFloat(e.target.value) || 0)}
+                          className={hasPercentageError ? 'border-red-300' : ''}
+                          placeholder="5"
+                        />
+                        {hasPercentageError && (
+                          <p className="text-xs text-red-600 mt-1">Must be between 0.1 and 100</p>
+                        )}
+                      </div>
+                      
+                      <div>
+                        <Button
+                          type="button"
+                          variant="secondary"
+                          size="small"
+                          onClick={() => removeDiscountTier(originalIndex)}
+                          className="text-red-600 hover:text-red-700"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                    
+                    {threshold > 0 && discountPercentage > 0 && (
+                      <div className="mt-2 text-sm text-gray-600">
+                        Orders £{threshold.toFixed(2)}+ get {discountPercentage}% off
+                        {threshold > 0 && (
+                          <span className="ml-2 text-green-600 font-medium">
+                            (Save £{((threshold * discountPercentage) / 100).toFixed(2)} on £{threshold.toFixed(2)} order)
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+          </div>
+        )}
+
+        {hasErrors && (
+          <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+            <p className="text-red-800 text-sm font-medium">Please fix the following errors:</p>
+            <ul className="text-red-700 text-sm mt-1 ml-4 list-disc">
+              <li>All thresholds must be positive numbers</li>
+              <li>All discount percentages must be between 0.1% and 100%</li>
+              <li>No duplicate threshold amounts</li>
+            </ul>
+          </div>
+        )}
+      </div>
+
+      {/* Discount Preview */}
+      {volumeDiscounts.length > 0 && (
+        <div className="border-t pt-6">
+          <h4 className="font-medium mb-3">Preview Discount Calculator</h4>
+          <div className="flex gap-4 items-end">
+            <div className="flex-1">
+              <Label htmlFor="previewAmount">Order Amount (£)</Label>
+              <Input
+                id="previewAmount"
+                type="number"
+                step="0.01"
+                value={previewAmount}
+                onChange={(e) => setPreviewAmount(e.target.value)}
+                placeholder="Enter order amount to preview discount"
+              />
+            </div>
+            <div className="flex-1">
+              {previewAmount && (
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  {previewDiscount ? (
+                    <div>
+                      <p className="text-sm font-medium text-green-700">
+                        {previewDiscount.discountPercentage}% discount applied
+                      </p>
+                      <p className="text-lg font-semibold">
+                        £{(parseFloat(previewAmount) * (1 - previewDiscount.discountPercentage / 100)).toFixed(2)}
+                        <span className="text-sm text-gray-500 ml-2">
+                          (save £{(parseFloat(previewAmount) * (previewDiscount.discountPercentage / 100)).toFixed(2)})
+                        </span>
+                      </p>
+                    </div>
+                  ) : (
+                    <p className="text-sm text-gray-600">No discount applies</p>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Discount Tiers Summary */}
+          {volumeDiscounts.length > 0 && (
+            <div className="mt-4">
+              <h5 className="text-sm font-medium mb-2">Current Discount Tiers:</h5>
+              <div className="space-y-1">
+                {volumeDiscounts
+                  .filter(tier => tier.threshold > 0 && tier.discountPercentage > 0)
+                  .sort((a, b) => a.threshold - b.threshold)
+                  .map((tier, index) => (
+                    <div key={index} className="text-sm text-gray-600">
+                      • Orders £{tier.threshold.toFixed(2)}+ get {tier.discountPercentage}% off
+                    </div>
+                  ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
   )
 }
