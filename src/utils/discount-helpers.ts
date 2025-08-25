@@ -1,6 +1,6 @@
 // Helper functions for discount calculations and MOQ validation
 
-import { Brand, DiscountCode, CartItem } from '../types'
+import { Brand, CartItem } from '../types'
 import { DiscountValidationResult } from '../types/discount'
 
 /**

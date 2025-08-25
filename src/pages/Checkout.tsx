@@ -8,8 +8,6 @@ import { useCurrencyStore } from '../stores/currency.store'
 import { orderService, discountService, brandService } from '../services'
 import { getProductName } from '../utils/product-helpers'
 import { formatConvertedPrice } from '../utils/currency'
-import { DiscountValidationResult } from '../types/discount'
-import { Brand, BrandCartSummary } from '../types'
 import toast from 'react-hot-toast'
 import { AlertTriangle } from 'lucide-react'
 
@@ -19,7 +17,6 @@ export const Checkout: React.FC = () => {
   const { user } = useAuthStore()
   const { currentCurrency } = useCurrencyStore()
   const {
-    cart,
     brands,
     setBrands,
     appliedDiscounts,
@@ -27,9 +24,7 @@ export const Checkout: React.FC = () => {
     removeDiscountCode,
     clearDiscountCodes,
     getAllBrandCartSummaries,
-    getCheckoutEligibility,
     getFilteredCartItems,
-    getTotalWithDiscounts,
     clearBrandItems
   } = useCartStore()
   
@@ -115,7 +110,6 @@ export const Checkout: React.FC = () => {
       return !filteredBrandIds.includes(summary.brandId) || !summary.canCheckout
     })
   
-  const checkoutEligibility = getCheckoutEligibility()
   const subtotal = brandSummaries.reduce((sum, summary) => sum + summary.subtotal, 0)
   const totalDiscounts = brandSummaries.reduce((sum, summary) => {
     const volumeDiscountSavings = summary.volumeDiscount?.savings || 0
@@ -647,7 +641,7 @@ export const Checkout: React.FC = () => {
                             <span>{formatConvertedPrice(summary.subtotal, currentCurrency)}</span>
                           </div>
                           
-                          {summary.volumeDiscount?.savings > 0 && (
+                          {summary.volumeDiscount && summary.volumeDiscount.savings > 0 && (
                             <div className="flex justify-between text-green-600">
                               <span>Volume Discount ({summary.volumeDiscount.discount?.discountPercentage}%)</span>
                               <span>-{formatConvertedPrice(summary.volumeDiscount.savings, currentCurrency)}</span>

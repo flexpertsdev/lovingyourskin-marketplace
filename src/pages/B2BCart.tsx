@@ -10,12 +10,12 @@ import { getProductName, getProductPrimaryImage } from '../utils/product-helpers
 import { discountService } from '../services'
 import { brandService } from '../services'
 import toast from 'react-hot-toast'
-import { DiscountCode, Brand } from '../types'
+import { DiscountCode, Brand, CartItem } from '../types'
 
 interface BrandCart {
   brandId: string
   brandName: string
-  items: typeof cart.items
+  items: CartItem[]
   subtotal: number
   moqMet: boolean
   moaExceeded: boolean // If total exceeds MOA, MOQ is waived
@@ -43,7 +43,6 @@ export const B2BCart: React.FC = () => {
   const { 
     cart, 
     moqStatuses,
-    getTotalPrice, 
     removeFromCart, 
     updateQuantity,
     loadCart,
@@ -341,7 +340,7 @@ export const B2BCart: React.FC = () => {
                           </p>
                           <div className="text-orange-700 text-sm space-y-1">
                             {brandCart.items
-                              .filter(item => {
+                              .filter((item: CartItem) => {
                                 // Get MOQ from multiple possible locations in order of preference
                                 const productMOQ = item.product.variants?.[0]?.pricing?.b2b?.minOrderQuantity || 
                                                   item.product.MOQ || 
@@ -353,7 +352,7 @@ export const B2BCart: React.FC = () => {
                                 const totalUnits = item.quantity * unitsPerCarton
                                 return totalUnits < productMOQ
                               })
-                              .map(item => {
+                              .map((item: CartItem) => {
                                 // Get MOQ from multiple possible locations in order of preference
                                 const productMOQ = item.product.variants?.[0]?.pricing?.b2b?.minOrderQuantity || 
                                                   item.product.MOQ || 
@@ -403,7 +402,7 @@ export const B2BCart: React.FC = () => {
                       
                       {/* Brand items */}
                       <div className="space-y-4">
-                        {brandCart.items.map((item, index) => {
+                        {brandCart.items.map((item: CartItem, index: number) => {
                           const pricePerItem = item.product.variants?.[0]?.pricing?.b2b?.wholesalePrice || 
                                        item.product.price?.wholesale || 
                                        item.product.price?.retail ||
